@@ -1,4 +1,5 @@
 import { useAuth } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
 import {
   TrendingUp,
   MessageSquare,
@@ -10,6 +11,9 @@ import {
   Search,
   Bell,
   ChevronRight,
+  AlertCircle,
+  Clock,
+  ShieldCheck,
 } from 'lucide-react';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -54,10 +58,54 @@ const quickActions = [
 export default function DashboardHome() {
   const { user } = useAuth();
 
+  const needsOnboarding = user && !['verified', 'pending_admin_review'].includes(user.accountStatus);
+
+  const statusBanners = {
+    pending_email_verification: { icon: AlertCircle, msg: 'Please verify your email address', to: '/verify-email', color: '#F59E0B', bg: '#FEF3C7' },
+    pending_phone_verification: { icon: AlertCircle, msg: 'Please verify your phone number', to: '/verify-phone', color: '#F59E0B', bg: '#FEF3C7' },
+    pending_profile_completion: { icon: AlertCircle, msg: 'Complete your profile to get started', to: '/select-role', color: '#F59E0B', bg: '#FEF3C7' },
+    rejected: { icon: AlertCircle, msg: 'Your verification was rejected. Contact support.', to: '/account-status', color: '#DC2626', bg: '#FEE2E2' },
+    need_more_information: { icon: AlertCircle, msg: 'Additional information required for verification', to: '/account-status', color: '#F59E0B', bg: '#FEF3C7' },
+  };
+
   return (
     <div>
+      {needsOnboarding && user.accountStatus !== 'pending_admin_review' && statusBanners[user.accountStatus] && (
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 12,
+          padding: '14px 20px', borderRadius: 'var(--radius-sm)',
+          backgroundColor: statusBanners[user.accountStatus].bg,
+          color: statusBanners[user.accountStatus].color,
+          marginBottom: 20, fontSize: 14,
+        }}>
+          <AlertCircle size={20} />
+          <span style={{ flex: 1, fontWeight: 500 }}>{statusBanners[user.accountStatus].msg}</span>
+          <Link to={statusBanners[user.accountStatus].to} style={{
+            color: statusBanners[user.accountStatus].color,
+            fontWeight: 600, textDecoration: 'underline',
+          }}>Fix it</Link>
+        </div>
+      )}
+
+      {user?.accountStatus === 'pending_admin_review' && (
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 12,
+          padding: '14px 20px', borderRadius: 'var(--radius-sm)',
+          backgroundColor: '#EDE9FE', color: '#8B5CF6',
+          marginBottom: 20, fontSize: 14,
+        }}>
+          <Clock size={20} />
+          <span style={{ flex: 1, fontWeight: 500 }}>
+            Your account is under admin review. You'll be notified once verified.
+          </span>
+          <Link to="/account-status" style={{ color: '#8B5CF6', fontWeight: 600, textDecoration: 'underline' }}>
+            Check Status
+          </Link>
+        </div>
+      )}
+
       <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 4 }}>Welcome back, {user?.name || 'User'}!</h1>
+        <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 4 }}>Welcome back, {user?.fullName || 'User'}!</h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: 15 }}>Here's what's happening with your franchises today.</p>
       </div>
 

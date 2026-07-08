@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Plus, MoreHorizontal, Eye, Edit3, Trash2, Mail, Shield,
-  Filter, ArrowUpDown, UserCheck, UserX
+  Filter, ArrowUpDown, UserCheck, UserX, ShieldCheck, Clock, XCircle, AlertCircle,
 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
@@ -12,6 +12,24 @@ import Select from '../../components/ui/Select';
 import Pagination from '../../components/ui/Pagination';
 import Dropdown, { DropdownItem } from '../../components/ui/Dropdown';
 import Modal from '../../components/ui/Modal';
+import { useAuth } from '../../context/AuthContext';
+
+const API = 'http://localhost:3001/api';
+
+const statusBadge = {
+  pending_email_verification: { label: 'Pending Email', variant: 'warning' },
+  pending_phone_verification: { label: 'Pending Phone', variant: 'warning' },
+  pending_profile_completion: { label: 'Incomplete', variant: 'warning' },
+  pending_admin_review: { label: 'Pending Review', variant: 'info' },
+  verified: { label: 'Verified', variant: 'success' },
+  rejected: { label: 'Rejected', variant: 'danger' },
+  need_more_information: { label: 'Needs Info', variant: 'warning' },
+};
+
+const roleLabels = {
+  admin: 'Admin', franchisor: 'Franchisor', franchisee: 'Franchisee',
+  consultant: 'Consultant', investor: 'Investor', supplier: 'Supplier',
+};
 
 const s = {
   header: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 },
@@ -26,65 +44,86 @@ const s = {
   },
   td: { padding: '14px 16px', fontSize: 14, borderBottom: '1px solid var(--border)' },
   pagWrap: { padding: '16px 0', display: 'flex', justifyContent: 'center' },
-  formGroup: { marginBottom: 16 },
-  formRow: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 },
 };
 
-const allUsers = [
-  { name: 'Alice Johnson', email: 'alice@example.com', role: 'Investor', status: 'Active', date: 'Jan 15, 2026', avatar: '' },
-  { name: 'Bob Smith', email: 'bob@example.com', role: 'Franchisor', status: 'Active', date: 'Feb 3, 2026', avatar: '' },
-  { name: 'Carol White', email: 'carol@example.com', role: 'Admin', status: 'Suspended', date: 'Mar 12, 2026', avatar: '' },
-  { name: 'David Brown', email: 'david@example.com', role: 'Consultant', status: 'Active', date: 'Feb 28, 2026', avatar: '' },
-  { name: 'Eve Davis', email: 'eve@example.com', role: 'Investor', status: 'Pending', date: 'Jan 5, 2026', avatar: '' },
-  { name: 'Frank Miller', email: 'frank@example.com', role: 'Franchisor', status: 'Active', date: 'Apr 1, 2026', avatar: '' },
-  { name: 'Grace Wilson', email: 'grace@example.com', role: 'Consultant', status: 'Inactive', date: 'Dec 20, 2025', avatar: '' },
-  { name: 'Henry Taylor', email: 'henry@example.com', role: 'Investor', status: 'Active', date: 'Mar 22, 2026', avatar: '' },
-];
-
-const roleOptions = [
-  { value: '', label: 'All Roles' },
-  { value: 'Investor', label: 'Investor' },
-  { value: 'Franchisor', label: 'Franchisor' },
-  { value: 'Consultant', label: 'Consultant' },
-  { value: 'Admin', label: 'Admin' },
-];
-
-const statusOptions = [
-  { value: '', label: 'All Statuses' },
-  { value: 'Active', label: 'Active' },
-  { value: 'Pending', label: 'Pending' },
-  { value: 'Suspended', label: 'Suspended' },
-  { value: 'Inactive', label: 'Inactive' },
-];
-
 export default function AdminUsers() {
+  const { token } = useAuth();
+  const [users, setUsers] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [roleFilter, setRoleFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [page, setPage] = useState(1);
-  const [showAddModal, setShowAddModal] = useState(false);
-  const perPage = 5;
+  const perPage = 10;
 
-  const filtered = allUsers.filter((u) => {
-    const matchSearch = !search || u.name.toLowerCase().includes(search.toLowerCase()) || u.email.toLowerCase().includes(search.toLowerCase());
-    const matchRole = !roleFilter || u.role === roleFilter;
-    const matchStatus = !statusFilter || u.status === statusFilter;
-    return matchSearch && matchRole && matchStatus;
-  });
+  const headers = { Authorization: `Bearer ${token}` };
 
-  const totalPages = Math.ceil(filtered.length / perPage);
-  const paginated = filtered.slice((page - 1) * perPage, page * perPage);
+  const fetchUsers = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({ page, limit: perPage });
+      if (statusFilter) params.set('status', statusFilter);
+      if (roleFilter) params.set('role', roleFilter);
+      const res = await fetch(`${API}/admin/users?${params}`, { headers });
+      const data = await res.json();
+      setUsers(data.users || []);
+      setTotal(data.total || 0);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const roleColors = { Investor: 'info', Franchisor: 'default', Consultant: 'warning', Admin: 'danger' };
+  useEffect(() => {
+    if (token) fetchUsers();
+  }, [token, page, roleFilter, statusFilter]);
+
+  const handleToggleActive = async (userId, currentActive) => {
+    try {
+      await fetch(`${API}/admin/users/${userId}/toggle-active`, {
+        method: 'PATCH',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isActive: !currentActive }),
+      });
+      fetchUsers();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const roleOptions = [
+    { value: '', label: 'All Roles' },
+    { value: 'franchisor', label: 'Franchisor' },
+    { value: 'franchisee', label: 'Franchisee' },
+    { value: 'consultant', label: 'Consultant' },
+    { value: 'investor', label: 'Investor' },
+    { value: 'supplier', label: 'Supplier' },
+    { value: 'admin', label: 'Admin' },
+  ];
+
+  const statusOptions = [
+    { value: '', label: 'All Statuses' },
+    { value: 'pending_email_verification', label: 'Pending Email' },
+    { value: 'pending_phone_verification', label: 'Pending Phone' },
+    { value: 'pending_profile_completion', label: 'Incomplete' },
+    { value: 'pending_admin_review', label: 'Pending Review' },
+    { value: 'verified', label: 'Verified' },
+    { value: 'rejected', label: 'Rejected' },
+    { value: 'need_more_information', label: 'Needs Info' },
+  ];
+
+  const filtered = users;
+  const totalPages = Math.ceil(total / perPage);
 
   return (
     <div>
       <div style={s.header}>
         <div>
           <h1 style={s.title}>Users</h1>
-          <p style={s.subtitle}>Manage all platform users</p>
+          <p style={s.subtitle}>Manage all platform users ({total} total)</p>
         </div>
-        <Button variant="primary" size="sm" icon={<Plus size={16} />} onClick={() => setShowAddModal(true)}>Add User</Button>
       </div>
 
       <Card hover={false} padding="20px" style={{ marginBottom: 24 }}>
@@ -124,45 +163,51 @@ export default function AdminUsers() {
               </tr>
             </thead>
             <tbody>
-              {paginated.map((u, i) => (
-                <tr key={i}>
-                  <td style={s.td}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <Avatar name={u.name} size={36} />
-                      <span style={{ fontWeight: 500 }}>{u.name}</span>
-                    </div>
-                  </td>
-                  <td style={{ ...s.td, color: 'var(--text-secondary)' }}>{u.email}</td>
-                  <td style={s.td}><Badge variant={roleColors[u.role]}>{u.role}</Badge></td>
-                  <td style={s.td}>
-                    <Badge variant={u.status === 'Active' ? 'success' : u.status === 'Suspended' ? 'danger' : u.status === 'Pending' ? 'warning' : 'default'}>
-                      {u.status}
-                    </Badge>
-                  </td>
-                  <td style={{ ...s.td, color: 'var(--text-muted)' }}>{u.date}</td>
-                  <td style={{ ...s.td, textAlign: 'center' }}>
-                    <Dropdown
-                      align="right"
-                      trigger={
-                        <button style={{ background: 'none', border: 'none', color: 'var(--text-muted)', display: 'flex', padding: 6, margin: '0 auto' }}>
-                          <MoreHorizontal size={18} />
-                        </button>
-                      }
-                    >
-                      <DropdownItem icon={<Eye size={16} />}>View</DropdownItem>
-                      <DropdownItem icon={<Edit3 size={16} />}>Edit</DropdownItem>
-                      <DropdownItem icon={<Mail size={16} />}>Send Email</DropdownItem>
-                      <DropdownItem icon={<Shield size={16} />}>Change Role</DropdownItem>
-                      <DropdownItem icon={<Trash2 size={16} />} style={{ color: 'var(--danger)' }}>Delete</DropdownItem>
-                    </Dropdown>
-                  </td>
-                </tr>
-              ))}
-              {paginated.length === 0 && (
-                <tr>
-                  <td colSpan={6} style={{ padding: 48, textAlign: 'center', color: 'var(--text-muted)' }}>No users found</td>
-                </tr>
-              )}
+              {loading ? (
+                <tr><td colSpan={6} style={{ padding: 48, textAlign: 'center', color: 'var(--text-muted)' }}>Loading...</td></tr>
+              ) : filtered.length === 0 ? (
+                <tr><td colSpan={6} style={{ padding: 48, textAlign: 'center', color: 'var(--text-muted)' }}>No users found</td></tr>
+              ) : filtered.map((u) => {
+                const sb = statusBadge[u.accountStatus] || { label: u.accountStatus, variant: 'default' };
+                return (
+                  <tr key={u.id}>
+                    <td style={s.td}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <Avatar name={u.fullName} size={36} />
+                        <span style={{ fontWeight: 500 }}>{u.fullName}</span>
+                      </div>
+                    </td>
+                    <td style={{ ...s.td, color: 'var(--text-secondary)' }}>{u.email}</td>
+                    <td style={s.td}><Badge variant="info">{roleLabels[u.role] || u.role}</Badge></td>
+                    <td style={s.td}>
+                      <Badge variant={sb.variant}>{sb.label}</Badge>
+                    </td>
+                    <td style={{ ...s.td, color: 'var(--text-muted)', fontSize: 13 }}>
+                      {new Date(u.createdAt).toLocaleDateString()}
+                    </td>
+                    <td style={{ ...s.td, textAlign: 'center' }}>
+                      <Dropdown
+                        align="right"
+                        trigger={
+                          <button style={{ background: 'none', border: 'none', color: 'var(--text-muted)', display: 'flex', padding: 6, margin: '0 auto' }}>
+                            <MoreHorizontal size={18} />
+                          </button>
+                        }
+                      >
+                        <DropdownItem icon={<Eye size={16} />}>View</DropdownItem>
+                        <DropdownItem icon={<Edit3 size={16} />}>Edit</DropdownItem>
+                        <DropdownItem icon={<Mail size={16} />}>Send Email</DropdownItem>
+                        <DropdownItem
+                          icon={u.isActive ? <UserX size={16} /> : <UserCheck size={16} />}
+                          onClick={() => handleToggleActive(u.id, u.isActive)}
+                        >
+                          {u.isActive ? 'Deactivate' : 'Activate'}
+                        </DropdownItem>
+                      </Dropdown>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -173,67 +218,6 @@ export default function AdminUsers() {
           </div>
         )}
       </Card>
-
-      <Modal isOpen={showAddModal} onClose={() => setShowAddModal(false)} title="Add New User" width={520}>
-        <div>
-          <div style={s.formRow}>
-            <div style={s.formGroup}>
-              <label style={{ fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 6 }}>First Name</label>
-              <input placeholder="John" style={{
-                width: '100%', padding: '10px 16px', fontSize: 14, color: 'var(--text)',
-                backgroundColor: 'var(--surface)', border: '2px solid var(--border)',
-                borderRadius: 'var(--radius-sm)', outline: 'none',
-              }} />
-            </div>
-            <div style={s.formGroup}>
-              <label style={{ fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 6 }}>Last Name</label>
-              <input placeholder="Doe" style={{
-                width: '100%', padding: '10px 16px', fontSize: 14, color: 'var(--text)',
-                backgroundColor: 'var(--surface)', border: '2px solid var(--border)',
-                borderRadius: 'var(--radius-sm)', outline: 'none',
-              }} />
-            </div>
-          </div>
-          <div style={s.formGroup}>
-            <label style={{ fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 6 }}>Email</label>
-            <input placeholder="john@example.com" style={{
-              width: '100%', padding: '10px 16px', fontSize: 14, color: 'var(--text)',
-              backgroundColor: 'var(--surface)', border: '2px solid var(--border)',
-              borderRadius: 'var(--radius-sm)', outline: 'none',
-            }} />
-          </div>
-          <div style={s.formRow}>
-            <div style={s.formGroup}>
-              <label style={{ fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 6 }}>Role</label>
-              <Select options={[
-                { value: 'Investor', label: 'Investor' },
-                { value: 'Franchisor', label: 'Franchisor' },
-                { value: 'Consultant', label: 'Consultant' },
-                { value: 'Admin', label: 'Admin' },
-              ]} placeholder="Select role" />
-            </div>
-            <div style={s.formGroup}>
-              <label style={{ fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 6 }}>Status</label>
-              <Select options={[
-                { value: 'Active', label: 'Active' },
-                { value: 'Pending', label: 'Pending' },
-              ]} placeholder="Select status" />
-            </div>
-          </div>
-          <div style={s.formGroup}>
-            <label style={{ fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 6 }}>Password</label>
-            <input type="password" placeholder="••••••••" style={{
-              width: '100%', padding: '10px 16px', fontSize: 14, color: 'var(--text)',
-              backgroundColor: 'var(--surface)', border: '2px solid var(--border)',
-              borderRadius: 'var(--radius-sm)', outline: 'none',
-            }} />
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12, marginTop: 24 }}>
-            <Button variant="secondary" size="md" onClick={() => setShowAddModal(false)}>Cancel</Button>
-            <Button variant="primary" size="md">Create User</Button>
-          </div>
-        </div>
-      </Modal>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
-import { AdminRoute } from '../components/ProtectedRoute';
+import { AdminRoute, AuthRoute } from '../components/ProtectedRoute';
 
 import Home from '../pages/public/Home';
 import About from '../pages/public/About';
@@ -15,6 +15,12 @@ import Login from '../pages/auth/Login';
 import Signup from '../pages/auth/Signup';
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import ResetPassword from '../pages/auth/ResetPassword';
+import VerifyEmail from '../pages/auth/VerifyEmail';
+import VerifyPhone from '../pages/auth/VerifyPhone';
+import RoleSelection from '../pages/auth/RoleSelection';
+import OnboardingForm from '../pages/auth/OnboardingForm';
+import DocumentUpload from '../pages/auth/DocumentUpload';
+import AccountStatus from '../pages/auth/AccountStatus';
 
 import DashboardHome from '../pages/dashboard/DashboardHome';
 import Discover from '../pages/dashboard/Discover';
@@ -29,6 +35,7 @@ import AdminDashboard from '../pages/admin/AdminDashboard';
 import AdminUsers from '../pages/admin/AdminUsers';
 import AdminCompanies from '../pages/admin/AdminCompanies';
 import AdminAnalytics from '../pages/admin/AdminAnalytics';
+import AdminVerification from '../pages/admin/AdminVerification';
 
 export default function AppRoutes() {
   return (
@@ -47,6 +54,15 @@ export default function AppRoutes() {
         <Route path="/reset-password" element={<ResetPassword />} />
       </Route>
 
+      <Route element={<MainLayout />}>
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/verify-phone" element={<VerifyPhone />} />
+        <Route path="/select-role" element={<RoleSelection />} />
+        <Route path="/onboarding/:role" element={<OnboardingForm />} />
+        <Route path="/upload-documents" element={<DocumentUpload />} />
+        <Route path="/account-status" element={<AccountStatus />} />
+      </Route>
+
       <Route element={<DashboardLayout />}>
         <Route path="/dashboard" element={<DashboardHome />} />
         <Route path="/discover" element={<Discover />} />
@@ -59,6 +75,7 @@ export default function AppRoutes() {
 
         <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>} />
+        <Route path="/admin/verification" element={<AdminRoute><AdminVerification /></AdminRoute>} />
         <Route path="/admin/companies" element={<AdminRoute><AdminCompanies /></AdminRoute>} />
         <Route path="/admin/analytics" element={<AdminRoute><AdminAnalytics /></AdminRoute>} />
       </Route>

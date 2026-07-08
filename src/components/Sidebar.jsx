@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Compass, Building2, MessageSquare, Bell, User, Settings, LogOut, Users, BarChart3, Shield } from 'lucide-react';
+import { LayoutDashboard, Compass, Building2, MessageSquare, Bell, User, Settings, LogOut, Users, BarChart3, Shield, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const mainLinks = [
@@ -84,6 +84,7 @@ export default function Sidebar({ collapsed, onToggle }) {
             {[
               { label: 'Admin', path: '/admin', icon: Shield },
               { label: 'Users', path: '/admin/users', icon: Users },
+              { label: 'Verification', path: '/admin/verification', icon: ShieldCheck },
               { label: 'Companies', path: '/admin/companies', icon: Building2 },
               { label: 'Analytics', path: '/admin/analytics', icon: BarChart3 },
             ].map((l) => (

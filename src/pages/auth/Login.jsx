@@ -22,8 +22,9 @@ export default function Login() {
     setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     if (!form.email || !form.password) {
       setError('Please fill in all fields');
       return;
@@ -36,9 +37,25 @@ export default function Login() {
       setError('You must accept the Terms & Conditions and Privacy Policy');
       return;
     }
-    const isAdmin = form.email === 'admin@franchisia.com';
-    login({ email: form.email, name: form.email.split('@')[0], role: isAdmin ? 'admin' : 'user' });
-    navigate(isAdmin ? '/admin' : '/dashboard');
+    try {
+      const data = await login(form.email, form.password);
+      const u = data.user;
+      if (u.role === 'admin') {
+        navigate('/admin');
+      } else if (!u.emailVerified) {
+        navigate('/verify-email');
+      } else if (!u.phoneVerified) {
+        navigate('/verify-phone');
+      } else if (u.accountStatus === 'pending_profile_completion') {
+        navigate('/select-role');
+      } else if (u.accountStatus === 'pending_admin_review') {
+        navigate('/account-status');
+      } else {
+        navigate('/dashboard');
+      }
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (

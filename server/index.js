@@ -1,0 +1,42 @@
+import express from "express";
+import cors from "cors";
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import companyRoutes from "./routes/companies.js";
+import listingRoutes from "./routes/listings.js";
+import applicationRoutes from "./routes/applications.js";
+import messageRoutes from "./routes/messages.js";
+import notificationRoutes from "./routes/notifications.js";
+import publicRoutes from "./routes/public.js";
+import adminRoutes from "./routes/admin.js";
+import onboardingRoutes from "./routes/onboarding.js";
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.use(cors());
+app.use(express.json({ limit: "10mb" }));
+
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/companies", companyRoutes);
+app.use("/api/listings", listingRoutes);
+app.use("/api/applications", applicationRoutes);
+app.use("/api/messages", messageRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/public", publicRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/onboarding", onboardingRoutes);
+
+app.get("/api/health", (_req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
+app.use((err, _req, res, _next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal server error" });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

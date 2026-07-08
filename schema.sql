@@ -14,7 +14,7 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 -- -------------------------------
 -- ENUMS
 -- -------------------------------
-CREATE TYPE user_role AS ENUM ('admin', 'franchisor', 'franchisee', 'consultor', 'investor', 'supplier');
+CREATE TYPE user_role AS ENUM ('admin', 'franchisor', 'franchisee', 'consultant', 'investor', 'supplier');
 CREATE TYPE listing_status AS ENUM ('active', 'pending', 'suspended', 'inactive');
 CREATE TYPE application_status AS ENUM ('submitted', 'reviewing', 'accepted', 'rejected', 'withdrawn');
 CREATE TYPE message_type AS ENUM ('text', 'image', 'file', 'system');
@@ -388,7 +388,7 @@ INSERT INTO site_stats (value, label, sort) VALUES
 
 INSERT INTO about_page (section, content) VALUES
   ('hero_title', 'Building the Future of Franchise Networking'),
-  ('hero_desc',  'Franchisia is the leading professional network connecting franchisors, franchisees, consultors, investors, and suppliers worldwide.'),
+  ('hero_desc',  'Franchisia is the leading professional network connecting franchisors, franchisees, consultants, investors, and suppliers worldwide.'),
   ('mission',    'To democratize access to franchise opportunities and create a transparent, efficient ecosystem where every professional can find the perfect match.'),
   ('vision',     'A world where franchise opportunities are accessible to everyone, empowering entrepreneurs to build successful businesses through meaningful connections.');
 
