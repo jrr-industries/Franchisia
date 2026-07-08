@@ -204,7 +204,7 @@ export type SiteStatWhereInput = {
   AND?: Prisma.SiteStatWhereInput | Prisma.SiteStatWhereInput[]
   OR?: Prisma.SiteStatWhereInput[]
   NOT?: Prisma.SiteStatWhereInput | Prisma.SiteStatWhereInput[]
-  id?: Prisma.UuidFilter<"SiteStat"> | string
+  id?: Prisma.StringFilter<"SiteStat"> | string
   value?: Prisma.StringFilter<"SiteStat"> | string
   label?: Prisma.StringFilter<"SiteStat"> | string
   sort?: Prisma.IntFilter<"SiteStat"> | number
@@ -243,7 +243,7 @@ export type SiteStatScalarWhereWithAggregatesInput = {
   AND?: Prisma.SiteStatScalarWhereWithAggregatesInput | Prisma.SiteStatScalarWhereWithAggregatesInput[]
   OR?: Prisma.SiteStatScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SiteStatScalarWhereWithAggregatesInput | Prisma.SiteStatScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"SiteStat"> | string
+  id?: Prisma.StringWithAggregatesFilter<"SiteStat"> | string
   value?: Prisma.StringWithAggregatesFilter<"SiteStat"> | string
   label?: Prisma.StringWithAggregatesFilter<"SiteStat"> | string
   sort?: Prisma.IntWithAggregatesFilter<"SiteStat"> | number

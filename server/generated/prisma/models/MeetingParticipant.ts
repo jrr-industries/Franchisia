@@ -170,9 +170,9 @@ export type MeetingParticipantWhereInput = {
   AND?: Prisma.MeetingParticipantWhereInput | Prisma.MeetingParticipantWhereInput[]
   OR?: Prisma.MeetingParticipantWhereInput[]
   NOT?: Prisma.MeetingParticipantWhereInput | Prisma.MeetingParticipantWhereInput[]
-  id?: Prisma.UuidFilter<"MeetingParticipant"> | string
-  meetingId?: Prisma.UuidFilter<"MeetingParticipant"> | string
-  userId?: Prisma.UuidFilter<"MeetingParticipant"> | string
+  id?: Prisma.StringFilter<"MeetingParticipant"> | string
+  meetingId?: Prisma.StringFilter<"MeetingParticipant"> | string
+  userId?: Prisma.StringFilter<"MeetingParticipant"> | string
   status?: Prisma.StringFilter<"MeetingParticipant"> | string
   meeting?: Prisma.XOR<Prisma.MeetingScalarRelationFilter, Prisma.MeetingWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -193,8 +193,8 @@ export type MeetingParticipantWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.MeetingParticipantWhereInput | Prisma.MeetingParticipantWhereInput[]
   OR?: Prisma.MeetingParticipantWhereInput[]
   NOT?: Prisma.MeetingParticipantWhereInput | Prisma.MeetingParticipantWhereInput[]
-  meetingId?: Prisma.UuidFilter<"MeetingParticipant"> | string
-  userId?: Prisma.UuidFilter<"MeetingParticipant"> | string
+  meetingId?: Prisma.StringFilter<"MeetingParticipant"> | string
+  userId?: Prisma.StringFilter<"MeetingParticipant"> | string
   status?: Prisma.StringFilter<"MeetingParticipant"> | string
   meeting?: Prisma.XOR<Prisma.MeetingScalarRelationFilter, Prisma.MeetingWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -214,9 +214,9 @@ export type MeetingParticipantScalarWhereWithAggregatesInput = {
   AND?: Prisma.MeetingParticipantScalarWhereWithAggregatesInput | Prisma.MeetingParticipantScalarWhereWithAggregatesInput[]
   OR?: Prisma.MeetingParticipantScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MeetingParticipantScalarWhereWithAggregatesInput | Prisma.MeetingParticipantScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"MeetingParticipant"> | string
-  meetingId?: Prisma.UuidWithAggregatesFilter<"MeetingParticipant"> | string
-  userId?: Prisma.UuidWithAggregatesFilter<"MeetingParticipant"> | string
+  id?: Prisma.StringWithAggregatesFilter<"MeetingParticipant"> | string
+  meetingId?: Prisma.StringWithAggregatesFilter<"MeetingParticipant"> | string
+  userId?: Prisma.StringWithAggregatesFilter<"MeetingParticipant"> | string
   status?: Prisma.StringWithAggregatesFilter<"MeetingParticipant"> | string
 }
 
@@ -429,9 +429,9 @@ export type MeetingParticipantScalarWhereInput = {
   AND?: Prisma.MeetingParticipantScalarWhereInput | Prisma.MeetingParticipantScalarWhereInput[]
   OR?: Prisma.MeetingParticipantScalarWhereInput[]
   NOT?: Prisma.MeetingParticipantScalarWhereInput | Prisma.MeetingParticipantScalarWhereInput[]
-  id?: Prisma.UuidFilter<"MeetingParticipant"> | string
-  meetingId?: Prisma.UuidFilter<"MeetingParticipant"> | string
-  userId?: Prisma.UuidFilter<"MeetingParticipant"> | string
+  id?: Prisma.StringFilter<"MeetingParticipant"> | string
+  meetingId?: Prisma.StringFilter<"MeetingParticipant"> | string
+  userId?: Prisma.StringFilter<"MeetingParticipant"> | string
   status?: Prisma.StringFilter<"MeetingParticipant"> | string
 }
 

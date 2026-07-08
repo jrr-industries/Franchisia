@@ -170,7 +170,7 @@ export type SiteContactWhereInput = {
   AND?: Prisma.SiteContactWhereInput | Prisma.SiteContactWhereInput[]
   OR?: Prisma.SiteContactWhereInput[]
   NOT?: Prisma.SiteContactWhereInput | Prisma.SiteContactWhereInput[]
-  id?: Prisma.UuidFilter<"SiteContact"> | string
+  id?: Prisma.StringFilter<"SiteContact"> | string
   email?: Prisma.StringFilter<"SiteContact"> | string
   phone?: Prisma.StringFilter<"SiteContact"> | string
   address?: Prisma.StringFilter<"SiteContact"> | string
@@ -207,7 +207,7 @@ export type SiteContactScalarWhereWithAggregatesInput = {
   AND?: Prisma.SiteContactScalarWhereWithAggregatesInput | Prisma.SiteContactScalarWhereWithAggregatesInput[]
   OR?: Prisma.SiteContactScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SiteContactScalarWhereWithAggregatesInput | Prisma.SiteContactScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"SiteContact"> | string
+  id?: Prisma.StringWithAggregatesFilter<"SiteContact"> | string
   email?: Prisma.StringWithAggregatesFilter<"SiteContact"> | string
   phone?: Prisma.StringWithAggregatesFilter<"SiteContact"> | string
   address?: Prisma.StringWithAggregatesFilter<"SiteContact"> | string

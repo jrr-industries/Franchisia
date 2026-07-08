@@ -239,9 +239,9 @@ export type ApplicationWhereInput = {
   AND?: Prisma.ApplicationWhereInput | Prisma.ApplicationWhereInput[]
   OR?: Prisma.ApplicationWhereInput[]
   NOT?: Prisma.ApplicationWhereInput | Prisma.ApplicationWhereInput[]
-  id?: Prisma.UuidFilter<"Application"> | string
-  listingId?: Prisma.UuidFilter<"Application"> | string
-  applicantId?: Prisma.UuidFilter<"Application"> | string
+  id?: Prisma.StringFilter<"Application"> | string
+  listingId?: Prisma.StringFilter<"Application"> | string
+  applicantId?: Prisma.StringFilter<"Application"> | string
   status?: Prisma.EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
   coverMessage?: Prisma.StringNullableFilter<"Application"> | string | null
   investmentCapacity?: Prisma.DecimalNullableFilter<"Application"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -272,8 +272,8 @@ export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ApplicationWhereInput | Prisma.ApplicationWhereInput[]
   OR?: Prisma.ApplicationWhereInput[]
   NOT?: Prisma.ApplicationWhereInput | Prisma.ApplicationWhereInput[]
-  listingId?: Prisma.UuidFilter<"Application"> | string
-  applicantId?: Prisma.UuidFilter<"Application"> | string
+  listingId?: Prisma.StringFilter<"Application"> | string
+  applicantId?: Prisma.StringFilter<"Application"> | string
   status?: Prisma.EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
   coverMessage?: Prisma.StringNullableFilter<"Application"> | string | null
   investmentCapacity?: Prisma.DecimalNullableFilter<"Application"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -305,9 +305,9 @@ export type ApplicationScalarWhereWithAggregatesInput = {
   AND?: Prisma.ApplicationScalarWhereWithAggregatesInput | Prisma.ApplicationScalarWhereWithAggregatesInput[]
   OR?: Prisma.ApplicationScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ApplicationScalarWhereWithAggregatesInput | Prisma.ApplicationScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Application"> | string
-  listingId?: Prisma.UuidWithAggregatesFilter<"Application"> | string
-  applicantId?: Prisma.UuidWithAggregatesFilter<"Application"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Application"> | string
+  listingId?: Prisma.StringWithAggregatesFilter<"Application"> | string
+  applicantId?: Prisma.StringWithAggregatesFilter<"Application"> | string
   status?: Prisma.EnumApplicationStatusWithAggregatesFilter<"Application"> | $Enums.ApplicationStatus
   coverMessage?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
   investmentCapacity?: Prisma.DecimalNullableWithAggregatesFilter<"Application"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -597,9 +597,9 @@ export type ApplicationScalarWhereInput = {
   AND?: Prisma.ApplicationScalarWhereInput | Prisma.ApplicationScalarWhereInput[]
   OR?: Prisma.ApplicationScalarWhereInput[]
   NOT?: Prisma.ApplicationScalarWhereInput | Prisma.ApplicationScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Application"> | string
-  listingId?: Prisma.UuidFilter<"Application"> | string
-  applicantId?: Prisma.UuidFilter<"Application"> | string
+  id?: Prisma.StringFilter<"Application"> | string
+  listingId?: Prisma.StringFilter<"Application"> | string
+  applicantId?: Prisma.StringFilter<"Application"> | string
   status?: Prisma.EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
   coverMessage?: Prisma.StringNullableFilter<"Application"> | string | null
   investmentCapacity?: Prisma.DecimalNullableFilter<"Application"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null

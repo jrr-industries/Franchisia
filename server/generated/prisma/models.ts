@@ -9,6 +9,9 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User.ts'
+export type * from './models/Session.ts'
+export type * from './models/Account.ts'
+export type * from './models/Verification.ts'
 export type * from './models/UserSkill.ts'
 export type * from './models/UserInterest.ts'
 export type * from './models/UserEducation.ts'
@@ -31,7 +34,5 @@ export type * from './models/AboutPage.ts'
 export type * from './models/AboutTeam.ts'
 export type * from './models/AboutTimeline.ts'
 export type * from './models/AuditLog.ts'
-export type * from './models/Session.ts'
-export type * from './models/VerificationToken.ts'
 export type * from './models/UserDocument.ts'
 export type * from './commonInputTypes.ts'

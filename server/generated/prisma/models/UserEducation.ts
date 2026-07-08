@@ -236,8 +236,8 @@ export type UserEducationWhereInput = {
   AND?: Prisma.UserEducationWhereInput | Prisma.UserEducationWhereInput[]
   OR?: Prisma.UserEducationWhereInput[]
   NOT?: Prisma.UserEducationWhereInput | Prisma.UserEducationWhereInput[]
-  id?: Prisma.UuidFilter<"UserEducation"> | string
-  userId?: Prisma.UuidFilter<"UserEducation"> | string
+  id?: Prisma.StringFilter<"UserEducation"> | string
+  userId?: Prisma.StringFilter<"UserEducation"> | string
   school?: Prisma.StringFilter<"UserEducation"> | string
   degree?: Prisma.StringNullableFilter<"UserEducation"> | string | null
   field?: Prisma.StringNullableFilter<"UserEducation"> | string | null
@@ -264,7 +264,7 @@ export type UserEducationWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserEducationWhereInput | Prisma.UserEducationWhereInput[]
   OR?: Prisma.UserEducationWhereInput[]
   NOT?: Prisma.UserEducationWhereInput | Prisma.UserEducationWhereInput[]
-  userId?: Prisma.UuidFilter<"UserEducation"> | string
+  userId?: Prisma.StringFilter<"UserEducation"> | string
   school?: Prisma.StringFilter<"UserEducation"> | string
   degree?: Prisma.StringNullableFilter<"UserEducation"> | string | null
   field?: Prisma.StringNullableFilter<"UserEducation"> | string | null
@@ -294,8 +294,8 @@ export type UserEducationScalarWhereWithAggregatesInput = {
   AND?: Prisma.UserEducationScalarWhereWithAggregatesInput | Prisma.UserEducationScalarWhereWithAggregatesInput[]
   OR?: Prisma.UserEducationScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserEducationScalarWhereWithAggregatesInput | Prisma.UserEducationScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"UserEducation"> | string
-  userId?: Prisma.UuidWithAggregatesFilter<"UserEducation"> | string
+  id?: Prisma.StringWithAggregatesFilter<"UserEducation"> | string
+  userId?: Prisma.StringWithAggregatesFilter<"UserEducation"> | string
   school?: Prisma.StringWithAggregatesFilter<"UserEducation"> | string
   degree?: Prisma.StringNullableWithAggregatesFilter<"UserEducation"> | string | null
   field?: Prisma.StringNullableWithAggregatesFilter<"UserEducation"> | string | null
@@ -525,8 +525,8 @@ export type UserEducationScalarWhereInput = {
   AND?: Prisma.UserEducationScalarWhereInput | Prisma.UserEducationScalarWhereInput[]
   OR?: Prisma.UserEducationScalarWhereInput[]
   NOT?: Prisma.UserEducationScalarWhereInput | Prisma.UserEducationScalarWhereInput[]
-  id?: Prisma.UuidFilter<"UserEducation"> | string
-  userId?: Prisma.UuidFilter<"UserEducation"> | string
+  id?: Prisma.StringFilter<"UserEducation"> | string
+  userId?: Prisma.StringFilter<"UserEducation"> | string
   school?: Prisma.StringFilter<"UserEducation"> | string
   degree?: Prisma.StringNullableFilter<"UserEducation"> | string | null
   field?: Prisma.StringNullableFilter<"UserEducation"> | string | null

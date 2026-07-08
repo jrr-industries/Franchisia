@@ -385,9 +385,9 @@ export type FranchiseListingWhereInput = {
   AND?: Prisma.FranchiseListingWhereInput | Prisma.FranchiseListingWhereInput[]
   OR?: Prisma.FranchiseListingWhereInput[]
   NOT?: Prisma.FranchiseListingWhereInput | Prisma.FranchiseListingWhereInput[]
-  id?: Prisma.UuidFilter<"FranchiseListing"> | string
-  companyId?: Prisma.UuidFilter<"FranchiseListing"> | string
-  createdBy?: Prisma.UuidFilter<"FranchiseListing"> | string
+  id?: Prisma.StringFilter<"FranchiseListing"> | string
+  companyId?: Prisma.StringFilter<"FranchiseListing"> | string
+  createdBy?: Prisma.StringFilter<"FranchiseListing"> | string
   title?: Prisma.StringFilter<"FranchiseListing"> | string
   slug?: Prisma.StringFilter<"FranchiseListing"> | string
   description?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
@@ -458,8 +458,8 @@ export type FranchiseListingWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.FranchiseListingWhereInput | Prisma.FranchiseListingWhereInput[]
   OR?: Prisma.FranchiseListingWhereInput[]
   NOT?: Prisma.FranchiseListingWhereInput | Prisma.FranchiseListingWhereInput[]
-  companyId?: Prisma.UuidFilter<"FranchiseListing"> | string
-  createdBy?: Prisma.UuidFilter<"FranchiseListing"> | string
+  companyId?: Prisma.StringFilter<"FranchiseListing"> | string
+  createdBy?: Prisma.StringFilter<"FranchiseListing"> | string
   title?: Prisma.StringFilter<"FranchiseListing"> | string
   description?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
   industry?: Prisma.StringFilter<"FranchiseListing"> | string
@@ -528,9 +528,9 @@ export type FranchiseListingScalarWhereWithAggregatesInput = {
   AND?: Prisma.FranchiseListingScalarWhereWithAggregatesInput | Prisma.FranchiseListingScalarWhereWithAggregatesInput[]
   OR?: Prisma.FranchiseListingScalarWhereWithAggregatesInput[]
   NOT?: Prisma.FranchiseListingScalarWhereWithAggregatesInput | Prisma.FranchiseListingScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"FranchiseListing"> | string
-  companyId?: Prisma.UuidWithAggregatesFilter<"FranchiseListing"> | string
-  createdBy?: Prisma.UuidWithAggregatesFilter<"FranchiseListing"> | string
+  id?: Prisma.StringWithAggregatesFilter<"FranchiseListing"> | string
+  companyId?: Prisma.StringWithAggregatesFilter<"FranchiseListing"> | string
+  createdBy?: Prisma.StringWithAggregatesFilter<"FranchiseListing"> | string
   title?: Prisma.StringWithAggregatesFilter<"FranchiseListing"> | string
   slug?: Prisma.StringWithAggregatesFilter<"FranchiseListing"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"FranchiseListing"> | string | null
@@ -1116,9 +1116,9 @@ export type FranchiseListingScalarWhereInput = {
   AND?: Prisma.FranchiseListingScalarWhereInput | Prisma.FranchiseListingScalarWhereInput[]
   OR?: Prisma.FranchiseListingScalarWhereInput[]
   NOT?: Prisma.FranchiseListingScalarWhereInput | Prisma.FranchiseListingScalarWhereInput[]
-  id?: Prisma.UuidFilter<"FranchiseListing"> | string
-  companyId?: Prisma.UuidFilter<"FranchiseListing"> | string
-  createdBy?: Prisma.UuidFilter<"FranchiseListing"> | string
+  id?: Prisma.StringFilter<"FranchiseListing"> | string
+  companyId?: Prisma.StringFilter<"FranchiseListing"> | string
+  createdBy?: Prisma.StringFilter<"FranchiseListing"> | string
   title?: Prisma.StringFilter<"FranchiseListing"> | string
   slug?: Prisma.StringFilter<"FranchiseListing"> | string
   description?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null

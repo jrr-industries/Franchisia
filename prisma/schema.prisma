@@ -60,49 +60,57 @@ enum NotificationType {
 }
 
 model User {
-  id                 String          @id @default(uuid()) @db.Uuid
-  email              String          @unique
-  emailVerified      DateTime?       @map("email_verified") @db.Timestamptz
-  passwordHash       String          @map("password_hash")
-  role               UserRole        @default(franchisee)
-  accountStatus      AccountStatus   @default(pending_email_verification) @map("account_status")
+  id                 String    @id @default(cuid())
+  email              String    @unique
+  emailVerified      Boolean   @default(false) @map("email_verified_bool")
+  name               String?   @map("full_name")
+  image              String?   @map("avatar_url")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
 
-  fullName           String          @map("full_name")
-  avatarUrl          String?         @map("avatar_url")
+  onboardingCompleted Boolean  @default(false) @map("onboarding_completed")
+
+  // Keep existing fields mapped to DB columns
+  emailVerifiedAt    DateTime?  @map("email_verified")
+  passwordHash       String     @default("") @map("password_hash")
+  role               UserRole   @default(franchisee)
+  accountStatus      AccountStatus @default(pending_email_verification) @map("account_status")
+
   headline           String?
   bio                String?
   phone              String?
-  phoneVerified      DateTime?       @map("phone_verified") @db.Timestamptz
+  phoneVerified      DateTime?  @map("phone_verified") @db.Timestamptz
   location           String?
 
-  investmentCapacity Decimal?        @map("investment_capacity") @db.Decimal(12, 2)
+  investmentCapacity Decimal?   @map("investment_capacity") @db.Decimal(12, 2)
   industries         String[]
-  experienceYears    Int?            @map("experience_years")
+  experienceYears    Int?       @map("experience_years")
   website            String?
-  linkedinUrl        String?         @map("linkedin_url")
+  linkedinUrl        String?    @map("linkedin_url")
 
-  companyName             String?  @map("company_name")
-  businessEmail           String?  @map("business_email")
+  companyName              String?  @map("company_name")
+  businessEmail            String?  @map("business_email")
   businessRegistrationNumber String? @map("business_registration_number")
-  businessRegistrationDoc String?  @map("business_registration_doc")
-  companyLogo             String?  @map("company_logo")
-  gstNumber               String?  @map("gst_number")
-  consultancyName         String?  @map("consultancy_name")
-  preferredIndustry       String?  @map("preferred_industry")
-  preferredLocation       String?  @map("preferred_location")
-  investmentRange         String?  @map("investment_range")
-  resumeUrl               String?  @map("resume_url")
+  businessRegistrationDoc  String?  @map("business_registration_doc")
+  companyLogo              String?  @map("company_logo")
+  gstNumber                String?  @map("gst_number")
+  consultancyName          String?  @map("consultancy_name")
+  preferredIndustry        String?  @map("preferred_industry")
+  preferredLocation        String?  @map("preferred_location")
+  investmentRange          String?  @map("investment_range")
+  resumeUrl                String?  @map("resume_url")
 
-  submittedForReviewAt DateTime?  @map("submitted_for_review_at") @db.Timestamptz
-  reviewedBy           String?    @map("reviewed_by") @db.Uuid
-  reviewedAt           DateTime?  @map("reviewed_at") @db.Timestamptz
-  verificationNotes    String?    @map("verification_notes")
-  rejectionReason      String?    @map("rejection_reason")
+  submittedForReviewAt DateTime? @map("submitted_for_review_at") @db.Timestamptz
+  reviewedBy           String?   @map("reviewed_by") @db.Uuid
+  reviewedAt           DateTime? @map("reviewed_at") @db.Timestamptz
+  verificationNotes    String?   @map("verification_notes")
+  rejectionReason      String?   @map("rejection_reason")
 
-  isActive           Boolean         @default(true) @map("is_active")
-  lastLoginAt        DateTime?       @map("last_login_at") @db.Timestamptz
-  createdAt          DateTime        @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt          DateTime        @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+  isActive           Boolean   @default(true) @map("is_active")
+  lastLoginAt        DateTime? @map("last_login_at") @db.Timestamptz
+
+  accounts           Account[]
+  sessions           Session[]
 
   skills             UserSkill[]
   interests          UserInterest[]
@@ -122,8 +130,6 @@ model User {
   organizedMeetings  Meeting[]
   meetingParticipants MeetingParticipant[]
   auditLogs          AuditLog[]
-  sessions           Session[]
-  verificationTokens VerificationToken[]
   documents          UserDocument[]
 
   @@index([email])
@@ -132,9 +138,59 @@ model User {
   @@map("users")
 }
 
+model Session {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at") @db.Timestamptz
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId])
+  @@map("sessions")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  userId                String    @map("user_id")
+  accountId             String    @map("account_id")
+  providerId            String    @map("provider_id")
+  accessToken           String?   @map("access_token")
+  refreshToken          String?   @map("refresh_token")
+  idToken               String?   @map("id_token")
+  accessTokenExpiresAt  DateTime? @map("access_token_expires_at") @db.Timestamptz
+  refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at") @db.Timestamptz
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([providerId, accountId])
+  @@map("accounts")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime @map("expires_at") @db.Timestamptz
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("verifications")
+}
+
 model UserSkill {
-  id      String @id @default(uuid()) @db.Uuid
-  userId  String @map("user_id") @db.Uuid
+  id      String @id @default(cuid())
+  userId  String @map("user_id")
   skill   String
 
   user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -144,8 +200,8 @@ model UserSkill {
 }
 
 model UserInterest {
-  id       String @id @default(uuid()) @db.Uuid
-  userId   String @map("user_id") @db.Uuid
+  id       String @id @default(cuid())
+  userId   String @map("user_id")
   interest String
 
   user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -155,8 +211,8 @@ model UserInterest {
 }
 
 model UserEducation {
-  id        String   @id @default(uuid()) @db.Uuid
-  userId    String   @map("user_id") @db.Uuid
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
   school    String
   degree    String?
   field     String?
@@ -170,8 +226,8 @@ model UserEducation {
 }
 
 model UserExperience {
-  id          String    @id @default(uuid()) @db.Uuid
-  userId      String    @map("user_id") @db.Uuid
+  id          String    @id @default(cuid())
+  userId      String    @map("user_id")
   company     String
   role        String
   description String?
@@ -186,8 +242,8 @@ model UserExperience {
 }
 
 model Company {
-  id            String        @id @default(uuid()) @db.Uuid
-  ownerId       String        @map("owner_id") @db.Uuid
+  id            String        @id @default(cuid())
+  ownerId       String        @map("owner_id")
   name          String
   slug          String        @unique
   logoUrl       String?       @map("logo_url")
@@ -221,9 +277,9 @@ model Company {
 }
 
 model FranchiseListing {
-  id                String         @id @default(uuid()) @db.Uuid
-  companyId         String         @map("company_id") @db.Uuid
-  createdBy         String         @map("created_by") @db.Uuid
+  id                String         @id @default(cuid())
+  companyId         String         @map("company_id")
+  createdBy         String         @map("created_by")
 
   title             String
   slug              String         @unique
@@ -269,9 +325,9 @@ model FranchiseListing {
 }
 
 model Application {
-  id                  String            @id @default(uuid()) @db.Uuid
-  listingId           String            @map("listing_id") @db.Uuid
-  applicantId         String            @map("applicant_id") @db.Uuid
+  id                  String            @id @default(cuid())
+  listingId           String            @map("listing_id")
+  applicantId         String            @map("applicant_id")
   status              ApplicationStatus @default(submitted)
 
   coverMessage        String?           @map("cover_message")
@@ -292,9 +348,9 @@ model Application {
 }
 
 model Connection {
-  id          String   @id @default(uuid()) @db.Uuid
-  followerId  String   @map("follower_id") @db.Uuid
-  followingId String   @map("following_id") @db.Uuid
+  id          String   @id @default(cuid())
+  followerId  String   @map("follower_id")
+  followingId String   @map("following_id")
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   follower    User     @relation("followed_by", fields: [followerId], references: [id], onDelete: Cascade)
@@ -307,9 +363,9 @@ model Connection {
 }
 
 model CompanyFollower {
-  id        String   @id @default(uuid()) @db.Uuid
-  userId    String   @map("user_id") @db.Uuid
-  companyId String   @map("company_id") @db.Uuid
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  companyId String   @map("company_id")
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -321,19 +377,19 @@ model CompanyFollower {
 }
 
 model Conversation {
-  id        String                     @id @default(uuid()) @db.Uuid
+  id        String   @id @default(cuid())
   subject   String?
-  createdAt DateTime                   @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt DateTime                   @default(now()) @map("updated_at") @db.Timestamptz
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz
 
   participants ConversationParticipant[]
   messages     Message[]
 }
 
 model ConversationParticipant {
-  id              String       @id @default(uuid()) @db.Uuid
-  conversationId  String       @map("conversation_id") @db.Uuid
-  userId          String       @map("user_id") @db.Uuid
+  id              String       @id @default(cuid())
+  conversationId  String       @map("conversation_id")
+  userId          String       @map("user_id")
   lastReadAt      DateTime?    @map("last_read_at") @db.Timestamptz
 
   conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
@@ -344,9 +400,9 @@ model ConversationParticipant {
 }
 
 model Message {
-  id              String       @id @default(uuid()) @db.Uuid
-  conversationId  String       @map("conversation_id") @db.Uuid
-  senderId        String       @map("sender_id") @db.Uuid
+  id              String       @id @default(cuid())
+  conversationId  String       @map("conversation_id")
+  senderId        String       @map("sender_id")
   content         String
   messageType     MessageType  @default(text) @map("message_type")
   attachmentUrl   String?      @map("attachment_url")
@@ -360,8 +416,8 @@ model Message {
 }
 
 model Notification {
-  id        String           @id @default(uuid()) @db.Uuid
-  userId    String           @map("user_id") @db.Uuid
+  id        String           @id @default(cuid())
+  userId    String           @map("user_id")
   type      NotificationType
   title     String
   body      String?
@@ -376,10 +432,10 @@ model Notification {
 }
 
 model Review {
-  id         String   @id @default(uuid()) @db.Uuid
-  reviewerId String   @map("reviewer_id") @db.Uuid
-  companyId  String?  @map("company_id") @db.Uuid
-  listingId  String?  @map("listing_id") @db.Uuid
+  id         String   @id @default(cuid())
+  reviewerId String   @map("reviewer_id")
+  companyId  String?  @map("company_id")
+  listingId  String?  @map("listing_id")
   rating     Int
   title      String?
   content    String?
@@ -396,8 +452,8 @@ model Review {
 }
 
 model Meeting {
-  id            String               @id @default(uuid()) @db.Uuid
-  organizerId   String               @map("organizer_id") @db.Uuid
+  id            String               @id @default(cuid())
+  organizerId   String               @map("organizer_id")
   title         String
   description   String?
   meetingUrl    String?              @map("meeting_url")
@@ -410,9 +466,9 @@ model Meeting {
 }
 
 model MeetingParticipant {
-  id        String   @id @default(uuid()) @db.Uuid
-  meetingId String   @map("meeting_id") @db.Uuid
-  userId    String   @map("user_id") @db.Uuid
+  id        String   @id @default(cuid())
+  meetingId String   @map("meeting_id")
+  userId    String   @map("user_id")
   status    String   @default("pending")
 
   meeting   Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
@@ -423,7 +479,7 @@ model MeetingParticipant {
 }
 
 model SiteStat {
-  id    String @id @default(uuid()) @db.Uuid
+  id    String @id @default(cuid())
   value String
   label String
   sort  Int    @default(0)
@@ -432,7 +488,7 @@ model SiteStat {
 }
 
 model SiteContact {
-  id      String @id @default(uuid()) @db.Uuid
+  id      String @id @default(cuid())
   email   String
   phone   String
   address String
@@ -441,7 +497,7 @@ model SiteContact {
 }
 
 model AboutPage {
-  id      String @id @default(uuid()) @db.Uuid
+  id      String @id @default(cuid())
   section String @unique
   content String
 
@@ -449,7 +505,7 @@ model AboutPage {
 }
 
 model AboutTeam {
-  id   String @id @default(uuid()) @db.Uuid
+  id   String @id @default(cuid())
   name String
   role String
   bio  String?
@@ -459,7 +515,7 @@ model AboutTeam {
 }
 
 model AboutTimeline {
-  id    String @id @default(uuid()) @db.Uuid
+  id    String @id @default(cuid())
   year  String
   title String
   desc  String?
@@ -469,11 +525,11 @@ model AboutTimeline {
 }
 
 model AuditLog {
-  id        String   @id @default(uuid()) @db.Uuid
-  userId    String?  @map("user_id") @db.Uuid
+  id        String   @id @default(cuid())
+  userId    String?  @map("user_id")
   action    String
   tableName String?  @map("table_name")
-  recordId  String?  @map("record_id") @db.Uuid
+  recordId  String?  @map("record_id")
   oldData   Json?    @map("old_data") @db.JsonB
   newData   Json?    @map("new_data") @db.JsonB
   ipAddress String?  @map("ip_address")
@@ -486,39 +542,10 @@ model AuditLog {
   @@map("audit_log")
 }
 
-model Session {
-  id        String   @id @default(uuid()) @db.Uuid
-  userId    String   @map("user_id") @db.Uuid
-  token     String   @unique
-  expiresAt DateTime @map("expires_at") @db.Timestamptz
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
-
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([token])
-  @@index([userId])
-  @@map("sessions")
-}
-
-model VerificationToken {
-  id        String   @id @default(uuid()) @db.Uuid
-  userId    String   @map("user_id") @db.Uuid
-  type      String   // "email" or "phone"
-  token     String   @unique
-  expiresAt DateTime @map("expires_at") @db.Timestamptz
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
-
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([token])
-  @@index([userId])
-  @@map("verification_tokens")
-}
-
 model UserDocument {
-  id        String   @id @default(uuid()) @db.Uuid
-  userId    String   @map("user_id") @db.Uuid
-  type      String   // "business_registration", "company_logo", "resume", etc.
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  type      String
   url       String
   fileName  String   @map("file_name")
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz

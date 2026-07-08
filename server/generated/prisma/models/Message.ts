@@ -191,9 +191,9 @@ export type MessageWhereInput = {
   AND?: Prisma.MessageWhereInput | Prisma.MessageWhereInput[]
   OR?: Prisma.MessageWhereInput[]
   NOT?: Prisma.MessageWhereInput | Prisma.MessageWhereInput[]
-  id?: Prisma.UuidFilter<"Message"> | string
-  conversationId?: Prisma.UuidFilter<"Message"> | string
-  senderId?: Prisma.UuidFilter<"Message"> | string
+  id?: Prisma.StringFilter<"Message"> | string
+  conversationId?: Prisma.StringFilter<"Message"> | string
+  senderId?: Prisma.StringFilter<"Message"> | string
   content?: Prisma.StringFilter<"Message"> | string
   messageType?: Prisma.EnumMessageTypeFilter<"Message"> | $Enums.MessageType
   attachmentUrl?: Prisma.StringNullableFilter<"Message"> | string | null
@@ -219,8 +219,8 @@ export type MessageWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.MessageWhereInput | Prisma.MessageWhereInput[]
   OR?: Prisma.MessageWhereInput[]
   NOT?: Prisma.MessageWhereInput | Prisma.MessageWhereInput[]
-  conversationId?: Prisma.UuidFilter<"Message"> | string
-  senderId?: Prisma.UuidFilter<"Message"> | string
+  conversationId?: Prisma.StringFilter<"Message"> | string
+  senderId?: Prisma.StringFilter<"Message"> | string
   content?: Prisma.StringFilter<"Message"> | string
   messageType?: Prisma.EnumMessageTypeFilter<"Message"> | $Enums.MessageType
   attachmentUrl?: Prisma.StringNullableFilter<"Message"> | string | null
@@ -246,9 +246,9 @@ export type MessageScalarWhereWithAggregatesInput = {
   AND?: Prisma.MessageScalarWhereWithAggregatesInput | Prisma.MessageScalarWhereWithAggregatesInput[]
   OR?: Prisma.MessageScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MessageScalarWhereWithAggregatesInput | Prisma.MessageScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Message"> | string
-  conversationId?: Prisma.UuidWithAggregatesFilter<"Message"> | string
-  senderId?: Prisma.UuidWithAggregatesFilter<"Message"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Message"> | string
+  conversationId?: Prisma.StringWithAggregatesFilter<"Message"> | string
+  senderId?: Prisma.StringWithAggregatesFilter<"Message"> | string
   content?: Prisma.StringWithAggregatesFilter<"Message"> | string
   messageType?: Prisma.EnumMessageTypeWithAggregatesFilter<"Message"> | $Enums.MessageType
   attachmentUrl?: Prisma.StringNullableWithAggregatesFilter<"Message"> | string | null
@@ -499,9 +499,9 @@ export type MessageScalarWhereInput = {
   AND?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
   OR?: Prisma.MessageScalarWhereInput[]
   NOT?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Message"> | string
-  conversationId?: Prisma.UuidFilter<"Message"> | string
-  senderId?: Prisma.UuidFilter<"Message"> | string
+  id?: Prisma.StringFilter<"Message"> | string
+  conversationId?: Prisma.StringFilter<"Message"> | string
+  senderId?: Prisma.StringFilter<"Message"> | string
   content?: Prisma.StringFilter<"Message"> | string
   messageType?: Prisma.EnumMessageTypeFilter<"Message"> | $Enums.MessageType
   attachmentUrl?: Prisma.StringNullableFilter<"Message"> | string | null

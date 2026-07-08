@@ -198,8 +198,8 @@ export type MeetingWhereInput = {
   AND?: Prisma.MeetingWhereInput | Prisma.MeetingWhereInput[]
   OR?: Prisma.MeetingWhereInput[]
   NOT?: Prisma.MeetingWhereInput | Prisma.MeetingWhereInput[]
-  id?: Prisma.UuidFilter<"Meeting"> | string
-  organizerId?: Prisma.UuidFilter<"Meeting"> | string
+  id?: Prisma.StringFilter<"Meeting"> | string
+  organizerId?: Prisma.StringFilter<"Meeting"> | string
   title?: Prisma.StringFilter<"Meeting"> | string
   description?: Prisma.StringNullableFilter<"Meeting"> | string | null
   meetingUrl?: Prisma.StringNullableFilter<"Meeting"> | string | null
@@ -228,7 +228,7 @@ export type MeetingWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.MeetingWhereInput | Prisma.MeetingWhereInput[]
   OR?: Prisma.MeetingWhereInput[]
   NOT?: Prisma.MeetingWhereInput | Prisma.MeetingWhereInput[]
-  organizerId?: Prisma.UuidFilter<"Meeting"> | string
+  organizerId?: Prisma.StringFilter<"Meeting"> | string
   title?: Prisma.StringFilter<"Meeting"> | string
   description?: Prisma.StringNullableFilter<"Meeting"> | string | null
   meetingUrl?: Prisma.StringNullableFilter<"Meeting"> | string | null
@@ -257,8 +257,8 @@ export type MeetingScalarWhereWithAggregatesInput = {
   AND?: Prisma.MeetingScalarWhereWithAggregatesInput | Prisma.MeetingScalarWhereWithAggregatesInput[]
   OR?: Prisma.MeetingScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MeetingScalarWhereWithAggregatesInput | Prisma.MeetingScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Meeting"> | string
-  organizerId?: Prisma.UuidWithAggregatesFilter<"Meeting"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Meeting"> | string
+  organizerId?: Prisma.StringWithAggregatesFilter<"Meeting"> | string
   title?: Prisma.StringWithAggregatesFilter<"Meeting"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Meeting"> | string | null
   meetingUrl?: Prisma.StringNullableWithAggregatesFilter<"Meeting"> | string | null
@@ -503,8 +503,8 @@ export type MeetingScalarWhereInput = {
   AND?: Prisma.MeetingScalarWhereInput | Prisma.MeetingScalarWhereInput[]
   OR?: Prisma.MeetingScalarWhereInput[]
   NOT?: Prisma.MeetingScalarWhereInput | Prisma.MeetingScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Meeting"> | string
-  organizerId?: Prisma.UuidFilter<"Meeting"> | string
+  id?: Prisma.StringFilter<"Meeting"> | string
+  organizerId?: Prisma.StringFilter<"Meeting"> | string
   title?: Prisma.StringFilter<"Meeting"> | string
   description?: Prisma.StringNullableFilter<"Meeting"> | string | null
   meetingUrl?: Prisma.StringNullableFilter<"Meeting"> | string | null

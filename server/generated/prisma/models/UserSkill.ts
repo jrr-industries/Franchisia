@@ -163,8 +163,8 @@ export type UserSkillWhereInput = {
   AND?: Prisma.UserSkillWhereInput | Prisma.UserSkillWhereInput[]
   OR?: Prisma.UserSkillWhereInput[]
   NOT?: Prisma.UserSkillWhereInput | Prisma.UserSkillWhereInput[]
-  id?: Prisma.UuidFilter<"UserSkill"> | string
-  userId?: Prisma.UuidFilter<"UserSkill"> | string
+  id?: Prisma.StringFilter<"UserSkill"> | string
+  userId?: Prisma.StringFilter<"UserSkill"> | string
   skill?: Prisma.StringFilter<"UserSkill"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -182,7 +182,7 @@ export type UserSkillWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserSkillWhereInput | Prisma.UserSkillWhereInput[]
   OR?: Prisma.UserSkillWhereInput[]
   NOT?: Prisma.UserSkillWhereInput | Prisma.UserSkillWhereInput[]
-  userId?: Prisma.UuidFilter<"UserSkill"> | string
+  userId?: Prisma.StringFilter<"UserSkill"> | string
   skill?: Prisma.StringFilter<"UserSkill"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_skill">
@@ -200,8 +200,8 @@ export type UserSkillScalarWhereWithAggregatesInput = {
   AND?: Prisma.UserSkillScalarWhereWithAggregatesInput | Prisma.UserSkillScalarWhereWithAggregatesInput[]
   OR?: Prisma.UserSkillScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserSkillScalarWhereWithAggregatesInput | Prisma.UserSkillScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"UserSkill"> | string
-  userId?: Prisma.UuidWithAggregatesFilter<"UserSkill"> | string
+  id?: Prisma.StringWithAggregatesFilter<"UserSkill"> | string
+  userId?: Prisma.StringWithAggregatesFilter<"UserSkill"> | string
   skill?: Prisma.StringWithAggregatesFilter<"UserSkill"> | string
 }
 
@@ -361,8 +361,8 @@ export type UserSkillScalarWhereInput = {
   AND?: Prisma.UserSkillScalarWhereInput | Prisma.UserSkillScalarWhereInput[]
   OR?: Prisma.UserSkillScalarWhereInput[]
   NOT?: Prisma.UserSkillScalarWhereInput | Prisma.UserSkillScalarWhereInput[]
-  id?: Prisma.UuidFilter<"UserSkill"> | string
-  userId?: Prisma.UuidFilter<"UserSkill"> | string
+  id?: Prisma.StringFilter<"UserSkill"> | string
+  userId?: Prisma.StringFilter<"UserSkill"> | string
   skill?: Prisma.StringFilter<"UserSkill"> | string
 }
 

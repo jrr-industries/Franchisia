@@ -205,8 +205,8 @@ export type UserExperienceWhereInput = {
   AND?: Prisma.UserExperienceWhereInput | Prisma.UserExperienceWhereInput[]
   OR?: Prisma.UserExperienceWhereInput[]
   NOT?: Prisma.UserExperienceWhereInput | Prisma.UserExperienceWhereInput[]
-  id?: Prisma.UuidFilter<"UserExperience"> | string
-  userId?: Prisma.UuidFilter<"UserExperience"> | string
+  id?: Prisma.StringFilter<"UserExperience"> | string
+  userId?: Prisma.StringFilter<"UserExperience"> | string
   company?: Prisma.StringFilter<"UserExperience"> | string
   role?: Prisma.StringFilter<"UserExperience"> | string
   description?: Prisma.StringNullableFilter<"UserExperience"> | string | null
@@ -235,7 +235,7 @@ export type UserExperienceWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserExperienceWhereInput | Prisma.UserExperienceWhereInput[]
   OR?: Prisma.UserExperienceWhereInput[]
   NOT?: Prisma.UserExperienceWhereInput | Prisma.UserExperienceWhereInput[]
-  userId?: Prisma.UuidFilter<"UserExperience"> | string
+  userId?: Prisma.StringFilter<"UserExperience"> | string
   company?: Prisma.StringFilter<"UserExperience"> | string
   role?: Prisma.StringFilter<"UserExperience"> | string
   description?: Prisma.StringNullableFilter<"UserExperience"> | string | null
@@ -265,8 +265,8 @@ export type UserExperienceScalarWhereWithAggregatesInput = {
   AND?: Prisma.UserExperienceScalarWhereWithAggregatesInput | Prisma.UserExperienceScalarWhereWithAggregatesInput[]
   OR?: Prisma.UserExperienceScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserExperienceScalarWhereWithAggregatesInput | Prisma.UserExperienceScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"UserExperience"> | string
-  userId?: Prisma.UuidWithAggregatesFilter<"UserExperience"> | string
+  id?: Prisma.StringWithAggregatesFilter<"UserExperience"> | string
+  userId?: Prisma.StringWithAggregatesFilter<"UserExperience"> | string
   company?: Prisma.StringWithAggregatesFilter<"UserExperience"> | string
   role?: Prisma.StringWithAggregatesFilter<"UserExperience"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"UserExperience"> | string | null
@@ -499,8 +499,8 @@ export type UserExperienceScalarWhereInput = {
   AND?: Prisma.UserExperienceScalarWhereInput | Prisma.UserExperienceScalarWhereInput[]
   OR?: Prisma.UserExperienceScalarWhereInput[]
   NOT?: Prisma.UserExperienceScalarWhereInput | Prisma.UserExperienceScalarWhereInput[]
-  id?: Prisma.UuidFilter<"UserExperience"> | string
-  userId?: Prisma.UuidFilter<"UserExperience"> | string
+  id?: Prisma.StringFilter<"UserExperience"> | string
+  userId?: Prisma.StringFilter<"UserExperience"> | string
   company?: Prisma.StringFilter<"UserExperience"> | string
   role?: Prisma.StringFilter<"UserExperience"> | string
   description?: Prisma.StringNullableFilter<"UserExperience"> | string | null

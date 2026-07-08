@@ -163,8 +163,8 @@ export type UserInterestWhereInput = {
   AND?: Prisma.UserInterestWhereInput | Prisma.UserInterestWhereInput[]
   OR?: Prisma.UserInterestWhereInput[]
   NOT?: Prisma.UserInterestWhereInput | Prisma.UserInterestWhereInput[]
-  id?: Prisma.UuidFilter<"UserInterest"> | string
-  userId?: Prisma.UuidFilter<"UserInterest"> | string
+  id?: Prisma.StringFilter<"UserInterest"> | string
+  userId?: Prisma.StringFilter<"UserInterest"> | string
   interest?: Prisma.StringFilter<"UserInterest"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -182,7 +182,7 @@ export type UserInterestWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserInterestWhereInput | Prisma.UserInterestWhereInput[]
   OR?: Prisma.UserInterestWhereInput[]
   NOT?: Prisma.UserInterestWhereInput | Prisma.UserInterestWhereInput[]
-  userId?: Prisma.UuidFilter<"UserInterest"> | string
+  userId?: Prisma.StringFilter<"UserInterest"> | string
   interest?: Prisma.StringFilter<"UserInterest"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_interest">
@@ -200,8 +200,8 @@ export type UserInterestScalarWhereWithAggregatesInput = {
   AND?: Prisma.UserInterestScalarWhereWithAggregatesInput | Prisma.UserInterestScalarWhereWithAggregatesInput[]
   OR?: Prisma.UserInterestScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserInterestScalarWhereWithAggregatesInput | Prisma.UserInterestScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"UserInterest"> | string
-  userId?: Prisma.UuidWithAggregatesFilter<"UserInterest"> | string
+  id?: Prisma.StringWithAggregatesFilter<"UserInterest"> | string
+  userId?: Prisma.StringWithAggregatesFilter<"UserInterest"> | string
   interest?: Prisma.StringWithAggregatesFilter<"UserInterest"> | string
 }
 
@@ -361,8 +361,8 @@ export type UserInterestScalarWhereInput = {
   AND?: Prisma.UserInterestScalarWhereInput | Prisma.UserInterestScalarWhereInput[]
   OR?: Prisma.UserInterestScalarWhereInput[]
   NOT?: Prisma.UserInterestScalarWhereInput | Prisma.UserInterestScalarWhereInput[]
-  id?: Prisma.UuidFilter<"UserInterest"> | string
-  userId?: Prisma.UuidFilter<"UserInterest"> | string
+  id?: Prisma.StringFilter<"UserInterest"> | string
+  userId?: Prisma.StringFilter<"UserInterest"> | string
   interest?: Prisma.StringFilter<"UserInterest"> | string
 }
 

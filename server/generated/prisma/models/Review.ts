@@ -239,10 +239,10 @@ export type ReviewWhereInput = {
   AND?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
   OR?: Prisma.ReviewWhereInput[]
   NOT?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
-  id?: Prisma.UuidFilter<"Review"> | string
-  reviewerId?: Prisma.UuidFilter<"Review"> | string
-  companyId?: Prisma.UuidNullableFilter<"Review"> | string | null
-  listingId?: Prisma.UuidNullableFilter<"Review"> | string | null
+  id?: Prisma.StringFilter<"Review"> | string
+  reviewerId?: Prisma.StringFilter<"Review"> | string
+  companyId?: Prisma.StringNullableFilter<"Review"> | string | null
+  listingId?: Prisma.StringNullableFilter<"Review"> | string | null
   rating?: Prisma.IntFilter<"Review"> | number
   title?: Prisma.StringNullableFilter<"Review"> | string | null
   content?: Prisma.StringNullableFilter<"Review"> | string | null
@@ -273,9 +273,9 @@ export type ReviewWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
   OR?: Prisma.ReviewWhereInput[]
   NOT?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
-  reviewerId?: Prisma.UuidFilter<"Review"> | string
-  companyId?: Prisma.UuidNullableFilter<"Review"> | string | null
-  listingId?: Prisma.UuidNullableFilter<"Review"> | string | null
+  reviewerId?: Prisma.StringFilter<"Review"> | string
+  companyId?: Prisma.StringNullableFilter<"Review"> | string | null
+  listingId?: Prisma.StringNullableFilter<"Review"> | string | null
   rating?: Prisma.IntFilter<"Review"> | number
   title?: Prisma.StringNullableFilter<"Review"> | string | null
   content?: Prisma.StringNullableFilter<"Review"> | string | null
@@ -307,10 +307,10 @@ export type ReviewScalarWhereWithAggregatesInput = {
   AND?: Prisma.ReviewScalarWhereWithAggregatesInput | Prisma.ReviewScalarWhereWithAggregatesInput[]
   OR?: Prisma.ReviewScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ReviewScalarWhereWithAggregatesInput | Prisma.ReviewScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Review"> | string
-  reviewerId?: Prisma.UuidWithAggregatesFilter<"Review"> | string
-  companyId?: Prisma.UuidNullableWithAggregatesFilter<"Review"> | string | null
-  listingId?: Prisma.UuidNullableWithAggregatesFilter<"Review"> | string | null
+  id?: Prisma.StringWithAggregatesFilter<"Review"> | string
+  reviewerId?: Prisma.StringWithAggregatesFilter<"Review"> | string
+  companyId?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
+  listingId?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
   rating?: Prisma.IntWithAggregatesFilter<"Review"> | number
   title?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
   content?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
@@ -631,10 +631,10 @@ export type ReviewScalarWhereInput = {
   AND?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
   OR?: Prisma.ReviewScalarWhereInput[]
   NOT?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Review"> | string
-  reviewerId?: Prisma.UuidFilter<"Review"> | string
-  companyId?: Prisma.UuidNullableFilter<"Review"> | string | null
-  listingId?: Prisma.UuidNullableFilter<"Review"> | string | null
+  id?: Prisma.StringFilter<"Review"> | string
+  reviewerId?: Prisma.StringFilter<"Review"> | string
+  companyId?: Prisma.StringNullableFilter<"Review"> | string | null
+  listingId?: Prisma.StringNullableFilter<"Review"> | string | null
   rating?: Prisma.IntFilter<"Review"> | number
   title?: Prisma.StringNullableFilter<"Review"> | string | null
   content?: Prisma.StringNullableFilter<"Review"> | string | null

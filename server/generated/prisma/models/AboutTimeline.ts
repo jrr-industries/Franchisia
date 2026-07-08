@@ -211,7 +211,7 @@ export type AboutTimelineWhereInput = {
   AND?: Prisma.AboutTimelineWhereInput | Prisma.AboutTimelineWhereInput[]
   OR?: Prisma.AboutTimelineWhereInput[]
   NOT?: Prisma.AboutTimelineWhereInput | Prisma.AboutTimelineWhereInput[]
-  id?: Prisma.UuidFilter<"AboutTimeline"> | string
+  id?: Prisma.StringFilter<"AboutTimeline"> | string
   year?: Prisma.StringFilter<"AboutTimeline"> | string
   title?: Prisma.StringFilter<"AboutTimeline"> | string
   desc?: Prisma.StringNullableFilter<"AboutTimeline"> | string | null
@@ -254,7 +254,7 @@ export type AboutTimelineScalarWhereWithAggregatesInput = {
   AND?: Prisma.AboutTimelineScalarWhereWithAggregatesInput | Prisma.AboutTimelineScalarWhereWithAggregatesInput[]
   OR?: Prisma.AboutTimelineScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AboutTimelineScalarWhereWithAggregatesInput | Prisma.AboutTimelineScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"AboutTimeline"> | string
+  id?: Prisma.StringWithAggregatesFilter<"AboutTimeline"> | string
   year?: Prisma.StringWithAggregatesFilter<"AboutTimeline"> | string
   title?: Prisma.StringWithAggregatesFilter<"AboutTimeline"> | string
   desc?: Prisma.StringNullableWithAggregatesFilter<"AboutTimeline"> | string | null

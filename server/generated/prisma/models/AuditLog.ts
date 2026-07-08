@@ -197,11 +197,11 @@ export type AuditLogWhereInput = {
   AND?: Prisma.AuditLogWhereInput | Prisma.AuditLogWhereInput[]
   OR?: Prisma.AuditLogWhereInput[]
   NOT?: Prisma.AuditLogWhereInput | Prisma.AuditLogWhereInput[]
-  id?: Prisma.UuidFilter<"AuditLog"> | string
-  userId?: Prisma.UuidNullableFilter<"AuditLog"> | string | null
+  id?: Prisma.StringFilter<"AuditLog"> | string
+  userId?: Prisma.StringNullableFilter<"AuditLog"> | string | null
   action?: Prisma.StringFilter<"AuditLog"> | string
   tableName?: Prisma.StringNullableFilter<"AuditLog"> | string | null
-  recordId?: Prisma.UuidNullableFilter<"AuditLog"> | string | null
+  recordId?: Prisma.StringNullableFilter<"AuditLog"> | string | null
   oldData?: Prisma.JsonNullableFilter<"AuditLog">
   newData?: Prisma.JsonNullableFilter<"AuditLog">
   ipAddress?: Prisma.StringNullableFilter<"AuditLog"> | string | null
@@ -227,10 +227,10 @@ export type AuditLogWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.AuditLogWhereInput | Prisma.AuditLogWhereInput[]
   OR?: Prisma.AuditLogWhereInput[]
   NOT?: Prisma.AuditLogWhereInput | Prisma.AuditLogWhereInput[]
-  userId?: Prisma.UuidNullableFilter<"AuditLog"> | string | null
+  userId?: Prisma.StringNullableFilter<"AuditLog"> | string | null
   action?: Prisma.StringFilter<"AuditLog"> | string
   tableName?: Prisma.StringNullableFilter<"AuditLog"> | string | null
-  recordId?: Prisma.UuidNullableFilter<"AuditLog"> | string | null
+  recordId?: Prisma.StringNullableFilter<"AuditLog"> | string | null
   oldData?: Prisma.JsonNullableFilter<"AuditLog">
   newData?: Prisma.JsonNullableFilter<"AuditLog">
   ipAddress?: Prisma.StringNullableFilter<"AuditLog"> | string | null
@@ -257,11 +257,11 @@ export type AuditLogScalarWhereWithAggregatesInput = {
   AND?: Prisma.AuditLogScalarWhereWithAggregatesInput | Prisma.AuditLogScalarWhereWithAggregatesInput[]
   OR?: Prisma.AuditLogScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AuditLogScalarWhereWithAggregatesInput | Prisma.AuditLogScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"AuditLog"> | string
-  userId?: Prisma.UuidNullableWithAggregatesFilter<"AuditLog"> | string | null
+  id?: Prisma.StringWithAggregatesFilter<"AuditLog"> | string
+  userId?: Prisma.StringNullableWithAggregatesFilter<"AuditLog"> | string | null
   action?: Prisma.StringWithAggregatesFilter<"AuditLog"> | string
   tableName?: Prisma.StringNullableWithAggregatesFilter<"AuditLog"> | string | null
-  recordId?: Prisma.UuidNullableWithAggregatesFilter<"AuditLog"> | string | null
+  recordId?: Prisma.StringNullableWithAggregatesFilter<"AuditLog"> | string | null
   oldData?: Prisma.JsonNullableWithAggregatesFilter<"AuditLog">
   newData?: Prisma.JsonNullableWithAggregatesFilter<"AuditLog">
   ipAddress?: Prisma.StringNullableWithAggregatesFilter<"AuditLog"> | string | null
@@ -487,11 +487,11 @@ export type AuditLogScalarWhereInput = {
   AND?: Prisma.AuditLogScalarWhereInput | Prisma.AuditLogScalarWhereInput[]
   OR?: Prisma.AuditLogScalarWhereInput[]
   NOT?: Prisma.AuditLogScalarWhereInput | Prisma.AuditLogScalarWhereInput[]
-  id?: Prisma.UuidFilter<"AuditLog"> | string
-  userId?: Prisma.UuidNullableFilter<"AuditLog"> | string | null
+  id?: Prisma.StringFilter<"AuditLog"> | string
+  userId?: Prisma.StringNullableFilter<"AuditLog"> | string | null
   action?: Prisma.StringFilter<"AuditLog"> | string
   tableName?: Prisma.StringNullableFilter<"AuditLog"> | string | null
-  recordId?: Prisma.UuidNullableFilter<"AuditLog"> | string | null
+  recordId?: Prisma.StringNullableFilter<"AuditLog"> | string | null
   oldData?: Prisma.JsonNullableFilter<"AuditLog">
   newData?: Prisma.JsonNullableFilter<"AuditLog">
   ipAddress?: Prisma.StringNullableFilter<"AuditLog"> | string | null

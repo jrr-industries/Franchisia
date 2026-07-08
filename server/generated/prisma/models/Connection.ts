@@ -170,9 +170,9 @@ export type ConnectionWhereInput = {
   AND?: Prisma.ConnectionWhereInput | Prisma.ConnectionWhereInput[]
   OR?: Prisma.ConnectionWhereInput[]
   NOT?: Prisma.ConnectionWhereInput | Prisma.ConnectionWhereInput[]
-  id?: Prisma.UuidFilter<"Connection"> | string
-  followerId?: Prisma.UuidFilter<"Connection"> | string
-  followingId?: Prisma.UuidFilter<"Connection"> | string
+  id?: Prisma.StringFilter<"Connection"> | string
+  followerId?: Prisma.StringFilter<"Connection"> | string
+  followingId?: Prisma.StringFilter<"Connection"> | string
   createdAt?: Prisma.DateTimeFilter<"Connection"> | Date | string
   follower?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   following?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -193,8 +193,8 @@ export type ConnectionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ConnectionWhereInput | Prisma.ConnectionWhereInput[]
   OR?: Prisma.ConnectionWhereInput[]
   NOT?: Prisma.ConnectionWhereInput | Prisma.ConnectionWhereInput[]
-  followerId?: Prisma.UuidFilter<"Connection"> | string
-  followingId?: Prisma.UuidFilter<"Connection"> | string
+  followerId?: Prisma.StringFilter<"Connection"> | string
+  followingId?: Prisma.StringFilter<"Connection"> | string
   createdAt?: Prisma.DateTimeFilter<"Connection"> | Date | string
   follower?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   following?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -214,9 +214,9 @@ export type ConnectionScalarWhereWithAggregatesInput = {
   AND?: Prisma.ConnectionScalarWhereWithAggregatesInput | Prisma.ConnectionScalarWhereWithAggregatesInput[]
   OR?: Prisma.ConnectionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ConnectionScalarWhereWithAggregatesInput | Prisma.ConnectionScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Connection"> | string
-  followerId?: Prisma.UuidWithAggregatesFilter<"Connection"> | string
-  followingId?: Prisma.UuidWithAggregatesFilter<"Connection"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Connection"> | string
+  followerId?: Prisma.StringWithAggregatesFilter<"Connection"> | string
+  followingId?: Prisma.StringWithAggregatesFilter<"Connection"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Connection"> | Date | string
 }
 
@@ -451,9 +451,9 @@ export type ConnectionScalarWhereInput = {
   AND?: Prisma.ConnectionScalarWhereInput | Prisma.ConnectionScalarWhereInput[]
   OR?: Prisma.ConnectionScalarWhereInput[]
   NOT?: Prisma.ConnectionScalarWhereInput | Prisma.ConnectionScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Connection"> | string
-  followerId?: Prisma.UuidFilter<"Connection"> | string
-  followingId?: Prisma.UuidFilter<"Connection"> | string
+  id?: Prisma.StringFilter<"Connection"> | string
+  followerId?: Prisma.StringFilter<"Connection"> | string
+  followingId?: Prisma.StringFilter<"Connection"> | string
   createdAt?: Prisma.DateTimeFilter<"Connection"> | Date | string
 }
 

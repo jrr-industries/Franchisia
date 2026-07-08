@@ -170,9 +170,9 @@ export type CompanyFollowerWhereInput = {
   AND?: Prisma.CompanyFollowerWhereInput | Prisma.CompanyFollowerWhereInput[]
   OR?: Prisma.CompanyFollowerWhereInput[]
   NOT?: Prisma.CompanyFollowerWhereInput | Prisma.CompanyFollowerWhereInput[]
-  id?: Prisma.UuidFilter<"CompanyFollower"> | string
-  userId?: Prisma.UuidFilter<"CompanyFollower"> | string
-  companyId?: Prisma.UuidFilter<"CompanyFollower"> | string
+  id?: Prisma.StringFilter<"CompanyFollower"> | string
+  userId?: Prisma.StringFilter<"CompanyFollower"> | string
+  companyId?: Prisma.StringFilter<"CompanyFollower"> | string
   createdAt?: Prisma.DateTimeFilter<"CompanyFollower"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -193,8 +193,8 @@ export type CompanyFollowerWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.CompanyFollowerWhereInput | Prisma.CompanyFollowerWhereInput[]
   OR?: Prisma.CompanyFollowerWhereInput[]
   NOT?: Prisma.CompanyFollowerWhereInput | Prisma.CompanyFollowerWhereInput[]
-  userId?: Prisma.UuidFilter<"CompanyFollower"> | string
-  companyId?: Prisma.UuidFilter<"CompanyFollower"> | string
+  userId?: Prisma.StringFilter<"CompanyFollower"> | string
+  companyId?: Prisma.StringFilter<"CompanyFollower"> | string
   createdAt?: Prisma.DateTimeFilter<"CompanyFollower"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -214,9 +214,9 @@ export type CompanyFollowerScalarWhereWithAggregatesInput = {
   AND?: Prisma.CompanyFollowerScalarWhereWithAggregatesInput | Prisma.CompanyFollowerScalarWhereWithAggregatesInput[]
   OR?: Prisma.CompanyFollowerScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CompanyFollowerScalarWhereWithAggregatesInput | Prisma.CompanyFollowerScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CompanyFollower"> | string
-  userId?: Prisma.UuidWithAggregatesFilter<"CompanyFollower"> | string
-  companyId?: Prisma.UuidWithAggregatesFilter<"CompanyFollower"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CompanyFollower"> | string
+  userId?: Prisma.StringWithAggregatesFilter<"CompanyFollower"> | string
+  companyId?: Prisma.StringWithAggregatesFilter<"CompanyFollower"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CompanyFollower"> | Date | string
 }
 
@@ -429,9 +429,9 @@ export type CompanyFollowerScalarWhereInput = {
   AND?: Prisma.CompanyFollowerScalarWhereInput | Prisma.CompanyFollowerScalarWhereInput[]
   OR?: Prisma.CompanyFollowerScalarWhereInput[]
   NOT?: Prisma.CompanyFollowerScalarWhereInput | Prisma.CompanyFollowerScalarWhereInput[]
-  id?: Prisma.UuidFilter<"CompanyFollower"> | string
-  userId?: Prisma.UuidFilter<"CompanyFollower"> | string
-  companyId?: Prisma.UuidFilter<"CompanyFollower"> | string
+  id?: Prisma.StringFilter<"CompanyFollower"> | string
+  userId?: Prisma.StringFilter<"CompanyFollower"> | string
+  companyId?: Prisma.StringFilter<"CompanyFollower"> | string
   createdAt?: Prisma.DateTimeFilter<"CompanyFollower"> | Date | string
 }
 

@@ -338,8 +338,8 @@ export type CompanyWhereInput = {
   AND?: Prisma.CompanyWhereInput | Prisma.CompanyWhereInput[]
   OR?: Prisma.CompanyWhereInput[]
   NOT?: Prisma.CompanyWhereInput | Prisma.CompanyWhereInput[]
-  id?: Prisma.UuidFilter<"Company"> | string
-  ownerId?: Prisma.UuidFilter<"Company"> | string
+  id?: Prisma.StringFilter<"Company"> | string
+  ownerId?: Prisma.StringFilter<"Company"> | string
   name?: Prisma.StringFilter<"Company"> | string
   slug?: Prisma.StringFilter<"Company"> | string
   logoUrl?: Prisma.StringNullableFilter<"Company"> | string | null
@@ -401,7 +401,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.CompanyWhereInput | Prisma.CompanyWhereInput[]
   OR?: Prisma.CompanyWhereInput[]
   NOT?: Prisma.CompanyWhereInput | Prisma.CompanyWhereInput[]
-  ownerId?: Prisma.UuidFilter<"Company"> | string
+  ownerId?: Prisma.StringFilter<"Company"> | string
   name?: Prisma.StringFilter<"Company"> | string
   logoUrl?: Prisma.StringNullableFilter<"Company"> | string | null
   bannerUrl?: Prisma.StringNullableFilter<"Company"> | string | null
@@ -461,8 +461,8 @@ export type CompanyScalarWhereWithAggregatesInput = {
   AND?: Prisma.CompanyScalarWhereWithAggregatesInput | Prisma.CompanyScalarWhereWithAggregatesInput[]
   OR?: Prisma.CompanyScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CompanyScalarWhereWithAggregatesInput | Prisma.CompanyScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Company"> | string
-  ownerId?: Prisma.UuidWithAggregatesFilter<"Company"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Company"> | string
+  ownerId?: Prisma.StringWithAggregatesFilter<"Company"> | string
   name?: Prisma.StringWithAggregatesFilter<"Company"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Company"> | string
   logoUrl?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
@@ -960,8 +960,8 @@ export type CompanyScalarWhereInput = {
   AND?: Prisma.CompanyScalarWhereInput | Prisma.CompanyScalarWhereInput[]
   OR?: Prisma.CompanyScalarWhereInput[]
   NOT?: Prisma.CompanyScalarWhereInput | Prisma.CompanyScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Company"> | string
-  ownerId?: Prisma.UuidFilter<"Company"> | string
+  id?: Prisma.StringFilter<"Company"> | string
+  ownerId?: Prisma.StringFilter<"Company"> | string
   name?: Prisma.StringFilter<"Company"> | string
   slug?: Prisma.StringFilter<"Company"> | string
   logoUrl?: Prisma.StringNullableFilter<"Company"> | string | null

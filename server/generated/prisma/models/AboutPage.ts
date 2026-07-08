@@ -163,7 +163,7 @@ export type AboutPageWhereInput = {
   AND?: Prisma.AboutPageWhereInput | Prisma.AboutPageWhereInput[]
   OR?: Prisma.AboutPageWhereInput[]
   NOT?: Prisma.AboutPageWhereInput | Prisma.AboutPageWhereInput[]
-  id?: Prisma.UuidFilter<"AboutPage"> | string
+  id?: Prisma.StringFilter<"AboutPage"> | string
   section?: Prisma.StringFilter<"AboutPage"> | string
   content?: Prisma.StringFilter<"AboutPage"> | string
 }
@@ -196,7 +196,7 @@ export type AboutPageScalarWhereWithAggregatesInput = {
   AND?: Prisma.AboutPageScalarWhereWithAggregatesInput | Prisma.AboutPageScalarWhereWithAggregatesInput[]
   OR?: Prisma.AboutPageScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AboutPageScalarWhereWithAggregatesInput | Prisma.AboutPageScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"AboutPage"> | string
+  id?: Prisma.StringWithAggregatesFilter<"AboutPage"> | string
   section?: Prisma.StringWithAggregatesFilter<"AboutPage"> | string
   content?: Prisma.StringWithAggregatesFilter<"AboutPage"> | string
 }

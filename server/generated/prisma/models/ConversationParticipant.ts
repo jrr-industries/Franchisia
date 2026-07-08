@@ -170,9 +170,9 @@ export type ConversationParticipantWhereInput = {
   AND?: Prisma.ConversationParticipantWhereInput | Prisma.ConversationParticipantWhereInput[]
   OR?: Prisma.ConversationParticipantWhereInput[]
   NOT?: Prisma.ConversationParticipantWhereInput | Prisma.ConversationParticipantWhereInput[]
-  id?: Prisma.UuidFilter<"ConversationParticipant"> | string
-  conversationId?: Prisma.UuidFilter<"ConversationParticipant"> | string
-  userId?: Prisma.UuidFilter<"ConversationParticipant"> | string
+  id?: Prisma.StringFilter<"ConversationParticipant"> | string
+  conversationId?: Prisma.StringFilter<"ConversationParticipant"> | string
+  userId?: Prisma.StringFilter<"ConversationParticipant"> | string
   lastReadAt?: Prisma.DateTimeNullableFilter<"ConversationParticipant"> | Date | string | null
   conversation?: Prisma.XOR<Prisma.ConversationScalarRelationFilter, Prisma.ConversationWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -193,8 +193,8 @@ export type ConversationParticipantWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ConversationParticipantWhereInput | Prisma.ConversationParticipantWhereInput[]
   OR?: Prisma.ConversationParticipantWhereInput[]
   NOT?: Prisma.ConversationParticipantWhereInput | Prisma.ConversationParticipantWhereInput[]
-  conversationId?: Prisma.UuidFilter<"ConversationParticipant"> | string
-  userId?: Prisma.UuidFilter<"ConversationParticipant"> | string
+  conversationId?: Prisma.StringFilter<"ConversationParticipant"> | string
+  userId?: Prisma.StringFilter<"ConversationParticipant"> | string
   lastReadAt?: Prisma.DateTimeNullableFilter<"ConversationParticipant"> | Date | string | null
   conversation?: Prisma.XOR<Prisma.ConversationScalarRelationFilter, Prisma.ConversationWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -214,9 +214,9 @@ export type ConversationParticipantScalarWhereWithAggregatesInput = {
   AND?: Prisma.ConversationParticipantScalarWhereWithAggregatesInput | Prisma.ConversationParticipantScalarWhereWithAggregatesInput[]
   OR?: Prisma.ConversationParticipantScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ConversationParticipantScalarWhereWithAggregatesInput | Prisma.ConversationParticipantScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"ConversationParticipant"> | string
-  conversationId?: Prisma.UuidWithAggregatesFilter<"ConversationParticipant"> | string
-  userId?: Prisma.UuidWithAggregatesFilter<"ConversationParticipant"> | string
+  id?: Prisma.StringWithAggregatesFilter<"ConversationParticipant"> | string
+  conversationId?: Prisma.StringWithAggregatesFilter<"ConversationParticipant"> | string
+  userId?: Prisma.StringWithAggregatesFilter<"ConversationParticipant"> | string
   lastReadAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ConversationParticipant"> | Date | string | null
 }
 
@@ -429,9 +429,9 @@ export type ConversationParticipantScalarWhereInput = {
   AND?: Prisma.ConversationParticipantScalarWhereInput | Prisma.ConversationParticipantScalarWhereInput[]
   OR?: Prisma.ConversationParticipantScalarWhereInput[]
   NOT?: Prisma.ConversationParticipantScalarWhereInput | Prisma.ConversationParticipantScalarWhereInput[]
-  id?: Prisma.UuidFilter<"ConversationParticipant"> | string
-  conversationId?: Prisma.UuidFilter<"ConversationParticipant"> | string
-  userId?: Prisma.UuidFilter<"ConversationParticipant"> | string
+  id?: Prisma.StringFilter<"ConversationParticipant"> | string
+  conversationId?: Prisma.StringFilter<"ConversationParticipant"> | string
+  userId?: Prisma.StringFilter<"ConversationParticipant"> | string
   lastReadAt?: Prisma.DateTimeNullableFilter<"ConversationParticipant"> | Date | string | null
 }
 

@@ -211,7 +211,7 @@ export type AboutTeamWhereInput = {
   AND?: Prisma.AboutTeamWhereInput | Prisma.AboutTeamWhereInput[]
   OR?: Prisma.AboutTeamWhereInput[]
   NOT?: Prisma.AboutTeamWhereInput | Prisma.AboutTeamWhereInput[]
-  id?: Prisma.UuidFilter<"AboutTeam"> | string
+  id?: Prisma.StringFilter<"AboutTeam"> | string
   name?: Prisma.StringFilter<"AboutTeam"> | string
   role?: Prisma.StringFilter<"AboutTeam"> | string
   bio?: Prisma.StringNullableFilter<"AboutTeam"> | string | null
@@ -254,7 +254,7 @@ export type AboutTeamScalarWhereWithAggregatesInput = {
   AND?: Prisma.AboutTeamScalarWhereWithAggregatesInput | Prisma.AboutTeamScalarWhereWithAggregatesInput[]
   OR?: Prisma.AboutTeamScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AboutTeamScalarWhereWithAggregatesInput | Prisma.AboutTeamScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"AboutTeam"> | string
+  id?: Prisma.StringWithAggregatesFilter<"AboutTeam"> | string
   name?: Prisma.StringWithAggregatesFilter<"AboutTeam"> | string
   role?: Prisma.StringWithAggregatesFilter<"AboutTeam"> | string
   bio?: Prisma.StringNullableWithAggregatesFilter<"AboutTeam"> | string | null

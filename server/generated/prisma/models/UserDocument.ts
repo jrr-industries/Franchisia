@@ -184,8 +184,8 @@ export type UserDocumentWhereInput = {
   AND?: Prisma.UserDocumentWhereInput | Prisma.UserDocumentWhereInput[]
   OR?: Prisma.UserDocumentWhereInput[]
   NOT?: Prisma.UserDocumentWhereInput | Prisma.UserDocumentWhereInput[]
-  id?: Prisma.UuidFilter<"UserDocument"> | string
-  userId?: Prisma.UuidFilter<"UserDocument"> | string
+  id?: Prisma.StringFilter<"UserDocument"> | string
+  userId?: Prisma.StringFilter<"UserDocument"> | string
   type?: Prisma.StringFilter<"UserDocument"> | string
   url?: Prisma.StringFilter<"UserDocument"> | string
   fileName?: Prisma.StringFilter<"UserDocument"> | string
@@ -208,7 +208,7 @@ export type UserDocumentWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserDocumentWhereInput | Prisma.UserDocumentWhereInput[]
   OR?: Prisma.UserDocumentWhereInput[]
   NOT?: Prisma.UserDocumentWhereInput | Prisma.UserDocumentWhereInput[]
-  userId?: Prisma.UuidFilter<"UserDocument"> | string
+  userId?: Prisma.StringFilter<"UserDocument"> | string
   type?: Prisma.StringFilter<"UserDocument"> | string
   url?: Prisma.StringFilter<"UserDocument"> | string
   fileName?: Prisma.StringFilter<"UserDocument"> | string
@@ -232,8 +232,8 @@ export type UserDocumentScalarWhereWithAggregatesInput = {
   AND?: Prisma.UserDocumentScalarWhereWithAggregatesInput | Prisma.UserDocumentScalarWhereWithAggregatesInput[]
   OR?: Prisma.UserDocumentScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserDocumentScalarWhereWithAggregatesInput | Prisma.UserDocumentScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"UserDocument"> | string
-  userId?: Prisma.UuidWithAggregatesFilter<"UserDocument"> | string
+  id?: Prisma.StringWithAggregatesFilter<"UserDocument"> | string
+  userId?: Prisma.StringWithAggregatesFilter<"UserDocument"> | string
   type?: Prisma.StringWithAggregatesFilter<"UserDocument"> | string
   url?: Prisma.StringWithAggregatesFilter<"UserDocument"> | string
   fileName?: Prisma.StringWithAggregatesFilter<"UserDocument"> | string
@@ -427,8 +427,8 @@ export type UserDocumentScalarWhereInput = {
   AND?: Prisma.UserDocumentScalarWhereInput | Prisma.UserDocumentScalarWhereInput[]
   OR?: Prisma.UserDocumentScalarWhereInput[]
   NOT?: Prisma.UserDocumentScalarWhereInput | Prisma.UserDocumentScalarWhereInput[]
-  id?: Prisma.UuidFilter<"UserDocument"> | string
-  userId?: Prisma.UuidFilter<"UserDocument"> | string
+  id?: Prisma.StringFilter<"UserDocument"> | string
+  userId?: Prisma.StringFilter<"UserDocument"> | string
   type?: Prisma.StringFilter<"UserDocument"> | string
   url?: Prisma.StringFilter<"UserDocument"> | string
   fileName?: Prisma.StringFilter<"UserDocument"> | string

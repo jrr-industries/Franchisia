@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
-import authRoutes from "./routes/auth.js";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./lib/auth.ts";
 import userRoutes from "./routes/users.js";
 import companyRoutes from "./routes/companies.js";
 import listingRoutes from "./routes/listings.js";
@@ -14,10 +15,14 @@ import onboardingRoutes from "./routes/onboarding.js";
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  credentials: true,
+}));
 app.use(express.json({ limit: "10mb" }));
 
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", toNodeHandler(auth));
+
 app.use("/api/users", userRoutes);
 app.use("/api/companies", companyRoutes);
 app.use("/api/listings", listingRoutes);

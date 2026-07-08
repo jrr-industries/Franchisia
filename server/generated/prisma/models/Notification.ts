@@ -194,8 +194,8 @@ export type NotificationWhereInput = {
   AND?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
   OR?: Prisma.NotificationWhereInput[]
   NOT?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
-  id?: Prisma.UuidFilter<"Notification"> | string
-  userId?: Prisma.UuidFilter<"Notification"> | string
+  id?: Prisma.StringFilter<"Notification"> | string
+  userId?: Prisma.StringFilter<"Notification"> | string
   type?: Prisma.EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
   title?: Prisma.StringFilter<"Notification"> | string
   body?: Prisma.StringNullableFilter<"Notification"> | string | null
@@ -222,7 +222,7 @@ export type NotificationWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
   OR?: Prisma.NotificationWhereInput[]
   NOT?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
-  userId?: Prisma.UuidFilter<"Notification"> | string
+  userId?: Prisma.StringFilter<"Notification"> | string
   type?: Prisma.EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
   title?: Prisma.StringFilter<"Notification"> | string
   body?: Prisma.StringNullableFilter<"Notification"> | string | null
@@ -250,8 +250,8 @@ export type NotificationScalarWhereWithAggregatesInput = {
   AND?: Prisma.NotificationScalarWhereWithAggregatesInput | Prisma.NotificationScalarWhereWithAggregatesInput[]
   OR?: Prisma.NotificationScalarWhereWithAggregatesInput[]
   NOT?: Prisma.NotificationScalarWhereWithAggregatesInput | Prisma.NotificationScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Notification"> | string
-  userId?: Prisma.UuidWithAggregatesFilter<"Notification"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Notification"> | string
+  userId?: Prisma.StringWithAggregatesFilter<"Notification"> | string
   type?: Prisma.EnumNotificationTypeWithAggregatesFilter<"Notification"> | $Enums.NotificationType
   title?: Prisma.StringWithAggregatesFilter<"Notification"> | string
   body?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
@@ -473,8 +473,8 @@ export type NotificationScalarWhereInput = {
   AND?: Prisma.NotificationScalarWhereInput | Prisma.NotificationScalarWhereInput[]
   OR?: Prisma.NotificationScalarWhereInput[]
   NOT?: Prisma.NotificationScalarWhereInput | Prisma.NotificationScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Notification"> | string
-  userId?: Prisma.UuidFilter<"Notification"> | string
+  id?: Prisma.StringFilter<"Notification"> | string
+  userId?: Prisma.StringFilter<"Notification"> | string
   type?: Prisma.EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
   title?: Prisma.StringFilter<"Notification"> | string
   body?: Prisma.StringNullableFilter<"Notification"> | string | null
