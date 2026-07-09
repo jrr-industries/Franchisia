@@ -17,10 +17,9 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import ResetPassword from "../pages/auth/ResetPassword";
 import VerifyEmail from "../pages/auth/VerifyEmail";
 
-import Onboarding from "../pages/onboarding";
 import RoleSelection from "../pages/onboarding/RoleSelection";
 import RoleForm from "../pages/onboarding/RoleForm";
-import VerificationStatus from "../pages/onboarding/VerificationStatus";
+import OnboardingStatus from "../pages/onboarding/OnboardingStatus";
 import DashboardHome from "../pages/dashboard";
 
 import Discover from "../pages/dashboard/Discover";
@@ -55,9 +54,9 @@ export default function AppRoutes() {
         <Route path="/verify-email" element={<VerifyEmail />} />
       </Route>
 
-      <Route path="/onboarding" element={<OnboardingRoute><RoleSelection /></OnboardingRoute>} />
+      <Route path="/onboarding/select-role" element={<OnboardingRoute><RoleSelection /></OnboardingRoute>} />
       <Route path="/onboarding/:role" element={<ProtectedRoute><RoleForm /></ProtectedRoute>} />
-      <Route path="/verification-status" element={<ProtectedRoute><VerificationStatus /></ProtectedRoute>} />
+      <Route path="/onboarding/status" element={<ProtectedRoute><OnboardingStatus /></ProtectedRoute>} />
 
       <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
         <Route path="/dashboard" element={<DashboardHome />} />

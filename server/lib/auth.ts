@@ -52,7 +52,7 @@ export const auth = betterAuth({
       },
       role: {
         type: "string",
-        defaultValue: "franchisee",
+        defaultValue: "none",
         required: false,
         input: false,
       },

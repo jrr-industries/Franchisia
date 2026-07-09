@@ -43,7 +43,7 @@ export default function Signup() {
     try {
       await signup(data.name, data.email, data.password);
       addToast("Account created! Welcome to Franchisia.", "success");
-      navigate("/onboarding");
+      navigate("/onboarding/select-role");
     } catch (err) {
       addToast(err.message, "error");
     } finally {

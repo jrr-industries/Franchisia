@@ -110,14 +110,14 @@ export default function VerificationStatus() {
           )}
 
           <button
-            onClick={() => navigate('/dashboard')}
+            onClick={() => navigate('/onboarding/status')}
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%',
               padding: '16px 32px', borderRadius: 8, border: 'none', cursor: 'pointer',
               backgroundColor: 'var(--primary)', color: '#fff', fontSize: 16, fontWeight: 600,
             }}
           >
-            Go to Dashboard
+            View Status
             <ArrowRight size={18} />
           </button>
         </div>

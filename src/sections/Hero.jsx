@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Search, ArrowRight, TrendingUp } from 'lucide-react';
+import { Search, ArrowRight, TrendingUp, UserCheck } from 'lucide-react';
 import Button from '../components/ui/Button';
+import { useAuth } from '../context/AuthContext';
 
 export default function Hero() {
+  const { isAuthenticated, user } = useAuth();
   return (
     <section style={{ padding: '80px 0', position: 'relative', overflow: 'hidden' }}>
       <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
@@ -41,8 +43,18 @@ export default function Hero() {
           </div>
 
           <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-            <Link to="/discover"><Button size="lg" icon={<ArrowRight size={18} />}>Explore Franchises</Button></Link>
-            <Link to="/signup"><Button variant="outline" size="lg">Register Company</Button></Link>
+            {isAuthenticated ? (
+              user?.role && user?.role !== "none" ? (
+                <Link to="/onboarding/status"><Button size="lg" icon={<ArrowRight size={18} />}>View Status</Button></Link>
+              ) : (
+                <Link to="/onboarding/select-role"><Button size="lg" icon={<UserCheck size={18} />}>Complete Your Profile</Button></Link>
+              )
+            ) : (
+              <>
+                <Link to="/discover"><Button size="lg" icon={<ArrowRight size={18} />}>Explore Franchises</Button></Link>
+                <Link to="/signup"><Button variant="outline" size="lg">Register Company</Button></Link>
+              </>
+            )}
           </div>
 
           <div style={{ display: 'flex', gap: 40, marginTop: 48 }}>

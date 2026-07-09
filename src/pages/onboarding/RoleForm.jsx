@@ -12,14 +12,22 @@ const roleConfig = {
     status: 'pending_admin_review',
     fields: [
       { name: 'companyName', label: 'Company Name', type: 'text', required: true },
-      { name: 'businessEmail', label: 'Business Email', type: 'email', required: true },
-      { name: 'website', label: 'Website', type: 'url', required: false, placeholder: 'https://' },
+      { name: 'brandName', label: 'Brand Name', type: 'text', required: true },
+      { name: 'website', label: 'Website', type: 'url', required: true, placeholder: 'https://' },
       { name: 'industry', label: 'Industry', type: 'text', required: true },
-      { name: 'country', label: 'Country', type: 'text', required: true },
-      { name: 'businessRegistrationNumber', label: 'Business Registration Number', type: 'text', required: true },
+      { name: 'businessRegistrationNumber', label: 'Company Registration Number', type: 'text', required: true },
+      { name: 'gstNumber', label: 'GST (Optional)', type: 'text', required: false },
+      { name: 'businessEmail', label: 'Business Email', type: 'email', required: true },
+      { name: 'businessAddress', label: 'Business Address', type: 'text', required: true },
+      { name: 'numberOfOutlets', label: 'Number of Outlets', type: 'number', required: true },
+      { name: 'yearsInBusiness', label: 'Years in Business', type: 'number', required: true },
+      { name: 'companyDescription', label: 'Company Description', type: 'textarea', required: true },
     ],
     hasUpload: true,
-    uploadLabel: 'Business Registration Certificate (PDF)',
+    uploadLabel: 'Upload Registration Document',
+    hasSecondUpload: true,
+    secondUploadLabel: 'Upload Business License',
+    hasImageUpload: true,
     needsReview: true,
   },
   franchisee: {
@@ -29,12 +37,16 @@ const roleConfig = {
     description: 'Tell us about your investment preferences.',
     status: 'verified',
     fields: [
+      { name: 'phone', label: 'Phone Number', type: 'tel', required: true },
+      { name: 'city', label: 'City', type: 'text', required: true },
+      { name: 'country', label: 'Country', type: 'text', required: true },
       { name: 'investmentBudget', label: 'Investment Budget', type: 'text', required: true, placeholder: 'e.g. $50,000 - $200,000' },
       { name: 'preferredIndustry', label: 'Preferred Industry', type: 'text', required: true },
-      { name: 'preferredLocation', label: 'Preferred Location', type: 'text', required: true, placeholder: 'City, State or Country' },
-      { name: 'experience', label: 'Experience', type: 'text', required: true, placeholder: 'Years of experience in this field' },
+      { name: 'businessExperience', label: 'Business Experience', type: 'text', required: true, placeholder: 'Years of experience in this field' },
+      { name: 'linkedinProfile', label: 'LinkedIn (Optional)', type: 'url', required: false, placeholder: 'https://linkedin.com/in/' },
     ],
-    hasUpload: false,
+    hasUpload: true,
+    uploadLabel: 'Upload Government ID',
     needsReview: false,
   },
   supplier: {
@@ -45,13 +57,14 @@ const roleConfig = {
     status: 'pending_admin_review',
     fields: [
       { name: 'companyName', label: 'Company Name', type: 'text', required: true },
-      { name: 'businessEmail', label: 'Business Email', type: 'email', required: true },
-      { name: 'website', label: 'Website', type: 'url', required: true, placeholder: 'https://' },
-      { name: 'gstNumber', label: 'GST / Tax Number', type: 'text', required: true },
       { name: 'servicesOffered', label: 'Services Offered', type: 'text', required: true },
+      { name: 'website', label: 'Website', type: 'url', required: true, placeholder: 'https://' },
+      { name: 'gstNumber', label: 'GST (Optional)', type: 'text', required: false },
+      { name: 'businessAddress', label: 'Address', type: 'text', required: true },
+      { name: 'contactPerson', label: 'Contact Person', type: 'text', required: true },
     ],
     hasUpload: true,
-    uploadLabel: 'Business Registration Certificate',
+    uploadLabel: 'Upload Business Registration',
     needsReview: true,
   },
   consultant: {
@@ -62,13 +75,13 @@ const roleConfig = {
     status: 'pending_admin_review',
     fields: [
       { name: 'consultancyName', label: 'Consultancy Name', type: 'text', required: true },
-      { name: 'businessEmail', label: 'Business Email', type: 'email', required: true },
-      { name: 'website', label: 'Website', type: 'url', required: true, placeholder: 'https://' },
       { name: 'yearsOfExperience', label: 'Years of Experience', type: 'number', required: true },
-      { name: 'linkedinProfile', label: 'LinkedIn Profile', type: 'url', required: true, placeholder: 'https://linkedin.com/in/' },
+      { name: 'certifications', label: 'Certifications', type: 'text', required: true, placeholder: 'e.g. CFE, Certified Franchise Executive' },
+      { name: 'linkedinProfile', label: 'LinkedIn', type: 'url', required: true, placeholder: 'https://linkedin.com/in/' },
+      { name: 'website', label: 'Website', type: 'url', required: true, placeholder: 'https://' },
     ],
     hasUpload: true,
-    uploadLabel: 'Business Registration (Optional)',
+    uploadLabel: 'Upload Resume',
     needsReview: true,
   },
   investor: {
@@ -78,12 +91,13 @@ const roleConfig = {
     description: 'Set your investment criteria.',
     status: 'verified',
     fields: [
-      { name: 'investmentRange', label: 'Investment Range', type: 'text', required: true, placeholder: 'e.g. $100,000 - $1,000,000' },
-      { name: 'interestedIndustries', label: 'Interested Industries', type: 'text', required: true },
-      { name: 'linkedinProfile', label: 'LinkedIn (Optional)', type: 'url', required: false, placeholder: 'https://linkedin.com/in/' },
+      { name: 'investmentRange', label: 'Investment Capacity', type: 'text', required: true, placeholder: 'e.g. $100,000 - $1,000,000' },
+      { name: 'interestedIndustries', label: 'Preferred Industries', type: 'text', required: true },
       { name: 'company', label: 'Company (Optional)', type: 'text', required: false },
+      { name: 'linkedinProfile', label: 'LinkedIn', type: 'url', required: false, placeholder: 'https://linkedin.com/in/' },
     ],
-    hasUpload: false,
+    hasUpload: true,
+    uploadLabel: 'Upload Government ID',
     needsReview: false,
   },
 };
@@ -99,14 +113,48 @@ export default function RoleForm() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadingSecond, setUploadingSecond] = useState(false);
+  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [uploadingBanner, setUploadingBanner] = useState(false);
 
   useEffect(() => {
-    if (!config) navigate('/onboarding');
+    if (!config) navigate('/onboarding/select-role');
   }, [role, config, navigate]);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value, type } = e.target;
+    if (type === 'file') return;
+    setForm({ ...form, [name]: value });
     setError('');
+  };
+
+  const handleFileUpload = async (docType, setUploadingFn) => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = docType === 'image' ? '.png,.jpg,.jpeg,.webp' : '.pdf,.png,.jpg,.jpeg';
+    input.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      setUploadingFn(true);
+      try {
+        const base64 = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.readAsDataURL(file);
+        });
+        await uploadDocument({
+          type: docType,
+          url: base64,
+          fileName: file.name,
+        });
+        setForm({ ...form, [`_uploaded_${docType}`]: true });
+      } catch (err) {
+        setError('Failed to upload file');
+      } finally {
+        setUploadingFn(false);
+      }
+    };
+    input.click();
   };
 
   const handleSubmit = async (e) => {
@@ -126,7 +174,7 @@ export default function RoleForm() {
       if (config.needsReview) {
         setSuccess(true);
       } else {
-        navigate('/dashboard');
+        navigate('/onboarding/status');
       }
     } catch (err) {
       setError(err.message);
@@ -135,40 +183,11 @@ export default function RoleForm() {
     }
   };
 
-  const handleFileUpload = async () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.pdf,.png,.jpg,.jpeg';
-    input.onchange = async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      setUploading(true);
-      try {
-        const base64 = await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result);
-          reader.readAsDataURL(file);
-        });
-        await uploadDocument({
-          type: 'business_registration',
-          url: base64,
-          fileName: file.name,
-        });
-        setForm({ ...form, _uploaded: true });
-      } catch (err) {
-        setError('Failed to upload file');
-      } finally {
-        setUploading(false);
-      }
-    };
-    input.click();
-  };
-
   const handleSubmitReview = async () => {
     setSubmitting(true);
     try {
       await submitForReview();
-      navigate('/verification-status');
+      navigate('/onboarding/status');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -193,35 +212,89 @@ export default function RoleForm() {
             </p>
 
             {config.hasUpload && (
-              <div style={{ marginBottom: 24 }}>
+              <div style={{ marginBottom: 12 }}>
                 <button
-                  onClick={handleFileUpload}
+                  onClick={() => handleFileUpload('document', setUploading)}
                   disabled={uploading}
                   style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%',
                     padding: '14px 24px', borderRadius: 8, border: '2px dashed var(--primary)',
-                    backgroundColor: form._uploaded ? '#D1FAE5' : 'transparent',
-                    color: form._uploaded ? '#10B981' : 'var(--primary)',
+                    backgroundColor: form._uploaded_document ? '#D1FAE5' : 'transparent',
+                    color: form._uploaded_document ? '#10B981' : 'var(--primary)',
                     cursor: 'pointer', fontSize: 14, fontWeight: 500,
                   }}
                 >
                   <Upload size={16} />
-                  {uploading ? 'Uploading...' : form._uploaded ? 'Document Uploaded' : config.uploadLabel}
+                  {uploading ? 'Uploading...' : form._uploaded_document ? 'Document Uploaded' : config.uploadLabel}
                 </button>
               </div>
+            )}
+            {config.hasSecondUpload && (
+              <div style={{ marginBottom: 12 }}>
+                <button
+                  onClick={() => handleFileUpload('business_license', setUploadingSecond)}
+                  disabled={uploadingSecond}
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%',
+                    padding: '14px 24px', borderRadius: 8, border: '2px dashed var(--primary)',
+                    backgroundColor: form._uploaded_business_license ? '#D1FAE5' : 'transparent',
+                    color: form._uploaded_business_license ? '#10B981' : 'var(--primary)',
+                    cursor: 'pointer', fontSize: 14, fontWeight: 500,
+                  }}
+                >
+                  <Upload size={16} />
+                  {uploadingSecond ? 'Uploading...' : form._uploaded_business_license ? 'License Uploaded' : config.secondUploadLabel}
+                </button>
+              </div>
+            )}
+            {config.hasImageUpload && (
+              <>
+                <div style={{ marginBottom: 12 }}>
+                  <button
+                    onClick={() => handleFileUpload('company_logo', setUploadingLogo)}
+                    disabled={uploadingLogo}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%',
+                      padding: '14px 24px', borderRadius: 8, border: '2px dashed var(--primary)',
+                      backgroundColor: form._uploaded_company_logo ? '#D1FAE5' : 'transparent',
+                      color: form._uploaded_company_logo ? '#10B981' : 'var(--primary)',
+                      cursor: 'pointer', fontSize: 14, fontWeight: 500,
+                    }}
+                  >
+                    <Upload size={16} />
+                    {uploadingLogo ? 'Uploading...' : form._uploaded_company_logo ? 'Logo Uploaded' : 'Upload Company Logo'}
+                  </button>
+                </div>
+                <div style={{ marginBottom: 12 }}>
+                  <button
+                    onClick={() => handleFileUpload('company_banner', setUploadingBanner)}
+                    disabled={uploadingBanner}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%',
+                      padding: '14px 24px', borderRadius: 8, border: '2px dashed var(--primary)',
+                      backgroundColor: form._uploaded_company_banner ? '#D1FAE5' : 'transparent',
+                      color: form._uploaded_company_banner ? '#10B981' : 'var(--primary)',
+                      cursor: 'pointer', fontSize: 14, fontWeight: 500,
+                    }}
+                  >
+                    <Upload size={16} />
+                    {uploadingBanner ? 'Uploading...' : form._uploaded_company_banner ? 'Banner Uploaded' : 'Upload Company Banner'}
+                  </button>
+                </div>
+              </>
             )}
 
             <div style={{ display: 'flex', gap: 12 }}>
               <button
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/onboarding/status')}
                 style={{
                   flex: 1, padding: '14px 24px', borderRadius: 8, border: '2px solid var(--border)',
                   backgroundColor: 'transparent', color: 'var(--text)', cursor: 'pointer', fontSize: 14, fontWeight: 600,
                 }}
               >
-                Go to Dashboard
+                View Status
               </button>
-              {config.needsReview && form._uploaded && (
+              {config.needsReview && form._uploaded_document && (
                 <button
                   onClick={handleSubmitReview}
                   disabled={submitting}
@@ -251,7 +324,7 @@ export default function RoleForm() {
       </header>
 
       <button
-        onClick={() => navigate('/onboarding')}
+        onClick={() => navigate('/onboarding/select-role')}
         style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '0 40px', background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: 14, fontWeight: 500, marginBottom: 8 }}
       >
         <ArrowLeft size={16} />
@@ -278,34 +351,101 @@ export default function RoleForm() {
                     {field.label}
                     {field.required && <span style={{ color: '#DC2626', marginLeft: 2 }}>*</span>}
                   </label>
-                  <input
-                    type={field.type}
-                    name={field.name}
-                    value={form[field.name] || ''}
-                    onChange={handleChange}
-                    placeholder={field.placeholder || ''}
-                    required={field.required}
-                    style={{
-                      width: '100%', padding: '12px 16px', fontSize: 14,
-                      color: 'var(--text)', backgroundColor: 'var(--surface)',
-                      border: '2px solid var(--border)', borderRadius: 8, outline: 'none',
-                      fontFamily: 'inherit',
-                    }}
-                    onFocus={(e) => e.currentTarget.style.borderColor = 'var(--primary)'}
-                    onBlur={(e) => e.currentTarget.style.borderColor = 'var(--border)'}
-                  />
+                  {field.type === 'textarea' ? (
+                    <textarea
+                      name={field.name}
+                      value={form[field.name] || ''}
+                      onChange={handleChange}
+                      placeholder={field.placeholder || ''}
+                      rows={4}
+                      style={{
+                        width: '100%', padding: '12px 16px', fontSize: 14,
+                        color: 'var(--text)', backgroundColor: 'var(--surface)',
+                        border: '2px solid var(--border)', borderRadius: 8, outline: 'none',
+                        fontFamily: 'inherit', resize: 'vertical',
+                      }}
+                      onFocus={(e) => e.currentTarget.style.borderColor = 'var(--primary)'}
+                      onBlur={(e) => e.currentTarget.style.borderColor = 'var(--border)'}
+                    />
+                  ) : (
+                    <input
+                      type={field.type}
+                      name={field.name}
+                      value={form[field.name] || ''}
+                      onChange={handleChange}
+                      placeholder={field.placeholder || ''}
+                      required={field.required}
+                      style={{
+                        width: '100%', padding: '12px 16px', fontSize: 14,
+                        color: 'var(--text)', backgroundColor: 'var(--surface)',
+                        border: '2px solid var(--border)', borderRadius: 8, outline: 'none',
+                        fontFamily: 'inherit',
+                      }}
+                      onFocus={(e) => e.currentTarget.style.borderColor = 'var(--primary)'}
+                      onBlur={(e) => e.currentTarget.style.borderColor = 'var(--border)'}
+                    />
+                  )}
                 </div>
               ))}
+
+              {config.hasImageUpload && (
+                <div>
+                  <label style={{ fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 6 }}>
+                    Company Logo
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => handleFileUpload('company_logo', setUploadingLogo)}
+                    disabled={uploadingLogo}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%',
+                      padding: '12px 16px', borderRadius: 8, border: '2px dashed var(--border)',
+                      backgroundColor: 'transparent', color: 'var(--text-secondary)',
+                      cursor: 'pointer', fontSize: 14,
+                    }}
+                  >
+                    <Upload size={16} />
+                    {uploadingLogo ? 'Uploading...' : form._uploaded_company_logo ? 'Logo Uploaded' : 'Upload company logo'}
+                  </button>
+                  {form._uploaded_company_logo && (
+                    <p style={{ fontSize: 13, color: '#10B981', marginTop: 4 }}>Logo uploaded successfully</p>
+                  )}
+                </div>
+              )}
+
+              {config.hasImageUpload && (
+                <div>
+                  <label style={{ fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 6 }}>
+                    Company Banner
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => handleFileUpload('company_banner', setUploadingBanner)}
+                    disabled={uploadingBanner}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%',
+                      padding: '12px 16px', borderRadius: 8, border: '2px dashed var(--border)',
+                      backgroundColor: 'transparent', color: 'var(--text-secondary)',
+                      cursor: 'pointer', fontSize: 14,
+                    }}
+                  >
+                    <Upload size={16} />
+                    {uploadingBanner ? 'Uploading...' : form._uploaded_company_banner ? 'Banner Uploaded' : 'Upload company banner'}
+                  </button>
+                  {form._uploaded_company_banner && (
+                    <p style={{ fontSize: 13, color: '#10B981', marginTop: 4 }}>Banner uploaded successfully</p>
+                  )}
+                </div>
+              )}
 
               {config.hasUpload && (
                 <div>
                   <label style={{ fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 6 }}>
                     {config.uploadLabel}
-                    <span style={{ color: 'var(--text-muted)', fontWeight: 400, marginLeft: 4 }}>(Optional now)</span>
                   </label>
                   <button
                     type="button"
-                    onClick={handleFileUpload}
+                    onClick={() => handleFileUpload('document', setUploading)}
                     disabled={uploading}
                     style={{
                       display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%',
@@ -315,9 +455,34 @@ export default function RoleForm() {
                     }}
                   >
                     <Upload size={16} />
-                    {uploading ? 'Uploading...' : form._uploaded ? 'Re-upload' : 'Upload file'}
+                    {uploading ? 'Uploading...' : form._uploaded_document ? 'Re-upload' : 'Upload file'}
                   </button>
-                  {form._uploaded && (
+                  {form._uploaded_document && (
+                    <p style={{ fontSize: 13, color: '#10B981', marginTop: 4 }}>File uploaded successfully</p>
+                  )}
+                </div>
+              )}
+
+              {config.hasSecondUpload && (
+                <div>
+                  <label style={{ fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 6 }}>
+                    {config.secondUploadLabel}
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => handleFileUpload('business_license', setUploadingSecond)}
+                    disabled={uploadingSecond}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%',
+                      padding: '12px 16px', borderRadius: 8, border: '2px dashed var(--border)',
+                      backgroundColor: 'transparent', color: 'var(--text-secondary)',
+                      cursor: 'pointer', fontSize: 14,
+                    }}
+                  >
+                    <Upload size={16} />
+                    {uploadingSecond ? 'Uploading...' : form._uploaded_business_license ? 'Re-upload' : 'Upload file'}
+                  </button>
+                  {form._uploaded_business_license && (
                     <p style={{ fontSize: 13, color: '#10B981', marginTop: 4 }}>File uploaded successfully</p>
                   )}
                 </div>
@@ -327,7 +492,7 @@ export default function RoleForm() {
             <div style={{ display: 'flex', gap: 12 }}>
               <button
                 type="button"
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/onboarding/status')}
                 style={{
                   flex: 1, padding: '16px 24px', borderRadius: 8, border: '2px solid var(--border)',
                   backgroundColor: 'transparent', color: 'var(--text)', cursor: 'pointer', fontSize: 16, fontWeight: 600,

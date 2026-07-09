@@ -70,6 +70,16 @@ export default function Navbar() {
                 </div>
               }
             >
+              {(!user?.role || user?.role === "none") && (
+                <DropdownItem onClick={() => window.location.href = "/onboarding/select-role"}>
+                  Complete Profile
+                </DropdownItem>
+              )}
+              {user?.role && user?.role !== "none" && !user?.onboardingCompleted && (
+                <DropdownItem onClick={() => window.location.href = "/onboarding/status"}>
+                  Verification Status
+                </DropdownItem>
+              )}
               <DropdownItem onClick={() => window.location.href = "/dashboard"}>
                 <LayoutDashboard size={16} /> Dashboard
               </DropdownItem>

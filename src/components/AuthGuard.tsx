@@ -36,8 +36,9 @@ export function OnboardingRoute({ children }) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (user?.onboardingCompleted) {
-    return <Navigate to="/dashboard" replace />;
+  const hasRole = user?.role && user?.role !== "none";
+  if (hasRole) {
+    return <Navigate to="/onboarding/status" replace />;
   }
 
   return children;
@@ -55,10 +56,11 @@ export function AuthRedirect({ children }) {
   }
 
   if (isAuthenticated) {
-    if (!user?.onboardingCompleted) {
-      return <Navigate to="/onboarding" replace />;
+    const hasRole = user?.role && user?.role !== "none";
+    if (hasRole) {
+      return <Navigate to="/onboarding/status" replace />;
     }
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/onboarding/select-role" replace />;
   }
 
   return children;

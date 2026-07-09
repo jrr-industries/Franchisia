@@ -8,6 +8,7 @@ datasource db {
 }
 
 enum UserRole {
+  none
   admin
   franchisor
   franchisee
@@ -73,8 +74,8 @@ model User {
   // Keep existing fields mapped to DB columns
   emailVerifiedAt    DateTime?  @map("email_verified")
   passwordHash       String     @default("") @map("password_hash")
-  role               UserRole   @default(franchisee)
-  accountStatus      AccountStatus @default(pending_email_verification) @map("account_status")
+  role               UserRole   @default(none)
+  accountStatus      AccountStatus @default(pending_profile_completion) @map("account_status")
 
   headline           String?
   bio                String?
@@ -89,16 +90,24 @@ model User {
   linkedinUrl        String?    @map("linkedin_url")
 
   companyName              String?  @map("company_name")
+  brandName                String?  @map("brand_name")
   businessEmail            String?  @map("business_email")
   businessRegistrationNumber String? @map("business_registration_number")
   businessRegistrationDoc  String?  @map("business_registration_doc")
+  businessLicenseDoc       String?  @map("business_license_doc")
   companyLogo              String?  @map("company_logo")
+  companyBanner            String?  @map("company_banner")
+  companyDescription       String?  @map("company_description")
   gstNumber                String?  @map("gst_number")
   consultancyName          String?  @map("consultancy_name")
   preferredIndustry        String?  @map("preferred_industry")
   preferredLocation        String?  @map("preferred_location")
   investmentRange          String?  @map("investment_range")
   resumeUrl                String?  @map("resume_url")
+  certifications           String?  @map("certifications")
+  contactPerson            String?  @map("contact_person")
+  numberOfOutlets          Int?     @map("number_of_outlets")
+  yearsInBusiness          Int?     @map("years_in_business")
 
   submittedForReviewAt DateTime? @map("submitted_for_review_at") @db.Timestamptz
   reviewedBy           String?   @map("reviewed_by") @db.Uuid

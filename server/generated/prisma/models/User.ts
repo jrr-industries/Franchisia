@@ -29,11 +29,15 @@ export type AggregateUser = {
 export type UserAvgAggregateOutputType = {
   investmentCapacity: runtime.Decimal | null
   experienceYears: number | null
+  numberOfOutlets: number | null
+  yearsInBusiness: number | null
 }
 
 export type UserSumAggregateOutputType = {
   investmentCapacity: runtime.Decimal | null
   experienceYears: number | null
+  numberOfOutlets: number | null
+  yearsInBusiness: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -59,16 +63,24 @@ export type UserMinAggregateOutputType = {
   website: string | null
   linkedinUrl: string | null
   companyName: string | null
+  brandName: string | null
   businessEmail: string | null
   businessRegistrationNumber: string | null
   businessRegistrationDoc: string | null
+  businessLicenseDoc: string | null
   companyLogo: string | null
+  companyBanner: string | null
+  companyDescription: string | null
   gstNumber: string | null
   consultancyName: string | null
   preferredIndustry: string | null
   preferredLocation: string | null
   investmentRange: string | null
   resumeUrl: string | null
+  certifications: string | null
+  contactPerson: string | null
+  numberOfOutlets: number | null
+  yearsInBusiness: number | null
   submittedForReviewAt: Date | null
   reviewedBy: string | null
   reviewedAt: Date | null
@@ -101,16 +113,24 @@ export type UserMaxAggregateOutputType = {
   website: string | null
   linkedinUrl: string | null
   companyName: string | null
+  brandName: string | null
   businessEmail: string | null
   businessRegistrationNumber: string | null
   businessRegistrationDoc: string | null
+  businessLicenseDoc: string | null
   companyLogo: string | null
+  companyBanner: string | null
+  companyDescription: string | null
   gstNumber: string | null
   consultancyName: string | null
   preferredIndustry: string | null
   preferredLocation: string | null
   investmentRange: string | null
   resumeUrl: string | null
+  certifications: string | null
+  contactPerson: string | null
+  numberOfOutlets: number | null
+  yearsInBusiness: number | null
   submittedForReviewAt: Date | null
   reviewedBy: string | null
   reviewedAt: Date | null
@@ -144,16 +164,24 @@ export type UserCountAggregateOutputType = {
   website: number
   linkedinUrl: number
   companyName: number
+  brandName: number
   businessEmail: number
   businessRegistrationNumber: number
   businessRegistrationDoc: number
+  businessLicenseDoc: number
   companyLogo: number
+  companyBanner: number
+  companyDescription: number
   gstNumber: number
   consultancyName: number
   preferredIndustry: number
   preferredLocation: number
   investmentRange: number
   resumeUrl: number
+  certifications: number
+  contactPerson: number
+  numberOfOutlets: number
+  yearsInBusiness: number
   submittedForReviewAt: number
   reviewedBy: number
   reviewedAt: number
@@ -168,11 +196,15 @@ export type UserCountAggregateOutputType = {
 export type UserAvgAggregateInputType = {
   investmentCapacity?: true
   experienceYears?: true
+  numberOfOutlets?: true
+  yearsInBusiness?: true
 }
 
 export type UserSumAggregateInputType = {
   investmentCapacity?: true
   experienceYears?: true
+  numberOfOutlets?: true
+  yearsInBusiness?: true
 }
 
 export type UserMinAggregateInputType = {
@@ -198,16 +230,24 @@ export type UserMinAggregateInputType = {
   website?: true
   linkedinUrl?: true
   companyName?: true
+  brandName?: true
   businessEmail?: true
   businessRegistrationNumber?: true
   businessRegistrationDoc?: true
+  businessLicenseDoc?: true
   companyLogo?: true
+  companyBanner?: true
+  companyDescription?: true
   gstNumber?: true
   consultancyName?: true
   preferredIndustry?: true
   preferredLocation?: true
   investmentRange?: true
   resumeUrl?: true
+  certifications?: true
+  contactPerson?: true
+  numberOfOutlets?: true
+  yearsInBusiness?: true
   submittedForReviewAt?: true
   reviewedBy?: true
   reviewedAt?: true
@@ -240,16 +280,24 @@ export type UserMaxAggregateInputType = {
   website?: true
   linkedinUrl?: true
   companyName?: true
+  brandName?: true
   businessEmail?: true
   businessRegistrationNumber?: true
   businessRegistrationDoc?: true
+  businessLicenseDoc?: true
   companyLogo?: true
+  companyBanner?: true
+  companyDescription?: true
   gstNumber?: true
   consultancyName?: true
   preferredIndustry?: true
   preferredLocation?: true
   investmentRange?: true
   resumeUrl?: true
+  certifications?: true
+  contactPerson?: true
+  numberOfOutlets?: true
+  yearsInBusiness?: true
   submittedForReviewAt?: true
   reviewedBy?: true
   reviewedAt?: true
@@ -283,16 +331,24 @@ export type UserCountAggregateInputType = {
   website?: true
   linkedinUrl?: true
   companyName?: true
+  brandName?: true
   businessEmail?: true
   businessRegistrationNumber?: true
   businessRegistrationDoc?: true
+  businessLicenseDoc?: true
   companyLogo?: true
+  companyBanner?: true
+  companyDescription?: true
   gstNumber?: true
   consultancyName?: true
   preferredIndustry?: true
   preferredLocation?: true
   investmentRange?: true
   resumeUrl?: true
+  certifications?: true
+  contactPerson?: true
+  numberOfOutlets?: true
+  yearsInBusiness?: true
   submittedForReviewAt?: true
   reviewedBy?: true
   reviewedAt?: true
@@ -413,16 +469,24 @@ export type UserGroupByOutputType = {
   website: string | null
   linkedinUrl: string | null
   companyName: string | null
+  brandName: string | null
   businessEmail: string | null
   businessRegistrationNumber: string | null
   businessRegistrationDoc: string | null
+  businessLicenseDoc: string | null
   companyLogo: string | null
+  companyBanner: string | null
+  companyDescription: string | null
   gstNumber: string | null
   consultancyName: string | null
   preferredIndustry: string | null
   preferredLocation: string | null
   investmentRange: string | null
   resumeUrl: string | null
+  certifications: string | null
+  contactPerson: string | null
+  numberOfOutlets: number | null
+  yearsInBusiness: number | null
   submittedForReviewAt: Date | null
   reviewedBy: string | null
   reviewedAt: Date | null
@@ -479,16 +543,24 @@ export type UserWhereInput = {
   website?: Prisma.StringNullableFilter<"User"> | string | null
   linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
   companyName?: Prisma.StringNullableFilter<"User"> | string | null
+  brandName?: Prisma.StringNullableFilter<"User"> | string | null
   businessEmail?: Prisma.StringNullableFilter<"User"> | string | null
   businessRegistrationNumber?: Prisma.StringNullableFilter<"User"> | string | null
   businessRegistrationDoc?: Prisma.StringNullableFilter<"User"> | string | null
+  businessLicenseDoc?: Prisma.StringNullableFilter<"User"> | string | null
   companyLogo?: Prisma.StringNullableFilter<"User"> | string | null
+  companyBanner?: Prisma.StringNullableFilter<"User"> | string | null
+  companyDescription?: Prisma.StringNullableFilter<"User"> | string | null
   gstNumber?: Prisma.StringNullableFilter<"User"> | string | null
   consultancyName?: Prisma.StringNullableFilter<"User"> | string | null
   preferredIndustry?: Prisma.StringNullableFilter<"User"> | string | null
   preferredLocation?: Prisma.StringNullableFilter<"User"> | string | null
   investmentRange?: Prisma.StringNullableFilter<"User"> | string | null
   resumeUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  certifications?: Prisma.StringNullableFilter<"User"> | string | null
+  contactPerson?: Prisma.StringNullableFilter<"User"> | string | null
+  numberOfOutlets?: Prisma.IntNullableFilter<"User"> | number | null
+  yearsInBusiness?: Prisma.IntNullableFilter<"User"> | number | null
   submittedForReviewAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   reviewedBy?: Prisma.UuidNullableFilter<"User"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -542,16 +614,24 @@ export type UserOrderByWithRelationInput = {
   website?: Prisma.SortOrderInput | Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   companyName?: Prisma.SortOrderInput | Prisma.SortOrder
+  brandName?: Prisma.SortOrderInput | Prisma.SortOrder
   businessEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   businessRegistrationDoc?: Prisma.SortOrderInput | Prisma.SortOrder
+  businessLicenseDoc?: Prisma.SortOrderInput | Prisma.SortOrder
   companyLogo?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyBanner?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   gstNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   consultancyName?: Prisma.SortOrderInput | Prisma.SortOrder
   preferredIndustry?: Prisma.SortOrderInput | Prisma.SortOrder
   preferredLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   investmentRange?: Prisma.SortOrderInput | Prisma.SortOrder
   resumeUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  certifications?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactPerson?: Prisma.SortOrderInput | Prisma.SortOrder
+  numberOfOutlets?: Prisma.SortOrderInput | Prisma.SortOrder
+  yearsInBusiness?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedForReviewAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -608,16 +688,24 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   website?: Prisma.StringNullableFilter<"User"> | string | null
   linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
   companyName?: Prisma.StringNullableFilter<"User"> | string | null
+  brandName?: Prisma.StringNullableFilter<"User"> | string | null
   businessEmail?: Prisma.StringNullableFilter<"User"> | string | null
   businessRegistrationNumber?: Prisma.StringNullableFilter<"User"> | string | null
   businessRegistrationDoc?: Prisma.StringNullableFilter<"User"> | string | null
+  businessLicenseDoc?: Prisma.StringNullableFilter<"User"> | string | null
   companyLogo?: Prisma.StringNullableFilter<"User"> | string | null
+  companyBanner?: Prisma.StringNullableFilter<"User"> | string | null
+  companyDescription?: Prisma.StringNullableFilter<"User"> | string | null
   gstNumber?: Prisma.StringNullableFilter<"User"> | string | null
   consultancyName?: Prisma.StringNullableFilter<"User"> | string | null
   preferredIndustry?: Prisma.StringNullableFilter<"User"> | string | null
   preferredLocation?: Prisma.StringNullableFilter<"User"> | string | null
   investmentRange?: Prisma.StringNullableFilter<"User"> | string | null
   resumeUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  certifications?: Prisma.StringNullableFilter<"User"> | string | null
+  contactPerson?: Prisma.StringNullableFilter<"User"> | string | null
+  numberOfOutlets?: Prisma.IntNullableFilter<"User"> | number | null
+  yearsInBusiness?: Prisma.IntNullableFilter<"User"> | number | null
   submittedForReviewAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   reviewedBy?: Prisma.UuidNullableFilter<"User"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -671,16 +759,24 @@ export type UserOrderByWithAggregationInput = {
   website?: Prisma.SortOrderInput | Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   companyName?: Prisma.SortOrderInput | Prisma.SortOrder
+  brandName?: Prisma.SortOrderInput | Prisma.SortOrder
   businessEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   businessRegistrationDoc?: Prisma.SortOrderInput | Prisma.SortOrder
+  businessLicenseDoc?: Prisma.SortOrderInput | Prisma.SortOrder
   companyLogo?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyBanner?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   gstNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   consultancyName?: Prisma.SortOrderInput | Prisma.SortOrder
   preferredIndustry?: Prisma.SortOrderInput | Prisma.SortOrder
   preferredLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   investmentRange?: Prisma.SortOrderInput | Prisma.SortOrder
   resumeUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  certifications?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactPerson?: Prisma.SortOrderInput | Prisma.SortOrder
+  numberOfOutlets?: Prisma.SortOrderInput | Prisma.SortOrder
+  yearsInBusiness?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedForReviewAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -722,16 +818,24 @@ export type UserScalarWhereWithAggregatesInput = {
   website?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   linkedinUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   companyName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  brandName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   businessEmail?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   businessRegistrationNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   businessRegistrationDoc?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  businessLicenseDoc?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   companyLogo?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  companyBanner?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  companyDescription?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   gstNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   consultancyName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   preferredIndustry?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   preferredLocation?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   investmentRange?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   resumeUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  certifications?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  contactPerson?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  numberOfOutlets?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  yearsInBusiness?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
   submittedForReviewAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   reviewedBy?: Prisma.UuidNullableWithAggregatesFilter<"User"> | string | null
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -765,16 +869,24 @@ export type UserCreateInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -828,16 +940,24 @@ export type UserUncheckedCreateInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -891,16 +1011,24 @@ export type UserUpdateInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -954,16 +1082,24 @@ export type UserUncheckedUpdateInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1017,16 +1153,24 @@ export type UserCreateManyInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -1060,16 +1204,24 @@ export type UserUpdateManyMutationInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1103,16 +1255,24 @@ export type UserUncheckedUpdateManyInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1154,16 +1314,24 @@ export type UserCountOrderByAggregateInput = {
   website?: Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrder
   companyName?: Prisma.SortOrder
+  brandName?: Prisma.SortOrder
   businessEmail?: Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrder
   businessRegistrationDoc?: Prisma.SortOrder
+  businessLicenseDoc?: Prisma.SortOrder
   companyLogo?: Prisma.SortOrder
+  companyBanner?: Prisma.SortOrder
+  companyDescription?: Prisma.SortOrder
   gstNumber?: Prisma.SortOrder
   consultancyName?: Prisma.SortOrder
   preferredIndustry?: Prisma.SortOrder
   preferredLocation?: Prisma.SortOrder
   investmentRange?: Prisma.SortOrder
   resumeUrl?: Prisma.SortOrder
+  certifications?: Prisma.SortOrder
+  contactPerson?: Prisma.SortOrder
+  numberOfOutlets?: Prisma.SortOrder
+  yearsInBusiness?: Prisma.SortOrder
   submittedForReviewAt?: Prisma.SortOrder
   reviewedBy?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
@@ -1176,6 +1344,8 @@ export type UserCountOrderByAggregateInput = {
 export type UserAvgOrderByAggregateInput = {
   investmentCapacity?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrder
+  numberOfOutlets?: Prisma.SortOrder
+  yearsInBusiness?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -1201,16 +1371,24 @@ export type UserMaxOrderByAggregateInput = {
   website?: Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrder
   companyName?: Prisma.SortOrder
+  brandName?: Prisma.SortOrder
   businessEmail?: Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrder
   businessRegistrationDoc?: Prisma.SortOrder
+  businessLicenseDoc?: Prisma.SortOrder
   companyLogo?: Prisma.SortOrder
+  companyBanner?: Prisma.SortOrder
+  companyDescription?: Prisma.SortOrder
   gstNumber?: Prisma.SortOrder
   consultancyName?: Prisma.SortOrder
   preferredIndustry?: Prisma.SortOrder
   preferredLocation?: Prisma.SortOrder
   investmentRange?: Prisma.SortOrder
   resumeUrl?: Prisma.SortOrder
+  certifications?: Prisma.SortOrder
+  contactPerson?: Prisma.SortOrder
+  numberOfOutlets?: Prisma.SortOrder
+  yearsInBusiness?: Prisma.SortOrder
   submittedForReviewAt?: Prisma.SortOrder
   reviewedBy?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
@@ -1243,16 +1421,24 @@ export type UserMinOrderByAggregateInput = {
   website?: Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrder
   companyName?: Prisma.SortOrder
+  brandName?: Prisma.SortOrder
   businessEmail?: Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrder
   businessRegistrationDoc?: Prisma.SortOrder
+  businessLicenseDoc?: Prisma.SortOrder
   companyLogo?: Prisma.SortOrder
+  companyBanner?: Prisma.SortOrder
+  companyDescription?: Prisma.SortOrder
   gstNumber?: Prisma.SortOrder
   consultancyName?: Prisma.SortOrder
   preferredIndustry?: Prisma.SortOrder
   preferredLocation?: Prisma.SortOrder
   investmentRange?: Prisma.SortOrder
   resumeUrl?: Prisma.SortOrder
+  certifications?: Prisma.SortOrder
+  contactPerson?: Prisma.SortOrder
+  numberOfOutlets?: Prisma.SortOrder
+  yearsInBusiness?: Prisma.SortOrder
   submittedForReviewAt?: Prisma.SortOrder
   reviewedBy?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
@@ -1265,6 +1451,8 @@ export type UserMinOrderByAggregateInput = {
 export type UserSumOrderByAggregateInput = {
   investmentCapacity?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrder
+  numberOfOutlets?: Prisma.SortOrder
+  yearsInBusiness?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -1636,16 +1824,24 @@ export type UserCreateWithoutSessionsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -1698,16 +1894,24 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -1776,16 +1980,24 @@ export type UserUpdateWithoutSessionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1838,16 +2050,24 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1900,16 +2120,24 @@ export type UserCreateWithoutAccountsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -1962,16 +2190,24 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -2040,16 +2276,24 @@ export type UserUpdateWithoutAccountsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2102,16 +2346,24 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2164,16 +2416,24 @@ export type UserCreateWithoutSkillsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -2226,16 +2486,24 @@ export type UserUncheckedCreateWithoutSkillsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -2304,16 +2572,24 @@ export type UserUpdateWithoutSkillsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2366,16 +2642,24 @@ export type UserUncheckedUpdateWithoutSkillsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2428,16 +2712,24 @@ export type UserCreateWithoutInterestsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -2490,16 +2782,24 @@ export type UserUncheckedCreateWithoutInterestsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -2568,16 +2868,24 @@ export type UserUpdateWithoutInterestsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2630,16 +2938,24 @@ export type UserUncheckedUpdateWithoutInterestsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2692,16 +3008,24 @@ export type UserCreateWithoutEducationInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -2754,16 +3078,24 @@ export type UserUncheckedCreateWithoutEducationInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -2832,16 +3164,24 @@ export type UserUpdateWithoutEducationInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2894,16 +3234,24 @@ export type UserUncheckedUpdateWithoutEducationInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2956,16 +3304,24 @@ export type UserCreateWithoutExperienceInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -3018,16 +3374,24 @@ export type UserUncheckedCreateWithoutExperienceInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -3096,16 +3460,24 @@ export type UserUpdateWithoutExperienceInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3158,16 +3530,24 @@ export type UserUncheckedUpdateWithoutExperienceInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3220,16 +3600,24 @@ export type UserCreateWithoutCompaniesInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -3282,16 +3670,24 @@ export type UserUncheckedCreateWithoutCompaniesInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -3360,16 +3756,24 @@ export type UserUpdateWithoutCompaniesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3422,16 +3826,24 @@ export type UserUncheckedUpdateWithoutCompaniesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3484,16 +3896,24 @@ export type UserCreateWithoutListingsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -3546,16 +3966,24 @@ export type UserUncheckedCreateWithoutListingsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -3624,16 +4052,24 @@ export type UserUpdateWithoutListingsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3686,16 +4122,24 @@ export type UserUncheckedUpdateWithoutListingsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3748,16 +4192,24 @@ export type UserCreateWithoutApplicationsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -3810,16 +4262,24 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -3888,16 +4348,24 @@ export type UserUpdateWithoutApplicationsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3950,16 +4418,24 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4012,16 +4488,24 @@ export type UserCreateWithoutSentConnectionsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -4074,16 +4558,24 @@ export type UserUncheckedCreateWithoutSentConnectionsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -4141,16 +4633,24 @@ export type UserCreateWithoutReceivedConnectionsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -4203,16 +4703,24 @@ export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -4281,16 +4789,24 @@ export type UserUpdateWithoutSentConnectionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4343,16 +4859,24 @@ export type UserUncheckedUpdateWithoutSentConnectionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4416,16 +4940,24 @@ export type UserUpdateWithoutReceivedConnectionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4478,16 +5010,24 @@ export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4540,16 +5080,24 @@ export type UserCreateWithoutCompanyFollowersInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -4602,16 +5150,24 @@ export type UserUncheckedCreateWithoutCompanyFollowersInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -4680,16 +5236,24 @@ export type UserUpdateWithoutCompanyFollowersInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4742,16 +5306,24 @@ export type UserUncheckedUpdateWithoutCompanyFollowersInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4804,16 +5376,24 @@ export type UserCreateWithoutParticipantsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -4866,16 +5446,24 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -4944,16 +5532,24 @@ export type UserUpdateWithoutParticipantsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5006,16 +5602,24 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5068,16 +5672,24 @@ export type UserCreateWithoutMessagesInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -5130,16 +5742,24 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -5208,16 +5828,24 @@ export type UserUpdateWithoutMessagesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5270,16 +5898,24 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5332,16 +5968,24 @@ export type UserCreateWithoutNotificationsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -5394,16 +6038,24 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -5472,16 +6124,24 @@ export type UserUpdateWithoutNotificationsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5534,16 +6194,24 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5596,16 +6264,24 @@ export type UserCreateWithoutReviewsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -5658,16 +6334,24 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -5736,16 +6420,24 @@ export type UserUpdateWithoutReviewsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5798,16 +6490,24 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5860,16 +6560,24 @@ export type UserCreateWithoutOrganizedMeetingsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -5922,16 +6630,24 @@ export type UserUncheckedCreateWithoutOrganizedMeetingsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -6000,16 +6716,24 @@ export type UserUpdateWithoutOrganizedMeetingsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6062,16 +6786,24 @@ export type UserUncheckedUpdateWithoutOrganizedMeetingsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6124,16 +6856,24 @@ export type UserCreateWithoutMeetingParticipantsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -6186,16 +6926,24 @@ export type UserUncheckedCreateWithoutMeetingParticipantsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -6264,16 +7012,24 @@ export type UserUpdateWithoutMeetingParticipantsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6326,16 +7082,24 @@ export type UserUncheckedUpdateWithoutMeetingParticipantsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6388,16 +7152,24 @@ export type UserCreateWithoutAuditLogsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -6450,16 +7222,24 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -6528,16 +7308,24 @@ export type UserUpdateWithoutAuditLogsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6590,16 +7378,24 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6652,16 +7448,24 @@ export type UserCreateWithoutDocumentsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -6714,16 +7518,24 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
+  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
+  businessLicenseDoc?: string | null
   companyLogo?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
+  certifications?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
@@ -6792,16 +7604,24 @@ export type UserUpdateWithoutDocumentsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6854,16 +7674,24 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7118,16 +7946,24 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   website?: boolean
   linkedinUrl?: boolean
   companyName?: boolean
+  brandName?: boolean
   businessEmail?: boolean
   businessRegistrationNumber?: boolean
   businessRegistrationDoc?: boolean
+  businessLicenseDoc?: boolean
   companyLogo?: boolean
+  companyBanner?: boolean
+  companyDescription?: boolean
   gstNumber?: boolean
   consultancyName?: boolean
   preferredIndustry?: boolean
   preferredLocation?: boolean
   investmentRange?: boolean
   resumeUrl?: boolean
+  certifications?: boolean
+  contactPerson?: boolean
+  numberOfOutlets?: boolean
+  yearsInBusiness?: boolean
   submittedForReviewAt?: boolean
   reviewedBy?: boolean
   reviewedAt?: boolean
@@ -7182,16 +8018,24 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   website?: boolean
   linkedinUrl?: boolean
   companyName?: boolean
+  brandName?: boolean
   businessEmail?: boolean
   businessRegistrationNumber?: boolean
   businessRegistrationDoc?: boolean
+  businessLicenseDoc?: boolean
   companyLogo?: boolean
+  companyBanner?: boolean
+  companyDescription?: boolean
   gstNumber?: boolean
   consultancyName?: boolean
   preferredIndustry?: boolean
   preferredLocation?: boolean
   investmentRange?: boolean
   resumeUrl?: boolean
+  certifications?: boolean
+  contactPerson?: boolean
+  numberOfOutlets?: boolean
+  yearsInBusiness?: boolean
   submittedForReviewAt?: boolean
   reviewedBy?: boolean
   reviewedAt?: boolean
@@ -7225,16 +8069,24 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   website?: boolean
   linkedinUrl?: boolean
   companyName?: boolean
+  brandName?: boolean
   businessEmail?: boolean
   businessRegistrationNumber?: boolean
   businessRegistrationDoc?: boolean
+  businessLicenseDoc?: boolean
   companyLogo?: boolean
+  companyBanner?: boolean
+  companyDescription?: boolean
   gstNumber?: boolean
   consultancyName?: boolean
   preferredIndustry?: boolean
   preferredLocation?: boolean
   investmentRange?: boolean
   resumeUrl?: boolean
+  certifications?: boolean
+  contactPerson?: boolean
+  numberOfOutlets?: boolean
+  yearsInBusiness?: boolean
   submittedForReviewAt?: boolean
   reviewedBy?: boolean
   reviewedAt?: boolean
@@ -7268,16 +8120,24 @@ export type UserSelectScalar = {
   website?: boolean
   linkedinUrl?: boolean
   companyName?: boolean
+  brandName?: boolean
   businessEmail?: boolean
   businessRegistrationNumber?: boolean
   businessRegistrationDoc?: boolean
+  businessLicenseDoc?: boolean
   companyLogo?: boolean
+  companyBanner?: boolean
+  companyDescription?: boolean
   gstNumber?: boolean
   consultancyName?: boolean
   preferredIndustry?: boolean
   preferredLocation?: boolean
   investmentRange?: boolean
   resumeUrl?: boolean
+  certifications?: boolean
+  contactPerson?: boolean
+  numberOfOutlets?: boolean
+  yearsInBusiness?: boolean
   submittedForReviewAt?: boolean
   reviewedBy?: boolean
   reviewedAt?: boolean
@@ -7287,7 +8147,7 @@ export type UserSelectScalar = {
   lastLoginAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "companyLogo" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "isActive" | "lastLoginAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "brandName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "businessLicenseDoc" | "companyLogo" | "companyBanner" | "companyDescription" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "certifications" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "isActive" | "lastLoginAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -7362,16 +8222,24 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     website: string | null
     linkedinUrl: string | null
     companyName: string | null
+    brandName: string | null
     businessEmail: string | null
     businessRegistrationNumber: string | null
     businessRegistrationDoc: string | null
+    businessLicenseDoc: string | null
     companyLogo: string | null
+    companyBanner: string | null
+    companyDescription: string | null
     gstNumber: string | null
     consultancyName: string | null
     preferredIndustry: string | null
     preferredLocation: string | null
     investmentRange: string | null
     resumeUrl: string | null
+    certifications: string | null
+    contactPerson: string | null
+    numberOfOutlets: number | null
+    yearsInBusiness: number | null
     submittedForReviewAt: Date | null
     reviewedBy: string | null
     reviewedAt: Date | null
@@ -7845,16 +8713,24 @@ export interface UserFieldRefs {
   readonly website: Prisma.FieldRef<"User", 'String'>
   readonly linkedinUrl: Prisma.FieldRef<"User", 'String'>
   readonly companyName: Prisma.FieldRef<"User", 'String'>
+  readonly brandName: Prisma.FieldRef<"User", 'String'>
   readonly businessEmail: Prisma.FieldRef<"User", 'String'>
   readonly businessRegistrationNumber: Prisma.FieldRef<"User", 'String'>
   readonly businessRegistrationDoc: Prisma.FieldRef<"User", 'String'>
+  readonly businessLicenseDoc: Prisma.FieldRef<"User", 'String'>
   readonly companyLogo: Prisma.FieldRef<"User", 'String'>
+  readonly companyBanner: Prisma.FieldRef<"User", 'String'>
+  readonly companyDescription: Prisma.FieldRef<"User", 'String'>
   readonly gstNumber: Prisma.FieldRef<"User", 'String'>
   readonly consultancyName: Prisma.FieldRef<"User", 'String'>
   readonly preferredIndustry: Prisma.FieldRef<"User", 'String'>
   readonly preferredLocation: Prisma.FieldRef<"User", 'String'>
   readonly investmentRange: Prisma.FieldRef<"User", 'String'>
   readonly resumeUrl: Prisma.FieldRef<"User", 'String'>
+  readonly certifications: Prisma.FieldRef<"User", 'String'>
+  readonly contactPerson: Prisma.FieldRef<"User", 'String'>
+  readonly numberOfOutlets: Prisma.FieldRef<"User", 'Int'>
+  readonly yearsInBusiness: Prisma.FieldRef<"User", 'Int'>
   readonly submittedForReviewAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly reviewedBy: Prisma.FieldRef<"User", 'String'>
   readonly reviewedAt: Prisma.FieldRef<"User", 'DateTime'>

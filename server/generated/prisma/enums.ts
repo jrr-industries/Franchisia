@@ -10,6 +10,7 @@
 */
 
 export const UserRole = {
+  none: 'none',
   admin: 'admin',
   franchisor: 'franchisor',
   franchisee: 'franchisee',

@@ -26,10 +26,11 @@ export default function Login() {
   });
 
   const handleRedirect = (userData) => {
-    if (!userData?.onboardingCompleted) {
-      navigate("/onboarding");
+    const hasRole = userData?.role && userData?.role !== "none";
+    if (hasRole) {
+      navigate("/onboarding/status");
     } else {
-      navigate("/dashboard");
+      navigate("/onboarding/select-role");
     }
   };
 

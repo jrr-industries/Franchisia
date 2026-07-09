@@ -18,18 +18,23 @@ router.put("/franchisor", async (req, res) => {
     const session = await getSession(req);
     if (!session) return res.status(401).json({ error: "Authentication required" });
 
-    const { companyName, businessEmail, website, industry, country, businessRegistrationNumber } = req.body;
+    const { companyName, brandName, website, industry, businessRegistrationNumber, gstNumber, businessEmail, businessAddress, numberOfOutlets, yearsInBusiness, companyDescription } = req.body;
 
     const user = await prisma.user.update({
       where: { id: session.user.id },
       data: {
         role: "franchisor",
         companyName,
-        businessEmail,
+        brandName,
         website,
         preferredIndustry: industry,
-        location: country,
         businessRegistrationNumber,
+        gstNumber: gstNumber || null,
+        businessEmail,
+        location: businessAddress,
+        numberOfOutlets: numberOfOutlets ? parseInt(numberOfOutlets) : null,
+        yearsInBusiness: yearsInBusiness ? parseInt(yearsInBusiness) : null,
+        companyDescription,
         accountStatus: "pending_admin_review",
       },
     });
@@ -47,16 +52,19 @@ router.put("/franchisee", async (req, res) => {
     const session = await getSession(req);
     if (!session) return res.status(401).json({ error: "Authentication required" });
 
-    const { investmentBudget, preferredIndustry, preferredLocation, experience } = req.body;
+    const { phone, city, country, investmentBudget, preferredIndustry, businessExperience, linkedinProfile } = req.body;
 
     const user = await prisma.user.update({
       where: { id: session.user.id },
       data: {
         role: "franchisee",
-        investmentCapacity: investmentBudget ? parseFloat(investmentBudget) : null,
+        phone,
+        preferredLocation: city,
+        location: country,
+        investmentCapacity: investmentBudget ? parseFloat(investmentBudget.replace(/[^0-9.]/g, '')) : null,
         preferredIndustry,
-        preferredLocation,
-        experienceYears: experience ? parseInt(experience) : null,
+        headline: businessExperience,
+        linkedinUrl: linkedinProfile || null,
         accountStatus: "verified",
         onboardingCompleted: true,
       },
@@ -75,17 +83,18 @@ router.put("/supplier", async (req, res) => {
     const session = await getSession(req);
     if (!session) return res.status(401).json({ error: "Authentication required" });
 
-    const { companyName, businessEmail, website, gstNumber, servicesOffered } = req.body;
+    const { companyName, servicesOffered, website, gstNumber, businessAddress, contactPerson } = req.body;
 
     const user = await prisma.user.update({
       where: { id: session.user.id },
       data: {
         role: "supplier",
         companyName,
-        businessEmail,
-        website,
-        gstNumber,
         headline: servicesOffered,
+        website,
+        gstNumber: gstNumber || null,
+        location: businessAddress,
+        contactPerson,
         accountStatus: "pending_admin_review",
       },
     });
@@ -103,17 +112,17 @@ router.put("/consultant", async (req, res) => {
     const session = await getSession(req);
     if (!session) return res.status(401).json({ error: "Authentication required" });
 
-    const { consultancyName, businessEmail, website, yearsOfExperience, linkedinProfile } = req.body;
+    const { consultancyName, yearsOfExperience, certifications, linkedinProfile, website } = req.body;
 
     const user = await prisma.user.update({
       where: { id: session.user.id },
       data: {
         role: "consultant",
         consultancyName,
-        businessEmail,
-        website,
         experienceYears: yearsOfExperience ? parseInt(yearsOfExperience) : null,
+        certifications,
         linkedinUrl: linkedinProfile,
+        website,
         accountStatus: "pending_admin_review",
       },
     });
@@ -131,16 +140,16 @@ router.put("/investor", async (req, res) => {
     const session = await getSession(req);
     if (!session) return res.status(401).json({ error: "Authentication required" });
 
-    const { investmentRange, interestedIndustries, linkedinProfile, company } = req.body;
+    const { investmentRange, interestedIndustries, company, linkedinProfile } = req.body;
 
     const user = await prisma.user.update({
       where: { id: session.user.id },
       data: {
         role: "investor",
         investmentRange,
-        industries: interestedIndustries ? [interestedIndustries] : [],
-        linkedinUrl: linkedinProfile,
-        companyName: company,
+        preferredIndustry: interestedIndustries,
+        companyName: company || null,
+        linkedinUrl: linkedinProfile || null,
         accountStatus: "verified",
         onboardingCompleted: true,
       },

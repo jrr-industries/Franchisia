@@ -44,8 +44,6 @@ export function AuthProvider({ children }) {
           ...session.user,
           onboardingCompleted: session.user.onboardingCompleted ?? false,
         });
-      } else {
-        setUser(null);
       }
     });
 
