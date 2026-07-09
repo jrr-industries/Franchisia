@@ -1,7 +1,9 @@
+import dotenv from "dotenv";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { google, linkedin, facebook } from "better-auth/social-providers";
 import prisma from "../prisma.js";
+
+dotenv.config();
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -29,18 +31,18 @@ export const auth = betterAuth({
     requireEmailVerification: false,
   },
   socialProviders: {
-    google: google({
+    google: {
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-    }),
-    linkedin: linkedin({
+    },
+    linkedin: {
       clientId: process.env.LINKEDIN_CLIENT_ID || "",
       clientSecret: process.env.LINKEDIN_CLIENT_SECRET || "",
-    }),
-    facebook: facebook({
+    },
+    facebook: {
       clientId: process.env.FACEBOOK_CLIENT_ID || "",
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET || "",
-    }),
+    },
   },
   user: {
     additionalFields: {

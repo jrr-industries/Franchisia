@@ -7,14 +7,478 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id                         String                    @id @default(cuid())
+  email                      String                    @unique
+  emailVerified              Boolean                   @default(false) @map("email_verified_bool")
+  name                       String?                   @map("full_name")
+  image                      String?                   @map("avatar_url")
+  createdAt                  DateTime                  @default(now()) @map("created_at")
+  updatedAt                  DateTime                  @updatedAt @map("updated_at")
+  onboardingCompleted        Boolean                   @default(false) @map("onboarding_completed")
+  emailVerifiedAt            DateTime?                 @map("email_verified")
+  passwordHash               String                    @default("") @map("password_hash")
+  role                       UserRole                  @default(none)
+  accountStatus              AccountStatus             @default(pending_profile_completion) @map("account_status")
+  headline                   String?
+  bio                        String?
+  phone                      String?
+  phoneVerified              DateTime?                 @map("phone_verified") @db.Timestamptz(6)
+  location                   String?
+  investmentCapacity         Decimal?                  @map("investment_capacity") @db.Decimal(12, 2)
+  industries                 String[]
+  experienceYears            Int?                      @map("experience_years")
+  website                    String?
+  linkedinUrl                String?                   @map("linkedin_url")
+  companyName                String?                   @map("company_name")
+  businessEmail              String?                   @map("business_email")
+  businessRegistrationNumber String?                   @map("business_registration_number")
+  businessRegistrationDoc    String?                   @map("business_registration_doc")
+  companyLogo                String?                   @map("company_logo")
+  gstNumber                  String?                   @map("gst_number")
+  consultancyName            String?                   @map("consultancy_name")
+  preferredIndustry          String?                   @map("preferred_industry")
+  preferredLocation          String?                   @map("preferred_location")
+  investmentRange            String?                   @map("investment_range")
+  resumeUrl                  String?                   @map("resume_url")
+  submittedForReviewAt       DateTime?                 @map("submitted_for_review_at") @db.Timestamptz(6)
+  reviewedBy                 String?                   @map("reviewed_by") @db.Uuid
+  reviewedAt                 DateTime?                 @map("reviewed_at") @db.Timestamptz(6)
+  verificationNotes          String?                   @map("verification_notes")
+  rejectionReason            String?                   @map("rejection_reason")
+  isActive                   Boolean                   @default(true) @map("is_active")
+  lastLoginAt                DateTime?                 @map("last_login_at") @db.Timestamptz(6)
+  brandName                  String?                   @map("brand_name")
+  businessLicenseDoc         String?                   @map("business_license_doc")
+  certifications             String?                   @map("certifications")
+  companyBanner              String?                   @map("company_banner")
+  companyDescription         String?                   @map("company_description")
+  contactPerson              String?                   @map("contact_person")
+  numberOfOutlets            Int?                      @map("number_of_outlets")
+  yearsInBusiness            Int?                      @map("years_in_business")
+  organizedMeetings          Meeting[]
+  accounts                   Account[]
+  applications               Application[]
+  auditLogs                  AuditLog[]
+  companies                  Company[]
+  companyFollowers           CompanyFollower[]
+  sentConnections            Connection[]              @relation("followed_by")
+  receivedConnections        Connection[]              @relation("following_user")
+  participants               ConversationParticipant[]
+  listings                   FranchiseListing[]
+  meetingParticipants        MeetingParticipant[]
+  messages                   Message[]
+  notifications              Notification[]
+  reviews                    Review[]
+  sessions                   Session[]
+  documents                  UserDocument[]
+  education                  UserEducation[]
+  experience                 UserExperience[]
+  interests                  UserInterest[]
+  skills                     UserSkill[]
+
+  @@index([email])
+  @@index([role])
+  @@index([accountStatus])
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at") @db.Timestamptz(6)
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId])
+  @@map("sessions")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  userId                String    @map("user_id")
+  accountId             String    @map("account_id")
+  providerId            String    @map("provider_id")
+  accessToken           String?   @map("access_token")
+  refreshToken          String?   @map("refresh_token")
+  idToken               String?   @map("id_token")
+  accessTokenExpiresAt  DateTime? @map("access_token_expires_at") @db.Timestamptz(6)
+  refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at") @db.Timestamptz(6)
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([providerId, accountId])
+  @@map("accounts")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime @map("expires_at") @db.Timestamptz(6)
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("verifications")
+}
+
+model UserSkill {
+  id     String @id @default(cuid())
+  userId String @map("user_id")
+  skill  String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skill])
+  @@map("user_skills")
+}
+
+model UserInterest {
+  id       String @id @default(cuid())
+  userId   String @map("user_id")
+  interest String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, interest])
+  @@map("user_interests")
+}
+
+model UserEducation {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  school    String
+  degree    String?
+  field     String?
+  startYear Int?     @map("start_year")
+  endYear   Int?     @map("end_year")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_education")
+}
+
+model UserExperience {
+  id          String    @id @default(cuid())
+  userId      String    @map("user_id")
+  company     String
+  role        String
+  description String?
+  startDate   DateTime  @map("start_date") @db.Date
+  endDate     DateTime? @map("end_date") @db.Date
+  isCurrent   Boolean   @default(false) @map("is_current")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_experience")
+}
+
+model Company {
+  id            String             @id @default(cuid())
+  ownerId       String             @map("owner_id")
+  name          String
+  slug          String             @unique
+  logoUrl       String?            @map("logo_url")
+  bannerUrl     String?            @map("banner_url")
+  industry      String
+  description   String?
+  website       String?
+  foundedYear   Int?               @map("founded_year")
+  employeeCount String?            @map("employee_count")
+  email         String?
+  phone         String?
+  address       String?
+  city          String?
+  country       String?
+  isVerified    Boolean            @default(false) @map("is_verified")
+  status        ListingStatus      @default(pending)
+  followerCount Int                @default(0) @map("follower_count")
+  listingCount  Int                @default(0) @map("listing_count")
+  createdAt     DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime           @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner         User               @relation(fields: [ownerId], references: [id])
+  followers     CompanyFollower[]
+  listings      FranchiseListing[]
+  reviews       Review[]
+
+  @@index([slug])
+  @@index([industry])
+  @@index([status])
+  @@map("companies")
+}
+
+model FranchiseListing {
+  id               String        @id @default(cuid())
+  companyId        String        @map("company_id")
+  createdBy        String        @map("created_by")
+  title            String
+  slug             String        @unique
+  description      String?
+  industry         String
+  businessType     String?       @map("business_type")
+  investmentMin    Decimal?      @map("investment_min") @db.Decimal(12, 2)
+  investmentMax    Decimal?      @map("investment_max") @db.Decimal(12, 2)
+  roiPercentage    Decimal?      @map("roi_percentage") @db.Decimal(5, 2)
+  franchiseFee     Decimal?      @map("franchise_fee") @db.Decimal(12, 2)
+  royaltyFee       String?       @map("royalty_fee")
+  breakEvenMonths  Int?          @map("break_even_months")
+  location         String?
+  city             String?
+  country          String?
+  isRemote         Boolean       @default(false) @map("is_remote")
+  images           String[]
+  videoUrl         String?       @map("video_url")
+  status           ListingStatus @default(pending)
+  isFeatured       Boolean       @default(false) @map("is_featured")
+  viewCount        Int           @default(0) @map("view_count")
+  applicationCount Int           @default(0) @map("application_count")
+  createdAt        DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  publishedAt      DateTime?     @map("published_at") @db.Timestamptz(6)
+  applications     Application[]
+  company          Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  createdByUser    User          @relation(fields: [createdBy], references: [id])
+  reviews          Review[]
+
+  @@index([companyId])
+  @@index([industry])
+  @@index([status])
+  @@index([investmentMin, investmentMax])
+  @@map("franchise_listings")
+}
+
+model Application {
+  id                 String            @id @default(cuid())
+  listingId          String            @map("listing_id")
+  applicantId        String            @map("applicant_id")
+  status             ApplicationStatus @default(submitted)
+  coverMessage       String?           @map("cover_message")
+  investmentCapacity Decimal?          @map("investment_capacity") @db.Decimal(12, 2)
+  internalNotes      String?           @map("internal_notes")
+  createdAt          DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  applicant          User              @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  listing            FranchiseListing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@unique([listingId, applicantId])
+  @@index([listingId])
+  @@index([applicantId])
+  @@map("applications")
+}
+
+model Connection {
+  id          String   @id @default(cuid())
+  followerId  String   @map("follower_id")
+  followingId String   @map("following_id")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  follower    User     @relation("followed_by", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("following_user", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+  @@map("connections")
+}
+
+model CompanyFollower {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  companyId String   @map("company_id")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, companyId])
+  @@index([companyId])
+  @@map("company_followers")
+}
+
+model Conversation {
+  id           String                    @id @default(cuid())
+  subject      String?
+  createdAt    DateTime                  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime                  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  participants ConversationParticipant[]
+  messages     Message[]
+}
+
+model ConversationParticipant {
+  id             String       @id @default(cuid())
+  conversationId String       @map("conversation_id")
+  userId         String       @map("user_id")
+  lastReadAt     DateTime?    @map("last_read_at") @db.Timestamptz(6)
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+  @@map("conversation_participants")
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String       @map("conversation_id")
+  senderId       String       @map("sender_id")
+  content        String
+  messageType    MessageType  @default(text) @map("message_type")
+  attachmentUrl  String?      @map("attachment_url")
+  createdAt      DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId, createdAt])
+  @@map("messages")
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String           @map("user_id")
+  type      NotificationType
+  title     String
+  body      String?
+  data      Json?
+  isRead    Boolean          @default(false) @map("is_read")
+  createdAt DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead, createdAt])
+  @@map("notifications")
+}
+
+model Review {
+  id         String            @id @default(cuid())
+  reviewerId String            @map("reviewer_id")
+  companyId  String?           @map("company_id")
+  listingId  String?           @map("listing_id")
+  rating     Int
+  title      String?
+  content    String?
+  isVerified Boolean           @default(false) @map("is_verified")
+  createdAt  DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  company    Company?          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  listing    FranchiseListing? @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  reviewer   User              @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
+
+  @@index([companyId])
+  @@index([listingId])
+  @@map("reviews")
+}
+
+model Meeting {
+  id           String               @id @default(cuid())
+  organizerId  String               @map("organizer_id")
+  title        String
+  description  String?
+  meetingUrl   String?              @map("meeting_url")
+  startTime    DateTime             @map("start_time") @db.Timestamptz(6)
+  endTime      DateTime?            @map("end_time") @db.Timestamptz(6)
+  createdAt    DateTime             @default(now()) @map("created_at") @db.Timestamptz(6)
+  organizer    User                 @relation(fields: [organizerId], references: [id], onDelete: Cascade)
+  participants MeetingParticipant[]
+}
+
+model MeetingParticipant {
+  id        String  @id @default(cuid())
+  meetingId String  @map("meeting_id")
+  userId    String  @map("user_id")
+  status    String  @default("pending")
+  meeting   Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([meetingId, userId])
+  @@map("meeting_participants")
+}
+
+model SiteStat {
+  id    String @id @default(cuid())
+  value String
+  label String
+  sort  Int    @default(0)
+
+  @@map("site_stats")
+}
+
+model SiteContact {
+  id      String @id @default(cuid())
+  email   String
+  phone   String
+  address String
+
+  @@map("site_contact")
+}
+
+model AboutPage {
+  id      String @id @default(cuid())
+  section String @unique
+  content String
+
+  @@map("about_page")
+}
+
+model AboutTeam {
+  id   String  @id @default(cuid())
+  name String
+  role String
+  bio  String?
+  sort Int     @default(0)
+
+  @@map("about_team")
+}
+
+model AboutTimeline {
+  id    String  @id @default(cuid())
+  year  String
+  title String
+  desc  String?
+  sort  Int     @default(0)
+
+  @@map("about_timeline")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?  @map("user_id")
+  action    String
+  tableName String?  @map("table_name")
+  recordId  String?  @map("record_id")
+  oldData   Json?    @map("old_data")
+  newData   Json?    @map("new_data")
+  ipAddress String?  @map("ip_address")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("audit_log")
+}
+
+model UserDocument {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  type      String
+  url       String
+  fileName  String   @map("file_name")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("user_documents")
+}
+
 enum UserRole {
-  none
   admin
   franchisor
   franchisee
   consultant
   investor
   supplier
+  none
 }
 
 enum AccountStatus {
@@ -58,509 +522,4 @@ enum NotificationType {
   new_review
   connection_request
   system_alert
-}
-
-model User {
-  id                 String    @id @default(cuid())
-  email              String    @unique
-  emailVerified      Boolean   @default(false) @map("email_verified_bool")
-  name               String?   @map("full_name")
-  image              String?   @map("avatar_url")
-  createdAt          DateTime  @default(now()) @map("created_at")
-  updatedAt          DateTime  @updatedAt @map("updated_at")
-
-  onboardingCompleted Boolean  @default(false) @map("onboarding_completed")
-
-  // Keep existing fields mapped to DB columns
-  emailVerifiedAt    DateTime?  @map("email_verified")
-  passwordHash       String     @default("") @map("password_hash")
-  role               UserRole   @default(none)
-  accountStatus      AccountStatus @default(pending_profile_completion) @map("account_status")
-
-  headline           String?
-  bio                String?
-  phone              String?
-  phoneVerified      DateTime?  @map("phone_verified") @db.Timestamptz
-  location           String?
-
-  investmentCapacity Decimal?   @map("investment_capacity") @db.Decimal(12, 2)
-  industries         String[]
-  experienceYears    Int?       @map("experience_years")
-  website            String?
-  linkedinUrl        String?    @map("linkedin_url")
-
-  companyName              String?  @map("company_name")
-  brandName                String?  @map("brand_name")
-  businessEmail            String?  @map("business_email")
-  businessRegistrationNumber String? @map("business_registration_number")
-  businessRegistrationDoc  String?  @map("business_registration_doc")
-  businessLicenseDoc       String?  @map("business_license_doc")
-  companyLogo              String?  @map("company_logo")
-  companyBanner            String?  @map("company_banner")
-  companyDescription       String?  @map("company_description")
-  gstNumber                String?  @map("gst_number")
-  consultancyName          String?  @map("consultancy_name")
-  preferredIndustry        String?  @map("preferred_industry")
-  preferredLocation        String?  @map("preferred_location")
-  investmentRange          String?  @map("investment_range")
-  resumeUrl                String?  @map("resume_url")
-  certifications           String?  @map("certifications")
-  contactPerson            String?  @map("contact_person")
-  numberOfOutlets          Int?     @map("number_of_outlets")
-  yearsInBusiness          Int?     @map("years_in_business")
-
-  submittedForReviewAt DateTime? @map("submitted_for_review_at") @db.Timestamptz
-  reviewedBy           String?   @map("reviewed_by") @db.Uuid
-  reviewedAt           DateTime? @map("reviewed_at") @db.Timestamptz
-  verificationNotes    String?   @map("verification_notes")
-  rejectionReason      String?   @map("rejection_reason")
-
-  isActive           Boolean   @default(true) @map("is_active")
-  lastLoginAt        DateTime? @map("last_login_at") @db.Timestamptz
-
-  accounts           Account[]
-  sessions           Session[]
-
-  skills             UserSkill[]
-  interests          UserInterest[]
-  education          UserEducation[]
-  experience         UserExperience[]
-
-  companies          Company[]
-  listings           FranchiseListing[]
-  applications       Application[]
-  sentConnections    Connection[]        @relation("followed_by")
-  receivedConnections Connection[]       @relation("following_user")
-  companyFollowers   CompanyFollower[]
-  messages           Message[]
-  participants       ConversationParticipant[]
-  notifications      Notification[]
-  reviews            Review[]
-  organizedMeetings  Meeting[]
-  meetingParticipants MeetingParticipant[]
-  auditLogs          AuditLog[]
-  documents          UserDocument[]
-
-  @@index([email])
-  @@index([role])
-  @@index([accountStatus])
-  @@map("users")
-}
-
-model Session {
-  id        String   @id @default(cuid())
-  userId    String   @map("user_id")
-  token     String   @unique
-  expiresAt DateTime @map("expires_at") @db.Timestamptz
-  ipAddress String?  @map("ip_address")
-  userAgent String?  @map("user_agent")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([token])
-  @@index([userId])
-  @@map("sessions")
-}
-
-model Account {
-  id                    String    @id @default(cuid())
-  userId                String    @map("user_id")
-  accountId             String    @map("account_id")
-  providerId            String    @map("provider_id")
-  accessToken           String?   @map("access_token")
-  refreshToken          String?   @map("refresh_token")
-  idToken               String?   @map("id_token")
-  accessTokenExpiresAt  DateTime? @map("access_token_expires_at") @db.Timestamptz
-  refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at") @db.Timestamptz
-  scope                 String?
-  password              String?
-  createdAt             DateTime  @default(now()) @map("created_at")
-  updatedAt             DateTime  @updatedAt @map("updated_at")
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@index([providerId, accountId])
-  @@map("accounts")
-}
-
-model Verification {
-  id         String   @id @default(cuid())
-  identifier String
-  value      String
-  expiresAt  DateTime @map("expires_at") @db.Timestamptz
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
-
-  @@map("verifications")
-}
-
-model UserSkill {
-  id      String @id @default(cuid())
-  userId  String @map("user_id")
-  skill   String
-
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, skill])
-  @@map("user_skills")
-}
-
-model UserInterest {
-  id       String @id @default(cuid())
-  userId   String @map("user_id")
-  interest String
-
-  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, interest])
-  @@map("user_interests")
-}
-
-model UserEducation {
-  id        String   @id @default(cuid())
-  userId    String   @map("user_id")
-  school    String
-  degree    String?
-  field     String?
-  startYear Int?     @map("start_year")
-  endYear   Int?     @map("end_year")
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
-
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("user_education")
-}
-
-model UserExperience {
-  id          String    @id @default(cuid())
-  userId      String    @map("user_id")
-  company     String
-  role        String
-  description String?
-  startDate   DateTime  @map("start_date") @db.Date
-  endDate     DateTime? @map("end_date") @db.Date
-  isCurrent   Boolean   @default(false) @map("is_current")
-  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz
-
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("user_experience")
-}
-
-model Company {
-  id            String        @id @default(cuid())
-  ownerId       String        @map("owner_id")
-  name          String
-  slug          String        @unique
-  logoUrl       String?       @map("logo_url")
-  bannerUrl     String?       @map("banner_url")
-  industry      String
-  description   String?
-  website       String?
-  foundedYear   Int?          @map("founded_year")
-  employeeCount String?       @map("employee_count")
-  email         String?
-  phone         String?
-  address       String?
-  city          String?
-  country       String?
-  isVerified    Boolean       @default(false) @map("is_verified")
-  status        ListingStatus @default(pending)
-  followerCount Int           @default(0) @map("follower_count")
-  listingCount  Int           @default(0) @map("listing_count")
-  createdAt     DateTime      @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt     DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
-
-  owner         User          @relation(fields: [ownerId], references: [id], onDelete: Restrict)
-  listings      FranchiseListing[]
-  followers     CompanyFollower[]
-  reviews       Review[]
-
-  @@index([slug])
-  @@index([industry])
-  @@index([status])
-  @@map("companies")
-}
-
-model FranchiseListing {
-  id                String         @id @default(cuid())
-  companyId         String         @map("company_id")
-  createdBy         String         @map("created_by")
-
-  title             String
-  slug              String         @unique
-  description       String?
-  industry          String
-  businessType      String?        @map("business_type")
-
-  investmentMin     Decimal?       @map("investment_min") @db.Decimal(12, 2)
-  investmentMax     Decimal?       @map("investment_max") @db.Decimal(12, 2)
-  roiPercentage     Decimal?       @map("roi_percentage") @db.Decimal(5, 2)
-  franchiseFee      Decimal?       @map("franchise_fee") @db.Decimal(12, 2)
-  royaltyFee        String?        @map("royalty_fee")
-  breakEvenMonths   Int?           @map("break_even_months")
-
-  location          String?
-  city              String?
-  country           String?
-  isRemote          Boolean        @default(false) @map("is_remote")
-
-  images            String[]
-  videoUrl          String?        @map("video_url")
-
-  status            ListingStatus  @default(pending)
-  isFeatured        Boolean        @default(false) @map("is_featured")
-
-  viewCount         Int            @default(0) @map("view_count")
-  applicationCount  Int            @default(0) @map("application_count")
-
-  createdAt         DateTime       @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt         DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
-  publishedAt       DateTime?      @map("published_at") @db.Timestamptz
-
-  company           Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  createdByUser     User           @relation(fields: [createdBy], references: [id], onDelete: Restrict)
-  applications      Application[]
-  reviews           Review[]
-
-  @@index([companyId])
-  @@index([industry])
-  @@index([status])
-  @@index([investmentMin, investmentMax])
-  @@map("franchise_listings")
-}
-
-model Application {
-  id                  String            @id @default(cuid())
-  listingId           String            @map("listing_id")
-  applicantId         String            @map("applicant_id")
-  status              ApplicationStatus @default(submitted)
-
-  coverMessage        String?           @map("cover_message")
-  investmentCapacity  Decimal?          @map("investment_capacity") @db.Decimal(12, 2)
-
-  internalNotes       String?           @map("internal_notes")
-
-  createdAt           DateTime          @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt           DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
-
-  listing             FranchiseListing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
-  applicant           User              @relation(fields: [applicantId], references: [id], onDelete: Cascade)
-
-  @@unique([listingId, applicantId])
-  @@index([listingId])
-  @@index([applicantId])
-  @@map("applications")
-}
-
-model Connection {
-  id          String   @id @default(cuid())
-  followerId  String   @map("follower_id")
-  followingId String   @map("following_id")
-  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
-
-  follower    User     @relation("followed_by", fields: [followerId], references: [id], onDelete: Cascade)
-  following   User     @relation("following_user", fields: [followingId], references: [id], onDelete: Cascade)
-
-  @@unique([followerId, followingId])
-  @@index([followerId])
-  @@index([followingId])
-  @@map("connections")
-}
-
-model CompanyFollower {
-  id        String   @id @default(cuid())
-  userId    String   @map("user_id")
-  companyId String   @map("company_id")
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
-
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, companyId])
-  @@index([companyId])
-  @@map("company_followers")
-}
-
-model Conversation {
-  id        String   @id @default(cuid())
-  subject   String?
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz
-
-  participants ConversationParticipant[]
-  messages     Message[]
-}
-
-model ConversationParticipant {
-  id              String       @id @default(cuid())
-  conversationId  String       @map("conversation_id")
-  userId          String       @map("user_id")
-  lastReadAt      DateTime?    @map("last_read_at") @db.Timestamptz
-
-  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([conversationId, userId])
-  @@map("conversation_participants")
-}
-
-model Message {
-  id              String       @id @default(cuid())
-  conversationId  String       @map("conversation_id")
-  senderId        String       @map("sender_id")
-  content         String
-  messageType     MessageType  @default(text) @map("message_type")
-  attachmentUrl   String?      @map("attachment_url")
-  createdAt       DateTime     @default(now()) @map("created_at") @db.Timestamptz
-
-  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  sender          User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
-
-  @@index([conversationId, createdAt])
-  @@map("messages")
-}
-
-model Notification {
-  id        String           @id @default(cuid())
-  userId    String           @map("user_id")
-  type      NotificationType
-  title     String
-  body      String?
-  data      Json?            @db.JsonB
-  isRead    Boolean          @default(false) @map("is_read")
-  createdAt DateTime         @default(now()) @map("created_at") @db.Timestamptz
-
-  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId, isRead, createdAt])
-  @@map("notifications")
-}
-
-model Review {
-  id         String   @id @default(cuid())
-  reviewerId String   @map("reviewer_id")
-  companyId  String?  @map("company_id")
-  listingId  String?  @map("listing_id")
-  rating     Int
-  title      String?
-  content    String?
-  isVerified Boolean  @default(false) @map("is_verified")
-  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
-
-  reviewer   User     @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
-  company    Company? @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  listing    FranchiseListing? @relation(fields: [listingId], references: [id], onDelete: Cascade)
-
-  @@index([companyId])
-  @@index([listingId])
-  @@map("reviews")
-}
-
-model Meeting {
-  id            String               @id @default(cuid())
-  organizerId   String               @map("organizer_id")
-  title         String
-  description   String?
-  meetingUrl    String?              @map("meeting_url")
-  startTime     DateTime             @map("start_time") @db.Timestamptz
-  endTime       DateTime?            @map("end_time") @db.Timestamptz
-  createdAt     DateTime             @default(now()) @map("created_at") @db.Timestamptz
-
-  organizer     User                 @relation(fields: [organizerId], references: [id], onDelete: Cascade)
-  participants  MeetingParticipant[]
-}
-
-model MeetingParticipant {
-  id        String   @id @default(cuid())
-  meetingId String   @map("meeting_id")
-  userId    String   @map("user_id")
-  status    String   @default("pending")
-
-  meeting   Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([meetingId, userId])
-  @@map("meeting_participants")
-}
-
-model SiteStat {
-  id    String @id @default(cuid())
-  value String
-  label String
-  sort  Int    @default(0)
-
-  @@map("site_stats")
-}
-
-model SiteContact {
-  id      String @id @default(cuid())
-  email   String
-  phone   String
-  address String
-
-  @@map("site_contact")
-}
-
-model AboutPage {
-  id      String @id @default(cuid())
-  section String @unique
-  content String
-
-  @@map("about_page")
-}
-
-model AboutTeam {
-  id   String @id @default(cuid())
-  name String
-  role String
-  bio  String?
-  sort Int    @default(0)
-
-  @@map("about_team")
-}
-
-model AboutTimeline {
-  id    String @id @default(cuid())
-  year  String
-  title String
-  desc  String?
-  sort  Int    @default(0)
-
-  @@map("about_timeline")
-}
-
-model AuditLog {
-  id        String   @id @default(cuid())
-  userId    String?  @map("user_id")
-  action    String
-  tableName String?  @map("table_name")
-  recordId  String?  @map("record_id")
-  oldData   Json?    @map("old_data") @db.JsonB
-  newData   Json?    @map("new_data") @db.JsonB
-  ipAddress String?  @map("ip_address")
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
-
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-
-  @@index([userId])
-  @@index([createdAt])
-  @@map("audit_log")
-}
-
-model UserDocument {
-  id        String   @id @default(cuid())
-  userId    String   @map("user_id")
-  type      String
-  url       String
-  fileName  String   @map("file_name")
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
-
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@map("user_documents")
 }

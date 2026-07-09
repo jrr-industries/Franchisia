@@ -6,6 +6,8 @@ import Avatar from "./ui/Avatar";
 import Dropdown, { DropdownItem } from "./ui/Dropdown";
 import { useTheme } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
+import logoLight from "../assets/logo-light-theme.png";
+import logoDark from "../assets/logo-dark-theme.png";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -33,9 +35,8 @@ export default function Navbar() {
       }}
     >
       <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
-        <Link to="/" style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 800, fontSize: 22, color: "var(--primary)" }}>
-          <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: "var(--primary)", display: "inline-block" }} />
-          Franchisia
+        <Link to="/" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <img src={isDark ? logoDark : logoLight} alt="Franchisia" style={{ height: 36, width: 'auto' }} />
         </Link>
 
         <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
