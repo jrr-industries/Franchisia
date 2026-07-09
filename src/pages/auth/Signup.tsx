@@ -33,8 +33,6 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [verificationSent, setVerificationSent] = useState(false);
-  const [verificationEmail, setVerificationEmail] = useState("");
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(signupSchema),
@@ -44,9 +42,8 @@ export default function Signup() {
     setIsSubmitting(true);
     try {
       await signup(data.name, data.email, data.password);
-      setVerificationEmail(data.email);
-      setVerificationSent(true);
-      addToast("Account created! Please check your email for verification.", "success");
+      addToast("Account created! Welcome to Franchisia.", "success");
+      navigate("/onboarding");
     } catch (err) {
       addToast(err.message, "error");
     } finally {
@@ -61,39 +58,6 @@ export default function Signup() {
       addToast(err.message, "error");
     }
   };
-
-  if (verificationSent) {
-    return (
-      <div style={{ minHeight: "100vh", display: "flex" }}>
-        <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
-          <div style={{ maxWidth: 440, width: "100%", textAlign: "center" }}>
-            <div style={{ width: 64, height: 64, borderRadius: "50%", backgroundColor: "var(--accent-light)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
-              <Mail size={28} style={{ color: "var(--accent)" }} />
-            </div>
-            <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8 }}>Check your email</h1>
-            <p style={{ color: "var(--text-secondary)", marginBottom: 8, lineHeight: 1.6 }}>
-              We've sent a verification link to
-            </p>
-            <p style={{ fontWeight: 600, color: "var(--text)", marginBottom: 24 }}>{verificationEmail}</p>
-            <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 32 }}>
-              Please verify your email before logging in.
-            </p>
-            <button
-              onClick={() => {}}
-              style={{ background: "none", border: "none", color: "var(--primary)", fontWeight: 600, fontSize: 14, cursor: "pointer", marginBottom: 16 }}
-            >
-              Resend Email
-            </button>
-            <div>
-              <Link to="/login" style={{ color: "var(--primary)", fontWeight: 600, fontSize: 14 }}>
-                Back to Login
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div style={{ minHeight: "100vh", display: "flex" }}>

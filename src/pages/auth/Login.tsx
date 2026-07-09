@@ -36,9 +36,9 @@ export default function Login() {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
-      await login(data.email, data.password);
+      const userData = await login(data.email, data.password);
       addToast("Welcome back!", "success");
-      handleRedirect(user);
+      handleRedirect(userData);
     } catch (err) {
       addToast(err.message, "error");
     } finally {

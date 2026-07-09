@@ -44,7 +44,7 @@ export default function Signup() {
     setSubmitting(true);
     try {
       await signup({ email: form.email, password: form.password, name: form.name });
-      navigate('/verify-email');
+      navigate('/onboarding', { replace: true });
     } catch (err) {
       setError(err.message);
     } finally {

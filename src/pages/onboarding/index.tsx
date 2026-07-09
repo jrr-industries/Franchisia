@@ -4,6 +4,8 @@ import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../components/ui/Toast";
 import { Loader2, Rocket } from "lucide-react";
 
+const API = "/api";
+
 export default function Onboarding() {
   const navigate = useNavigate();
   const { user, updateUser } = useAuth();
@@ -13,11 +15,12 @@ export default function Onboarding() {
   const handleComplete = async () => {
     setIsSubmitting(true);
     try {
-      const res = await fetch("/api/onboarding/complete", {
+      const res = await fetch(`${API}/onboarding/complete`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       });
       if (!res.ok) throw new Error("Failed to complete onboarding");
       const data = await res.json();

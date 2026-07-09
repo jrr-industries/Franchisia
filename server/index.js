@@ -22,8 +22,8 @@ app.use(cors({
 }));
 app.use(express.json({ limit: "10mb" }));
 
-app.use("/api/auth", toNodeHandler(auth));
 app.use("/api/auth", authRoutes);
+app.use("/api/auth", toNodeHandler(auth));
 
 app.use("/api/users", userRoutes);
 app.use("/api/companies", companyRoutes);

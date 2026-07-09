@@ -41,17 +41,9 @@ export default function Login() {
       const data = await login(form.email, form.password);
       const u = data.user;
       if (u.role === 'admin') {
-        navigate('/admin');
-      } else if (!u.emailVerified) {
-        navigate('/verify-email');
-      } else if (!u.phoneVerified) {
-        navigate('/verify-phone');
-      } else if (!u.onboardingCompleted) {
-        navigate('/onboarding');
-      } else if (u.accountStatus === 'pending_admin_review') {
-        navigate('/verification-status');
+        navigate('/admin', { replace: true });
       } else {
-        navigate('/dashboard');
+        navigate('/onboarding', { replace: true });
       }
     } catch (err) {
       setError(err.message);

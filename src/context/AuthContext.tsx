@@ -1,11 +1,24 @@
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { authClient } from "../lib/auth-client";
 
+const API = "/api";
+
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const refreshSession = useCallback(async () => {
+    const { data: session } = await authClient.getSession();
+    if (session?.user) {
+      setUser({
+        ...session.user,
+        onboardingCompleted: session.user.onboardingCompleted ?? false,
+      });
+    }
+    return session;
+  }, []);
 
   useEffect(() => {
     const init = async () => {
@@ -39,21 +52,11 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  const refreshSession = useCallback(async () => {
-    const { data: session } = await authClient.getSession();
-    if (session?.user) {
-      setUser({
-        ...session.user,
-        onboardingCompleted: session.user.onboardingCompleted ?? false,
-      });
-    }
-    return session;
-  }, []);
-
   const login = useCallback(async (email, password) => {
     const { error } = await authClient.signIn.email({ email, password });
     if (error) throw new Error(error.message || error.code || "Login failed");
-    await refreshSession();
+    const session = await refreshSession();
+    return session?.user ?? null;
   }, [refreshSession]);
 
   const signup = useCallback(async (name, email, password) => {
@@ -86,6 +89,76 @@ export function AuthProvider({ children }) {
     await authClient.signIn.social({ provider });
   }, []);
 
+  const selectRole = useCallback(async (role) => {
+    const res = await fetch(`${API}/auth/select-role`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ role }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Role selection failed");
+    }
+    const data = await res.json();
+    setUser((prev) => ({ ...prev, ...data.user }));
+    return data;
+  }, []);
+
+  const updateOnboarding = useCallback(async (role, formData) => {
+    const res = await fetch(`${API}/onboarding/${role}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(formData),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Update failed");
+    }
+    const data = await res.json();
+    if (data.user) setUser((prev) => ({ ...prev, ...data.user }));
+    return data;
+  }, []);
+
+  const uploadDocument = useCallback(async (docData) => {
+    const res = await fetch(`${API}/onboarding/documents`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(docData),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Document upload failed");
+    }
+    return res.json();
+  }, []);
+
+  const submitForReview = useCallback(async () => {
+    const res = await fetch(`${API}/onboarding/submit-for-review`, {
+      method: "POST",
+      credentials: "include",
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Submission failed");
+    }
+    const data = await res.json();
+    if (data.user) setUser((prev) => ({ ...prev, ...data.user }));
+    return data;
+  }, []);
+
+  const fetchAuthStatus = useCallback(async () => {
+    const res = await fetch(`${API}/auth/status`, {
+      credentials: "include",
+    });
+    if (!res.ok) throw new Error("Failed to fetch status");
+    const data = await res.json();
+    setUser(data);
+    return data;
+  }, []);
+
   const isAdmin = user?.role === "admin";
 
   return (
@@ -101,6 +174,11 @@ export function AuthProvider({ children }) {
       forgotPassword,
       resetPassword,
       loginSocial,
+      selectRole,
+      updateOnboarding,
+      uploadDocument,
+      submitForReview,
+      fetchAuthStatus,
       refreshSession,
       updateUser: setUser,
     }}>
