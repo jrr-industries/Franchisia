@@ -57,7 +57,7 @@ router.get("/users", async (req, res) => {
         skip,
         take: parseInt(limit),
         select: {
-          id: true, email: true, fullName: true, role: true,
+          id: true, email: true, name: true, role: true,
           accountStatus: true, isActive: true, createdAt: true,
           lastLoginAt: true, companyName: true, phone: true,
           submittedForReviewAt: true, emailVerified: true, phoneVerified: true,
@@ -97,7 +97,7 @@ router.get("/users/pending-verification", async (req, res) => {
         skip,
         take: parseInt(limit),
         select: {
-          id: true, email: true, fullName: true, role: true,
+          id: true, email: true, name: true, role: true,
           accountStatus: true, companyName: true, consultancyName: true,
           businessEmail: true, phone: true, website: true,
           businessRegistrationNumber: true, gstNumber: true,
@@ -135,6 +135,7 @@ router.patch("/users/:id/verify", async (req, res) => {
         where: { id: req.params.id },
         data: {
           accountStatus: "verified",
+          onboardingCompleted: true,
           reviewedBy: req.user.id,
           reviewedAt: new Date(),
           verificationNotes: notes || null,

@@ -66,6 +66,10 @@ export default function AdminUsers() {
       if (statusFilter) params.set('status', statusFilter);
       if (roleFilter) params.set('role', roleFilter);
       const res = await fetch(`${API}/admin/users?${params}`, { headers });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Failed to fetch users');
+      }
       const data = await res.json();
       setUsers(data.users || []);
       setTotal(data.total || 0);

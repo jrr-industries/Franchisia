@@ -25,44 +25,50 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (email, password) => {
-    const res = await fetch(`${API}/auth/login`, {
+    const res = await fetch(`${API}/auth/sign-in/email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
     if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error || 'Login failed');
+      const text = await res.text();
+      let err;
+      try { err = JSON.parse(text); } catch { err = { error: text || 'Login failed' }; }
+      throw new Error(err.error || err.message || 'Login failed');
     }
     const data = await res.json();
+    const sessionToken = data.session?.token || data.token;
     setUser(data.user);
-    setToken(data.token);
-    localStorage.setItem('token', data.token);
+    setToken(sessionToken);
+    localStorage.setItem('token', sessionToken);
     localStorage.setItem('user', JSON.stringify(data.user));
     return data;
   };
 
   const signup = async (userData) => {
-    const res = await fetch(`${API}/auth/signup`, {
+    const res = await fetch(`${API}/auth/sign-up/email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData),
     });
     if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error || 'Signup failed');
+      const text = await res.text();
+      let err;
+      try { err = JSON.parse(text); } catch { err = { error: text || 'Signup failed' }; }
+      throw new Error(err.error || err.message || 'Signup failed');
     }
     const data = await res.json();
+    const sessionToken = data.session?.token || data.token;
     setUser(data.user);
-    setToken(data.token);
-    localStorage.setItem('token', data.token);
+    setToken(sessionToken);
+    localStorage.setItem('token', sessionToken);
     localStorage.setItem('user', JSON.stringify(data.user));
     return data;
   };
 
   const logout = async () => {
     if (token) {
-      await fetch(`${API}/auth/logout`, {
+      await fetch(`${API}/auth/sign-out`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       }).catch(() => {});

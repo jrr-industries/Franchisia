@@ -18,6 +18,9 @@ import ResetPassword from "../pages/auth/ResetPassword";
 import VerifyEmail from "../pages/auth/VerifyEmail";
 
 import Onboarding from "../pages/onboarding";
+import RoleSelection from "../pages/onboarding/RoleSelection";
+import RoleForm from "../pages/onboarding/RoleForm";
+import VerificationStatus from "../pages/onboarding/VerificationStatus";
 import DashboardHome from "../pages/dashboard";
 
 import Discover from "../pages/dashboard/Discover";
@@ -38,7 +41,7 @@ export default function AppRoutes() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route path="/" element={<AuthRedirect><Home /></AuthRedirect>} />
+        <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
@@ -52,7 +55,9 @@ export default function AppRoutes() {
         <Route path="/verify-email" element={<VerifyEmail />} />
       </Route>
 
-      <Route path="/onboarding" element={<OnboardingRoute><Onboarding /></OnboardingRoute>} />
+      <Route path="/onboarding" element={<OnboardingRoute><RoleSelection /></OnboardingRoute>} />
+      <Route path="/onboarding/:role" element={<ProtectedRoute><RoleForm /></ProtectedRoute>} />
+      <Route path="/verification-status" element={<ProtectedRoute><VerificationStatus /></ProtectedRoute>} />
 
       <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
         <Route path="/dashboard" element={<DashboardHome />} />

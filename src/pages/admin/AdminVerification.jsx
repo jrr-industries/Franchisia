@@ -35,6 +35,10 @@ export default function AdminVerification() {
   const fetchPendingUsers = async () => {
     try {
       const res = await fetch(`${API}/admin/users/pending-verification`, { headers });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Failed to fetch pending users');
+      }
       const data = await res.json();
       setUsers(data.users || []);
     } catch (err) {
@@ -130,8 +134,8 @@ export default function AdminVerification() {
                   <tr key={u.id}>
                     <td style={s.td}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <Avatar name={u.fullName} size={36} />
-                        <span style={{ fontWeight: 500 }}>{u.fullName}</span>
+                        <Avatar name={u.name} size={36} />
+                        <span style={{ fontWeight: 500 }}>{u.name}</span>
                       </div>
                     </td>
                     <td style={{ ...s.td, color: 'var(--text-secondary)' }}>{u.businessEmail || u.email}</td>

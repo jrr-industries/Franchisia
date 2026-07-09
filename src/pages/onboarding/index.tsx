@@ -13,12 +13,11 @@ export default function Onboarding() {
   const handleComplete = async () => {
     setIsSubmitting(true);
     try {
-      const res = await fetch("http://localhost:3001/api/onboarding/complete", {
+      const res = await fetch("/api/onboarding/complete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
       });
       if (!res.ok) throw new Error("Failed to complete onboarding");
       const data = await res.json();

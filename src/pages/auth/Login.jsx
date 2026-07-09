@@ -46,10 +46,10 @@ export default function Login() {
         navigate('/verify-email');
       } else if (!u.phoneVerified) {
         navigate('/verify-phone');
-      } else if (u.accountStatus === 'pending_profile_completion') {
-        navigate('/select-role');
+      } else if (!u.onboardingCompleted) {
+        navigate('/onboarding');
       } else if (u.accountStatus === 'pending_admin_review') {
-        navigate('/account-status');
+        navigate('/verification-status');
       } else {
         navigate('/dashboard');
       }

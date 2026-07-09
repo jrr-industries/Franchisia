@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth.ts";
+import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import companyRoutes from "./routes/companies.js";
 import listingRoutes from "./routes/listings.js";
@@ -22,6 +23,7 @@ app.use(cors({
 app.use(express.json({ limit: "10mb" }));
 
 app.use("/api/auth", toNodeHandler(auth));
+app.use("/api/auth", authRoutes);
 
 app.use("/api/users", userRoutes);
 app.use("/api/companies", companyRoutes);

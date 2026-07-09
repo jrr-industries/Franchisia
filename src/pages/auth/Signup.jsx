@@ -43,7 +43,7 @@ export default function Signup() {
     }
     setSubmitting(true);
     try {
-      await signup({ email: form.email, password: form.password, fullName: form.name });
+      await signup({ email: form.email, password: form.password, name: form.name });
       navigate('/verify-email');
     } catch (err) {
       setError(err.message);
