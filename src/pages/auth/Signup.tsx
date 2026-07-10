@@ -41,9 +41,13 @@ export default function Signup() {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
-      await signup(data.name, data.email, data.password);
+      const userData = await signup(data.name, data.email, data.password);
       addToast("Account created! Welcome to Franchisia.", "success");
-      navigate("/onboarding/select-role");
+      if (userData?.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/onboarding/select-role");
+      }
     } catch (err) {
       addToast(err.message, "error");
     } finally {

@@ -26,8 +26,9 @@ export default function Login() {
   });
 
   const handleRedirect = (userData) => {
-    const hasRole = userData?.role && userData?.role !== "none";
-    if (hasRole) {
+    if (userData?.role === "admin") {
+      navigate("/admin");
+    } else if (userData?.role && userData?.role !== "none") {
       navigate("/onboarding/status");
     } else {
       navigate("/onboarding/select-role");

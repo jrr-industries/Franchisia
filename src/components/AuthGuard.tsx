@@ -36,6 +36,10 @@ export function OnboardingRoute({ children }) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
+  if (user?.role === "admin") {
+    return <Navigate to="/admin" replace />;
+  }
+
   const hasRole = user?.role && user?.role !== "none";
   if (hasRole) {
     return <Navigate to="/onboarding/status" replace />;
@@ -56,6 +60,9 @@ export function AuthRedirect({ children }) {
   }
 
   if (isAuthenticated) {
+    if (user?.role === "admin") {
+      return <Navigate to="/admin" replace />;
+    }
     const hasRole = user?.role && user?.role !== "none";
     if (hasRole) {
       return <Navigate to="/onboarding/status" replace />;

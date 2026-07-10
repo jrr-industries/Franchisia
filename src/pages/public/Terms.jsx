@@ -3,7 +3,7 @@ import Badge from '../../components/ui/Badge';
 const sections = [
   {
     title: 'Acceptance of Terms',
-    content: 'By accessing or using Franchisia, you agree to be bound by these Terms of Service. If you do not agree to all the terms, you may not access or use our services. These terms apply to all visitors, users, and others who access or use the platform.',
+    content: 'By using Franchise Hub, you agree to use the platform lawfully.',
   },
   {
     title: 'Account Registration',
@@ -11,7 +11,7 @@ const sections = [
   },
   {
     title: 'User Conduct',
-    content: 'You agree to use the platform responsibly and professionally. Prohibited activities include: posting false or misleading information, harassing other users, spamming, uploading malicious content, violating intellectual property rights, or engaging in any illegal activity. We reserve the right to suspend or terminate accounts that violate these rules.',
+    content: 'Users are responsible for the content they upload. Franchise Hub may suspend accounts that violate these terms.',
   },
   {
     title: 'Intellectual Property',
@@ -34,8 +34,8 @@ const sections = [
     content: 'We reserve the right to modify these terms at any time. We will notify users of material changes via email or platform notification. Continued use of Franchisia after changes constitutes acceptance of the new terms.',
   },
   {
-    title: 'Contact Information',
-    content: 'For questions about these Terms of Service, please contact us at legal@franchisia.com or through our Contact page at franchisia.com/contact.',
+    title: 'Contact',
+    content: 'Contact: jrr.industries6@gmail.com',
   },
 ];
 

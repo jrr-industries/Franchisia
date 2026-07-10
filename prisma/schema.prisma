@@ -513,6 +513,21 @@ enum MessageType {
   system
 }
 
+model Report {
+  id          String   @id @default(cuid())
+  reporterId  String   @map("reporter_id")
+  targetId    String   @map("target_id")
+  targetType  String   @map("target_type")
+  reason      String
+  description String?
+  status      String   @default("pending")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  resolvedAt  DateTime? @map("resolved_at") @db.Timestamptz(6)
+  resolvedBy  String?  @map("resolved_by")
+
+  @@map("reports")
+}
+
 enum NotificationType {
   new_lead
   application_received
@@ -521,5 +536,13 @@ enum NotificationType {
   new_message
   new_review
   connection_request
+  new_follower
+  company_followed
+  verification_approved
+  verification_rejected
+  account_suspended
+  account_reactivated
+  admin_promoted
+  admin_demoted
   system_alert
 }

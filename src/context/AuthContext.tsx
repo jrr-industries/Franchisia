@@ -10,26 +10,29 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const refreshSession = useCallback(async () => {
-    const { data: session } = await authClient.getSession();
-    if (session?.user) {
-      setUser({
-        ...session.user,
-        onboardingCompleted: session.user.onboardingCompleted ?? false,
+    try {
+      const res = await fetch(`${API}/auth/status`, {
+        credentials: "include",
       });
+      if (res.ok) {
+        const data = await res.json();
+        setUser({
+          ...data,
+          onboardingCompleted: data.onboardingCompleted ?? false,
+        });
+        return { user: data };
+      }
+    } catch {
+      // Not authenticated
     }
-    return session;
+    setUser(null);
+    return null;
   }, []);
 
   useEffect(() => {
     const init = async () => {
       try {
-        const { data: session } = await authClient.getSession();
-        if (session?.user) {
-          setUser({
-            ...session.user,
-            onboardingCompleted: session.user.onboardingCompleted ?? false,
-          });
-        }
+        await refreshSession();
       } catch {
         // Not authenticated
       } finally {
@@ -37,18 +40,7 @@ export function AuthProvider({ children }) {
       }
     };
     init();
-
-    const unsubscribe = authClient.$store.listen("session", (session) => {
-      if (session?.user) {
-        setUser({
-          ...session.user,
-          onboardingCompleted: session.user.onboardingCompleted ?? false,
-        });
-      }
-    });
-
-    return unsubscribe;
-  }, []);
+  }, [refreshSession]);
 
   const login = useCallback(async (email, password) => {
     const { error } = await authClient.signIn.email({ email, password });
@@ -60,7 +52,8 @@ export function AuthProvider({ children }) {
   const signup = useCallback(async (name, email, password) => {
     const { error } = await authClient.signUp.email({ name, email, password });
     if (error) throw new Error(error.message || error.code || "Signup failed");
-    await refreshSession();
+    const session = await refreshSession();
+    return session?.user ?? null;
   }, [refreshSession]);
 
   const logout = useCallback(async () => {
@@ -84,7 +77,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const loginSocial = useCallback(async (provider) => {
-    await authClient.signIn.social({ provider });
+    await authClient.signIn.social({ provider, callbackURL: "/onboarding/select-role" });
   }, []);
 
   const selectRole = useCallback(async (role) => {

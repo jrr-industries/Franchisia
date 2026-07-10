@@ -3,7 +3,7 @@ import Badge from '../../components/ui/Badge';
 const sections = [
   {
     title: 'Information We Collect',
-    content: 'We collect information you provide when creating an account, including your name, email address, phone number, company details, and professional information. We also collect usage data such as pages visited, features used, and interactions with other users to improve our services.',
+    content: 'Franchisia collects your name, email address, and profile information to provide authentication and platform services.',
   },
   {
     title: 'How We Use Your Information',
@@ -11,11 +11,11 @@ const sections = [
   },
   {
     title: 'Information Sharing',
-    content: 'We do not sell your personal information. We may share information with other users as part of the platform\'s networking features, with service providers who assist in operating our platform, or when required by law. Your profile information is visible to other registered users.',
+    content: 'We do not sell your personal information.',
   },
   {
     title: 'Data Security',
-    content: 'We implement industry-standard security measures including encryption, secure servers, and access controls to protect your data. However, no method of transmission over the internet is 100% secure. We regularly review and update our security practices.',
+    content: 'Information is stored securely and used only to operate the platform.',
   },
   {
     title: 'Your Rights',
@@ -35,7 +35,7 @@ const sections = [
   },
   {
     title: 'Contact Us',
-    content: 'If you have questions about this privacy policy or how we handle your data, please contact us at privacy@franchisia.com or through our Contact page.',
+    content: 'For questions, contact: jrr.industries6@gmail.com',
   },
 ];
 

@@ -1,9 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Compass, Building2, MessageSquare, Bell, User, Settings, LogOut, Users, BarChart3, Shield, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
-import logoLight from '../assets/logo-light-theme.png';
-import logoDark from '../assets/logo-dark-theme.png';
+import logo from '../assets/logo.png';
 
 const mainLinks = [
   { label: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
@@ -21,8 +19,6 @@ const accountLinks = [
 export default function Sidebar({ collapsed, onToggle }) {
   const location = useLocation();
   const { user, isAdmin, logout } = useAuth();
-
-  const { isDark } = useTheme();
 
   const isActive = (path) => location.pathname === path;
 
@@ -61,7 +57,8 @@ export default function Sidebar({ collapsed, onToggle }) {
     >
       <div style={{ padding: collapsed ? 16 : '20px 20px', display: 'flex', alignItems: 'center', gap: 10, borderBottom: '1px solid var(--border)' }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', whiteSpace: 'nowrap' }}>
-          <img src={isDark ? logoDark : logoLight} alt="Franchisia" style={{ height: collapsed ? 28 : 32, width: 'auto' }} />
+          <img src={logo} alt="Franchisia" style={{ height: collapsed ? 28 : 32, width: 'auto' }} />
+          {!collapsed && <span style={{ fontSize: 18, fontWeight: 800, color: 'var(--text)' }}>Franchisia</span>}
         </Link>
       </div>
 
