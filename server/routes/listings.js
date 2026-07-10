@@ -40,7 +40,8 @@ router.get("/", async (req, res) => {
 
     res.json({ listings, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -63,7 +64,8 @@ router.get("/:slug", async (req, res) => {
 
     res.json(listing);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -95,7 +97,8 @@ router.post("/", authenticate, async (req, res) => {
     if (error.code === "P2002") {
       return res.status(409).json({ error: "A listing with this slug already exists" });
     }
-    res.status(500).json({ error: error.message });
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -109,13 +112,19 @@ router.put("/:id", authenticate, async (req, res) => {
       return res.status(403).json({ error: "Not authorized" });
     }
 
+    const allowedFields = ["title", "description", "industry", "businessType", "investmentMin", "investmentMax", "roiPercentage", "franchiseFee", "royaltyFee", "breakEvenMonths", "location", "city", "country", "isRemote", "images", "videoUrl"];
+    const updates = {};
+    for (const key of allowedFields) {
+      if (req.body[key] !== undefined) updates[key] = req.body[key];
+    }
     const updated = await prisma.franchiseListing.update({
       where: { id: req.params.id },
-      data: req.body,
+      data: updates,
     });
     res.json(updated);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

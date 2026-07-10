@@ -8,7 +8,8 @@ router.get("/stats", async (_req, res) => {
     const stats = await prisma.siteStat.findMany({ orderBy: { sort: "asc" } });
     res.json(stats);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Public route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -17,7 +18,8 @@ router.get("/contact", async (_req, res) => {
     const contact = await prisma.siteContact.findFirst();
     res.json(contact);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Public route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -34,7 +36,8 @@ router.get("/about", async (_req, res) => {
 
     res.json({ content, team, timeline });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Public route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -61,7 +64,8 @@ router.get("/reviews", async (req, res) => {
     ]);
     res.json({ reviews, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Public route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -84,7 +88,8 @@ router.get("/industries", async (_req, res) => {
 
     res.json(industries);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Public route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

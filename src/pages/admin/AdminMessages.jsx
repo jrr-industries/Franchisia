@@ -56,7 +56,7 @@ export default function AdminMessages() {
   const openConversation = async (conv) => {
     setSelectedConv(conv);
     try {
-      const res = await fetch(`${API}/messages/conversations/${conv.id}/messages?limit=50`, { credentials: 'include' });
+      const res = await fetch(`${API}/admin/messages/conversations/${conv.id}/messages?limit=50`, { credentials: 'include' });
       if (res.ok) { const d = await res.json(); setConvMessages(d.messages || []); }
     } catch (e) { console.error(e); }
   };

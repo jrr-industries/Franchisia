@@ -15,18 +15,21 @@ router.post("/", authenticate, async (req, res) => {
       return res.status(409).json({ error: "You have already applied to this listing" });
     }
 
-    const application = await prisma.application.create({
-      data: { listingId, applicantId: req.user.id, coverMessage, investmentCapacity },
-    });
-
-    await prisma.franchiseListing.update({
-      where: { id: listingId },
-      data: { applicationCount: { increment: 1 } },
+    const [application] = await prisma.$transaction(async (tx) => {
+      const app = await tx.application.create({
+        data: { listingId, applicantId: req.user.id, coverMessage, investmentCapacity },
+      });
+      await tx.franchiseListing.update({
+        where: { id: listingId },
+        data: { applicationCount: { increment: 1 } },
+      });
+      return [app];
     });
 
     res.status(201).json(application);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Applications route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -43,7 +46,8 @@ router.get("/my", authenticate, async (req, res) => {
     });
     res.json(applications);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Applications route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -67,7 +71,8 @@ router.get("/listing/:listingId", authenticate, async (req, res) => {
     });
     res.json(applications);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Applications route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -91,7 +96,8 @@ router.put("/:id/status", authenticate, async (req, res) => {
     });
     res.json(updated);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Applications route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

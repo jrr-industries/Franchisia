@@ -43,7 +43,8 @@ router.put("/franchisor", async (req, res) => {
     res.json({ user: userData });
   } catch (error) {
     console.error("Franchisor onboarding error:", error);
-    res.status(500).json({ error: error.message });
+    console.error("Onboarding route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -65,8 +66,7 @@ router.put("/franchisee", async (req, res) => {
         preferredIndustry,
         headline: businessExperience,
         linkedinUrl: linkedinProfile || null,
-        accountStatus: "verified",
-        onboardingCompleted: true,
+        accountStatus: "pending_admin_review",
       },
     });
 
@@ -74,7 +74,8 @@ router.put("/franchisee", async (req, res) => {
     res.json({ user: userData });
   } catch (error) {
     console.error("Franchisee onboarding error:", error);
-    res.status(500).json({ error: error.message });
+    console.error("Onboarding route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -103,7 +104,8 @@ router.put("/supplier", async (req, res) => {
     res.json({ user: userData });
   } catch (error) {
     console.error("Supplier onboarding error:", error);
-    res.status(500).json({ error: error.message });
+    console.error("Onboarding route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -131,7 +133,8 @@ router.put("/consultant", async (req, res) => {
     res.json({ user: userData });
   } catch (error) {
     console.error("Consultant onboarding error:", error);
-    res.status(500).json({ error: error.message });
+    console.error("Onboarding route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -150,8 +153,7 @@ router.put("/investor", async (req, res) => {
         preferredIndustry: interestedIndustries,
         companyName: company || null,
         linkedinUrl: linkedinProfile || null,
-        accountStatus: "verified",
-        onboardingCompleted: true,
+        accountStatus: "pending_admin_review",
       },
     });
 
@@ -159,7 +161,8 @@ router.put("/investor", async (req, res) => {
     res.json({ user: userData });
   } catch (error) {
     console.error("Investor onboarding error:", error);
-    res.status(500).json({ error: error.message });
+    console.error("Onboarding route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -182,7 +185,8 @@ router.post("/documents", async (req, res) => {
     res.json({ document: doc });
   } catch (error) {
     console.error("Document upload error:", error);
-    res.status(500).json({ error: error.message });
+    console.error("Onboarding route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -203,7 +207,8 @@ router.post("/submit-for-review", async (req, res) => {
     res.json({ user: userData });
   } catch (error) {
     console.error("Submit for review error:", error);
-    res.status(500).json({ error: error.message });
+    console.error("Onboarding route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -221,7 +226,8 @@ router.post("/complete", async (req, res) => {
     res.json({ user: userData });
   } catch (error) {
     console.error("Onboarding error:", error);
-    res.status(500).json({ error: error.message });
+    console.error("Onboarding route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

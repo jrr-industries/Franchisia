@@ -30,8 +30,8 @@ router.post("/select-role", async (req, res) => {
     const { passwordHash, ...userData } = user;
     res.json({ user: userData });
   } catch (error) {
-    console.error("Role selection error:", error);
-    res.status(500).json({ error: error.message });
+    console.error("Auth route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -51,18 +51,11 @@ router.get("/status", async (req, res) => {
 
     if (!user) return res.status(404).json({ error: "User not found" });
 
-    if (user.email === "jrr.industries6@gmail.com" && user.role !== "admin") {
-      user = await prisma.user.update({
-        where: { id: user.id },
-        data: { role: "admin" },
-      });
-    }
-
     const { passwordHash, ...userData } = user;
     res.json(userData);
   } catch (error) {
-    console.error("Auth status error:", error);
-    res.status(500).json({ error: error.message });
+    console.error("Auth route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

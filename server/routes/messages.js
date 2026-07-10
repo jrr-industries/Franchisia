@@ -28,7 +28,8 @@ router.get("/conversations", async (req, res) => {
     });
     res.json({ conversations });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Messages route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -39,6 +40,7 @@ router.post("/conversations", async (req, res) => {
       where: {
         participants: { every: { userId: { in: [req.user.id, participantId] } } },
       },
+      orderBy: { createdAt: "desc" },
     });
     if (existing) return res.json({ conversation: existing });
     const conversation = await prisma.conversation.create({
@@ -57,12 +59,18 @@ router.post("/conversations", async (req, res) => {
     });
     res.json({ conversation });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Messages route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
 router.get("/conversations/:id/messages", async (req, res) => {
   try {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
+    });
+    if (!participant) return res.status(403).json({ error: "Not a participant of this conversation" });
+
     const { page = 1, limit = 50 } = req.query;
     const skip = (parseInt(page) - 1) * parseInt(limit);
     const messages = await prisma.message.findMany({
@@ -79,12 +87,18 @@ router.get("/conversations/:id/messages", async (req, res) => {
     });
     res.json({ messages: messages.reverse(), total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Messages route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
 router.post("/conversations/:id/messages", async (req, res) => {
   try {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
+    });
+    if (!participant) return res.status(403).json({ error: "Not a participant of this conversation" });
+
     const { content, messageType, attachmentUrl } = req.body;
     const message = await prisma.message.create({
       data: {
@@ -113,7 +127,8 @@ router.post("/conversations/:id/messages", async (req, res) => {
     }
     res.json({ message });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Messages route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -124,21 +139,18 @@ router.get("/can-message/:userId", async (req, res) => {
     const targetUser = await prisma.user.findUnique({ where: { id: targetId }, select: { verified: true } });
     const currentUser = await prisma.user.findUnique({ where: { id: req.user.id }, select: { verified: true } });
     if (currentUser?.verified && targetUser?.verified) return res.json({ canMessage: true, reason: "Verified users can message each other" });
-    const mutualFollow = await prisma.connection.findFirst({
-      where: {
-        OR: [
-          { followerId: req.user.id, followingId: targetId },
-          { followerId: targetId, followingId: req.user.id },
-        ],
-      },
+    const iFollowThem = await prisma.connection.findUnique({
+      where: { followerId_followingId: { followerId: req.user.id, followingId: targetId } },
     });
-    if (!mutualFollow) return res.json({ canMessage: false, reason: "Follow each other to start messaging" });
-    const followBack = await prisma.connection.findFirst({
-      where: { followerId: targetId, followingId: req.user.id },
+    if (!iFollowThem) return res.json({ canMessage: false, reason: "Follow them to start messaging" });
+    const theyFollowMe = await prisma.connection.findUnique({
+      where: { followerId_followingId: { followerId: targetId, followingId: req.user.id } },
     });
-    res.json({ canMessage: !!followBack, reason: followBack ? null : "They need to follow you back" });
+    if (!theyFollowMe) return res.json({ canMessage: false, reason: "They need to follow you back" });
+    res.json({ canMessage: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Can-message error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

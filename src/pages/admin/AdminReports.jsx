@@ -82,7 +82,7 @@ export default function AdminReports() {
                 <tr><td colSpan={6} style={{ padding: 48, textAlign: 'center', color: 'var(--text-muted)' }}>No reports found</td></tr>
               ) : reports.map((r) => (
                 <tr key={r.id}>
-                  <td style={{ padding: '12px 16px', borderBottom: '1px solid var(--border)', fontSize: 13, color: 'var(--text-secondary)' }}>{r.reporterId}</td>
+                  <td style={{ padding: '12px 16px', borderBottom: '1px solid var(--border)', fontSize: 13, color: 'var(--text-secondary)' }}>{r.reporterId?.substring(0, 8) || 'Unknown'}</td>
                   <td style={{ padding: '12px 16px', borderBottom: '1px solid var(--border)', fontSize: 13, color: 'var(--text-secondary)' }}>
                     {r.targetType}: {r.targetId}
                   </td>

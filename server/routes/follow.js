@@ -23,27 +23,35 @@ router.post("/company/:companyId", async (req, res) => {
       where: { userId_companyId: { userId: req.user.id, companyId } },
     });
     if (existing) {
-      await prisma.companyFollower.delete({ where: { id: existing.id } });
-      await prisma.company.update({ where: { id: companyId }, data: { followerCount: { decrement: 1 } } });
+      await prisma.$transaction(async (tx) => {
+        await tx.companyFollower.delete({ where: { id: existing.id } });
+        const current = await tx.company.findUnique({ where: { id: companyId }, select: { followerCount: true } });
+        if ((current?.followerCount || 0) > 0) {
+          await tx.company.update({ where: { id: companyId }, data: { followerCount: { decrement: 1 } } });
+        }
+      });
       return res.json({ following: false });
     }
-    await prisma.companyFollower.create({ data: { userId: req.user.id, companyId } });
-    await prisma.company.update({ where: { id: companyId }, data: { followerCount: { increment: 1 } } });
-    const company = await prisma.company.findUnique({ where: { id: companyId }, select: { ownerId: true, name: true } });
-    if (company && company.ownerId !== req.user.id) {
-      await prisma.notification.create({
-        data: {
-          userId: company.ownerId,
-          type: "company_followed",
-          title: "New Company Follower",
-          body: `${req.user.name || "Someone"} started following ${company.name}`,
-          data: { followerId: req.user.id, companyId },
-        },
-      });
-    }
+    await prisma.$transaction(async (tx) => {
+      await tx.companyFollower.create({ data: { userId: req.user.id, companyId } });
+      await tx.company.update({ where: { id: companyId }, data: { followerCount: { increment: 1 } } });
+      const company = await tx.company.findUnique({ where: { id: companyId }, select: { ownerId: true, name: true } });
+      if (company && company.ownerId !== req.user.id) {
+        await tx.notification.create({
+          data: {
+            userId: company.ownerId,
+            type: "company_followed",
+            title: "New Company Follower",
+            body: `${req.user.name || "Someone"} started following ${company.name}`,
+            data: { followerId: req.user.id, companyId },
+          },
+        });
+      }
+    });
     res.json({ following: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Follow route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -54,7 +62,8 @@ router.get("/company/:companyId/status", async (req, res) => {
     });
     res.json({ following: !!existing });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Follow route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -81,7 +90,8 @@ router.post("/user/:userId", async (req, res) => {
     });
     res.json({ following: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Follow route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -92,7 +102,8 @@ router.get("/user/:userId/status", async (req, res) => {
     });
     res.json({ following: !!existing });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Follow route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -105,7 +116,8 @@ router.get("/:userId/followers", async (req, res) => {
     });
     res.json({ followers: followers.map((f) => f.follower) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Follow route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -118,7 +130,8 @@ router.get("/:userId/following", async (req, res) => {
     });
     res.json({ following: following.map((f) => f.following) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Follow route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

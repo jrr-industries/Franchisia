@@ -18,7 +18,8 @@ router.get("/me", authenticate, async (req, res) => {
     const { passwordHash, ...userData } = user;
     res.json(userData);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Users route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -36,7 +37,8 @@ router.put("/me", authenticate, async (req, res) => {
     const { passwordHash, ...userData } = user;
     res.json(userData);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Users route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -54,7 +56,8 @@ router.get("/:id", async (req, res) => {
     if (!user) return res.status(404).json({ error: "User not found" });
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Users route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -68,7 +71,6 @@ router.get("/", async (req, res) => {
     if (search) {
       where.OR = [
         { fullName: { contains: search, mode: "insensitive" } },
-        { email: { contains: search, mode: "insensitive" } },
       ];
     }
 
@@ -88,7 +90,8 @@ router.get("/", async (req, res) => {
 
     res.json({ users, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Users route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

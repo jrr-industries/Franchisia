@@ -5,11 +5,15 @@ import prisma from "../prisma.js";
 
 dotenv.config();
 
+if (!process.env.BETTER_AUTH_SECRET) {
+  throw new Error("BETTER_AUTH_SECRET environment variable is required");
+}
+
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  secret: process.env.BETTER_AUTH_SECRET || "change-me-in-production",
+  secret: process.env.BETTER_AUTH_SECRET,
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:5173",
   trustedOrigins: [
     process.env.CLIENT_URL || "http://localhost:5173",
@@ -19,13 +23,13 @@ export const auth = betterAuth({
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url }) => {
-      console.log(`[DEV] Verification email to ${user.email}: ${url}`);
+      console.log(`[DEV] Verification email sent to ${user.email}`);
     },
   },
   emailAndPassword: {
     enabled: true,
     sendResetPasswordEmail: async ({ user, url }) => {
-      console.log(`[DEV] Reset password email to ${user.email}: ${url}`);
+      console.log(`[DEV] Reset password email sent to ${user.email}`);
     },
     resetPasswordTokenExpiresIn: 3600,
     requireEmailVerification: false,
@@ -57,17 +61,6 @@ export const auth = betterAuth({
         defaultValue: "none",
         required: false,
         input: false,
-      },
-    },
-  },
-  databaseHooks: {
-    user: {
-      create: {
-        before: async (user) => {
-          if (user.email === "jrr.industries6@gmail.com") {
-            return { data: { ...user, role: "admin" } };
-          }
-        },
       },
     },
   },

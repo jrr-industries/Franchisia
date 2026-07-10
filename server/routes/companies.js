@@ -36,7 +36,8 @@ router.get("/", async (req, res) => {
 
     res.json({ companies, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Companies route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -53,7 +54,8 @@ router.get("/:slug", async (req, res) => {
     if (!company) return res.status(404).json({ error: "Company not found" });
     res.json(company);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Companies route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -73,7 +75,8 @@ router.post("/", authenticate, async (req, res) => {
     if (error.code === "P2002") {
       return res.status(409).json({ error: "A company with this slug already exists" });
     }
-    res.status(500).json({ error: error.message });
+    console.error("Companies route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -85,13 +88,19 @@ router.put("/:id", authenticate, async (req, res) => {
       return res.status(403).json({ error: "Not authorized" });
     }
 
+    const allowedFields = ["name", "industry", "description", "website", "foundedYear", "employeeCount", "email", "phone", "address", "city", "country"];
+    const updates = {};
+    for (const key of allowedFields) {
+      if (req.body[key] !== undefined) updates[key] = req.body[key];
+    }
     const updated = await prisma.company.update({
       where: { id: req.params.id },
-      data: req.body,
+      data: updates,
     });
     res.json(updated);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Companies route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -103,10 +112,13 @@ router.post("/:id/follow", authenticate, async (req, res) => {
 
     if (existing) {
       await prisma.companyFollower.delete({ where: { id: existing.id } });
-      await prisma.company.update({
-        where: { id: req.params.id },
-        data: { followerCount: { decrement: 1 } },
-      });
+      const current = await prisma.company.findUnique({ where: { id: req.params.id }, select: { followerCount: true } });
+      if ((current?.followerCount || 0) > 0) {
+        await prisma.company.update({
+          where: { id: req.params.id },
+          data: { followerCount: { decrement: 1 } },
+        });
+      }
       return res.json({ following: false });
     }
 
@@ -119,7 +131,8 @@ router.post("/:id/follow", authenticate, async (req, res) => {
     });
     res.json({ following: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Companies route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

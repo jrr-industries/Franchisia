@@ -1,6 +1,4 @@
 import { Router } from "express";
-import { fromNodeHeaders } from "better-auth/node";
-import { auth } from "../lib/auth.ts";
 import prisma from "../prisma.js";
 import { authenticate, authorize } from "../middleware/auth.js";
 
@@ -23,6 +21,7 @@ router.get("/stats", async (req, res) => {
       newUsersMonth,
       verifiedUsers,
       pendingVerifications,
+      totalCompanies,
       verifiedCompanies,
       activeCompanies,
       totalMessages,
@@ -45,6 +44,7 @@ router.get("/stats", async (req, res) => {
       prisma.user.count({ where: { createdAt: { gte: monthAgo } } }),
       prisma.user.count({ where: { verified: true } }),
       prisma.user.count({ where: { accountStatus: "pending_admin_review" } }),
+      prisma.company.count(),
       prisma.company.count({ where: { isVerified: true } }),
       prisma.company.count({ where: { status: "active" } }),
       prisma.message.count(),
@@ -53,7 +53,7 @@ router.get("/stats", async (req, res) => {
       prisma.companyFollower.count({ where: { createdAt: { gte: todayStart } } }),
       prisma.report.count(),
       prisma.report.count({ where: { status: "pending" } }),
-      0, // totalApplications (placeholder until Application model is populated)
+      prisma.application.count(),
       prisma.franchiseListing.count(),
       prisma.franchiseListing.count({ where: { status: "active" } }),
       prisma.user.groupBy({ by: ["accountStatus"], _count: true }),
@@ -69,6 +69,7 @@ router.get("/stats", async (req, res) => {
       newUsersMonth,
       verifiedUsers,
       pendingVerifications,
+      totalCompanies,
       verifiedCompanies,
       activeCompanies,
       totalMessages,
@@ -85,7 +86,8 @@ router.get("/stats", async (req, res) => {
       industryStats,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -122,7 +124,8 @@ router.get("/users", async (req, res) => {
 
     res.json({ users, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -148,7 +151,8 @@ router.patch("/users/:id/toggle-active", async (req, res) => {
 
     res.json({ id: updated.id, isActive: updated.isActive });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -157,7 +161,7 @@ router.patch("/users/:id/make-admin", async (req, res) => {
     const user = await prisma.user.findUnique({ where: { id: req.params.id } });
     if (!user) return res.status(404).json({ error: "User not found" });
 
-    const newRole = user.role === "admin" ? "none" : "admin";
+    const newRole = user.role === "admin" ? "franchisee" : "admin";
     const updated = await prisma.user.update({
       where: { id: req.params.id },
       data: { role: newRole },
@@ -175,16 +179,31 @@ router.patch("/users/:id/make-admin", async (req, res) => {
 
     res.json({ id: updated.id, role: updated.role });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
 router.delete("/users/:id", async (req, res) => {
   try {
-    await prisma.user.delete({ where: { id: req.params.id } });
+    await prisma.$transaction(async (tx) => {
+      await tx.message.deleteMany({ where: { senderId: req.params.id } });
+      await tx.conversationParticipant.deleteMany({ where: { userId: req.params.id } });
+      await tx.notification.deleteMany({ where: { userId: req.params.id } });
+      await tx.application.deleteMany({ where: { applicantId: req.params.id } });
+      await tx.connection.deleteMany({ where: { OR: [{ followerId: req.params.id }, { followingId: req.params.id }] } });
+      await tx.companyFollower.deleteMany({ where: { userId: req.params.id } });
+      await tx.userDocument.deleteMany({ where: { userId: req.params.id } });
+      await tx.auditLog.deleteMany({ where: { userId: req.params.id } });
+      await tx.verificationHistory.deleteMany({ where: { userId: req.params.id } });
+      await tx.review.deleteMany({ where: { reviewerId: req.params.id } });
+      await tx.session.deleteMany({ where: { userId: req.params.id } });
+      await tx.user.delete({ where: { id: req.params.id } });
+    });
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -215,7 +234,8 @@ router.get("/verification/pending", async (req, res) => {
 
     res.json({ users, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -353,7 +373,8 @@ router.patch("/verification/:id/review", async (req, res) => {
 
     res.status(400).json({ error: "Invalid action. Use: approve, reject, request_info" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -365,7 +386,8 @@ router.get("/verification/:id/documents", async (req, res) => {
     });
     res.json({ documents: docs });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -400,7 +422,8 @@ router.get("/companies", async (req, res) => {
 
     res.json({ companies, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -413,7 +436,8 @@ router.get("/verification/:id/history", async (req, res) => {
     });
     res.json({ history });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -425,7 +449,8 @@ router.patch("/companies/:id/verify", async (req, res) => {
     });
     res.json(company);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -437,7 +462,8 @@ router.patch("/companies/:id/status", async (req, res) => {
     });
     res.json(company);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -461,7 +487,8 @@ router.get("/reports", async (req, res) => {
 
     res.json({ reports, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -482,7 +509,8 @@ router.get("/notifications", async (req, res) => {
 
     res.json({ notifications, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -494,7 +522,8 @@ router.patch("/notifications/:id/read", async (req, res) => {
     });
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -506,7 +535,8 @@ router.post("/notifications/read-all", async (req, res) => {
     });
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -531,7 +561,8 @@ router.get("/audit-logs", async (req, res) => {
 
     res.json({ logs, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -549,7 +580,8 @@ router.get("/system-health", async (req, res) => {
       platform: process.platform,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -572,7 +604,8 @@ router.patch("/reports/:id/resolve", async (req, res) => {
     });
     res.json({ report });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -593,7 +626,8 @@ router.post("/send-announcement", async (req, res) => {
     });
     res.json({ success: true, sentCount: users.length });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -615,7 +649,8 @@ router.get("/users/:id/profile", async (req, res) => {
     const { passwordHash, ...userData } = user;
     res.json({ user: { ...userData, messageCount } });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -651,7 +686,8 @@ router.post("/users/bulk-action", async (req, res) => {
 
     res.json({ success: true, affectedCount: userIds.length });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -688,7 +724,8 @@ router.get("/verification/all", async (req, res) => {
 
     res.json({ users, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -708,7 +745,8 @@ router.get("/verification/stats", async (req, res) => {
     });
     res.json(stats);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -721,7 +759,8 @@ router.get("/users/:id/activity", async (req, res) => {
     ]);
     res.json({ auditLogs, notifications: notificationLogs, verificationHistory });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -737,7 +776,8 @@ router.patch("/users/:id/profile", async (req, res) => {
     const { passwordHash, ...userData } = updated;
     res.json({ user: userData });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -754,7 +794,8 @@ router.get("/companies/:id/profile", async (req, res) => {
     if (!company) return res.status(404).json({ error: "Company not found" });
     res.json({ company });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -783,7 +824,8 @@ router.post("/companies/bulk-action", async (req, res) => {
     });
     res.json({ success: true, affectedCount: companyIds.length });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -798,7 +840,8 @@ router.patch("/companies/:id/profile", async (req, res) => {
     const company = await prisma.company.update({ where: { id: req.params.id }, data: updates });
     res.json({ company });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -828,7 +871,8 @@ router.get("/marketplace/listings", async (req, res) => {
     ]);
     res.json({ listings, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -846,7 +890,8 @@ router.patch("/marketplace/listings/:id/status", async (req, res) => {
     });
     res.json({ listing });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -860,7 +905,8 @@ router.post("/marketplace/listings/:id/feature", async (req, res) => {
     });
     res.json({ listing: updated });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -869,7 +915,8 @@ router.delete("/marketplace/listings/:id", async (req, res) => {
     await prisma.franchiseListing.delete({ where: { id: req.params.id } });
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -892,7 +939,8 @@ router.get("/marketplace/applications", async (req, res) => {
     ]);
     res.json({ applications, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -904,7 +952,8 @@ router.patch("/marketplace/applications/:id/status", async (req, res) => {
     });
     res.json({ application });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -929,7 +978,8 @@ router.get("/messages/all", async (req, res) => {
     ]);
     res.json({ messages, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -941,7 +991,8 @@ router.delete("/messages/:id", async (req, res) => {
     });
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -955,6 +1006,7 @@ router.get("/messages/conversations", async (req, res) => {
         include: {
           participants: { include: { user: { select: { id: true, name: true, email: true, image: true } } } },
           messages: { orderBy: { createdAt: "desc" }, take: 1 },
+          _count: { select: { messages: true } },
         },
         orderBy: { updatedAt: "desc" },
       }),
@@ -962,7 +1014,26 @@ router.get("/messages/conversations", async (req, res) => {
     ]);
     res.json({ conversations, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/messages/conversations/:id/messages", async (req, res) => {
+  try {
+    const { limit = 50 } = req.query;
+    const messages = await prisma.message.findMany({
+      where: { conversationId: req.params.id },
+      take: parseInt(limit),
+      orderBy: { createdAt: "asc" },
+      include: {
+        sender: { select: { id: true, name: true, email: true, image: true } },
+      },
+    });
+    res.json({ messages });
+  } catch (error) {
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -985,7 +1056,8 @@ router.get("/followers/stats", async (req, res) => {
       topUsers: topUsers.map(u => ({ ...u, user: userDetails.find(ud => ud.id === u.followingId) })),
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -996,7 +1068,8 @@ router.delete("/followers/company/:companyId/user/:userId", async (req, res) => 
     });
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -1007,7 +1080,8 @@ router.delete("/followers/user/:targetUserId/:userId", async (req, res) => {
     });
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -1032,7 +1106,8 @@ router.get("/settings", async (req, res) => {
       version: "1.0.0",
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -1045,7 +1120,8 @@ router.patch("/settings", async (req, res) => {
     });
     res.json({ success: true, maintenanceMode, featureFlags });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -1092,7 +1168,8 @@ router.get("/content/reported", async (req, res) => {
     }));
     res.json({ reports: enriched, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -1109,7 +1186,8 @@ router.patch("/content/:type/:id/hide", async (req, res) => {
     });
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -1123,7 +1201,8 @@ router.patch("/content/:type/:id/show", async (req, res) => {
     }
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

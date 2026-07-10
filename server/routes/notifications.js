@@ -32,16 +32,18 @@ router.get("/", async (req, res) => {
     ]);
     res.json({ notifications, total, unreadCount, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Notifications route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
 router.patch("/:id/read", async (req, res) => {
   try {
-    await prisma.notification.update({ where: { id: req.params.id }, data: { isRead: true } });
+    await prisma.notification.updateMany({ where: { id: req.params.id, userId: req.user.id }, data: { isRead: true } });
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Notifications route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -50,7 +52,8 @@ router.post("/read-all", async (req, res) => {
     await prisma.notification.updateMany({ where: { userId: req.user.id, isRead: false }, data: { isRead: true } });
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Notifications route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

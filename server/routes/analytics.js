@@ -46,7 +46,8 @@ router.get("/user-growth", async (req, res) => {
     });
     res.json({ series: cumulativeSeries });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Analytics route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -68,7 +69,8 @@ router.get("/verification-trend", async (req, res) => {
     });
     res.json({ series });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Analytics route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -81,7 +83,8 @@ router.get("/companies-by-industry", async (req, res) => {
     });
     res.json({ data: groups.map((g) => ({ name: g.industry || "Unknown", value: g._count })) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Analytics route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -93,7 +96,8 @@ router.get("/role-distribution", async (req, res) => {
     });
     res.json({ data: groups.map((g) => ({ name: g.role || "none", value: g._count })) });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Analytics route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -114,7 +118,8 @@ router.get("/daily-active-users", async (req, res) => {
     });
     res.json({ series });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Analytics route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -140,7 +145,8 @@ router.get("/monthly-signups", async (req, res) => {
     });
     res.json({ series });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Analytics route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -162,7 +168,8 @@ router.get("/messages-sent", async (req, res) => {
     });
     res.json({ series });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Analytics route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -184,7 +191,8 @@ router.get("/followers-growth", async (req, res) => {
     });
     res.json({ series });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Analytics route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -206,7 +214,8 @@ router.get("/applications-trend", async (req, res) => {
     });
     res.json({ series });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Analytics route error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

@@ -1169,7 +1169,7 @@ export type ConversationCreateArgs<ExtArgs extends runtime.Types.Extensions.Inte
   /**
    * The data needed to create a Conversation.
    */
-  data?: Prisma.XOR<Prisma.ConversationCreateInput, Prisma.ConversationUncheckedCreateInput>
+  data: Prisma.XOR<Prisma.ConversationCreateInput, Prisma.ConversationUncheckedCreateInput>
 }
 
 /**

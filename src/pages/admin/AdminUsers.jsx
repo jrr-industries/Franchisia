@@ -81,7 +81,7 @@ export default function AdminUsers() {
   useEffect(() => { fetchUsers(); }, [page, roleFilter, statusFilter]);
 
   useEffect(() => {
-    const timer = setTimeout(() => { setPage(1); fetchUsers(); }, 300);
+    const timer = setTimeout(() => { setPage(1); }, 300);
     return () => clearTimeout(timer);
   }, [search]);
 
