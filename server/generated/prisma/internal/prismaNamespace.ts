@@ -410,7 +410,9 @@ export const ModelName = {
   AboutTeam: 'AboutTeam',
   AboutTimeline: 'AboutTimeline',
   AuditLog: 'AuditLog',
-  UserDocument: 'UserDocument'
+  UserDocument: 'UserDocument',
+  VerificationHistory: 'VerificationHistory',
+  Report: 'Report'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -426,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "userSkill" | "userInterest" | "userEducation" | "userExperience" | "company" | "franchiseListing" | "application" | "connection" | "companyFollower" | "conversation" | "conversationParticipant" | "message" | "notification" | "review" | "meeting" | "meetingParticipant" | "siteStat" | "siteContact" | "aboutPage" | "aboutTeam" | "aboutTimeline" | "auditLog" | "userDocument"
+    modelProps: "user" | "session" | "account" | "verification" | "userSkill" | "userInterest" | "userEducation" | "userExperience" | "company" | "franchiseListing" | "application" | "connection" | "companyFollower" | "conversation" | "conversationParticipant" | "message" | "notification" | "review" | "meeting" | "meetingParticipant" | "siteStat" | "siteContact" | "aboutPage" | "aboutTeam" | "aboutTimeline" | "auditLog" | "userDocument" | "verificationHistory" | "report"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2428,6 +2430,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    VerificationHistory: {
+      payload: Prisma.$VerificationHistoryPayload<ExtArgs>
+      fields: Prisma.VerificationHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VerificationHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VerificationHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.VerificationHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VerificationHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.VerificationHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.VerificationHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.VerificationHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VerificationHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.VerificationHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationHistoryPayload>
+        }
+        update: {
+          args: Prisma.VerificationHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.VerificationHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VerificationHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VerificationHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.VerificationHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.VerificationHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVerificationHistory>
+        }
+        groupBy: {
+          args: Prisma.VerificationHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VerificationHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VerificationHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VerificationHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    Report: {
+      payload: Prisma.$ReportPayload<ExtArgs>
+      fields: Prisma.ReportFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReportFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReportFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportPayload>
+        }
+        findFirst: {
+          args: Prisma.ReportFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReportFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportPayload>
+        }
+        findMany: {
+          args: Prisma.ReportFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportPayload>[]
+        }
+        create: {
+          args: Prisma.ReportCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportPayload>
+        }
+        createMany: {
+          args: Prisma.ReportCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReportCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportPayload>[]
+        }
+        delete: {
+          args: Prisma.ReportDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportPayload>
+        }
+        update: {
+          args: Prisma.ReportUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReportDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReportUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReportUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReportUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReportPayload>
+        }
+        aggregate: {
+          args: Prisma.ReportAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReport>
+        }
+        groupBy: {
+          args: Prisma.ReportGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReportGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReportCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReportCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2491,31 +2641,34 @@ export const UserScalarFieldEnum = {
   website: 'website',
   linkedinUrl: 'linkedinUrl',
   companyName: 'companyName',
-  brandName: 'brandName',
   businessEmail: 'businessEmail',
   businessRegistrationNumber: 'businessRegistrationNumber',
   businessRegistrationDoc: 'businessRegistrationDoc',
-  businessLicenseDoc: 'businessLicenseDoc',
   companyLogo: 'companyLogo',
-  companyBanner: 'companyBanner',
-  companyDescription: 'companyDescription',
   gstNumber: 'gstNumber',
   consultancyName: 'consultancyName',
   preferredIndustry: 'preferredIndustry',
   preferredLocation: 'preferredLocation',
   investmentRange: 'investmentRange',
   resumeUrl: 'resumeUrl',
-  certifications: 'certifications',
-  contactPerson: 'contactPerson',
-  numberOfOutlets: 'numberOfOutlets',
-  yearsInBusiness: 'yearsInBusiness',
   submittedForReviewAt: 'submittedForReviewAt',
   reviewedBy: 'reviewedBy',
   reviewedAt: 'reviewedAt',
   verificationNotes: 'verificationNotes',
   rejectionReason: 'rejectionReason',
+  verified: 'verified',
+  verifiedAt: 'verifiedAt',
+  verifiedBy: 'verifiedBy',
   isActive: 'isActive',
-  lastLoginAt: 'lastLoginAt'
+  lastLoginAt: 'lastLoginAt',
+  brandName: 'brandName',
+  businessLicenseDoc: 'businessLicenseDoc',
+  certifications: 'certifications',
+  companyBanner: 'companyBanner',
+  companyDescription: 'companyDescription',
+  contactPerson: 'contactPerson',
+  numberOfOutlets: 'numberOfOutlets',
+  yearsInBusiness: 'yearsInBusiness'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -2871,6 +3024,36 @@ export const UserDocumentScalarFieldEnum = {
 } as const
 
 export type UserDocumentScalarFieldEnum = (typeof UserDocumentScalarFieldEnum)[keyof typeof UserDocumentScalarFieldEnum]
+
+
+export const VerificationHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  action: 'action',
+  previousStatus: 'previousStatus',
+  currentStatus: 'currentStatus',
+  reviewedBy: 'reviewedBy',
+  adminNotes: 'adminNotes',
+  createdAt: 'createdAt'
+} as const
+
+export type VerificationHistoryScalarFieldEnum = (typeof VerificationHistoryScalarFieldEnum)[keyof typeof VerificationHistoryScalarFieldEnum]
+
+
+export const ReportScalarFieldEnum = {
+  id: 'id',
+  reporterId: 'reporterId',
+  targetId: 'targetId',
+  targetType: 'targetType',
+  reason: 'reason',
+  description: 'description',
+  status: 'status',
+  createdAt: 'createdAt',
+  resolvedAt: 'resolvedAt',
+  resolvedBy: 'resolvedBy'
+} as const
+
+export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3231,6 +3414,8 @@ export type GlobalOmitConfig = {
   aboutTimeline?: Prisma.AboutTimelineOmit
   auditLog?: Prisma.AuditLogOmit
   userDocument?: Prisma.UserDocumentOmit
+  verificationHistory?: Prisma.VerificationHistoryOmit
+  report?: Prisma.ReportOmit
 }
 
 /* Types for Logging */

@@ -11,7 +11,9 @@ import messageRoutes from "./routes/messages.js";
 import notificationRoutes from "./routes/notifications.js";
 import publicRoutes from "./routes/public.js";
 import adminRoutes from "./routes/admin.js";
+import analyticsRoutes from "./routes/analytics.js";
 import onboardingRoutes from "./routes/onboarding.js";
+import followRoutes from "./routes/follow.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -33,7 +35,9 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/public", publicRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/admin/analytics", analyticsRoutes);
 app.use("/api/onboarding", onboardingRoutes);
+app.use("/api/follow", followRoutes);
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });

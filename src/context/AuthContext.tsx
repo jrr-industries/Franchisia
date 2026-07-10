@@ -151,12 +151,14 @@ export function AuthProvider({ children }) {
   }, []);
 
   const isAdmin = user?.role === "admin";
+  const isVerified = user?.verified === true;
 
   return (
     <AuthContext.Provider value={{
       user,
       isAuthenticated: !!user,
       isAdmin,
+      isVerified,
       loading,
       login,
       signup,

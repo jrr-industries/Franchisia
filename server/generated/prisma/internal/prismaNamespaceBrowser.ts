@@ -77,7 +77,9 @@ export const ModelName = {
   AboutTeam: 'AboutTeam',
   AboutTimeline: 'AboutTimeline',
   AuditLog: 'AuditLog',
-  UserDocument: 'UserDocument'
+  UserDocument: 'UserDocument',
+  VerificationHistory: 'VerificationHistory',
+  Report: 'Report'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -120,31 +122,34 @@ export const UserScalarFieldEnum = {
   website: 'website',
   linkedinUrl: 'linkedinUrl',
   companyName: 'companyName',
-  brandName: 'brandName',
   businessEmail: 'businessEmail',
   businessRegistrationNumber: 'businessRegistrationNumber',
   businessRegistrationDoc: 'businessRegistrationDoc',
-  businessLicenseDoc: 'businessLicenseDoc',
   companyLogo: 'companyLogo',
-  companyBanner: 'companyBanner',
-  companyDescription: 'companyDescription',
   gstNumber: 'gstNumber',
   consultancyName: 'consultancyName',
   preferredIndustry: 'preferredIndustry',
   preferredLocation: 'preferredLocation',
   investmentRange: 'investmentRange',
   resumeUrl: 'resumeUrl',
-  certifications: 'certifications',
-  contactPerson: 'contactPerson',
-  numberOfOutlets: 'numberOfOutlets',
-  yearsInBusiness: 'yearsInBusiness',
   submittedForReviewAt: 'submittedForReviewAt',
   reviewedBy: 'reviewedBy',
   reviewedAt: 'reviewedAt',
   verificationNotes: 'verificationNotes',
   rejectionReason: 'rejectionReason',
+  verified: 'verified',
+  verifiedAt: 'verifiedAt',
+  verifiedBy: 'verifiedBy',
   isActive: 'isActive',
-  lastLoginAt: 'lastLoginAt'
+  lastLoginAt: 'lastLoginAt',
+  brandName: 'brandName',
+  businessLicenseDoc: 'businessLicenseDoc',
+  certifications: 'certifications',
+  companyBanner: 'companyBanner',
+  companyDescription: 'companyDescription',
+  contactPerson: 'contactPerson',
+  numberOfOutlets: 'numberOfOutlets',
+  yearsInBusiness: 'yearsInBusiness'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -500,6 +505,36 @@ export const UserDocumentScalarFieldEnum = {
 } as const
 
 export type UserDocumentScalarFieldEnum = (typeof UserDocumentScalarFieldEnum)[keyof typeof UserDocumentScalarFieldEnum]
+
+
+export const VerificationHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  action: 'action',
+  previousStatus: 'previousStatus',
+  currentStatus: 'currentStatus',
+  reviewedBy: 'reviewedBy',
+  adminNotes: 'adminNotes',
+  createdAt: 'createdAt'
+} as const
+
+export type VerificationHistoryScalarFieldEnum = (typeof VerificationHistoryScalarFieldEnum)[keyof typeof VerificationHistoryScalarFieldEnum]
+
+
+export const ReportScalarFieldEnum = {
+  id: 'id',
+  reporterId: 'reporterId',
+  targetId: 'targetId',
+  targetType: 'targetType',
+  reason: 'reason',
+  description: 'description',
+  status: 'status',
+  createdAt: 'createdAt',
+  resolvedAt: 'resolvedAt',
+  resolvedBy: 'resolvedBy'
+} as const
+
+export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]
 
 
 export const SortOrder = {

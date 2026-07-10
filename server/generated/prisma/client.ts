@@ -176,3 +176,13 @@ export type AuditLog = Prisma.AuditLogModel
  * 
  */
 export type UserDocument = Prisma.UserDocumentModel
+/**
+ * Model VerificationHistory
+ * 
+ */
+export type VerificationHistory = Prisma.VerificationHistoryModel
+/**
+ * Model Report
+ * 
+ */
+export type Report = Prisma.ReportModel

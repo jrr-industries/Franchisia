@@ -412,9 +412,9 @@ export type FranchiseListingWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"FranchiseListing"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FranchiseListing"> | Date | string
   publishedAt?: Prisma.DateTimeNullableFilter<"FranchiseListing"> | Date | string | null
+  applications?: Prisma.ApplicationListRelationFilter
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   createdByUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  applications?: Prisma.ApplicationListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
 }
 
@@ -446,9 +446,9 @@ export type FranchiseListingOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  applications?: Prisma.ApplicationOrderByRelationAggregateInput
   company?: Prisma.CompanyOrderByWithRelationInput
   createdByUser?: Prisma.UserOrderByWithRelationInput
-  applications?: Prisma.ApplicationOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
 }
 
@@ -483,9 +483,9 @@ export type FranchiseListingWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"FranchiseListing"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FranchiseListing"> | Date | string
   publishedAt?: Prisma.DateTimeNullableFilter<"FranchiseListing"> | Date | string | null
+  applications?: Prisma.ApplicationListRelationFilter
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   createdByUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  applications?: Prisma.ApplicationListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
 }, "id" | "slug">
 
@@ -583,9 +583,9 @@ export type FranchiseListingCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  applications?: Prisma.ApplicationCreateNestedManyWithoutListingInput
   company: Prisma.CompanyCreateNestedOneWithoutListingsInput
   createdByUser: Prisma.UserCreateNestedOneWithoutListingsInput
-  applications?: Prisma.ApplicationCreateNestedManyWithoutListingInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutListingInput
 }
 
@@ -647,9 +647,9 @@ export type FranchiseListingUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  applications?: Prisma.ApplicationUpdateManyWithoutListingNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutListingsNestedInput
   createdByUser?: Prisma.UserUpdateOneRequiredWithoutListingsNestedInput
-  applications?: Prisma.ApplicationUpdateManyWithoutListingNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutListingNestedInput
 }
 
@@ -1050,8 +1050,8 @@ export type FranchiseListingCreateWithoutCreatedByUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
-  company: Prisma.CompanyCreateNestedOneWithoutListingsInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutListingInput
+  company: Prisma.CompanyCreateNestedOneWithoutListingsInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutListingInput
 }
 
@@ -1171,8 +1171,8 @@ export type FranchiseListingCreateWithoutCompanyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
-  createdByUser: Prisma.UserCreateNestedOneWithoutListingsInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutListingInput
+  createdByUser: Prisma.UserCreateNestedOneWithoutListingsInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutListingInput
 }
 
@@ -1399,9 +1399,9 @@ export type FranchiseListingCreateWithoutReviewsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  applications?: Prisma.ApplicationCreateNestedManyWithoutListingInput
   company: Prisma.CompanyCreateNestedOneWithoutListingsInput
   createdByUser: Prisma.UserCreateNestedOneWithoutListingsInput
-  applications?: Prisma.ApplicationCreateNestedManyWithoutListingInput
 }
 
 export type FranchiseListingUncheckedCreateWithoutReviewsInput = {
@@ -1477,9 +1477,9 @@ export type FranchiseListingUpdateWithoutReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  applications?: Prisma.ApplicationUpdateManyWithoutListingNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutListingsNestedInput
   createdByUser?: Prisma.UserUpdateOneRequiredWithoutListingsNestedInput
-  applications?: Prisma.ApplicationUpdateManyWithoutListingNestedInput
 }
 
 export type FranchiseListingUncheckedUpdateWithoutReviewsInput = {
@@ -1568,8 +1568,8 @@ export type FranchiseListingUpdateWithoutCreatedByUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  company?: Prisma.CompanyUpdateOneRequiredWithoutListingsNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutListingNestedInput
+  company?: Prisma.CompanyUpdateOneRequiredWithoutListingsNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutListingNestedInput
 }
 
@@ -1688,8 +1688,8 @@ export type FranchiseListingUpdateWithoutCompanyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdByUser?: Prisma.UserUpdateOneRequiredWithoutListingsNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutListingNestedInput
+  createdByUser?: Prisma.UserUpdateOneRequiredWithoutListingsNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutListingNestedInput
 }
 
@@ -1821,9 +1821,9 @@ export type FranchiseListingSelect<ExtArgs extends runtime.Types.Extensions.Inte
   createdAt?: boolean
   updatedAt?: boolean
   publishedAt?: boolean
+  applications?: boolean | Prisma.FranchiseListing$applicationsArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   createdByUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  applications?: boolean | Prisma.FranchiseListing$applicationsArgs<ExtArgs>
   reviews?: boolean | Prisma.FranchiseListing$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.FranchiseListingCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["franchiseListing"]>
@@ -1924,9 +1924,9 @@ export type FranchiseListingSelectScalar = {
 
 export type FranchiseListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "createdBy" | "title" | "slug" | "description" | "industry" | "businessType" | "investmentMin" | "investmentMax" | "roiPercentage" | "franchiseFee" | "royaltyFee" | "breakEvenMonths" | "location" | "city" | "country" | "isRemote" | "images" | "videoUrl" | "status" | "isFeatured" | "viewCount" | "applicationCount" | "createdAt" | "updatedAt" | "publishedAt", ExtArgs["result"]["franchiseListing"]>
 export type FranchiseListingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  applications?: boolean | Prisma.FranchiseListing$applicationsArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   createdByUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  applications?: boolean | Prisma.FranchiseListing$applicationsArgs<ExtArgs>
   reviews?: boolean | Prisma.FranchiseListing$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.FranchiseListingCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1942,9 +1942,9 @@ export type FranchiseListingIncludeUpdateManyAndReturn<ExtArgs extends runtime.T
 export type $FranchiseListingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FranchiseListing"
   objects: {
+    applications: Prisma.$ApplicationPayload<ExtArgs>[]
     company: Prisma.$CompanyPayload<ExtArgs>
     createdByUser: Prisma.$UserPayload<ExtArgs>
-    applications: Prisma.$ApplicationPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -2369,9 +2369,9 @@ readonly fields: FranchiseListingFieldRefs;
  */
 export interface Prisma__FranchiseListingClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  applications<T extends Prisma.FranchiseListing$applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FranchiseListing$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   company<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   createdByUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  applications<T extends Prisma.FranchiseListing$applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FranchiseListing$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.FranchiseListing$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FranchiseListing$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

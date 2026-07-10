@@ -6,6 +6,7 @@ import Avatar from "./ui/Avatar";
 import Dropdown, { DropdownItem } from "./ui/Dropdown";
 import { useTheme } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
+import VerifiedBadge from "./ui/VerifiedBadge";
 import logo from "../assets/logo.png";
 
 const navLinks = [
@@ -19,7 +20,7 @@ const navLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, user, isVerified, logout } = useAuth();
   const location = useLocation();
 
   return (
@@ -65,9 +66,10 @@ export default function Navbar() {
             <Dropdown
               align="right"
               trigger={
-                <div style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer" }}>
                   <Avatar name={user?.name || "User"} size={32} />
                   <span style={{ fontSize: 14, fontWeight: 500, color: "var(--text)" }}>{user?.name || "User"}</span>
+                  {isVerified && <VerifiedBadge size={14} />}
                 </div>
               }
             >

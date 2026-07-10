@@ -248,8 +248,8 @@ export type ApplicationWhereInput = {
   internalNotes?: Prisma.StringNullableFilter<"Application"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
-  listing?: Prisma.XOR<Prisma.FranchiseListingScalarRelationFilter, Prisma.FranchiseListingWhereInput>
   applicant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  listing?: Prisma.XOR<Prisma.FranchiseListingScalarRelationFilter, Prisma.FranchiseListingWhereInput>
 }
 
 export type ApplicationOrderByWithRelationInput = {
@@ -262,8 +262,8 @@ export type ApplicationOrderByWithRelationInput = {
   internalNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  listing?: Prisma.FranchiseListingOrderByWithRelationInput
   applicant?: Prisma.UserOrderByWithRelationInput
+  listing?: Prisma.FranchiseListingOrderByWithRelationInput
 }
 
 export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
@@ -280,8 +280,8 @@ export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
   internalNotes?: Prisma.StringNullableFilter<"Application"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
-  listing?: Prisma.XOR<Prisma.FranchiseListingScalarRelationFilter, Prisma.FranchiseListingWhereInput>
   applicant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  listing?: Prisma.XOR<Prisma.FranchiseListingScalarRelationFilter, Prisma.FranchiseListingWhereInput>
 }, "id" | "listingId_applicantId">
 
 export type ApplicationOrderByWithAggregationInput = {
@@ -324,8 +324,8 @@ export type ApplicationCreateInput = {
   internalNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  listing: Prisma.FranchiseListingCreateNestedOneWithoutApplicationsInput
   applicant: Prisma.UserCreateNestedOneWithoutApplicationsInput
+  listing: Prisma.FranchiseListingCreateNestedOneWithoutApplicationsInput
 }
 
 export type ApplicationUncheckedCreateInput = {
@@ -348,8 +348,8 @@ export type ApplicationUpdateInput = {
   internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  listing?: Prisma.FranchiseListingUpdateOneRequiredWithoutApplicationsNestedInput
   applicant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
+  listing?: Prisma.FranchiseListingUpdateOneRequiredWithoutApplicationsNestedInput
 }
 
 export type ApplicationUncheckedUpdateInput = {
@@ -756,8 +756,8 @@ export type ApplicationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   internalNotes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["application"]>
 
 export type ApplicationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -770,8 +770,8 @@ export type ApplicationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   internalNotes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["application"]>
 
 export type ApplicationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -784,8 +784,8 @@ export type ApplicationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   internalNotes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["application"]>
 
 export type ApplicationSelectScalar = {
@@ -802,23 +802,23 @@ export type ApplicationSelectScalar = {
 
 export type ApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "listingId" | "applicantId" | "status" | "coverMessage" | "investmentCapacity" | "internalNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["application"]>
 export type ApplicationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
 }
 export type ApplicationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
 }
 export type ApplicationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
 }
 
 export type $ApplicationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Application"
   objects: {
-    listing: Prisma.$FranchiseListingPayload<ExtArgs>
     applicant: Prisma.$UserPayload<ExtArgs>
+    listing: Prisma.$FranchiseListingPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1224,8 +1224,8 @@ readonly fields: ApplicationFieldRefs;
  */
 export interface Prisma__ApplicationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  listing<T extends Prisma.FranchiseListingDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FranchiseListingDefaultArgs<ExtArgs>>): Prisma.Prisma__FranchiseListingClient<runtime.Types.Result.GetResult<Prisma.$FranchiseListingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   applicant<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  listing<T extends Prisma.FranchiseListingDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FranchiseListingDefaultArgs<ExtArgs>>): Prisma.Prisma__FranchiseListingClient<runtime.Types.Result.GetResult<Prisma.$FranchiseListingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

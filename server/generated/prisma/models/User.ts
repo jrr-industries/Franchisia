@@ -63,31 +63,34 @@ export type UserMinAggregateOutputType = {
   website: string | null
   linkedinUrl: string | null
   companyName: string | null
-  brandName: string | null
   businessEmail: string | null
   businessRegistrationNumber: string | null
   businessRegistrationDoc: string | null
-  businessLicenseDoc: string | null
   companyLogo: string | null
-  companyBanner: string | null
-  companyDescription: string | null
   gstNumber: string | null
   consultancyName: string | null
   preferredIndustry: string | null
   preferredLocation: string | null
   investmentRange: string | null
   resumeUrl: string | null
-  certifications: string | null
-  contactPerson: string | null
-  numberOfOutlets: number | null
-  yearsInBusiness: number | null
   submittedForReviewAt: Date | null
   reviewedBy: string | null
   reviewedAt: Date | null
   verificationNotes: string | null
   rejectionReason: string | null
+  verified: boolean | null
+  verifiedAt: Date | null
+  verifiedBy: string | null
   isActive: boolean | null
   lastLoginAt: Date | null
+  brandName: string | null
+  businessLicenseDoc: string | null
+  certifications: string | null
+  companyBanner: string | null
+  companyDescription: string | null
+  contactPerson: string | null
+  numberOfOutlets: number | null
+  yearsInBusiness: number | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -113,31 +116,34 @@ export type UserMaxAggregateOutputType = {
   website: string | null
   linkedinUrl: string | null
   companyName: string | null
-  brandName: string | null
   businessEmail: string | null
   businessRegistrationNumber: string | null
   businessRegistrationDoc: string | null
-  businessLicenseDoc: string | null
   companyLogo: string | null
-  companyBanner: string | null
-  companyDescription: string | null
   gstNumber: string | null
   consultancyName: string | null
   preferredIndustry: string | null
   preferredLocation: string | null
   investmentRange: string | null
   resumeUrl: string | null
-  certifications: string | null
-  contactPerson: string | null
-  numberOfOutlets: number | null
-  yearsInBusiness: number | null
   submittedForReviewAt: Date | null
   reviewedBy: string | null
   reviewedAt: Date | null
   verificationNotes: string | null
   rejectionReason: string | null
+  verified: boolean | null
+  verifiedAt: Date | null
+  verifiedBy: string | null
   isActive: boolean | null
   lastLoginAt: Date | null
+  brandName: string | null
+  businessLicenseDoc: string | null
+  certifications: string | null
+  companyBanner: string | null
+  companyDescription: string | null
+  contactPerson: string | null
+  numberOfOutlets: number | null
+  yearsInBusiness: number | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -164,31 +170,34 @@ export type UserCountAggregateOutputType = {
   website: number
   linkedinUrl: number
   companyName: number
-  brandName: number
   businessEmail: number
   businessRegistrationNumber: number
   businessRegistrationDoc: number
-  businessLicenseDoc: number
   companyLogo: number
-  companyBanner: number
-  companyDescription: number
   gstNumber: number
   consultancyName: number
   preferredIndustry: number
   preferredLocation: number
   investmentRange: number
   resumeUrl: number
-  certifications: number
-  contactPerson: number
-  numberOfOutlets: number
-  yearsInBusiness: number
   submittedForReviewAt: number
   reviewedBy: number
   reviewedAt: number
   verificationNotes: number
   rejectionReason: number
+  verified: number
+  verifiedAt: number
+  verifiedBy: number
   isActive: number
   lastLoginAt: number
+  brandName: number
+  businessLicenseDoc: number
+  certifications: number
+  companyBanner: number
+  companyDescription: number
+  contactPerson: number
+  numberOfOutlets: number
+  yearsInBusiness: number
   _all: number
 }
 
@@ -230,31 +239,34 @@ export type UserMinAggregateInputType = {
   website?: true
   linkedinUrl?: true
   companyName?: true
-  brandName?: true
   businessEmail?: true
   businessRegistrationNumber?: true
   businessRegistrationDoc?: true
-  businessLicenseDoc?: true
   companyLogo?: true
-  companyBanner?: true
-  companyDescription?: true
   gstNumber?: true
   consultancyName?: true
   preferredIndustry?: true
   preferredLocation?: true
   investmentRange?: true
   resumeUrl?: true
-  certifications?: true
-  contactPerson?: true
-  numberOfOutlets?: true
-  yearsInBusiness?: true
   submittedForReviewAt?: true
   reviewedBy?: true
   reviewedAt?: true
   verificationNotes?: true
   rejectionReason?: true
+  verified?: true
+  verifiedAt?: true
+  verifiedBy?: true
   isActive?: true
   lastLoginAt?: true
+  brandName?: true
+  businessLicenseDoc?: true
+  certifications?: true
+  companyBanner?: true
+  companyDescription?: true
+  contactPerson?: true
+  numberOfOutlets?: true
+  yearsInBusiness?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -280,31 +292,34 @@ export type UserMaxAggregateInputType = {
   website?: true
   linkedinUrl?: true
   companyName?: true
-  brandName?: true
   businessEmail?: true
   businessRegistrationNumber?: true
   businessRegistrationDoc?: true
-  businessLicenseDoc?: true
   companyLogo?: true
-  companyBanner?: true
-  companyDescription?: true
   gstNumber?: true
   consultancyName?: true
   preferredIndustry?: true
   preferredLocation?: true
   investmentRange?: true
   resumeUrl?: true
-  certifications?: true
-  contactPerson?: true
-  numberOfOutlets?: true
-  yearsInBusiness?: true
   submittedForReviewAt?: true
   reviewedBy?: true
   reviewedAt?: true
   verificationNotes?: true
   rejectionReason?: true
+  verified?: true
+  verifiedAt?: true
+  verifiedBy?: true
   isActive?: true
   lastLoginAt?: true
+  brandName?: true
+  businessLicenseDoc?: true
+  certifications?: true
+  companyBanner?: true
+  companyDescription?: true
+  contactPerson?: true
+  numberOfOutlets?: true
+  yearsInBusiness?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -331,31 +346,34 @@ export type UserCountAggregateInputType = {
   website?: true
   linkedinUrl?: true
   companyName?: true
-  brandName?: true
   businessEmail?: true
   businessRegistrationNumber?: true
   businessRegistrationDoc?: true
-  businessLicenseDoc?: true
   companyLogo?: true
-  companyBanner?: true
-  companyDescription?: true
   gstNumber?: true
   consultancyName?: true
   preferredIndustry?: true
   preferredLocation?: true
   investmentRange?: true
   resumeUrl?: true
-  certifications?: true
-  contactPerson?: true
-  numberOfOutlets?: true
-  yearsInBusiness?: true
   submittedForReviewAt?: true
   reviewedBy?: true
   reviewedAt?: true
   verificationNotes?: true
   rejectionReason?: true
+  verified?: true
+  verifiedAt?: true
+  verifiedBy?: true
   isActive?: true
   lastLoginAt?: true
+  brandName?: true
+  businessLicenseDoc?: true
+  certifications?: true
+  companyBanner?: true
+  companyDescription?: true
+  contactPerson?: true
+  numberOfOutlets?: true
+  yearsInBusiness?: true
   _all?: true
 }
 
@@ -469,31 +487,34 @@ export type UserGroupByOutputType = {
   website: string | null
   linkedinUrl: string | null
   companyName: string | null
-  brandName: string | null
   businessEmail: string | null
   businessRegistrationNumber: string | null
   businessRegistrationDoc: string | null
-  businessLicenseDoc: string | null
   companyLogo: string | null
-  companyBanner: string | null
-  companyDescription: string | null
   gstNumber: string | null
   consultancyName: string | null
   preferredIndustry: string | null
   preferredLocation: string | null
   investmentRange: string | null
   resumeUrl: string | null
-  certifications: string | null
-  contactPerson: string | null
-  numberOfOutlets: number | null
-  yearsInBusiness: number | null
   submittedForReviewAt: Date | null
   reviewedBy: string | null
   reviewedAt: Date | null
   verificationNotes: string | null
   rejectionReason: string | null
+  verified: boolean
+  verifiedAt: Date | null
+  verifiedBy: string | null
   isActive: boolean
   lastLoginAt: Date | null
+  brandName: string | null
+  businessLicenseDoc: string | null
+  certifications: string | null
+  companyBanner: string | null
+  companyDescription: string | null
+  contactPerson: string | null
+  numberOfOutlets: number | null
+  yearsInBusiness: number | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -543,51 +564,55 @@ export type UserWhereInput = {
   website?: Prisma.StringNullableFilter<"User"> | string | null
   linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
   companyName?: Prisma.StringNullableFilter<"User"> | string | null
-  brandName?: Prisma.StringNullableFilter<"User"> | string | null
   businessEmail?: Prisma.StringNullableFilter<"User"> | string | null
   businessRegistrationNumber?: Prisma.StringNullableFilter<"User"> | string | null
   businessRegistrationDoc?: Prisma.StringNullableFilter<"User"> | string | null
-  businessLicenseDoc?: Prisma.StringNullableFilter<"User"> | string | null
   companyLogo?: Prisma.StringNullableFilter<"User"> | string | null
-  companyBanner?: Prisma.StringNullableFilter<"User"> | string | null
-  companyDescription?: Prisma.StringNullableFilter<"User"> | string | null
   gstNumber?: Prisma.StringNullableFilter<"User"> | string | null
   consultancyName?: Prisma.StringNullableFilter<"User"> | string | null
   preferredIndustry?: Prisma.StringNullableFilter<"User"> | string | null
   preferredLocation?: Prisma.StringNullableFilter<"User"> | string | null
   investmentRange?: Prisma.StringNullableFilter<"User"> | string | null
   resumeUrl?: Prisma.StringNullableFilter<"User"> | string | null
-  certifications?: Prisma.StringNullableFilter<"User"> | string | null
-  contactPerson?: Prisma.StringNullableFilter<"User"> | string | null
-  numberOfOutlets?: Prisma.IntNullableFilter<"User"> | number | null
-  yearsInBusiness?: Prisma.IntNullableFilter<"User"> | number | null
   submittedForReviewAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   reviewedBy?: Prisma.UuidNullableFilter<"User"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   verificationNotes?: Prisma.StringNullableFilter<"User"> | string | null
   rejectionReason?: Prisma.StringNullableFilter<"User"> | string | null
+  verified?: Prisma.BoolFilter<"User"> | boolean
+  verifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  verifiedBy?: Prisma.StringNullableFilter<"User"> | string | null
   isActive?: Prisma.BoolFilter<"User"> | boolean
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  brandName?: Prisma.StringNullableFilter<"User"> | string | null
+  businessLicenseDoc?: Prisma.StringNullableFilter<"User"> | string | null
+  certifications?: Prisma.StringNullableFilter<"User"> | string | null
+  companyBanner?: Prisma.StringNullableFilter<"User"> | string | null
+  companyDescription?: Prisma.StringNullableFilter<"User"> | string | null
+  contactPerson?: Prisma.StringNullableFilter<"User"> | string | null
+  numberOfOutlets?: Prisma.IntNullableFilter<"User"> | number | null
+  yearsInBusiness?: Prisma.IntNullableFilter<"User"> | number | null
+  organizedMeetings?: Prisma.MeetingListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
-  sessions?: Prisma.SessionListRelationFilter
-  skills?: Prisma.UserSkillListRelationFilter
-  interests?: Prisma.UserInterestListRelationFilter
-  education?: Prisma.UserEducationListRelationFilter
-  experience?: Prisma.UserExperienceListRelationFilter
-  companies?: Prisma.CompanyListRelationFilter
-  listings?: Prisma.FranchiseListingListRelationFilter
   applications?: Prisma.ApplicationListRelationFilter
+  auditLogs?: Prisma.AuditLogListRelationFilter
+  verificationHistories?: Prisma.VerificationHistoryListRelationFilter
+  companies?: Prisma.CompanyListRelationFilter
+  companyFollowers?: Prisma.CompanyFollowerListRelationFilter
   sentConnections?: Prisma.ConnectionListRelationFilter
   receivedConnections?: Prisma.ConnectionListRelationFilter
-  companyFollowers?: Prisma.CompanyFollowerListRelationFilter
-  messages?: Prisma.MessageListRelationFilter
   participants?: Prisma.ConversationParticipantListRelationFilter
+  listings?: Prisma.FranchiseListingListRelationFilter
+  meetingParticipants?: Prisma.MeetingParticipantListRelationFilter
+  messages?: Prisma.MessageListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
-  organizedMeetings?: Prisma.MeetingListRelationFilter
-  meetingParticipants?: Prisma.MeetingParticipantListRelationFilter
-  auditLogs?: Prisma.AuditLogListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
   documents?: Prisma.UserDocumentListRelationFilter
+  education?: Prisma.UserEducationListRelationFilter
+  experience?: Prisma.UserExperienceListRelationFilter
+  interests?: Prisma.UserInterestListRelationFilter
+  skills?: Prisma.UserSkillListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -614,51 +639,55 @@ export type UserOrderByWithRelationInput = {
   website?: Prisma.SortOrderInput | Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   companyName?: Prisma.SortOrderInput | Prisma.SortOrder
-  brandName?: Prisma.SortOrderInput | Prisma.SortOrder
   businessEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   businessRegistrationDoc?: Prisma.SortOrderInput | Prisma.SortOrder
-  businessLicenseDoc?: Prisma.SortOrderInput | Prisma.SortOrder
   companyLogo?: Prisma.SortOrderInput | Prisma.SortOrder
-  companyBanner?: Prisma.SortOrderInput | Prisma.SortOrder
-  companyDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   gstNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   consultancyName?: Prisma.SortOrderInput | Prisma.SortOrder
   preferredIndustry?: Prisma.SortOrderInput | Prisma.SortOrder
   preferredLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   investmentRange?: Prisma.SortOrderInput | Prisma.SortOrder
   resumeUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  certifications?: Prisma.SortOrderInput | Prisma.SortOrder
-  contactPerson?: Prisma.SortOrderInput | Prisma.SortOrder
-  numberOfOutlets?: Prisma.SortOrderInput | Prisma.SortOrder
-  yearsInBusiness?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedForReviewAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   verificationNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  verified?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  verifiedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  brandName?: Prisma.SortOrderInput | Prisma.SortOrder
+  businessLicenseDoc?: Prisma.SortOrderInput | Prisma.SortOrder
+  certifications?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyBanner?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactPerson?: Prisma.SortOrderInput | Prisma.SortOrder
+  numberOfOutlets?: Prisma.SortOrderInput | Prisma.SortOrder
+  yearsInBusiness?: Prisma.SortOrderInput | Prisma.SortOrder
+  organizedMeetings?: Prisma.MeetingOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
-  sessions?: Prisma.SessionOrderByRelationAggregateInput
-  skills?: Prisma.UserSkillOrderByRelationAggregateInput
-  interests?: Prisma.UserInterestOrderByRelationAggregateInput
-  education?: Prisma.UserEducationOrderByRelationAggregateInput
-  experience?: Prisma.UserExperienceOrderByRelationAggregateInput
-  companies?: Prisma.CompanyOrderByRelationAggregateInput
-  listings?: Prisma.FranchiseListingOrderByRelationAggregateInput
   applications?: Prisma.ApplicationOrderByRelationAggregateInput
+  auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
+  verificationHistories?: Prisma.VerificationHistoryOrderByRelationAggregateInput
+  companies?: Prisma.CompanyOrderByRelationAggregateInput
+  companyFollowers?: Prisma.CompanyFollowerOrderByRelationAggregateInput
   sentConnections?: Prisma.ConnectionOrderByRelationAggregateInput
   receivedConnections?: Prisma.ConnectionOrderByRelationAggregateInput
-  companyFollowers?: Prisma.CompanyFollowerOrderByRelationAggregateInput
-  messages?: Prisma.MessageOrderByRelationAggregateInput
   participants?: Prisma.ConversationParticipantOrderByRelationAggregateInput
+  listings?: Prisma.FranchiseListingOrderByRelationAggregateInput
+  meetingParticipants?: Prisma.MeetingParticipantOrderByRelationAggregateInput
+  messages?: Prisma.MessageOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
-  organizedMeetings?: Prisma.MeetingOrderByRelationAggregateInput
-  meetingParticipants?: Prisma.MeetingParticipantOrderByRelationAggregateInput
-  auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
+  sessions?: Prisma.SessionOrderByRelationAggregateInput
   documents?: Prisma.UserDocumentOrderByRelationAggregateInput
+  education?: Prisma.UserEducationOrderByRelationAggregateInput
+  experience?: Prisma.UserExperienceOrderByRelationAggregateInput
+  interests?: Prisma.UserInterestOrderByRelationAggregateInput
+  skills?: Prisma.UserSkillOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -688,51 +717,55 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   website?: Prisma.StringNullableFilter<"User"> | string | null
   linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
   companyName?: Prisma.StringNullableFilter<"User"> | string | null
-  brandName?: Prisma.StringNullableFilter<"User"> | string | null
   businessEmail?: Prisma.StringNullableFilter<"User"> | string | null
   businessRegistrationNumber?: Prisma.StringNullableFilter<"User"> | string | null
   businessRegistrationDoc?: Prisma.StringNullableFilter<"User"> | string | null
-  businessLicenseDoc?: Prisma.StringNullableFilter<"User"> | string | null
   companyLogo?: Prisma.StringNullableFilter<"User"> | string | null
-  companyBanner?: Prisma.StringNullableFilter<"User"> | string | null
-  companyDescription?: Prisma.StringNullableFilter<"User"> | string | null
   gstNumber?: Prisma.StringNullableFilter<"User"> | string | null
   consultancyName?: Prisma.StringNullableFilter<"User"> | string | null
   preferredIndustry?: Prisma.StringNullableFilter<"User"> | string | null
   preferredLocation?: Prisma.StringNullableFilter<"User"> | string | null
   investmentRange?: Prisma.StringNullableFilter<"User"> | string | null
   resumeUrl?: Prisma.StringNullableFilter<"User"> | string | null
-  certifications?: Prisma.StringNullableFilter<"User"> | string | null
-  contactPerson?: Prisma.StringNullableFilter<"User"> | string | null
-  numberOfOutlets?: Prisma.IntNullableFilter<"User"> | number | null
-  yearsInBusiness?: Prisma.IntNullableFilter<"User"> | number | null
   submittedForReviewAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   reviewedBy?: Prisma.UuidNullableFilter<"User"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   verificationNotes?: Prisma.StringNullableFilter<"User"> | string | null
   rejectionReason?: Prisma.StringNullableFilter<"User"> | string | null
+  verified?: Prisma.BoolFilter<"User"> | boolean
+  verifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  verifiedBy?: Prisma.StringNullableFilter<"User"> | string | null
   isActive?: Prisma.BoolFilter<"User"> | boolean
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  brandName?: Prisma.StringNullableFilter<"User"> | string | null
+  businessLicenseDoc?: Prisma.StringNullableFilter<"User"> | string | null
+  certifications?: Prisma.StringNullableFilter<"User"> | string | null
+  companyBanner?: Prisma.StringNullableFilter<"User"> | string | null
+  companyDescription?: Prisma.StringNullableFilter<"User"> | string | null
+  contactPerson?: Prisma.StringNullableFilter<"User"> | string | null
+  numberOfOutlets?: Prisma.IntNullableFilter<"User"> | number | null
+  yearsInBusiness?: Prisma.IntNullableFilter<"User"> | number | null
+  organizedMeetings?: Prisma.MeetingListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
-  sessions?: Prisma.SessionListRelationFilter
-  skills?: Prisma.UserSkillListRelationFilter
-  interests?: Prisma.UserInterestListRelationFilter
-  education?: Prisma.UserEducationListRelationFilter
-  experience?: Prisma.UserExperienceListRelationFilter
-  companies?: Prisma.CompanyListRelationFilter
-  listings?: Prisma.FranchiseListingListRelationFilter
   applications?: Prisma.ApplicationListRelationFilter
+  auditLogs?: Prisma.AuditLogListRelationFilter
+  verificationHistories?: Prisma.VerificationHistoryListRelationFilter
+  companies?: Prisma.CompanyListRelationFilter
+  companyFollowers?: Prisma.CompanyFollowerListRelationFilter
   sentConnections?: Prisma.ConnectionListRelationFilter
   receivedConnections?: Prisma.ConnectionListRelationFilter
-  companyFollowers?: Prisma.CompanyFollowerListRelationFilter
-  messages?: Prisma.MessageListRelationFilter
   participants?: Prisma.ConversationParticipantListRelationFilter
+  listings?: Prisma.FranchiseListingListRelationFilter
+  meetingParticipants?: Prisma.MeetingParticipantListRelationFilter
+  messages?: Prisma.MessageListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
-  organizedMeetings?: Prisma.MeetingListRelationFilter
-  meetingParticipants?: Prisma.MeetingParticipantListRelationFilter
-  auditLogs?: Prisma.AuditLogListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
   documents?: Prisma.UserDocumentListRelationFilter
+  education?: Prisma.UserEducationListRelationFilter
+  experience?: Prisma.UserExperienceListRelationFilter
+  interests?: Prisma.UserInterestListRelationFilter
+  skills?: Prisma.UserSkillListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -759,31 +792,34 @@ export type UserOrderByWithAggregationInput = {
   website?: Prisma.SortOrderInput | Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   companyName?: Prisma.SortOrderInput | Prisma.SortOrder
-  brandName?: Prisma.SortOrderInput | Prisma.SortOrder
   businessEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   businessRegistrationDoc?: Prisma.SortOrderInput | Prisma.SortOrder
-  businessLicenseDoc?: Prisma.SortOrderInput | Prisma.SortOrder
   companyLogo?: Prisma.SortOrderInput | Prisma.SortOrder
-  companyBanner?: Prisma.SortOrderInput | Prisma.SortOrder
-  companyDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   gstNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   consultancyName?: Prisma.SortOrderInput | Prisma.SortOrder
   preferredIndustry?: Prisma.SortOrderInput | Prisma.SortOrder
   preferredLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   investmentRange?: Prisma.SortOrderInput | Prisma.SortOrder
   resumeUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  certifications?: Prisma.SortOrderInput | Prisma.SortOrder
-  contactPerson?: Prisma.SortOrderInput | Prisma.SortOrder
-  numberOfOutlets?: Prisma.SortOrderInput | Prisma.SortOrder
-  yearsInBusiness?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedForReviewAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   verificationNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  verified?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  verifiedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  brandName?: Prisma.SortOrderInput | Prisma.SortOrder
+  businessLicenseDoc?: Prisma.SortOrderInput | Prisma.SortOrder
+  certifications?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyBanner?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactPerson?: Prisma.SortOrderInput | Prisma.SortOrder
+  numberOfOutlets?: Prisma.SortOrderInput | Prisma.SortOrder
+  yearsInBusiness?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -818,31 +854,34 @@ export type UserScalarWhereWithAggregatesInput = {
   website?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   linkedinUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   companyName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  brandName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   businessEmail?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   businessRegistrationNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   businessRegistrationDoc?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  businessLicenseDoc?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   companyLogo?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  companyBanner?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  companyDescription?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   gstNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   consultancyName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   preferredIndustry?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   preferredLocation?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   investmentRange?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   resumeUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  certifications?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  contactPerson?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  numberOfOutlets?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
-  yearsInBusiness?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
   submittedForReviewAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   reviewedBy?: Prisma.UuidNullableWithAggregatesFilter<"User"> | string | null
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   verificationNotes?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   rejectionReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  verified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  verifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  verifiedBy?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  brandName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  businessLicenseDoc?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  certifications?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  companyBanner?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  companyDescription?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  contactPerson?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  numberOfOutlets?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  yearsInBusiness?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
 }
 
 export type UserCreateInput = {
@@ -869,51 +908,55 @@ export type UserCreateInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -940,51 +983,55 @@ export type UserUncheckedCreateInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -1011,51 +1058,55 @@ export type UserUpdateInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -1082,51 +1133,55 @@ export type UserUncheckedUpdateInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1153,31 +1208,34 @@ export type UserCreateManyInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -1204,31 +1262,34 @@ export type UserUpdateManyMutationInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -1255,31 +1316,34 @@ export type UserUncheckedUpdateManyInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -1314,31 +1378,34 @@ export type UserCountOrderByAggregateInput = {
   website?: Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrder
   companyName?: Prisma.SortOrder
-  brandName?: Prisma.SortOrder
   businessEmail?: Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrder
   businessRegistrationDoc?: Prisma.SortOrder
-  businessLicenseDoc?: Prisma.SortOrder
   companyLogo?: Prisma.SortOrder
-  companyBanner?: Prisma.SortOrder
-  companyDescription?: Prisma.SortOrder
   gstNumber?: Prisma.SortOrder
   consultancyName?: Prisma.SortOrder
   preferredIndustry?: Prisma.SortOrder
   preferredLocation?: Prisma.SortOrder
   investmentRange?: Prisma.SortOrder
   resumeUrl?: Prisma.SortOrder
-  certifications?: Prisma.SortOrder
-  contactPerson?: Prisma.SortOrder
-  numberOfOutlets?: Prisma.SortOrder
-  yearsInBusiness?: Prisma.SortOrder
   submittedForReviewAt?: Prisma.SortOrder
   reviewedBy?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   verificationNotes?: Prisma.SortOrder
   rejectionReason?: Prisma.SortOrder
+  verified?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrder
+  verifiedBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
+  brandName?: Prisma.SortOrder
+  businessLicenseDoc?: Prisma.SortOrder
+  certifications?: Prisma.SortOrder
+  companyBanner?: Prisma.SortOrder
+  companyDescription?: Prisma.SortOrder
+  contactPerson?: Prisma.SortOrder
+  numberOfOutlets?: Prisma.SortOrder
+  yearsInBusiness?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -1371,31 +1438,34 @@ export type UserMaxOrderByAggregateInput = {
   website?: Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrder
   companyName?: Prisma.SortOrder
-  brandName?: Prisma.SortOrder
   businessEmail?: Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrder
   businessRegistrationDoc?: Prisma.SortOrder
-  businessLicenseDoc?: Prisma.SortOrder
   companyLogo?: Prisma.SortOrder
-  companyBanner?: Prisma.SortOrder
-  companyDescription?: Prisma.SortOrder
   gstNumber?: Prisma.SortOrder
   consultancyName?: Prisma.SortOrder
   preferredIndustry?: Prisma.SortOrder
   preferredLocation?: Prisma.SortOrder
   investmentRange?: Prisma.SortOrder
   resumeUrl?: Prisma.SortOrder
-  certifications?: Prisma.SortOrder
-  contactPerson?: Prisma.SortOrder
-  numberOfOutlets?: Prisma.SortOrder
-  yearsInBusiness?: Prisma.SortOrder
   submittedForReviewAt?: Prisma.SortOrder
   reviewedBy?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   verificationNotes?: Prisma.SortOrder
   rejectionReason?: Prisma.SortOrder
+  verified?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrder
+  verifiedBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
+  brandName?: Prisma.SortOrder
+  businessLicenseDoc?: Prisma.SortOrder
+  certifications?: Prisma.SortOrder
+  companyBanner?: Prisma.SortOrder
+  companyDescription?: Prisma.SortOrder
+  contactPerson?: Prisma.SortOrder
+  numberOfOutlets?: Prisma.SortOrder
+  yearsInBusiness?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -1421,31 +1491,34 @@ export type UserMinOrderByAggregateInput = {
   website?: Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrder
   companyName?: Prisma.SortOrder
-  brandName?: Prisma.SortOrder
   businessEmail?: Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrder
   businessRegistrationDoc?: Prisma.SortOrder
-  businessLicenseDoc?: Prisma.SortOrder
   companyLogo?: Prisma.SortOrder
-  companyBanner?: Prisma.SortOrder
-  companyDescription?: Prisma.SortOrder
   gstNumber?: Prisma.SortOrder
   consultancyName?: Prisma.SortOrder
   preferredIndustry?: Prisma.SortOrder
   preferredLocation?: Prisma.SortOrder
   investmentRange?: Prisma.SortOrder
   resumeUrl?: Prisma.SortOrder
-  certifications?: Prisma.SortOrder
-  contactPerson?: Prisma.SortOrder
-  numberOfOutlets?: Prisma.SortOrder
-  yearsInBusiness?: Prisma.SortOrder
   submittedForReviewAt?: Prisma.SortOrder
   reviewedBy?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   verificationNotes?: Prisma.SortOrder
   rejectionReason?: Prisma.SortOrder
+  verified?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrder
+  verifiedBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
+  brandName?: Prisma.SortOrder
+  businessLicenseDoc?: Prisma.SortOrder
+  certifications?: Prisma.SortOrder
+  companyBanner?: Prisma.SortOrder
+  companyDescription?: Prisma.SortOrder
+  contactPerson?: Prisma.SortOrder
+  numberOfOutlets?: Prisma.SortOrder
+  yearsInBusiness?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -1800,6 +1873,20 @@ export type UserUpdateOneRequiredWithoutDocumentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDocumentsInput, Prisma.UserUpdateWithoutDocumentsInput>, Prisma.UserUncheckedUpdateWithoutDocumentsInput>
 }
 
+export type UserCreateNestedOneWithoutVerificationHistoriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVerificationHistoriesInput, Prisma.UserUncheckedCreateWithoutVerificationHistoriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVerificationHistoriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutVerificationHistoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVerificationHistoriesInput, Prisma.UserUncheckedCreateWithoutVerificationHistoriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVerificationHistoriesInput
+  upsert?: Prisma.UserUpsertWithoutVerificationHistoriesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVerificationHistoriesInput, Prisma.UserUpdateWithoutVerificationHistoriesInput>, Prisma.UserUncheckedUpdateWithoutVerificationHistoriesInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   email: string
@@ -1824,50 +1911,54 @@ export type UserCreateWithoutSessionsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1894,50 +1985,54 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1980,50 +2075,54 @@ export type UserUpdateWithoutSessionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2050,50 +2149,54 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -2120,50 +2223,54 @@ export type UserCreateWithoutAccountsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -2190,50 +2297,54 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -2276,50 +2387,54 @@ export type UserUpdateWithoutAccountsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -2346,50 +2461,54 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSkillsInput = {
@@ -2416,50 +2535,54 @@ export type UserCreateWithoutSkillsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSkillsInput = {
@@ -2486,50 +2609,54 @@ export type UserUncheckedCreateWithoutSkillsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSkillsInput = {
@@ -2572,50 +2699,54 @@ export type UserUpdateWithoutSkillsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSkillsInput = {
@@ -2642,50 +2773,54 @@ export type UserUncheckedUpdateWithoutSkillsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInterestsInput = {
@@ -2712,50 +2847,54 @@ export type UserCreateWithoutInterestsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInterestsInput = {
@@ -2782,50 +2921,54 @@ export type UserUncheckedCreateWithoutInterestsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInterestsInput = {
@@ -2868,50 +3011,54 @@ export type UserUpdateWithoutInterestsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInterestsInput = {
@@ -2938,50 +3085,54 @@ export type UserUncheckedUpdateWithoutInterestsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEducationInput = {
@@ -3008,50 +3159,54 @@ export type UserCreateWithoutEducationInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEducationInput = {
@@ -3078,50 +3233,54 @@ export type UserUncheckedCreateWithoutEducationInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEducationInput = {
@@ -3164,50 +3323,54 @@ export type UserUpdateWithoutEducationInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEducationInput = {
@@ -3234,50 +3397,54 @@ export type UserUncheckedUpdateWithoutEducationInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutExperienceInput = {
@@ -3304,50 +3471,54 @@ export type UserCreateWithoutExperienceInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutExperienceInput = {
@@ -3374,50 +3545,54 @@ export type UserUncheckedCreateWithoutExperienceInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutExperienceInput = {
@@ -3460,50 +3635,54 @@ export type UserUpdateWithoutExperienceInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExperienceInput = {
@@ -3530,50 +3709,54 @@ export type UserUncheckedUpdateWithoutExperienceInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCompaniesInput = {
@@ -3600,50 +3783,54 @@ export type UserCreateWithoutCompaniesInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCompaniesInput = {
@@ -3670,50 +3857,54 @@ export type UserUncheckedCreateWithoutCompaniesInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCompaniesInput = {
@@ -3756,50 +3947,54 @@ export type UserUpdateWithoutCompaniesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompaniesInput = {
@@ -3826,50 +4021,54 @@ export type UserUncheckedUpdateWithoutCompaniesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutListingsInput = {
@@ -3896,50 +4095,54 @@ export type UserCreateWithoutListingsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutListingsInput = {
@@ -3966,50 +4169,54 @@ export type UserUncheckedCreateWithoutListingsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutListingsInput = {
@@ -4052,50 +4259,54 @@ export type UserUpdateWithoutListingsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutListingsInput = {
@@ -4122,50 +4333,54 @@ export type UserUncheckedUpdateWithoutListingsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutApplicationsInput = {
@@ -4192,50 +4407,54 @@ export type UserCreateWithoutApplicationsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
   companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -4262,50 +4481,54 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -4348,50 +4571,54 @@ export type UserUpdateWithoutApplicationsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -4418,50 +4645,54 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentConnectionsInput = {
@@ -4488,50 +4719,54 @@ export type UserCreateWithoutSentConnectionsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
-  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
   companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentConnectionsInput = {
@@ -4558,50 +4793,54 @@ export type UserUncheckedCreateWithoutSentConnectionsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
-  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
   companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentConnectionsInput = {
@@ -4633,50 +4872,54 @@ export type UserCreateWithoutReceivedConnectionsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
-  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
   companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
@@ -4703,50 +4946,54 @@ export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
-  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
   companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReceivedConnectionsInput = {
@@ -4789,50 +5036,54 @@ export type UserUpdateWithoutSentConnectionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
-  receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
   companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentConnectionsInput = {
@@ -4859,50 +5110,54 @@ export type UserUncheckedUpdateWithoutSentConnectionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
-  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
   companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReceivedConnectionsInput = {
@@ -4940,50 +5195,54 @@ export type UserUpdateWithoutReceivedConnectionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
-  sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
   companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
@@ -5010,50 +5269,54 @@ export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
-  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
   companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCompanyFollowersInput = {
@@ -5080,50 +5343,54 @@ export type UserCreateWithoutCompanyFollowersInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCompanyFollowersInput = {
@@ -5150,50 +5417,54 @@ export type UserUncheckedCreateWithoutCompanyFollowersInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCompanyFollowersInput = {
@@ -5236,50 +5507,54 @@ export type UserUpdateWithoutCompanyFollowersInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyFollowersInput = {
@@ -5306,50 +5581,54 @@ export type UserUncheckedUpdateWithoutCompanyFollowersInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutParticipantsInput = {
@@ -5376,50 +5655,54 @@ export type UserCreateWithoutParticipantsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutParticipantsInput = {
@@ -5446,50 +5729,54 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutParticipantsInput = {
@@ -5532,50 +5819,54 @@ export type UserUpdateWithoutParticipantsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutParticipantsInput = {
@@ -5602,50 +5893,54 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMessagesInput = {
@@ -5672,50 +5967,54 @@ export type UserCreateWithoutMessagesInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -5742,50 +6041,54 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -5828,50 +6131,54 @@ export type UserUpdateWithoutMessagesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -5898,50 +6205,54 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -5968,50 +6279,54 @@ export type UserCreateWithoutNotificationsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
-  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -6038,50 +6353,54 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
-  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -6124,50 +6443,54 @@ export type UserUpdateWithoutNotificationsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
-  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -6194,50 +6517,54 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
-  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -6264,50 +6591,54 @@ export type UserCreateWithoutReviewsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -6334,50 +6665,54 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -6420,50 +6755,54 @@ export type UserUpdateWithoutReviewsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -6490,50 +6829,54 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOrganizedMeetingsInput = {
@@ -6560,50 +6903,54 @@ export type UserCreateWithoutOrganizedMeetingsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOrganizedMeetingsInput = {
@@ -6630,50 +6977,54 @@ export type UserUncheckedCreateWithoutOrganizedMeetingsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOrganizedMeetingsInput = {
@@ -6716,50 +7067,54 @@ export type UserUpdateWithoutOrganizedMeetingsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrganizedMeetingsInput = {
@@ -6786,50 +7141,54 @@ export type UserUncheckedUpdateWithoutOrganizedMeetingsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMeetingParticipantsInput = {
@@ -6856,50 +7215,54 @@ export type UserCreateWithoutMeetingParticipantsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMeetingParticipantsInput = {
@@ -6926,50 +7289,54 @@ export type UserUncheckedCreateWithoutMeetingParticipantsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMeetingParticipantsInput = {
@@ -7012,50 +7379,54 @@ export type UserUpdateWithoutMeetingParticipantsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMeetingParticipantsInput = {
@@ -7082,50 +7453,54 @@ export type UserUncheckedUpdateWithoutMeetingParticipantsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -7152,50 +7527,54 @@ export type UserCreateWithoutAuditLogsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -7222,50 +7601,54 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -7308,50 +7691,54 @@ export type UserUpdateWithoutAuditLogsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -7378,50 +7765,54 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDocumentsInput = {
@@ -7448,50 +7839,54 @@ export type UserCreateWithoutDocumentsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -7518,50 +7913,54 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   website?: string | null
   linkedinUrl?: string | null
   companyName?: string | null
-  brandName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
   businessRegistrationDoc?: string | null
-  businessLicenseDoc?: string | null
   companyLogo?: string | null
-  companyBanner?: string | null
-  companyDescription?: string | null
   gstNumber?: string | null
   consultancyName?: string | null
   preferredIndustry?: string | null
   preferredLocation?: string | null
   investmentRange?: string | null
   resumeUrl?: string | null
-  certifications?: string | null
-  contactPerson?: string | null
-  numberOfOutlets?: number | null
-  yearsInBusiness?: number | null
   submittedForReviewAt?: Date | string | null
   reviewedBy?: string | null
   reviewedAt?: Date | string | null
   verificationNotes?: string | null
   rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   isActive?: boolean
   lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
-  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
-  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
-  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
-  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
-  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
   sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -7604,50 +8003,54 @@ export type UserUpdateWithoutDocumentsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -7674,50 +8077,366 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
-  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
-  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
-  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
-  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
-  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
   sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
-  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutVerificationHistoriesInput = {
+  id?: string
+  email: string
+  emailVerified?: boolean
+  name?: string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  onboardingCompleted?: boolean
+  emailVerifiedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.UserRole
+  accountStatus?: $Enums.AccountStatus
+  headline?: string | null
+  bio?: string | null
+  phone?: string | null
+  phoneVerified?: Date | string | null
+  location?: string | null
+  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserCreateindustriesInput | string[]
+  experienceYears?: number | null
+  website?: string | null
+  linkedinUrl?: string | null
+  companyName?: string | null
+  businessEmail?: string | null
+  businessRegistrationNumber?: string | null
+  businessRegistrationDoc?: string | null
+  companyLogo?: string | null
+  gstNumber?: string | null
+  consultancyName?: string | null
+  preferredIndustry?: string | null
+  preferredLocation?: string | null
+  investmentRange?: string | null
+  resumeUrl?: string | null
+  submittedForReviewAt?: Date | string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  verificationNotes?: string | null
+  rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
+  isActive?: boolean
+  lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutVerificationHistoriesInput = {
+  id?: string
+  email: string
+  emailVerified?: boolean
+  name?: string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  onboardingCompleted?: boolean
+  emailVerifiedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.UserRole
+  accountStatus?: $Enums.AccountStatus
+  headline?: string | null
+  bio?: string | null
+  phone?: string | null
+  phoneVerified?: Date | string | null
+  location?: string | null
+  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserCreateindustriesInput | string[]
+  experienceYears?: number | null
+  website?: string | null
+  linkedinUrl?: string | null
+  companyName?: string | null
+  businessEmail?: string | null
+  businessRegistrationNumber?: string | null
+  businessRegistrationDoc?: string | null
+  companyLogo?: string | null
+  gstNumber?: string | null
+  consultancyName?: string | null
+  preferredIndustry?: string | null
+  preferredLocation?: string | null
+  investmentRange?: string | null
+  resumeUrl?: string | null
+  submittedForReviewAt?: Date | string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  verificationNotes?: string | null
+  rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
+  isActive?: boolean
+  lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutVerificationHistoriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutVerificationHistoriesInput, Prisma.UserUncheckedCreateWithoutVerificationHistoriesInput>
+}
+
+export type UserUpsertWithoutVerificationHistoriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutVerificationHistoriesInput, Prisma.UserUncheckedUpdateWithoutVerificationHistoriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutVerificationHistoriesInput, Prisma.UserUncheckedCreateWithoutVerificationHistoriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutVerificationHistoriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutVerificationHistoriesInput, Prisma.UserUncheckedUpdateWithoutVerificationHistoriesInput>
+}
+
+export type UserUpdateWithoutVerificationHistoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserUpdateindustriesInput | string[]
+  experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutVerificationHistoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserUpdateindustriesInput | string[]
+  experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
-  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -7726,49 +8445,51 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
  */
 
 export type UserCountOutputType = {
+  organizedMeetings: number
   accounts: number
-  sessions: number
-  skills: number
-  interests: number
-  education: number
-  experience: number
-  companies: number
-  listings: number
   applications: number
+  auditLogs: number
+  verificationHistories: number
+  companies: number
+  companyFollowers: number
   sentConnections: number
   receivedConnections: number
-  companyFollowers: number
-  messages: number
   participants: number
+  listings: number
+  meetingParticipants: number
+  messages: number
   notifications: number
   reviews: number
-  organizedMeetings: number
-  meetingParticipants: number
-  auditLogs: number
+  sessions: number
   documents: number
+  education: number
+  experience: number
+  interests: number
+  skills: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  organizedMeetings?: boolean | UserCountOutputTypeCountOrganizedMeetingsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
-  sessions?: boolean | UserCountOutputTypeCountSessionsArgs
-  skills?: boolean | UserCountOutputTypeCountSkillsArgs
-  interests?: boolean | UserCountOutputTypeCountInterestsArgs
-  education?: boolean | UserCountOutputTypeCountEducationArgs
-  experience?: boolean | UserCountOutputTypeCountExperienceArgs
-  companies?: boolean | UserCountOutputTypeCountCompaniesArgs
-  listings?: boolean | UserCountOutputTypeCountListingsArgs
   applications?: boolean | UserCountOutputTypeCountApplicationsArgs
+  auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
+  verificationHistories?: boolean | UserCountOutputTypeCountVerificationHistoriesArgs
+  companies?: boolean | UserCountOutputTypeCountCompaniesArgs
+  companyFollowers?: boolean | UserCountOutputTypeCountCompanyFollowersArgs
   sentConnections?: boolean | UserCountOutputTypeCountSentConnectionsArgs
   receivedConnections?: boolean | UserCountOutputTypeCountReceivedConnectionsArgs
-  companyFollowers?: boolean | UserCountOutputTypeCountCompanyFollowersArgs
-  messages?: boolean | UserCountOutputTypeCountMessagesArgs
   participants?: boolean | UserCountOutputTypeCountParticipantsArgs
+  listings?: boolean | UserCountOutputTypeCountListingsArgs
+  meetingParticipants?: boolean | UserCountOutputTypeCountMeetingParticipantsArgs
+  messages?: boolean | UserCountOutputTypeCountMessagesArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   reviews?: boolean | UserCountOutputTypeCountReviewsArgs
-  organizedMeetings?: boolean | UserCountOutputTypeCountOrganizedMeetingsArgs
-  meetingParticipants?: boolean | UserCountOutputTypeCountMeetingParticipantsArgs
-  auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
+  sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   documents?: boolean | UserCountOutputTypeCountDocumentsArgs
+  education?: boolean | UserCountOutputTypeCountEducationArgs
+  experience?: boolean | UserCountOutputTypeCountExperienceArgs
+  interests?: boolean | UserCountOutputTypeCountInterestsArgs
+  skills?: boolean | UserCountOutputTypeCountSkillsArgs
 }
 
 /**
@@ -7784,6 +8505,13 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountOrganizedMeetingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MeetingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AccountWhereInput
 }
@@ -7791,36 +8519,22 @@ export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.E
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SessionWhereInput
+export type UserCountOutputTypeCountApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ApplicationWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountSkillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserSkillWhereInput
+export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditLogWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountInterestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserInterestWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountEducationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserEducationWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountExperienceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserExperienceWhereInput
+export type UserCountOutputTypeCountVerificationHistoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.VerificationHistoryWhereInput
 }
 
 /**
@@ -7833,15 +8547,8 @@ export type UserCountOutputTypeCountCompaniesArgs<ExtArgs extends runtime.Types.
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountListingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FranchiseListingWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ApplicationWhereInput
+export type UserCountOutputTypeCountCompanyFollowersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyFollowerWhereInput
 }
 
 /**
@@ -7861,8 +8568,22 @@ export type UserCountOutputTypeCountReceivedConnectionsArgs<ExtArgs extends runt
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountCompanyFollowersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.CompanyFollowerWhereInput
+export type UserCountOutputTypeCountParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationParticipantWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountListingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FranchiseListingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMeetingParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MeetingParticipantWhereInput
 }
 
 /**
@@ -7870,13 +8591,6 @@ export type UserCountOutputTypeCountCompanyFollowersArgs<ExtArgs extends runtime
  */
 export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.MessageWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ConversationParticipantWhereInput
 }
 
 /**
@@ -7896,22 +8610,8 @@ export type UserCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Ex
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountOrganizedMeetingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MeetingWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountMeetingParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MeetingParticipantWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AuditLogWhereInput
+export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionWhereInput
 }
 
 /**
@@ -7919,6 +8619,34 @@ export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.
  */
 export type UserCountOutputTypeCountDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserDocumentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountEducationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserEducationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountExperienceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserExperienceWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountInterestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserInterestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSkillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserSkillWhereInput
 }
 
 
@@ -7946,51 +8674,55 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   website?: boolean
   linkedinUrl?: boolean
   companyName?: boolean
-  brandName?: boolean
   businessEmail?: boolean
   businessRegistrationNumber?: boolean
   businessRegistrationDoc?: boolean
-  businessLicenseDoc?: boolean
   companyLogo?: boolean
-  companyBanner?: boolean
-  companyDescription?: boolean
   gstNumber?: boolean
   consultancyName?: boolean
   preferredIndustry?: boolean
   preferredLocation?: boolean
   investmentRange?: boolean
   resumeUrl?: boolean
-  certifications?: boolean
-  contactPerson?: boolean
-  numberOfOutlets?: boolean
-  yearsInBusiness?: boolean
   submittedForReviewAt?: boolean
   reviewedBy?: boolean
   reviewedAt?: boolean
   verificationNotes?: boolean
   rejectionReason?: boolean
+  verified?: boolean
+  verifiedAt?: boolean
+  verifiedBy?: boolean
   isActive?: boolean
   lastLoginAt?: boolean
+  brandName?: boolean
+  businessLicenseDoc?: boolean
+  certifications?: boolean
+  companyBanner?: boolean
+  companyDescription?: boolean
+  contactPerson?: boolean
+  numberOfOutlets?: boolean
+  yearsInBusiness?: boolean
+  organizedMeetings?: boolean | Prisma.User$organizedMeetingsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
-  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
-  skills?: boolean | Prisma.User$skillsArgs<ExtArgs>
-  interests?: boolean | Prisma.User$interestsArgs<ExtArgs>
-  education?: boolean | Prisma.User$educationArgs<ExtArgs>
-  experience?: boolean | Prisma.User$experienceArgs<ExtArgs>
-  companies?: boolean | Prisma.User$companiesArgs<ExtArgs>
-  listings?: boolean | Prisma.User$listingsArgs<ExtArgs>
   applications?: boolean | Prisma.User$applicationsArgs<ExtArgs>
+  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
+  verificationHistories?: boolean | Prisma.User$verificationHistoriesArgs<ExtArgs>
+  companies?: boolean | Prisma.User$companiesArgs<ExtArgs>
+  companyFollowers?: boolean | Prisma.User$companyFollowersArgs<ExtArgs>
   sentConnections?: boolean | Prisma.User$sentConnectionsArgs<ExtArgs>
   receivedConnections?: boolean | Prisma.User$receivedConnectionsArgs<ExtArgs>
-  companyFollowers?: boolean | Prisma.User$companyFollowersArgs<ExtArgs>
-  messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
   participants?: boolean | Prisma.User$participantsArgs<ExtArgs>
+  listings?: boolean | Prisma.User$listingsArgs<ExtArgs>
+  meetingParticipants?: boolean | Prisma.User$meetingParticipantsArgs<ExtArgs>
+  messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
-  organizedMeetings?: boolean | Prisma.User$organizedMeetingsArgs<ExtArgs>
-  meetingParticipants?: boolean | Prisma.User$meetingParticipantsArgs<ExtArgs>
-  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
+  education?: boolean | Prisma.User$educationArgs<ExtArgs>
+  experience?: boolean | Prisma.User$experienceArgs<ExtArgs>
+  interests?: boolean | Prisma.User$interestsArgs<ExtArgs>
+  skills?: boolean | Prisma.User$skillsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -8018,31 +8750,34 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   website?: boolean
   linkedinUrl?: boolean
   companyName?: boolean
-  brandName?: boolean
   businessEmail?: boolean
   businessRegistrationNumber?: boolean
   businessRegistrationDoc?: boolean
-  businessLicenseDoc?: boolean
   companyLogo?: boolean
-  companyBanner?: boolean
-  companyDescription?: boolean
   gstNumber?: boolean
   consultancyName?: boolean
   preferredIndustry?: boolean
   preferredLocation?: boolean
   investmentRange?: boolean
   resumeUrl?: boolean
-  certifications?: boolean
-  contactPerson?: boolean
-  numberOfOutlets?: boolean
-  yearsInBusiness?: boolean
   submittedForReviewAt?: boolean
   reviewedBy?: boolean
   reviewedAt?: boolean
   verificationNotes?: boolean
   rejectionReason?: boolean
+  verified?: boolean
+  verifiedAt?: boolean
+  verifiedBy?: boolean
   isActive?: boolean
   lastLoginAt?: boolean
+  brandName?: boolean
+  businessLicenseDoc?: boolean
+  certifications?: boolean
+  companyBanner?: boolean
+  companyDescription?: boolean
+  contactPerson?: boolean
+  numberOfOutlets?: boolean
+  yearsInBusiness?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -8069,31 +8804,34 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   website?: boolean
   linkedinUrl?: boolean
   companyName?: boolean
-  brandName?: boolean
   businessEmail?: boolean
   businessRegistrationNumber?: boolean
   businessRegistrationDoc?: boolean
-  businessLicenseDoc?: boolean
   companyLogo?: boolean
-  companyBanner?: boolean
-  companyDescription?: boolean
   gstNumber?: boolean
   consultancyName?: boolean
   preferredIndustry?: boolean
   preferredLocation?: boolean
   investmentRange?: boolean
   resumeUrl?: boolean
-  certifications?: boolean
-  contactPerson?: boolean
-  numberOfOutlets?: boolean
-  yearsInBusiness?: boolean
   submittedForReviewAt?: boolean
   reviewedBy?: boolean
   reviewedAt?: boolean
   verificationNotes?: boolean
   rejectionReason?: boolean
+  verified?: boolean
+  verifiedAt?: boolean
+  verifiedBy?: boolean
   isActive?: boolean
   lastLoginAt?: boolean
+  brandName?: boolean
+  businessLicenseDoc?: boolean
+  certifications?: boolean
+  companyBanner?: boolean
+  companyDescription?: boolean
+  contactPerson?: boolean
+  numberOfOutlets?: boolean
+  yearsInBusiness?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -8120,55 +8858,59 @@ export type UserSelectScalar = {
   website?: boolean
   linkedinUrl?: boolean
   companyName?: boolean
-  brandName?: boolean
   businessEmail?: boolean
   businessRegistrationNumber?: boolean
   businessRegistrationDoc?: boolean
-  businessLicenseDoc?: boolean
   companyLogo?: boolean
-  companyBanner?: boolean
-  companyDescription?: boolean
   gstNumber?: boolean
   consultancyName?: boolean
   preferredIndustry?: boolean
   preferredLocation?: boolean
   investmentRange?: boolean
   resumeUrl?: boolean
-  certifications?: boolean
-  contactPerson?: boolean
-  numberOfOutlets?: boolean
-  yearsInBusiness?: boolean
   submittedForReviewAt?: boolean
   reviewedBy?: boolean
   reviewedAt?: boolean
   verificationNotes?: boolean
   rejectionReason?: boolean
+  verified?: boolean
+  verifiedAt?: boolean
+  verifiedBy?: boolean
   isActive?: boolean
   lastLoginAt?: boolean
+  brandName?: boolean
+  businessLicenseDoc?: boolean
+  certifications?: boolean
+  companyBanner?: boolean
+  companyDescription?: boolean
+  contactPerson?: boolean
+  numberOfOutlets?: boolean
+  yearsInBusiness?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "brandName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "businessLicenseDoc" | "companyLogo" | "companyBanner" | "companyDescription" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "certifications" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "isActive" | "lastLoginAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "companyLogo" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "verified" | "verifiedAt" | "verifiedBy" | "isActive" | "lastLoginAt" | "brandName" | "businessLicenseDoc" | "certifications" | "companyBanner" | "companyDescription" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  organizedMeetings?: boolean | Prisma.User$organizedMeetingsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
-  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
-  skills?: boolean | Prisma.User$skillsArgs<ExtArgs>
-  interests?: boolean | Prisma.User$interestsArgs<ExtArgs>
-  education?: boolean | Prisma.User$educationArgs<ExtArgs>
-  experience?: boolean | Prisma.User$experienceArgs<ExtArgs>
-  companies?: boolean | Prisma.User$companiesArgs<ExtArgs>
-  listings?: boolean | Prisma.User$listingsArgs<ExtArgs>
   applications?: boolean | Prisma.User$applicationsArgs<ExtArgs>
+  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
+  verificationHistories?: boolean | Prisma.User$verificationHistoriesArgs<ExtArgs>
+  companies?: boolean | Prisma.User$companiesArgs<ExtArgs>
+  companyFollowers?: boolean | Prisma.User$companyFollowersArgs<ExtArgs>
   sentConnections?: boolean | Prisma.User$sentConnectionsArgs<ExtArgs>
   receivedConnections?: boolean | Prisma.User$receivedConnectionsArgs<ExtArgs>
-  companyFollowers?: boolean | Prisma.User$companyFollowersArgs<ExtArgs>
-  messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
   participants?: boolean | Prisma.User$participantsArgs<ExtArgs>
+  listings?: boolean | Prisma.User$listingsArgs<ExtArgs>
+  meetingParticipants?: boolean | Prisma.User$meetingParticipantsArgs<ExtArgs>
+  messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
-  organizedMeetings?: boolean | Prisma.User$organizedMeetingsArgs<ExtArgs>
-  meetingParticipants?: boolean | Prisma.User$meetingParticipantsArgs<ExtArgs>
-  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
+  education?: boolean | Prisma.User$educationArgs<ExtArgs>
+  experience?: boolean | Prisma.User$experienceArgs<ExtArgs>
+  interests?: boolean | Prisma.User$interestsArgs<ExtArgs>
+  skills?: boolean | Prisma.User$skillsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -8177,26 +8919,27 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    organizedMeetings: Prisma.$MeetingPayload<ExtArgs>[]
     accounts: Prisma.$AccountPayload<ExtArgs>[]
-    sessions: Prisma.$SessionPayload<ExtArgs>[]
-    skills: Prisma.$UserSkillPayload<ExtArgs>[]
-    interests: Prisma.$UserInterestPayload<ExtArgs>[]
-    education: Prisma.$UserEducationPayload<ExtArgs>[]
-    experience: Prisma.$UserExperiencePayload<ExtArgs>[]
-    companies: Prisma.$CompanyPayload<ExtArgs>[]
-    listings: Prisma.$FranchiseListingPayload<ExtArgs>[]
     applications: Prisma.$ApplicationPayload<ExtArgs>[]
+    auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+    verificationHistories: Prisma.$VerificationHistoryPayload<ExtArgs>[]
+    companies: Prisma.$CompanyPayload<ExtArgs>[]
+    companyFollowers: Prisma.$CompanyFollowerPayload<ExtArgs>[]
     sentConnections: Prisma.$ConnectionPayload<ExtArgs>[]
     receivedConnections: Prisma.$ConnectionPayload<ExtArgs>[]
-    companyFollowers: Prisma.$CompanyFollowerPayload<ExtArgs>[]
-    messages: Prisma.$MessagePayload<ExtArgs>[]
     participants: Prisma.$ConversationParticipantPayload<ExtArgs>[]
+    listings: Prisma.$FranchiseListingPayload<ExtArgs>[]
+    meetingParticipants: Prisma.$MeetingParticipantPayload<ExtArgs>[]
+    messages: Prisma.$MessagePayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
-    organizedMeetings: Prisma.$MeetingPayload<ExtArgs>[]
-    meetingParticipants: Prisma.$MeetingParticipantPayload<ExtArgs>[]
-    auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+    sessions: Prisma.$SessionPayload<ExtArgs>[]
     documents: Prisma.$UserDocumentPayload<ExtArgs>[]
+    education: Prisma.$UserEducationPayload<ExtArgs>[]
+    experience: Prisma.$UserExperiencePayload<ExtArgs>[]
+    interests: Prisma.$UserInterestPayload<ExtArgs>[]
+    skills: Prisma.$UserSkillPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -8222,31 +8965,34 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     website: string | null
     linkedinUrl: string | null
     companyName: string | null
-    brandName: string | null
     businessEmail: string | null
     businessRegistrationNumber: string | null
     businessRegistrationDoc: string | null
-    businessLicenseDoc: string | null
     companyLogo: string | null
-    companyBanner: string | null
-    companyDescription: string | null
     gstNumber: string | null
     consultancyName: string | null
     preferredIndustry: string | null
     preferredLocation: string | null
     investmentRange: string | null
     resumeUrl: string | null
-    certifications: string | null
-    contactPerson: string | null
-    numberOfOutlets: number | null
-    yearsInBusiness: number | null
     submittedForReviewAt: Date | null
     reviewedBy: string | null
     reviewedAt: Date | null
     verificationNotes: string | null
     rejectionReason: string | null
+    verified: boolean
+    verifiedAt: Date | null
+    verifiedBy: string | null
     isActive: boolean
     lastLoginAt: Date | null
+    brandName: string | null
+    businessLicenseDoc: string | null
+    certifications: string | null
+    companyBanner: string | null
+    companyDescription: string | null
+    contactPerson: string | null
+    numberOfOutlets: number | null
+    yearsInBusiness: number | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -8641,26 +9387,27 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  organizedMeetings<T extends Prisma.User$organizedMeetingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$organizedMeetingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  skills<T extends Prisma.User$skillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  interests<T extends Prisma.User$interestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$interestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserInterestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  education<T extends Prisma.User$educationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$educationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserEducationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  experience<T extends Prisma.User$experienceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$experienceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserExperiencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  companies<T extends Prisma.User$companiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$companiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  listings<T extends Prisma.User$listingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$listingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FranchiseListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   applications<T extends Prisma.User$applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  verificationHistories<T extends Prisma.User$verificationHistoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$verificationHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VerificationHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  companies<T extends Prisma.User$companiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$companiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  companyFollowers<T extends Prisma.User$companyFollowersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$companyFollowersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyFollowerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sentConnections<T extends Prisma.User$sentConnectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receivedConnections<T extends Prisma.User$receivedConnectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  companyFollowers<T extends Prisma.User$companyFollowersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$companyFollowersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyFollowerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  messages<T extends Prisma.User$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   participants<T extends Prisma.User$participantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  listings<T extends Prisma.User$listingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$listingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FranchiseListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  meetingParticipants<T extends Prisma.User$meetingParticipantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$meetingParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MeetingParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messages<T extends Prisma.User$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  organizedMeetings<T extends Prisma.User$organizedMeetingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$organizedMeetingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  meetingParticipants<T extends Prisma.User$meetingParticipantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$meetingParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MeetingParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   documents<T extends Prisma.User$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  education<T extends Prisma.User$educationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$educationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserEducationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  experience<T extends Prisma.User$experienceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$experienceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserExperiencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  interests<T extends Prisma.User$interestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$interestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserInterestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  skills<T extends Prisma.User$skillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8713,31 +9460,34 @@ export interface UserFieldRefs {
   readonly website: Prisma.FieldRef<"User", 'String'>
   readonly linkedinUrl: Prisma.FieldRef<"User", 'String'>
   readonly companyName: Prisma.FieldRef<"User", 'String'>
-  readonly brandName: Prisma.FieldRef<"User", 'String'>
   readonly businessEmail: Prisma.FieldRef<"User", 'String'>
   readonly businessRegistrationNumber: Prisma.FieldRef<"User", 'String'>
   readonly businessRegistrationDoc: Prisma.FieldRef<"User", 'String'>
-  readonly businessLicenseDoc: Prisma.FieldRef<"User", 'String'>
   readonly companyLogo: Prisma.FieldRef<"User", 'String'>
-  readonly companyBanner: Prisma.FieldRef<"User", 'String'>
-  readonly companyDescription: Prisma.FieldRef<"User", 'String'>
   readonly gstNumber: Prisma.FieldRef<"User", 'String'>
   readonly consultancyName: Prisma.FieldRef<"User", 'String'>
   readonly preferredIndustry: Prisma.FieldRef<"User", 'String'>
   readonly preferredLocation: Prisma.FieldRef<"User", 'String'>
   readonly investmentRange: Prisma.FieldRef<"User", 'String'>
   readonly resumeUrl: Prisma.FieldRef<"User", 'String'>
-  readonly certifications: Prisma.FieldRef<"User", 'String'>
-  readonly contactPerson: Prisma.FieldRef<"User", 'String'>
-  readonly numberOfOutlets: Prisma.FieldRef<"User", 'Int'>
-  readonly yearsInBusiness: Prisma.FieldRef<"User", 'Int'>
   readonly submittedForReviewAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly reviewedBy: Prisma.FieldRef<"User", 'String'>
   readonly reviewedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly verificationNotes: Prisma.FieldRef<"User", 'String'>
   readonly rejectionReason: Prisma.FieldRef<"User", 'String'>
+  readonly verified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly verifiedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly verifiedBy: Prisma.FieldRef<"User", 'String'>
   readonly isActive: Prisma.FieldRef<"User", 'Boolean'>
   readonly lastLoginAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly brandName: Prisma.FieldRef<"User", 'String'>
+  readonly businessLicenseDoc: Prisma.FieldRef<"User", 'String'>
+  readonly certifications: Prisma.FieldRef<"User", 'String'>
+  readonly companyBanner: Prisma.FieldRef<"User", 'String'>
+  readonly companyDescription: Prisma.FieldRef<"User", 'String'>
+  readonly contactPerson: Prisma.FieldRef<"User", 'String'>
+  readonly numberOfOutlets: Prisma.FieldRef<"User", 'Int'>
+  readonly yearsInBusiness: Prisma.FieldRef<"User", 'Int'>
 }
     
 
@@ -9131,6 +9881,30 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * User.organizedMeetings
+ */
+export type User$organizedMeetingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Meeting
+   */
+  select?: Prisma.MeetingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Meeting
+   */
+  omit?: Prisma.MeetingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MeetingInclude<ExtArgs> | null
+  where?: Prisma.MeetingWhereInput
+  orderBy?: Prisma.MeetingOrderByWithRelationInput | Prisma.MeetingOrderByWithRelationInput[]
+  cursor?: Prisma.MeetingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MeetingScalarFieldEnum | Prisma.MeetingScalarFieldEnum[]
+}
+
+/**
  * User.accounts
  */
 export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -9155,123 +9929,75 @@ export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
- * User.sessions
+ * User.applications
  */
-export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$applicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Session
+   * Select specific fields to fetch from the Application
    */
-  select?: Prisma.SessionSelect<ExtArgs> | null
+  select?: Prisma.ApplicationSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Session
+   * Omit specific fields from the Application
    */
-  omit?: Prisma.SessionOmit<ExtArgs> | null
+  omit?: Prisma.ApplicationOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SessionInclude<ExtArgs> | null
-  where?: Prisma.SessionWhereInput
-  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
-  cursor?: Prisma.SessionWhereUniqueInput
+  include?: Prisma.ApplicationInclude<ExtArgs> | null
+  where?: Prisma.ApplicationWhereInput
+  orderBy?: Prisma.ApplicationOrderByWithRelationInput | Prisma.ApplicationOrderByWithRelationInput[]
+  cursor?: Prisma.ApplicationWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+  distinct?: Prisma.ApplicationScalarFieldEnum | Prisma.ApplicationScalarFieldEnum[]
 }
 
 /**
- * User.skills
+ * User.auditLogs
  */
-export type User$skillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the UserSkill
+   * Select specific fields to fetch from the AuditLog
    */
-  select?: Prisma.UserSkillSelect<ExtArgs> | null
+  select?: Prisma.AuditLogSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the UserSkill
+   * Omit specific fields from the AuditLog
    */
-  omit?: Prisma.UserSkillOmit<ExtArgs> | null
+  omit?: Prisma.AuditLogOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.UserSkillInclude<ExtArgs> | null
-  where?: Prisma.UserSkillWhereInput
-  orderBy?: Prisma.UserSkillOrderByWithRelationInput | Prisma.UserSkillOrderByWithRelationInput[]
-  cursor?: Prisma.UserSkillWhereUniqueInput
+  include?: Prisma.AuditLogInclude<ExtArgs> | null
+  where?: Prisma.AuditLogWhereInput
+  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
+  cursor?: Prisma.AuditLogWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.UserSkillScalarFieldEnum | Prisma.UserSkillScalarFieldEnum[]
+  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
 }
 
 /**
- * User.interests
+ * User.verificationHistories
  */
-export type User$interestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$verificationHistoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the UserInterest
+   * Select specific fields to fetch from the VerificationHistory
    */
-  select?: Prisma.UserInterestSelect<ExtArgs> | null
+  select?: Prisma.VerificationHistorySelect<ExtArgs> | null
   /**
-   * Omit specific fields from the UserInterest
+   * Omit specific fields from the VerificationHistory
    */
-  omit?: Prisma.UserInterestOmit<ExtArgs> | null
+  omit?: Prisma.VerificationHistoryOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.UserInterestInclude<ExtArgs> | null
-  where?: Prisma.UserInterestWhereInput
-  orderBy?: Prisma.UserInterestOrderByWithRelationInput | Prisma.UserInterestOrderByWithRelationInput[]
-  cursor?: Prisma.UserInterestWhereUniqueInput
+  include?: Prisma.VerificationHistoryInclude<ExtArgs> | null
+  where?: Prisma.VerificationHistoryWhereInput
+  orderBy?: Prisma.VerificationHistoryOrderByWithRelationInput | Prisma.VerificationHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.VerificationHistoryWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.UserInterestScalarFieldEnum | Prisma.UserInterestScalarFieldEnum[]
-}
-
-/**
- * User.education
- */
-export type User$educationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UserEducation
-   */
-  select?: Prisma.UserEducationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UserEducation
-   */
-  omit?: Prisma.UserEducationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserEducationInclude<ExtArgs> | null
-  where?: Prisma.UserEducationWhereInput
-  orderBy?: Prisma.UserEducationOrderByWithRelationInput | Prisma.UserEducationOrderByWithRelationInput[]
-  cursor?: Prisma.UserEducationWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UserEducationScalarFieldEnum | Prisma.UserEducationScalarFieldEnum[]
-}
-
-/**
- * User.experience
- */
-export type User$experienceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UserExperience
-   */
-  select?: Prisma.UserExperienceSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UserExperience
-   */
-  omit?: Prisma.UserExperienceOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserExperienceInclude<ExtArgs> | null
-  where?: Prisma.UserExperienceWhereInput
-  orderBy?: Prisma.UserExperienceOrderByWithRelationInput | Prisma.UserExperienceOrderByWithRelationInput[]
-  cursor?: Prisma.UserExperienceWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UserExperienceScalarFieldEnum | Prisma.UserExperienceScalarFieldEnum[]
+  distinct?: Prisma.VerificationHistoryScalarFieldEnum | Prisma.VerificationHistoryScalarFieldEnum[]
 }
 
 /**
@@ -9299,51 +10025,27 @@ export type User$companiesArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.listings
+ * User.companyFollowers
  */
-export type User$listingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$companyFollowersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the FranchiseListing
+   * Select specific fields to fetch from the CompanyFollower
    */
-  select?: Prisma.FranchiseListingSelect<ExtArgs> | null
+  select?: Prisma.CompanyFollowerSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the FranchiseListing
+   * Omit specific fields from the CompanyFollower
    */
-  omit?: Prisma.FranchiseListingOmit<ExtArgs> | null
+  omit?: Prisma.CompanyFollowerOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.FranchiseListingInclude<ExtArgs> | null
-  where?: Prisma.FranchiseListingWhereInput
-  orderBy?: Prisma.FranchiseListingOrderByWithRelationInput | Prisma.FranchiseListingOrderByWithRelationInput[]
-  cursor?: Prisma.FranchiseListingWhereUniqueInput
+  include?: Prisma.CompanyFollowerInclude<ExtArgs> | null
+  where?: Prisma.CompanyFollowerWhereInput
+  orderBy?: Prisma.CompanyFollowerOrderByWithRelationInput | Prisma.CompanyFollowerOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyFollowerWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.FranchiseListingScalarFieldEnum | Prisma.FranchiseListingScalarFieldEnum[]
-}
-
-/**
- * User.applications
- */
-export type User$applicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Application
-   */
-  select?: Prisma.ApplicationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Application
-   */
-  omit?: Prisma.ApplicationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ApplicationInclude<ExtArgs> | null
-  where?: Prisma.ApplicationWhereInput
-  orderBy?: Prisma.ApplicationOrderByWithRelationInput | Prisma.ApplicationOrderByWithRelationInput[]
-  cursor?: Prisma.ApplicationWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ApplicationScalarFieldEnum | Prisma.ApplicationScalarFieldEnum[]
+  distinct?: Prisma.CompanyFollowerScalarFieldEnum | Prisma.CompanyFollowerScalarFieldEnum[]
 }
 
 /**
@@ -9395,27 +10097,75 @@ export type User$receivedConnectionsArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
- * User.companyFollowers
+ * User.participants
  */
-export type User$companyFollowersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$participantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the CompanyFollower
+   * Select specific fields to fetch from the ConversationParticipant
    */
-  select?: Prisma.CompanyFollowerSelect<ExtArgs> | null
+  select?: Prisma.ConversationParticipantSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the CompanyFollower
+   * Omit specific fields from the ConversationParticipant
    */
-  omit?: Prisma.CompanyFollowerOmit<ExtArgs> | null
+  omit?: Prisma.ConversationParticipantOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.CompanyFollowerInclude<ExtArgs> | null
-  where?: Prisma.CompanyFollowerWhereInput
-  orderBy?: Prisma.CompanyFollowerOrderByWithRelationInput | Prisma.CompanyFollowerOrderByWithRelationInput[]
-  cursor?: Prisma.CompanyFollowerWhereUniqueInput
+  include?: Prisma.ConversationParticipantInclude<ExtArgs> | null
+  where?: Prisma.ConversationParticipantWhereInput
+  orderBy?: Prisma.ConversationParticipantOrderByWithRelationInput | Prisma.ConversationParticipantOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationParticipantWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.CompanyFollowerScalarFieldEnum | Prisma.CompanyFollowerScalarFieldEnum[]
+  distinct?: Prisma.ConversationParticipantScalarFieldEnum | Prisma.ConversationParticipantScalarFieldEnum[]
+}
+
+/**
+ * User.listings
+ */
+export type User$listingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FranchiseListing
+   */
+  select?: Prisma.FranchiseListingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FranchiseListing
+   */
+  omit?: Prisma.FranchiseListingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FranchiseListingInclude<ExtArgs> | null
+  where?: Prisma.FranchiseListingWhereInput
+  orderBy?: Prisma.FranchiseListingOrderByWithRelationInput | Prisma.FranchiseListingOrderByWithRelationInput[]
+  cursor?: Prisma.FranchiseListingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FranchiseListingScalarFieldEnum | Prisma.FranchiseListingScalarFieldEnum[]
+}
+
+/**
+ * User.meetingParticipants
+ */
+export type User$meetingParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MeetingParticipant
+   */
+  select?: Prisma.MeetingParticipantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MeetingParticipant
+   */
+  omit?: Prisma.MeetingParticipantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MeetingParticipantInclude<ExtArgs> | null
+  where?: Prisma.MeetingParticipantWhereInput
+  orderBy?: Prisma.MeetingParticipantOrderByWithRelationInput | Prisma.MeetingParticipantOrderByWithRelationInput[]
+  cursor?: Prisma.MeetingParticipantWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MeetingParticipantScalarFieldEnum | Prisma.MeetingParticipantScalarFieldEnum[]
 }
 
 /**
@@ -9440,30 +10190,6 @@ export type User$messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
-}
-
-/**
- * User.participants
- */
-export type User$participantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ConversationParticipant
-   */
-  select?: Prisma.ConversationParticipantSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ConversationParticipant
-   */
-  omit?: Prisma.ConversationParticipantOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ConversationParticipantInclude<ExtArgs> | null
-  where?: Prisma.ConversationParticipantWhereInput
-  orderBy?: Prisma.ConversationParticipantOrderByWithRelationInput | Prisma.ConversationParticipantOrderByWithRelationInput[]
-  cursor?: Prisma.ConversationParticipantWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ConversationParticipantScalarFieldEnum | Prisma.ConversationParticipantScalarFieldEnum[]
 }
 
 /**
@@ -9515,75 +10241,27 @@ export type User$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 }
 
 /**
- * User.organizedMeetings
+ * User.sessions
  */
-export type User$organizedMeetingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Meeting
+   * Select specific fields to fetch from the Session
    */
-  select?: Prisma.MeetingSelect<ExtArgs> | null
+  select?: Prisma.SessionSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Meeting
+   * Omit specific fields from the Session
    */
-  omit?: Prisma.MeetingOmit<ExtArgs> | null
+  omit?: Prisma.SessionOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MeetingInclude<ExtArgs> | null
-  where?: Prisma.MeetingWhereInput
-  orderBy?: Prisma.MeetingOrderByWithRelationInput | Prisma.MeetingOrderByWithRelationInput[]
-  cursor?: Prisma.MeetingWhereUniqueInput
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.MeetingScalarFieldEnum | Prisma.MeetingScalarFieldEnum[]
-}
-
-/**
- * User.meetingParticipants
- */
-export type User$meetingParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the MeetingParticipant
-   */
-  select?: Prisma.MeetingParticipantSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the MeetingParticipant
-   */
-  omit?: Prisma.MeetingParticipantOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MeetingParticipantInclude<ExtArgs> | null
-  where?: Prisma.MeetingParticipantWhereInput
-  orderBy?: Prisma.MeetingParticipantOrderByWithRelationInput | Prisma.MeetingParticipantOrderByWithRelationInput[]
-  cursor?: Prisma.MeetingParticipantWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.MeetingParticipantScalarFieldEnum | Prisma.MeetingParticipantScalarFieldEnum[]
-}
-
-/**
- * User.auditLogs
- */
-export type User$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the AuditLog
-   */
-  select?: Prisma.AuditLogSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the AuditLog
-   */
-  omit?: Prisma.AuditLogOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AuditLogInclude<ExtArgs> | null
-  where?: Prisma.AuditLogWhereInput
-  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
-  cursor?: Prisma.AuditLogWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
 }
 
 /**
@@ -9608,6 +10286,102 @@ export type User$documentsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.UserDocumentScalarFieldEnum | Prisma.UserDocumentScalarFieldEnum[]
+}
+
+/**
+ * User.education
+ */
+export type User$educationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserEducation
+   */
+  select?: Prisma.UserEducationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserEducation
+   */
+  omit?: Prisma.UserEducationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserEducationInclude<ExtArgs> | null
+  where?: Prisma.UserEducationWhereInput
+  orderBy?: Prisma.UserEducationOrderByWithRelationInput | Prisma.UserEducationOrderByWithRelationInput[]
+  cursor?: Prisma.UserEducationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserEducationScalarFieldEnum | Prisma.UserEducationScalarFieldEnum[]
+}
+
+/**
+ * User.experience
+ */
+export type User$experienceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserExperience
+   */
+  select?: Prisma.UserExperienceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserExperience
+   */
+  omit?: Prisma.UserExperienceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserExperienceInclude<ExtArgs> | null
+  where?: Prisma.UserExperienceWhereInput
+  orderBy?: Prisma.UserExperienceOrderByWithRelationInput | Prisma.UserExperienceOrderByWithRelationInput[]
+  cursor?: Prisma.UserExperienceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserExperienceScalarFieldEnum | Prisma.UserExperienceScalarFieldEnum[]
+}
+
+/**
+ * User.interests
+ */
+export type User$interestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserInterest
+   */
+  select?: Prisma.UserInterestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserInterest
+   */
+  omit?: Prisma.UserInterestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInterestInclude<ExtArgs> | null
+  where?: Prisma.UserInterestWhereInput
+  orderBy?: Prisma.UserInterestOrderByWithRelationInput | Prisma.UserInterestOrderByWithRelationInput[]
+  cursor?: Prisma.UserInterestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserInterestScalarFieldEnum | Prisma.UserInterestScalarFieldEnum[]
+}
+
+/**
+ * User.skills
+ */
+export type User$skillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserSkill
+   */
+  select?: Prisma.UserSkillSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserSkill
+   */
+  omit?: Prisma.UserSkillOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserSkillInclude<ExtArgs> | null
+  where?: Prisma.UserSkillWhereInput
+  orderBy?: Prisma.UserSkillOrderByWithRelationInput | Prisma.UserSkillOrderByWithRelationInput[]
+  cursor?: Prisma.UserSkillWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserSkillScalarFieldEnum | Prisma.UserSkillScalarFieldEnum[]
 }
 
 /**

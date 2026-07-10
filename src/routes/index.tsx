@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
-import { ProtectedRoute, OnboardingRoute, AuthRedirect } from "../components/AuthGuard";
+import { ProtectedRoute, OnboardingRoute, AuthRedirect, AdminRoute } from "../components/AuthGuard";
 
 import Home from "../pages/public/Home";
 import About from "../pages/public/About";
@@ -35,6 +35,16 @@ import AdminUsers from "../pages/admin/AdminUsers";
 import AdminCompanies from "../pages/admin/AdminCompanies";
 import AdminAnalytics from "../pages/admin/AdminAnalytics";
 import AdminVerification from "../pages/admin/AdminVerification";
+import AdminReports from "../pages/admin/AdminReports";
+import AdminNotifications from "../pages/admin/AdminNotifications";
+import AdminMessages from "../pages/admin/AdminMessages";
+import AdminMarketplace from "../pages/admin/AdminMarketplace";
+import AdminApplications from "../pages/admin/AdminApplications";
+import AdminFollowers from "../pages/admin/AdminFollowers";
+import AdminAuditLogs from "../pages/admin/AdminAuditLogs";
+import AdminSystemHealth from "../pages/admin/AdminSystemHealth";
+import AdminSettingsPage from "../pages/admin/AdminSettings";
+import AdminContent from "../pages/admin/AdminContent";
 
 export default function AppRoutes() {
   return (
@@ -68,11 +78,21 @@ export default function AppRoutes() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/company/:id" element={<CompanyProfile />} />
 
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/users" element={<AdminUsers />} />
-        <Route path="/admin/verification" element={<AdminVerification />} />
-        <Route path="/admin/companies" element={<AdminCompanies />} />
-        <Route path="/admin/analytics" element={<AdminAnalytics />} />
+        <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+        <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>} />
+        <Route path="/admin/verification" element={<AdminRoute><AdminVerification /></AdminRoute>} />
+        <Route path="/admin/companies" element={<AdminRoute><AdminCompanies /></AdminRoute>} />
+        <Route path="/admin/analytics" element={<AdminRoute><AdminAnalytics /></AdminRoute>} />
+        <Route path="/admin/reports" element={<AdminRoute><AdminReports /></AdminRoute>} />
+        <Route path="/admin/notifications" element={<AdminRoute><AdminNotifications /></AdminRoute>} />
+        <Route path="/admin/messages" element={<AdminRoute><AdminMessages /></AdminRoute>} />
+        <Route path="/admin/marketplace" element={<AdminRoute><AdminMarketplace /></AdminRoute>} />
+        <Route path="/admin/applications" element={<AdminRoute><AdminApplications /></AdminRoute>} />
+        <Route path="/admin/followers" element={<AdminRoute><AdminFollowers /></AdminRoute>} />
+        <Route path="/admin/audit-logs" element={<AdminRoute><AdminAuditLogs /></AdminRoute>} />
+        <Route path="/admin/system-health" element={<AdminRoute><AdminSystemHealth /></AdminRoute>} />
+        <Route path="/admin/settings" element={<AdminRoute><AdminSettingsPage /></AdminRoute>} />
+        <Route path="/admin/content" element={<AdminRoute><AdminContent /></AdminRoute>} />
       </Route>
     </Routes>
   );

@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
           owner: { select: { id: true, fullName: true, avatarUrl: true } },
           _count: { select: { listings: true, followers: true } },
         },
-        orderBy: { createdAt: "desc" },
+        orderBy: [{ isVerified: "desc" }, { createdAt: "desc" }],
       }),
       prisma.company.count({ where }),
     ]);

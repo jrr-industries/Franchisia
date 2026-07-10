@@ -46,6 +46,9 @@ model User {
   reviewedAt                 DateTime?                 @map("reviewed_at") @db.Timestamptz(6)
   verificationNotes          String?                   @map("verification_notes")
   rejectionReason            String?                   @map("rejection_reason")
+  verified                   Boolean                   @default(false)
+  verifiedAt                 DateTime?                 @map("verified_at") @db.Timestamptz(6)
+  verifiedBy                 String?                   @map("verified_by")
   isActive                   Boolean                   @default(true) @map("is_active")
   lastLoginAt                DateTime?                 @map("last_login_at") @db.Timestamptz(6)
   brandName                  String?                   @map("brand_name")
@@ -60,6 +63,7 @@ model User {
   accounts                   Account[]
   applications               Application[]
   auditLogs                  AuditLog[]
+  verificationHistories      VerificationHistory[]
   companies                  Company[]
   companyFollowers           CompanyFollower[]
   sentConnections            Connection[]              @relation("followed_by")
@@ -469,6 +473,22 @@ model UserDocument {
 
   @@index([userId])
   @@map("user_documents")
+}
+
+model VerificationHistory {
+  id             String        @id @default(cuid())
+  userId         String        @map("user_id")
+  action         String
+  previousStatus String?       @map("previous_status")
+  currentStatus  String        @map("current_status")
+  reviewedBy     String        @map("reviewed_by")
+  adminNotes     String?       @map("admin_notes")
+  createdAt      DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("verification_history")
 }
 
 enum UserRole {

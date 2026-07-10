@@ -10,41 +10,79 @@ router.use(authenticate, authorize("admin"));
 
 router.get("/stats", async (req, res) => {
   try {
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const weekAgo = new Date(todayStart.getTime() - 7 * 86400000);
+    const monthAgo = new Date(todayStart.getTime() - 30 * 86400000);
+
     const [
       totalUsers,
+      onlineUsers,
+      newUsersToday,
+      newUsersWeek,
+      newUsersMonth,
+      verifiedUsers,
       pendingVerifications,
       verifiedCompanies,
       activeCompanies,
       totalMessages,
+      messagesToday,
       totalFollowers,
+      newFollowersToday,
       totalReports,
-      newUsersToday,
+      pendingReports,
+      totalApplications,
+      totalListings,
+      activeListings,
       verificationStats,
       roleStats,
+      industryStats,
     ] = await Promise.all([
       prisma.user.count(),
+      prisma.user.count({ where: { lastLoginAt: { gte: new Date(Date.now() - 15 * 60000) } } }),
+      prisma.user.count({ where: { createdAt: { gte: todayStart } } }),
+      prisma.user.count({ where: { createdAt: { gte: weekAgo } } }),
+      prisma.user.count({ where: { createdAt: { gte: monthAgo } } }),
+      prisma.user.count({ where: { verified: true } }),
       prisma.user.count({ where: { accountStatus: "pending_admin_review" } }),
       prisma.company.count({ where: { isVerified: true } }),
       prisma.company.count({ where: { status: "active" } }),
       prisma.message.count(),
+      prisma.message.count({ where: { createdAt: { gte: todayStart } } }),
       prisma.companyFollower.count(),
+      prisma.companyFollower.count({ where: { createdAt: { gte: todayStart } } }),
       prisma.report.count(),
-      prisma.user.count({ where: { createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } } }),
+      prisma.report.count({ where: { status: "pending" } }),
+      0, // totalApplications (placeholder until Application model is populated)
+      prisma.franchiseListing.count(),
+      prisma.franchiseListing.count({ where: { status: "active" } }),
       prisma.user.groupBy({ by: ["accountStatus"], _count: true }),
       prisma.user.groupBy({ by: ["role"], _count: true }),
+      prisma.company.groupBy({ by: ["industry"], _count: true, orderBy: { _count: { industry: "desc" } }, take: 10 }),
     ]);
 
     res.json({
       totalUsers,
+      onlineUsers,
+      newUsersToday,
+      newUsersWeek,
+      newUsersMonth,
+      verifiedUsers,
       pendingVerifications,
       verifiedCompanies,
       activeCompanies,
       totalMessages,
+      messagesToday,
       totalFollowers,
+      newFollowersToday,
       totalReports,
-      newUsersToday,
+      pendingReports,
+      totalApplications,
+      totalListings,
+      activeListings,
       verificationStats,
       roleStats,
+      industryStats,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -73,7 +111,7 @@ router.get("/users", async (req, res) => {
         take: parseInt(limit),
         select: {
           id: true, email: true, name: true, role: true, image: true,
-          accountStatus: true, isActive: true, createdAt: true,
+          accountStatus: true, verified: true, isActive: true, createdAt: true,
           lastLoginAt: true, companyName: true, phone: true,
           submittedForReviewAt: true, emailVerified: true,
         },
@@ -164,7 +202,7 @@ router.get("/verification/pending", async (req, res) => {
         take: parseInt(limit),
         select: {
           id: true, email: true, name: true, role: true, image: true,
-          accountStatus: true, companyName: true, phone: true,
+          accountStatus: true, verified: true, companyName: true, phone: true,
           submittedForReviewAt: true, createdAt: true,
           businessRegistrationDoc: true, gstNumber: true,
           businessLicenseDoc: true, resumeUrl: true, certifications: true,
@@ -194,6 +232,9 @@ router.patch("/verification/:id/review", async (req, res) => {
         where: { id: userId },
         data: {
           accountStatus: "verified",
+          verified: true,
+          verifiedAt: new Date(),
+          verifiedBy: req.user.id,
           onboardingCompleted: true,
           reviewedBy: req.user.id,
           reviewedAt: new Date(),
@@ -208,6 +249,28 @@ router.patch("/verification/:id/review", async (req, res) => {
           title: "Verification Approved",
           body: "Your account has been verified. You now have full access to the platform.",
           data: { reviewedBy: req.user.id },
+        },
+      });
+
+      await prisma.auditLog.create({
+        data: {
+          userId: req.user.id,
+          action: "VERIFY_USER",
+          tableName: "users",
+          recordId: userId,
+          newData: { accountStatus: "verified", verified: true, verifiedAt: new Date().toISOString() },
+          ipAddress: req.ip,
+        },
+      });
+
+      await prisma.verificationHistory.create({
+        data: {
+          userId,
+          action: "approved",
+          previousStatus: user.accountStatus,
+          currentStatus: "verified",
+          reviewedBy: req.user.id,
+          adminNotes: notes || null,
         },
       });
 
@@ -238,6 +301,28 @@ router.patch("/verification/:id/review", async (req, res) => {
         },
       });
 
+      await prisma.auditLog.create({
+        data: {
+          userId: req.user.id,
+          action: "REJECT_USER",
+          tableName: "users",
+          recordId: userId,
+          newData: { accountStatus: "rejected", rejectionReason: notes },
+          ipAddress: req.ip,
+        },
+      });
+
+      await prisma.verificationHistory.create({
+        data: {
+          userId,
+          action: "rejected",
+          previousStatus: user.accountStatus,
+          currentStatus: "rejected",
+          reviewedBy: req.user.id,
+          adminNotes: notes,
+        },
+      });
+
       const { passwordHash, ...userData } = updated;
       return res.json({ user: userData, message: "User rejected" });
     }
@@ -248,6 +333,17 @@ router.patch("/verification/:id/review", async (req, res) => {
         data: {
           accountStatus: "need_more_information",
           verificationNotes: notes || null,
+        },
+      });
+
+      await prisma.verificationHistory.create({
+        data: {
+          userId,
+          action: "requested_info",
+          previousStatus: user.accountStatus,
+          currentStatus: "need_more_information",
+          reviewedBy: req.user.id,
+          adminNotes: notes || null,
         },
       });
 
@@ -297,12 +393,25 @@ router.get("/companies", async (req, res) => {
           owner: { select: { id: true, name: true, email: true } },
           _count: { select: { followers: true, listings: true } },
         },
-        orderBy: { createdAt: "desc" },
+        orderBy: [{ isVerified: "desc" }, { createdAt: "desc" }],
       }),
       prisma.company.count({ where }),
     ]);
 
     res.json({ companies, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/verification/:id/history", async (req, res) => {
+  try {
+    const history = await prisma.verificationHistory.findMany({
+      where: { userId: req.params.id },
+      orderBy: { createdAt: "desc" },
+      include: { user: { select: { name: true, email: true } } },
+    });
+    res.json({ history });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -395,6 +504,623 @@ router.post("/notifications/read-all", async (req, res) => {
       where: { userId: req.user.id, isRead: false },
       data: { isRead: true },
     });
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/audit-logs", async (req, res) => {
+  try {
+    const { page = 1, limit = 50, action, userId: logUserId } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const where = {};
+    if (action) where.action = action;
+    if (logUserId) where.userId = logUserId;
+
+    const [logs, total] = await Promise.all([
+      prisma.auditLog.findMany({
+        where,
+        skip,
+        take: parseInt(limit),
+        include: { user: { select: { id: true, name: true, email: true, image: true } } },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.auditLog.count({ where }),
+    ]);
+
+    res.json({ logs, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/system-health", async (req, res) => {
+  try {
+    const [userCount, dbTest] = await Promise.all([
+      prisma.user.count(),
+      prisma.$queryRaw`SELECT 1 as ok`,
+    ]);
+    res.json({
+      database: { status: "connected", ok: true },
+      uptime: Math.floor(process.uptime()),
+      memory: process.memoryUsage(),
+      nodeVersion: process.version,
+      platform: process.platform,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.patch("/reports/:id/resolve", async (req, res) => {
+  try {
+    const { action: reportAction } = req.body;
+    const report = await prisma.report.update({
+      where: { id: req.params.id },
+      data: { status: reportAction === "dismiss" ? "dismissed" : "resolved", resolvedAt: new Date(), resolvedBy: req.user.id },
+    });
+    await prisma.auditLog.create({
+      data: {
+        userId: req.user.id,
+        action: reportAction === "dismiss" ? "DISMISS_REPORT" : "RESOLVE_REPORT",
+        tableName: "reports",
+        recordId: req.params.id,
+        newData: { status: reportAction === "dismiss" ? "dismissed" : "resolved" },
+        ipAddress: req.ip,
+      },
+    });
+    res.json({ report });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post("/send-announcement", async (req, res) => {
+  try {
+    const { title, body, targets } = req.body;
+    if (!title || !body) return res.status(400).json({ error: "Title and body are required" });
+    const where = targets === "all" ? {} : targets === "verified" ? { verified: true } : {};
+    const users = await prisma.user.findMany({ where, select: { id: true } });
+    await prisma.notification.createMany({
+      data: users.map((u) => ({
+        userId: u.id,
+        type: "system_announcement",
+        title,
+        body,
+        data: { sentBy: req.user.id },
+      })),
+    });
+    res.json({ success: true, sentCount: users.length });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/users/:id/profile", async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.params.id },
+      include: {
+        _count: { select: { receivedConnections: true, sentConnections: true, companyFollowers: true } },
+        documents: true,
+        verificationHistories: { orderBy: { createdAt: "desc" }, take: 20 },
+        auditLogs: { orderBy: { createdAt: "desc" }, take: 10 },
+        notifications: { orderBy: { createdAt: "desc" }, take: 5, select: { id: true, type: true, title: true, body: true, createdAt: true, isRead: true } },
+        companies: { select: { id: true, name: true, slug: true, isVerified: true, status: true, _count: { select: { followers: true } } } },
+      },
+    });
+    if (!user) return res.status(404).json({ error: "User not found" });
+    const messageCount = await prisma.message.count({ where: { senderId: req.params.id } });
+    const { passwordHash, ...userData } = user;
+    res.json({ user: { ...userData, messageCount } });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post("/users/bulk-action", async (req, res) => {
+  try {
+    const { userIds, action } = req.body;
+    if (!userIds?.length || !action) return res.status(400).json({ error: "userIds and action required" });
+
+    if (action === "delete") {
+      await prisma.user.deleteMany({ where: { id: { in: userIds } } });
+    } else if (action === "suspend") {
+      await prisma.user.updateMany({ where: { id: { in: userIds } }, data: { isActive: false } });
+    } else if (action === "activate") {
+      await prisma.user.updateMany({ where: { id: { in: userIds } }, data: { isActive: true } });
+    } else if (action === "verify") {
+      await prisma.user.updateMany({ where: { id: { in: userIds } }, data: { verified: true, accountStatus: "verified" } });
+    } else if (action === "make_admin") {
+      await prisma.user.updateMany({ where: { id: { in: userIds }, role: { not: "admin" } }, data: { role: "admin" } });
+    } else {
+      return res.status(400).json({ error: "Invalid action" });
+    }
+
+    await prisma.auditLog.create({
+      data: {
+        userId: req.user.id,
+        action: `BULK_${action.toUpperCase()}`,
+        tableName: "users",
+        recordId: userIds.join(","),
+        newData: { action, count: userIds.length },
+        ipAddress: req.ip,
+      },
+    });
+
+    res.json({ success: true, affectedCount: userIds.length });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/verification/all", async (req, res) => {
+  try {
+    const { page = 1, limit = 20, status, role, search } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const where = {};
+    if (status) where.accountStatus = status;
+    if (role) where.role = role;
+    if (search) {
+      where.OR = [
+        { name: { contains: search, mode: "insensitive" } },
+        { email: { contains: search, mode: "insensitive" } },
+      ];
+    }
+
+    const [users, total] = await Promise.all([
+      prisma.user.findMany({
+        where,
+        skip,
+        take: parseInt(limit),
+        select: {
+          id: true, email: true, name: true, role: true, image: true,
+          accountStatus: true, verified: true, isActive: true, createdAt: true,
+          submittedForReviewAt: true, reviewedAt: true, reviewedBy: true,
+          rejectionReason: true, verificationNotes: true,
+          documents: { select: { id: true, type: true, url: true, fileName: true } },
+        },
+        orderBy: { submittedForReviewAt: { sort: "asc", nulls: "last" } },
+      }),
+      prisma.user.count({ where }),
+    ]);
+
+    res.json({ users, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/verification/stats", async (req, res) => {
+  try {
+    const groups = await prisma.user.groupBy({
+      by: ["accountStatus"],
+      _count: true,
+    });
+    const stats = { pending: 0, approved: 0, rejected: 0, needsInfo: 0, total: 0 };
+    groups.forEach((g) => {
+      stats.total += g._count;
+      if (g.accountStatus === "pending_admin_review") stats.pending += g._count;
+      else if (g.accountStatus === "verified") stats.approved += g._count;
+      else if (g.accountStatus === "rejected") stats.rejected += g._count;
+      else if (g.accountStatus === "need_more_information") stats.needsInfo += g._count;
+    });
+    res.json(stats);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/users/:id/activity", async (req, res) => {
+  try {
+    const [auditLogs, notificationLogs, verificationHistory] = await Promise.all([
+      prisma.auditLog.findMany({ where: { recordId: req.params.id }, orderBy: { createdAt: "desc" }, take: 20 }),
+      prisma.notification.findMany({ where: { userId: req.params.id }, orderBy: { createdAt: "desc" }, take: 20, select: { id: true, type: true, title: true, body: true, createdAt: true } }),
+      prisma.verificationHistory.findMany({ where: { userId: req.params.id }, orderBy: { createdAt: "desc" }, take: 20 }),
+    ]);
+    res.json({ auditLogs, notifications: notificationLogs, verificationHistory });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.patch("/users/:id/profile", async (req, res) => {
+  try {
+    const allowedFields = ["name", "companyName", "phone", "verificationNotes", "rejectionReason"];
+    const updates = {};
+    for (const key of allowedFields) {
+      if (req.body[key] !== undefined) updates[key] = req.body[key];
+    }
+    if (Object.keys(updates).length === 0) return res.status(400).json({ error: "No valid fields to update" });
+    const updated = await prisma.user.update({ where: { id: req.params.id }, data: updates });
+    const { passwordHash, ...userData } = updated;
+    res.json({ user: userData });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/companies/:id/profile", async (req, res) => {
+  try {
+    const company = await prisma.company.findUnique({
+      where: { id: req.params.id },
+      include: {
+        owner: { select: { id: true, name: true, email: true, image: true } },
+        _count: { select: { followers: true, listings: true, reviews: true } },
+        listings: { take: 10, orderBy: { createdAt: "desc" }, include: { _count: { select: { applications: true } } } },
+      },
+    });
+    if (!company) return res.status(404).json({ error: "Company not found" });
+    res.json({ company });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post("/companies/bulk-action", async (req, res) => {
+  try {
+    const { companyIds, action } = req.body;
+    if (!companyIds?.length || !action) return res.status(400).json({ error: "companyIds and action required" });
+    if (action === "delete") {
+      await prisma.company.deleteMany({ where: { id: { in: companyIds } } });
+    } else if (action === "verify") {
+      await prisma.company.updateMany({ where: { id: { in: companyIds } }, data: { isVerified: true } });
+    } else if (action === "unverify") {
+      await prisma.company.updateMany({ where: { id: { in: companyIds } }, data: { isVerified: false } });
+    } else if (action === "suspend") {
+      await prisma.company.updateMany({ where: { id: { in: companyIds } }, data: { status: "suspended" } });
+    } else if (action === "activate") {
+      await prisma.company.updateMany({ where: { id: { in: companyIds } }, data: { status: "active" } });
+    } else {
+      return res.status(400).json({ error: "Invalid action" });
+    }
+    await prisma.auditLog.create({
+      data: {
+        userId: req.user.id, action: `BULK_COMPANY_${action.toUpperCase()}`, tableName: "companies",
+        recordId: companyIds.join(","), newData: { action, count: companyIds.length }, ipAddress: req.ip,
+      },
+    });
+    res.json({ success: true, affectedCount: companyIds.length });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.patch("/companies/:id/profile", async (req, res) => {
+  try {
+    const allowedFields = ["name", "industry", "description", "email", "phone", "website", "investmentRange", "location"];
+    const updates = {};
+    for (const key of allowedFields) {
+      if (req.body[key] !== undefined) updates[key] = req.body[key];
+    }
+    if (Object.keys(updates).length === 0) return res.status(400).json({ error: "No valid fields to update" });
+    const company = await prisma.company.update({ where: { id: req.params.id }, data: updates });
+    res.json({ company });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/marketplace/listings", async (req, res) => {
+  try {
+    const { page = 1, limit = 20, status, search, featured } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const where = {};
+    if (status) where.status = status;
+    if (featured !== undefined) where.isFeatured = featured === "true";
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+      ];
+    }
+    const [listings, total] = await Promise.all([
+      prisma.franchiseListing.findMany({
+        where, skip, take: parseInt(limit),
+        include: {
+          company: { select: { id: true, name: true, slug: true } },
+          _count: { select: { applications: true } },
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.franchiseListing.count({ where }),
+    ]);
+    res.json({ listings, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.patch("/marketplace/listings/:id/status", async (req, res) => {
+  try {
+    const listing = await prisma.franchiseListing.update({
+      where: { id: req.params.id },
+      data: { status: req.body.status },
+    });
+    await prisma.auditLog.create({
+      data: {
+        userId: req.user.id, action: `UPDATE_LISTING_STATUS`, tableName: "franchise_listings",
+        recordId: req.params.id, newData: { status: req.body.status }, ipAddress: req.ip,
+      },
+    });
+    res.json({ listing });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post("/marketplace/listings/:id/feature", async (req, res) => {
+  try {
+    const listing = await prisma.franchiseListing.findUnique({ where: { id: req.params.id } });
+    if (!listing) return res.status(404).json({ error: "Listing not found" });
+    const updated = await prisma.franchiseListing.update({
+      where: { id: req.params.id },
+      data: { isFeatured: !listing.isFeatured },
+    });
+    res.json({ listing: updated });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.delete("/marketplace/listings/:id", async (req, res) => {
+  try {
+    await prisma.franchiseListing.delete({ where: { id: req.params.id } });
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/marketplace/applications", async (req, res) => {
+  try {
+    const { page = 1, limit = 20, status } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const where = {};
+    if (status) where.status = status;
+    const [applications, total] = await Promise.all([
+      prisma.application.findMany({
+        where, skip, take: parseInt(limit),
+        include: {
+          applicant: { select: { id: true, name: true, email: true, image: true } },
+          listing: { select: { id: true, title: true, company: { select: { name: true } } } },
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.application.count({ where }),
+    ]);
+    res.json({ applications, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.patch("/marketplace/applications/:id/status", async (req, res) => {
+  try {
+    const application = await prisma.application.update({
+      where: { id: req.params.id },
+      data: { status: req.body.status },
+    });
+    res.json({ application });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ==================== Messages Management ====================
+
+router.get("/messages/all", async (req, res) => {
+  try {
+    const { page = 1, limit = 30, search } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const where = {};
+    if (search) where.content = { contains: search, mode: "insensitive" };
+    const [messages, total] = await Promise.all([
+      prisma.message.findMany({
+        where, skip, take: parseInt(limit),
+        include: {
+          sender: { select: { id: true, name: true, email: true, image: true } },
+          conversation: { select: { id: true, subject: true, participants: { include: { user: { select: { id: true, name: true, email: true } } } } } },
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.message.count({ where }),
+    ]);
+    res.json({ messages, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.delete("/messages/:id", async (req, res) => {
+  try {
+    await prisma.message.delete({ where: { id: req.params.id } });
+    await prisma.auditLog.create({
+      data: { userId: req.user.id, action: "DELETE_MESSAGE", tableName: "messages", recordId: req.params.id, ipAddress: req.ip },
+    });
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/messages/conversations", async (req, res) => {
+  try {
+    const { page = 1, limit = 20 } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const [conversations, total] = await Promise.all([
+      prisma.conversation.findMany({
+        skip, take: parseInt(limit),
+        include: {
+          participants: { include: { user: { select: { id: true, name: true, email: true, image: true } } } },
+          messages: { orderBy: { createdAt: "desc" }, take: 1 },
+        },
+        orderBy: { updatedAt: "desc" },
+      }),
+      prisma.conversation.count(),
+    ]);
+    res.json({ conversations, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ==================== Followers Management ====================
+
+router.get("/followers/stats", async (req, res) => {
+  try {
+    const [totalCompanyFollowers, totalUserConnections, topCompanies, topUsers] = await Promise.all([
+      prisma.companyFollower.count(),
+      prisma.connection.count(),
+      prisma.companyFollower.groupBy({ by: ["companyId"], _count: true, orderBy: { _count: { companyId: "desc" } }, take: 10 }),
+      prisma.connection.groupBy({ by: ["followingId"], _count: true, orderBy: { _count: { followingId: "desc" } }, take: 10 }),
+    ]);
+    const companyDetails = topCompanies.length ? await prisma.company.findMany({ where: { id: { in: topCompanies.map(c => c.companyId) } }, select: { id: true, name: true, slug: true } }) : [];
+    const userDetails = topUsers.length ? await prisma.user.findMany({ where: { id: { in: topUsers.map(u => u.followingId) } }, select: { id: true, name: true, email: true, image: true } }) : [];
+    res.json({
+      totalCompanyFollowers,
+      totalUserConnections,
+      topCompanies: topCompanies.map(c => ({ ...c, company: companyDetails.find(cd => cd.id === c.companyId) })),
+      topUsers: topUsers.map(u => ({ ...u, user: userDetails.find(ud => ud.id === u.followingId) })),
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.delete("/followers/company/:companyId/user/:userId", async (req, res) => {
+  try {
+    await prisma.companyFollower.deleteMany({
+      where: { companyId: req.params.companyId, userId: req.params.userId },
+    });
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.delete("/followers/user/:targetUserId/:userId", async (req, res) => {
+  try {
+    await prisma.connection.deleteMany({
+      where: { followingId: req.params.targetUserId, followerId: req.params.userId },
+    });
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ==================== Settings ====================
+
+let maintenanceMode = false;
+let featureFlags = {
+  registration: true,
+  messaging: true,
+  listings: true,
+  marketplace: true,
+  analytics: true,
+};
+
+router.get("/settings", async (req, res) => {
+  try {
+    res.json({
+      platformName: "Franchisia",
+      maintenanceMode,
+      featureFlags,
+      theme: "system",
+      version: "1.0.0",
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.patch("/settings", async (req, res) => {
+  try {
+    if (req.body.maintenanceMode !== undefined) maintenanceMode = req.body.maintenanceMode;
+    if (req.body.featureFlags) featureFlags = { ...featureFlags, ...req.body.featureFlags };
+    await prisma.auditLog.create({
+      data: { userId: req.user.id, action: "UPDATE_SETTINGS", tableName: "settings", newData: req.body, ipAddress: req.ip },
+    });
+    res.json({ success: true, maintenanceMode, featureFlags });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/settings/maintenance", async (req, res) => {
+  res.json({ enabled: maintenanceMode });
+});
+
+router.post("/settings/maintenance", async (req, res) => {
+  maintenanceMode = !!req.body.enabled;
+  await prisma.auditLog.create({
+    data: { userId: req.user.id, action: maintenanceMode ? "ENABLE_MAINTENANCE" : "DISABLE_MAINTENANCE", tableName: "settings", newData: { maintenanceMode }, ipAddress: req.ip },
+  });
+  res.json({ enabled: maintenanceMode });
+});
+
+// ==================== Content Moderation ====================
+
+router.get("/content/reported", async (req, res) => {
+  try {
+    const { page = 1, limit = 20, status } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const where = {};
+    if (status) where.status = status;
+    const [reports, total] = await Promise.all([
+      prisma.report.findMany({
+        where, skip, take: parseInt(limit),
+        include: {
+          reporter: { select: { id: true, name: true, email: true } },
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.report.count({ where }),
+    ]);
+    const enriched = await Promise.all(reports.map(async (r) => {
+      let target = null;
+      if (r.targetType === "listing") {
+        target = await prisma.franchiseListing.findUnique({ where: { id: r.targetId }, select: { id: true, title: true } });
+      } else if (r.targetType === "company") {
+        target = await prisma.company.findUnique({ where: { id: r.targetId }, select: { id: true, name: true } });
+      } else if (r.targetType === "user") {
+        target = await prisma.user.findUnique({ where: { id: r.targetId }, select: { id: true, name: true, email: true } });
+      }
+      return { ...r, target };
+    }));
+    res.json({ reports: enriched, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.patch("/content/:type/:id/hide", async (req, res) => {
+  try {
+    const { type, id } = req.params;
+    if (type === "listing") {
+      await prisma.franchiseListing.update({ where: { id }, data: { status: "inactive" } });
+    } else if (type === "company") {
+      await prisma.company.update({ where: { id }, data: { status: "suspended" } });
+    }
+    await prisma.auditLog.create({
+      data: { userId: req.user.id, action: `HIDE_${type.toUpperCase()}`, tableName: type === "listing" ? "franchise_listings" : "companies", recordId: id, ipAddress: req.ip },
+    });
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.patch("/content/:type/:id/show", async (req, res) => {
+  try {
+    const { type, id } = req.params;
+    if (type === "listing") {
+      await prisma.franchiseListing.update({ where: { id }, data: { status: "active" } });
+    } else if (type === "company") {
+      await prisma.company.update({ where: { id }, data: { status: "active" } });
+    }
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });

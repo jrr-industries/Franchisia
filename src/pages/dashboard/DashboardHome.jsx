@@ -104,6 +104,20 @@ export default function DashboardHome() {
         </div>
       )}
 
+      {user?.verified && (
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 12,
+          padding: '14px 20px', borderRadius: 'var(--radius-sm)',
+          backgroundColor: '#D1FAE5', color: '#059669',
+          marginBottom: 20, fontSize: 14,
+        }}>
+          <ShieldCheck size={20} />
+          <span style={{ flex: 1, fontWeight: 500 }}>
+            ✓ Verified Account — You have full access to all platform features.
+          </span>
+        </div>
+      )}
+
       <div style={{ marginBottom: 24 }}>
         <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 4 }}>Welcome back, {user?.fullName || 'User'}!</h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: 15 }}>Here's what's happening with your franchises today.</p>

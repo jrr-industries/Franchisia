@@ -10,13 +10,13 @@
 */
 
 export const UserRole = {
-  none: 'none',
   admin: 'admin',
   franchisor: 'franchisor',
   franchisee: 'franchisee',
   consultant: 'consultant',
   investor: 'investor',
-  supplier: 'supplier'
+  supplier: 'supplier',
+  none: 'none'
 } as const
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
@@ -74,6 +74,14 @@ export const NotificationType = {
   new_message: 'new_message',
   new_review: 'new_review',
   connection_request: 'connection_request',
+  new_follower: 'new_follower',
+  company_followed: 'company_followed',
+  verification_approved: 'verification_approved',
+  verification_rejected: 'verification_rejected',
+  account_suspended: 'account_suspended',
+  account_reactivated: 'account_reactivated',
+  admin_promoted: 'admin_promoted',
+  admin_demoted: 'admin_demoted',
   system_alert: 'system_alert'
 } as const
 
