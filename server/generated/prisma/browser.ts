@@ -118,6 +118,11 @@ export type Meeting = Prisma.MeetingModel
  */
 export type MeetingParticipant = Prisma.MeetingParticipantModel
 /**
+ * Model MessageRequest
+ * 
+ */
+export type MessageRequest = Prisma.MessageRequestModel
+/**
  * Model SiteStat
  * 
  */

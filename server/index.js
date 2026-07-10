@@ -16,13 +16,15 @@ import adminRoutes from "./routes/admin.js";
 import analyticsRoutes from "./routes/analytics.js";
 import onboardingRoutes from "./routes/onboarding.js";
 import followRoutes from "./routes/follow.js";
+import reportRoutes from "./routes/reports.js";
+import discoverRoutes from "./routes/discover.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(helmet());
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  origin: [process.env.CLIENT_URL || "http://localhost:5173", "http://localhost:5174"],
   credentials: true,
 }));
 
@@ -52,6 +54,8 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/admin/analytics", analyticsRoutes);
 app.use("/api/onboarding", onboardingRoutes);
 app.use("/api/follow", followRoutes);
+app.use("/api/reports", reportRoutes);
+app.use("/api/discover", discoverRoutes);
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });

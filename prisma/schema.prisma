@@ -50,6 +50,8 @@ model User {
   verifiedAt                 DateTime?                 @map("verified_at") @db.Timestamptz(6)
   verifiedBy                 String?                   @map("verified_by")
   isActive                   Boolean                   @default(true) @map("is_active")
+  followerCount              Int                       @default(0) @map("follower_count")
+  followingCount             Int                       @default(0) @map("following_count")
   lastLoginAt                DateTime?                 @map("last_login_at") @db.Timestamptz(6)
   brandName                  String?                   @map("brand_name")
   businessLicenseDoc         String?                   @map("business_license_doc")
@@ -75,6 +77,8 @@ model User {
   notifications              Notification[]
   reviews                    Review[]
   sessions                   Session[]
+  sentMessageRequests        MessageRequest[]          @relation("sent_requests")
+  receivedMessageRequests    MessageRequest[]          @relation("received_requests")
   documents                  UserDocument[]
   education                  UserEducation[]
   experience                 UserExperience[]
@@ -318,6 +322,7 @@ model ConversationParticipant {
   conversationId String       @map("conversation_id")
   userId         String       @map("user_id")
   lastReadAt     DateTime?    @map("last_read_at") @db.Timestamptz(6)
+  typingAt       DateTime?    @map("typing_at") @db.Timestamptz(6)
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -329,12 +334,16 @@ model Message {
   id             String       @id @default(cuid())
   conversationId String       @map("conversation_id")
   senderId       String       @map("sender_id")
+  parentId       String?      @map("parent_id")
   content        String
   messageType    MessageType  @default(text) @map("message_type")
   attachmentUrl  String?      @map("attachment_url")
+  isDeleted      Boolean      @default(false) @map("is_deleted")
   createdAt      DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  parent         Message?     @relation("MessageReplies", fields: [parentId], references: [id])
+  replies        Message[]    @relation("MessageReplies")
 
   @@index([conversationId, createdAt])
   @@map("messages")
@@ -397,6 +406,27 @@ model MeetingParticipant {
 
   @@unique([meetingId, userId])
   @@map("meeting_participants")
+}
+
+model MessageRequest {
+  id         String                @id @default(cuid())
+  senderId   String                @map("sender_id")
+  recipientId String               @map("recipient_id")
+  status     MessageRequestStatus  @default(pending)
+  createdAt  DateTime              @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime              @updatedAt @map("updated_at") @db.Timestamptz(6)
+  sender     User                  @relation("sent_requests", fields: [senderId], references: [id], onDelete: Cascade)
+  recipient  User                  @relation("received_requests", fields: [recipientId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, recipientId])
+  @@index([recipientId, status])
+  @@map("message_requests")
+}
+
+enum MessageRequestStatus {
+  pending
+  accepted
+  declined
 }
 
 model SiteStat {
@@ -565,4 +595,6 @@ enum NotificationType {
   admin_promoted
   admin_demoted
   system_alert
+  message_request
+  message_request_accepted
 }

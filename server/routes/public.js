@@ -56,7 +56,7 @@ router.get("/reviews", async (req, res) => {
         skip,
         take: parseInt(limit),
         include: {
-          reviewer: { select: { id: true, fullName: true, avatarUrl: true } },
+          reviewer: { select: { id: true, name: true, image: true } },
         },
         orderBy: { createdAt: "desc" },
       }),

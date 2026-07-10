@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
 import { authClient } from "../lib/auth-client";
 
 const API = "/api";
@@ -8,6 +8,7 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const manualLogout = useRef(false);
 
   const refreshSession = useCallback(async () => {
     try {
@@ -32,6 +33,11 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const init = async () => {
       try {
+        if (manualLogout.current) {
+          manualLogout.current = false;
+          setLoading(false);
+          return;
+        }
         await refreshSession();
       } catch {
         // Not authenticated
@@ -57,7 +63,15 @@ export function AuthProvider({ children }) {
   }, [refreshSession]);
 
   const logout = useCallback(async () => {
-    await authClient.signOut();
+    manualLogout.current = true;
+    try {
+      await authClient.signOut({ fetchOptions: { disableSignal: true } });
+    } catch {}
+    try {
+      await fetch(`${API}/auth/sign-out`, { method: "POST", credentials: "include" });
+    } catch {}
+    document.cookie = "better-auth.session_token=; Max-Age=0; Path=/;";
+    document.cookie = "better-auth.session_data=; Max-Age=0; Path=/;";
     setUser(null);
   }, []);
 

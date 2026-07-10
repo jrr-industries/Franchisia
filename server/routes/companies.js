@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { fromNodeHeaders } from "better-auth/node";
+import { auth } from "../lib/auth.ts";
 import prisma from "../prisma.js";
 import { authenticate } from "../middleware/auth.js";
 
@@ -26,7 +28,7 @@ router.get("/", async (req, res) => {
         skip,
         take: parseInt(limit),
         include: {
-          owner: { select: { id: true, fullName: true, avatarUrl: true } },
+          owner: { select: { id: true, name: true, image: true } },
           _count: { select: { listings: true, followers: true } },
         },
         orderBy: [{ isVerified: "desc" }, { createdAt: "desc" }],
@@ -43,16 +45,31 @@ router.get("/", async (req, res) => {
 
 router.get("/:slug", async (req, res) => {
   try {
+    let currentUserId = null;
+    try {
+      const session = await auth.api.getSession({ headers: fromNodeHeaders(req.headers) });
+      if (session?.user) currentUserId = session.user.id;
+    } catch {}
+
     const company = await prisma.company.findUnique({
       where: { slug: req.params.slug },
       include: {
-        owner: { select: { id: true, fullName: true, avatarUrl: true } },
+        owner: { select: { id: true, name: true, image: true, role: true } },
         listings: { where: { status: "active" }, orderBy: { createdAt: "desc" } },
-        _count: { select: { followers: true } },
+        _count: { select: { followers: true, listings: true } },
       },
     });
     if (!company) return res.status(404).json({ error: "Company not found" });
-    res.json(company);
+
+    let isFollowing = false;
+    if (currentUserId) {
+      const follow = await prisma.companyFollower.findUnique({
+        where: { userId_companyId: { userId: currentUserId, companyId: company.id } },
+      });
+      isFollowing = !!follow;
+    }
+
+    res.json({ ...company, isFollowing });
   } catch (error) {
     console.error("Companies route error:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -132,6 +149,51 @@ router.post("/:id/follow", authenticate, async (req, res) => {
     res.json({ following: true });
   } catch (error) {
     console.error("Companies route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/:id/reviews", authenticate, async (req, res) => {
+  try {
+    const { rating, title, content } = req.body;
+    if (!rating || rating < 1 || rating > 5) return res.status(400).json({ error: "Rating must be between 1 and 5" });
+    if (!content?.trim()) return res.status(400).json({ error: "Content is required" });
+
+    const existing = await prisma.review.findUnique({
+      where: { reviewerId_companyId: { reviewerId: req.user.id, companyId: req.params.id } },
+    });
+    if (existing) return res.status(409).json({ error: "You have already reviewed this company" });
+
+    const company = await prisma.company.findUnique({ where: { id: req.params.id } });
+    if (!company) return res.status(404).json({ error: "Company not found" });
+
+    const review = await prisma.review.create({
+      data: {
+        rating: parseInt(rating),
+        title: title?.trim() || null,
+        content: content.trim(),
+        reviewerId: req.user.id,
+        companyId: req.params.id,
+      },
+      include: {
+        reviewer: { select: { id: true, name: true, image: true } },
+      },
+    });
+
+    const allReviews = await prisma.review.findMany({
+      where: { companyId: req.params.id },
+      select: { rating: true },
+    });
+    const avgRating = allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
+
+    await prisma.company.update({
+      where: { id: req.params.id },
+      data: { averageRating: Math.round(avgRating * 10) / 10, reviewCount: allReviews.length },
+    });
+
+    res.status(201).json(review);
+  } catch (error) {
+    console.error("Create review error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

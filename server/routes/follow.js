@@ -75,18 +75,26 @@ router.post("/user/:userId", async (req, res) => {
       where: { followerId_followingId: { followerId: req.user.id, followingId: targetId } },
     });
     if (existing) {
-      await prisma.connection.delete({ where: { id: existing.id } });
+      await prisma.$transaction(async (tx) => {
+        await tx.connection.delete({ where: { id: existing.id } });
+        await tx.user.update({ where: { id: req.user.id }, data: { followingCount: { decrement: 1 } } });
+        await tx.user.update({ where: { id: targetId }, data: { followerCount: { decrement: 1 } } });
+      });
       return res.json({ following: false });
     }
-    await prisma.connection.create({ data: { followerId: req.user.id, followingId: targetId } });
-    await prisma.notification.create({
-      data: {
-        userId: targetId,
-        type: "new_follower",
-        title: "New Follower",
-        body: `${req.user.name || "Someone"} started following you`,
-        data: { followerId: req.user.id },
-      },
+    await prisma.$transaction(async (tx) => {
+      await tx.connection.create({ data: { followerId: req.user.id, followingId: targetId } });
+      await tx.user.update({ where: { id: req.user.id }, data: { followingCount: { increment: 1 } } });
+      await tx.user.update({ where: { id: targetId }, data: { followerCount: { increment: 1 } } });
+      await tx.notification.create({
+        data: {
+          userId: targetId,
+          type: "new_follower",
+          title: "New Follower",
+          body: `${req.user.name || "Someone"} started following you`,
+          data: { followerId: req.user.id },
+        },
+      });
     });
     res.json({ following: true });
   } catch (error) {
@@ -97,10 +105,20 @@ router.post("/user/:userId", async (req, res) => {
 
 router.get("/user/:userId/status", async (req, res) => {
   try {
-    const existing = await prisma.connection.findUnique({
-      where: { followerId_followingId: { followerId: req.user.id, followingId: req.params.userId } },
+    const [existing, targetUser] = await Promise.all([
+      prisma.connection.findUnique({
+        where: { followerId_followingId: { followerId: req.user.id, followingId: req.params.userId } },
+      }),
+      prisma.user.findUnique({
+        where: { id: req.params.userId },
+        select: { followerCount: true, followingCount: true },
+      }),
+    ]);
+    res.json({
+      following: !!existing,
+      followerCount: targetUser?.followerCount || 0,
+      followingCount: targetUser?.followingCount || 0,
     });
-    res.json({ following: !!existing });
   } catch (error) {
     console.error("Follow route error:", error);
     res.status(500).json({ error: "Internal server error" });

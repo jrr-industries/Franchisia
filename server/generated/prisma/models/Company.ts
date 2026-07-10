@@ -824,14 +824,6 @@ export type EnumListingStatusFieldUpdateOperationsInput = {
   set?: $Enums.ListingStatus
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type CompanyCreateNestedOneWithoutListingsInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutListingsInput, Prisma.CompanyUncheckedCreateWithoutListingsInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutListingsInput

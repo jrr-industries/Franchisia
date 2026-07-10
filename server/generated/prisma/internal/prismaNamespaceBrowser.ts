@@ -71,6 +71,7 @@ export const ModelName = {
   Review: 'Review',
   Meeting: 'Meeting',
   MeetingParticipant: 'MeetingParticipant',
+  MessageRequest: 'MessageRequest',
   SiteStat: 'SiteStat',
   SiteContact: 'SiteContact',
   AboutPage: 'AboutPage',
@@ -141,6 +142,8 @@ export const UserScalarFieldEnum = {
   verifiedAt: 'verifiedAt',
   verifiedBy: 'verifiedBy',
   isActive: 'isActive',
+  followerCount: 'followerCount',
+  followingCount: 'followingCount',
   lastLoginAt: 'lastLoginAt',
   brandName: 'brandName',
   businessLicenseDoc: 'businessLicenseDoc',
@@ -357,7 +360,8 @@ export const ConversationParticipantScalarFieldEnum = {
   id: 'id',
   conversationId: 'conversationId',
   userId: 'userId',
-  lastReadAt: 'lastReadAt'
+  lastReadAt: 'lastReadAt',
+  typingAt: 'typingAt'
 } as const
 
 export type ConversationParticipantScalarFieldEnum = (typeof ConversationParticipantScalarFieldEnum)[keyof typeof ConversationParticipantScalarFieldEnum]
@@ -367,9 +371,11 @@ export const MessageScalarFieldEnum = {
   id: 'id',
   conversationId: 'conversationId',
   senderId: 'senderId',
+  parentId: 'parentId',
   content: 'content',
   messageType: 'messageType',
   attachmentUrl: 'attachmentUrl',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt'
 } as const
 
@@ -427,6 +433,18 @@ export const MeetingParticipantScalarFieldEnum = {
 } as const
 
 export type MeetingParticipantScalarFieldEnum = (typeof MeetingParticipantScalarFieldEnum)[keyof typeof MeetingParticipantScalarFieldEnum]
+
+
+export const MessageRequestScalarFieldEnum = {
+  id: 'id',
+  senderId: 'senderId',
+  recipientId: 'recipientId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MessageRequestScalarFieldEnum = (typeof MessageRequestScalarFieldEnum)[keyof typeof MessageRequestScalarFieldEnum]
 
 
 export const SiteStatScalarFieldEnum = {

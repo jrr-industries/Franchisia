@@ -25,12 +25,12 @@ router.get("/me", authenticate, async (req, res) => {
 
 router.put("/me", authenticate, async (req, res) => {
   try {
-    const { fullName, headline, bio, phone, location, website, linkedinUrl, investmentCapacity, industries, experienceYears } = req.body;
+    const { fullName, name: reqName, headline, bio, phone, location, website, linkedinUrl, investmentCapacity, industries, experienceYears } = req.body;
 
     const user = await prisma.user.update({
       where: { id: req.user.id },
       data: {
-        fullName, headline, bio, phone, location, website, linkedinUrl,
+        name: fullName || reqName, headline, bio, phone, location, website, linkedinUrl,
         investmentCapacity, industries, experienceYears,
       },
     });
@@ -47,10 +47,12 @@ router.get("/:id", async (req, res) => {
     const user = await prisma.user.findUnique({
       where: { id: req.params.id },
       select: {
-        id: true, fullName: true, avatarUrl: true, headline: true, bio: true,
+        id: true, name: true, image: true, headline: true, bio: true,
         location: true, website: true, linkedinUrl: true, industries: true,
         experienceYears: true, role: true, skills: true, education: true,
-        experience: true, createdAt: true,
+        experience: true, createdAt: true, followerCount: true, followingCount: true,
+        verified: true, accountStatus: true, companyName: true, brandName: true, phone: true,
+        _count: { select: { receivedConnections: true, sentConnections: true } },
       },
     });
     if (!user) return res.status(404).json({ error: "User not found" });
@@ -70,7 +72,7 @@ router.get("/", async (req, res) => {
     if (role) where.role = role;
     if (search) {
       where.OR = [
-        { fullName: { contains: search, mode: "insensitive" } },
+        { name: { contains: search, mode: "insensitive" } },
       ];
     }
 
@@ -80,7 +82,7 @@ router.get("/", async (req, res) => {
         skip,
         take: parseInt(limit),
         select: {
-          id: true, fullName: true, avatarUrl: true, headline: true,
+          id: true, name: true, image: true, headline: true,
           location: true, role: true, industries: true, createdAt: true,
         },
         orderBy: { createdAt: "desc" },

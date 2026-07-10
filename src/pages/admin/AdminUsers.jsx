@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {
   MoreHorizontal, Eye, Edit3, Mail, UserX, UserCheck, Shield, ShieldOff, Trash2,
   Search as SearchIcon, CheckSquare, Square, Bell, X, Activity, FileText, Clock, AlertCircle,
+  Check, ZoomIn, ZoomOut, RotateCw, Download, ShieldCheck, Save,
 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
@@ -29,6 +30,34 @@ const roleLabels = {
   admin: 'Admin', franchisor: 'Franchisor', franchisee: 'Franchisee',
   consultant: 'Consultant', investor: 'Investor', supplier: 'Supplier',
 };
+
+function getDocumentTypeIcon(type) {
+  if (!type) return FileText;
+  const t = type.toLowerCase();
+  if (t.includes('license') || t.includes('certification')) return ShieldCheck;
+  if (t.includes('registration') || t.includes('incorporation')) return FileText;
+  if (t.includes('resume') || t.includes('cv')) return User;
+  return FileText;
+}
+
+function getDocumentTypeColor(type) {
+  if (!type) return 'var(--text-secondary)';
+  const t = type.toLowerCase();
+  if (t.includes('license') || t.includes('certification')) return '#8B5CF6';
+  if (t.includes('registration') || t.includes('incorporation')) return '#3B82F6';
+  if (t.includes('resume') || t.includes('cv')) return '#10B981';
+  if (t.includes('identity') || t.includes('id')) return '#F59E0B';
+  return 'var(--text-secondary)';
+}
+
+const rejectionReasons = [
+  'Incomplete documentation',
+  'Unable to verify identity',
+  'Suspicious activity detected',
+  'Business not registered',
+  'Invalid credentials',
+  'Duplicate account',
+];
 
 function TabButton({ active, onClick, children }) {
   return (
@@ -59,7 +88,44 @@ export default function AdminUsers() {
   const [profileData, setProfileData] = useState(null);
   const [profileTab, setProfileTab] = useState('overview');
   const [notifyModal, setNotifyModal] = useState(null);
+  const [docModal, setDocModal] = useState(null);
+  const [docZoom, setDocZoom] = useState(1);
+  const [docRotate, setDocRotate] = useState(0);
+  const [rejectModal, setRejectModal] = useState(null);
+  const [rejectReason, setRejectReason] = useState('');
+  const [infoModal, setInfoModal] = useState(null);
+  const [infoNotes, setInfoNotes] = useState('');
+  const [notification, setNotification] = useState(null);
+  const [savingNotes, setSavingNotes] = useState(false);
+  const [internalNotes, setInternalNotes] = useState('');
   const perPage = 10;
+
+  const showNotification = (message, type = 'success') => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
+
+  const handleReview = async (userId, action, notes) => {
+    try {
+      const res = await fetch(`${API}/admin/verification/${userId}/review`, {
+        method: 'PATCH', headers: { 'Content-Type': 'application/json' }, credentials: 'include',
+        body: JSON.stringify({ action, notes: notes || null }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: 'Request failed' }));
+        showNotification(err.error || `Failed to ${action}`, 'error');
+        return;
+      }
+      showNotification(action === 'approve' ? 'User verified successfully' : action === 'reject' ? 'User rejected' : 'Info request sent');
+      setRejectModal(null);
+      setInfoModal(null);
+      setProfileModal(null);
+      fetchUsers();
+    } catch (e) {
+      showNotification('Network error', 'error');
+    }
+  };
+
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -147,9 +213,14 @@ export default function AdminUsers() {
     setProfileModal(user);
     setProfileData(null);
     setProfileTab('overview');
+    setInternalNotes(user.verificationNotes || '');
     try {
       const res = await fetch(`${API}/admin/users/${user.id}/profile`, { credentials: 'include' });
-      if (res.ok) setProfileData(await res.json());
+      if (res.ok) {
+        const data = await res.json();
+        setProfileData(data);
+        if (data.user?.verificationNotes) setInternalNotes(data.user.verificationNotes);
+      }
     } catch (e) { console.error(e); }
   };
 
@@ -309,6 +380,13 @@ export default function AdminUsers() {
                 </div>
               </div>
               <div style={{ display: 'flex', gap: 8 }}>
+                {(profileModal.accountStatus === 'pending_admin_review' || profileModal.accountStatus === 'need_more_information') && (
+                  <>
+                    <Button size="sm" variant="primary" icon={<Check size={14} />} onClick={() => handleReview(profileModal.id, 'approve')}>Approve</Button>
+                    <Button size="sm" variant="danger" icon={<X size={14} />} onClick={() => { setRejectModal(profileModal); setRejectReason(''); }}>Reject</Button>
+                    <Button size="sm" variant="ghost" icon={<AlertCircle size={14} />} onClick={() => { setInfoModal(profileModal); setInfoNotes(''); }}>Request Info</Button>
+                  </>
+                )}
                 <Button size="sm" variant={profileModal.isActive ? 'danger' : 'primary'} onClick={() => { handleToggleActive(profileModal.id, profileModal.isActive); setProfileModal(null); }}>
                   {profileModal.isActive ? 'Suspend' : 'Activate'}
                 </Button>
@@ -322,6 +400,7 @@ export default function AdminUsers() {
               <TabButton active={profileTab === 'documents'} onClick={() => setProfileTab('documents')}>Documents</TabButton>
               <TabButton active={profileTab === 'activity'} onClick={() => setProfileTab('activity')}>Activity</TabButton>
               <TabButton active={profileTab === 'history'} onClick={() => setProfileTab('history')}>Verification History</TabButton>
+              <TabButton active={profileTab === 'notes'} onClick={() => setProfileTab('notes')}>Notes</TabButton>
             </div>
 
             {/* Tab Content */}
@@ -368,15 +447,37 @@ export default function AdminUsers() {
 
             {profileTab === 'documents' && (
               <div>
+                <h3 style={{ fontSize: 15, fontWeight: 600, marginBottom: 12 }}>Uploaded Documents</h3>
                 {profileData?.user?.documents?.length ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    {profileData.user.documents.map((doc) => (
-                      <div key={doc.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 12, backgroundColor: 'var(--bg)', borderRadius: 8 }}>
-                        <FileText size={18} color="var(--primary)" />
-                        <span style={{ flex: 1, fontSize: 14 }}>{doc.fileName || doc.type}</span>
-                        <Button variant="ghost" size="sm" onClick={() => window.open(doc.url, '_blank')}>View</Button>
-                      </div>
-                    ))}
+                    {profileData.user.documents.map((doc) => {
+                      const DocIcon = getDocumentTypeIcon(doc.type);
+                      const typeColor = getDocumentTypeColor(doc.type);
+                      return (
+                        <div key={doc.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 12, backgroundColor: 'var(--bg)', borderRadius: 8 }}>
+                          <div style={{ width: 36, height: 36, borderRadius: 8, backgroundColor: `${typeColor}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            <DocIcon size={18} color={typeColor} />
+                          </div>
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ fontSize: 14, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{doc.fileName || 'Document'}</div>
+                            <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 2 }}>
+                              {doc.type && (
+                                <span style={{ fontSize: 11, fontWeight: 600, padding: '1px 8px', borderRadius: 4, backgroundColor: `${typeColor}15`, color: typeColor, textTransform: 'capitalize' }}>
+                                  {doc.type.replace(/_/g, ' ')}
+                                </span>
+                              )}
+                              {doc.createdAt && (
+                                <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>{new Date(doc.createdAt).toLocaleDateString()}</span>
+                              )}
+                              {doc.url?.startsWith('data:') && (
+                                <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>(base64)</span>
+                              )}
+                            </div>
+                          </div>
+                          <Button variant="ghost" size="sm" icon={<Eye size={14} />} onClick={() => { setDocModal(doc); setDocZoom(1); setDocRotate(0); }}>Preview</Button>
+                        </div>
+                      );
+                    })}
                   </div>
                 ) : (
                   <div style={{ padding: 40, textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>No documents uploaded</div>
@@ -415,6 +516,40 @@ export default function AdminUsers() {
               </div>
             )}
 
+            {profileTab === 'notes' && (
+              <div>
+                <h3 style={{ fontSize: 15, fontWeight: 600, marginBottom: 12 }}>Internal Notes</h3>
+                <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 12 }}>Add private notes about this user. Only visible to admins.</p>
+                <textarea
+                  value={internalNotes}
+                  onChange={(e) => setInternalNotes(e.target.value)}
+                  placeholder="Enter internal notes here..."
+                  style={{
+                    width: '100%', minHeight: 160, padding: 14, fontSize: 14,
+                    color: 'var(--text)', backgroundColor: 'var(--bg)',
+                    border: '2px solid var(--border)', borderRadius: 8, outline: 'none',
+                    resize: 'vertical', lineHeight: 1.6,
+                  }}
+                />
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 12 }}>
+                  <Button variant="primary" icon={<Save size={14} />} onClick={async () => {
+                    setSavingNotes(true);
+                    try {
+                      const res = await fetch(`${API}/admin/verification/${profileModal.id}/internal-notes`, {
+                        method: 'PATCH', headers: { 'Content-Type': 'application/json' }, credentials: 'include',
+                        body: JSON.stringify({ notes: internalNotes }),
+                      });
+                      if (res.ok) showNotification('Notes saved successfully');
+                      else showNotification('Failed to save notes', 'error');
+                    } catch (e) { showNotification('Network error', 'error'); }
+                    finally { setSavingNotes(false); }
+                  }} disabled={savingNotes}>
+                    {savingNotes ? 'Saving...' : 'Save Notes'}
+                  </Button>
+                </div>
+              </div>
+            )}
+
             {profileTab === 'history' && (
               <div>
                 {profileData?.user?.verificationHistories?.length ? (
@@ -442,6 +577,96 @@ export default function AdminUsers() {
             )}
           </div>
         </Modal>
+      )}
+
+      {/* Document Preview Modal */}
+      {docModal && (
+        <Modal onClose={() => setDocModal(null)}>
+          <div style={{ maxWidth: 800, width: '90vw' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+              <h3 style={{ fontSize: 16, fontWeight: 600 }}>{docModal.fileName || 'Document'}</h3>
+              <div style={{ display: 'flex', gap: 6 }}>
+                <button onClick={() => setDocZoom(z => Math.max(0.5, z - 0.25))} style={{ background: 'var(--bg)', border: 'none', cursor: 'pointer', padding: 6, borderRadius: 6, display: 'flex' }} title="Zoom Out"><ZoomOut size={16} /></button>
+                <span style={{ fontSize: 12, display: 'flex', alignItems: 'center', minWidth: 32, justifyContent: 'center' }}>{Math.round(docZoom * 100)}%</span>
+                <button onClick={() => setDocZoom(z => Math.min(3, z + 0.25))} style={{ background: 'var(--bg)', border: 'none', cursor: 'pointer', padding: 6, borderRadius: 6, display: 'flex' }} title="Zoom In"><ZoomIn size={16} /></button>
+                <button onClick={() => setDocRotate(r => r + 90)} style={{ background: 'var(--bg)', border: 'none', cursor: 'pointer', padding: 6, borderRadius: 6, display: 'flex' }} title="Rotate"><RotateCw size={16} /></button>
+                <button onClick={() => window.open(docModal.url, '_blank')} style={{ background: 'var(--bg)', border: 'none', cursor: 'pointer', padding: 6, borderRadius: 6, display: 'flex' }} title="Download"><Download size={16} /></button>
+              </div>
+            </div>
+            <div style={{ overflow: 'auto', maxHeight: '70vh', display: 'flex', justifyContent: 'center', backgroundColor: 'var(--bg)', borderRadius: 8, padding: 12 }}>
+              {docModal.url?.match(/\.(jpg|jpeg|png|gif|webp|svg)$/i) ? (
+                <img
+                  src={docModal.url}
+                  alt={docModal.fileName}
+                  style={{
+                    maxWidth: '100%',
+                    transform: `scale(${docZoom}) rotate(${docRotate}deg)`,
+                    transformOrigin: 'center center',
+                    transition: 'transform 0.2s',
+                    borderRadius: 4,
+                  }}
+                />
+              ) : (
+                <iframe src={docModal.url} style={{ width: '100%', height: 500, borderRadius: 4, border: 'none' }} title={docModal.fileName} />
+              )}
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {/* Reject Modal */}
+      {rejectModal && (
+        <Modal onClose={() => setRejectModal(null)}>
+          <div style={{ maxWidth: 480 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8 }}>Reject Verification</h2>
+            <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 16 }}>
+              Provide a reason for rejecting {rejectModal.name || rejectModal.email}'s verification.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
+              {rejectionReasons.map((r) => (
+                <label key={r} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderRadius: 8, cursor: 'pointer', backgroundColor: rejectReason === r ? 'var(--primary-light)' : 'transparent', border: `2px solid ${rejectReason === r ? 'var(--primary)' : 'var(--border)'}` }}>
+                  <input type="radio" name="reason" checked={rejectReason === r} onChange={() => setRejectReason(r)} style={{ accentColor: 'var(--primary)' }} />
+                  <span style={{ fontSize: 14 }}>{r}</span>
+                </label>
+              ))}
+            </div>
+            <textarea value={rejectReason} onChange={(e) => setRejectReason(e.target.value)} placeholder="Or type a custom reason..." style={{ width: '100%', minHeight: 80, padding: 12, fontSize: 14, color: 'var(--text)', backgroundColor: 'var(--surface)', border: '2px solid var(--border)', borderRadius: 8, outline: 'none', resize: 'vertical', marginBottom: 16 }} />
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
+              <Button variant="ghost" onClick={() => setRejectModal(null)}>Cancel</Button>
+              <Button variant="danger" disabled={!rejectReason.trim()} onClick={() => handleReview(rejectModal.id, 'reject', rejectReason.trim())}><X size={14} /> Reject</Button>
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {/* Request Info Modal */}
+      {infoModal && (
+        <Modal onClose={() => setInfoModal(null)}>
+          <div style={{ maxWidth: 480 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8 }}>Request More Information</h2>
+            <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 16 }}>
+              Specify what additional information {infoModal.name || infoModal.email} needs to provide.
+            </p>
+            <textarea value={infoNotes} onChange={(e) => setInfoNotes(e.target.value)} placeholder="Describe what documents or information are needed..." style={{ width: '100%', minHeight: 120, padding: 12, fontSize: 14, color: 'var(--text)', backgroundColor: 'var(--surface)', border: '2px solid var(--border)', borderRadius: 8, outline: 'none', resize: 'vertical', marginBottom: 16 }} />
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
+              <Button variant="ghost" onClick={() => setInfoModal(null)}>Cancel</Button>
+              <Button variant="primary" disabled={!infoNotes.trim()} onClick={() => handleReview(infoModal.id, 'request_info', infoNotes.trim())}>Send Request</Button>
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {/* Toast Notification */}
+      {notification && (
+        <div style={{
+          position: 'fixed', bottom: 24, right: 24, zIndex: 9999,
+          padding: '12px 20px', borderRadius: 8, fontSize: 14, fontWeight: 500,
+          backgroundColor: notification.type === 'error' ? '#DC2626' : '#10B981',
+          color: '#fff', boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          transition: 'all 0.3s',
+        }}>
+          {notification.message}
+        </div>
       )}
 
       {/* Notification Modal */}

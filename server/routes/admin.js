@@ -156,6 +156,45 @@ router.patch("/users/:id/toggle-active", async (req, res) => {
   }
 });
 
+router.patch("/users/:id/suspend", async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({ where: { id: req.params.id } });
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const updated = await prisma.user.update({
+      where: { id: req.params.id },
+      data: { isActive: false },
+      select: { id: true, isActive: true },
+    });
+
+    await prisma.notification.create({
+      data: {
+        userId: user.id,
+        type: "account_suspended",
+        title: "Account Suspended",
+        body: "Your account has been suspended by an admin.",
+        data: { adminId: req.user.id },
+      },
+    });
+
+    await prisma.auditLog.create({
+      data: {
+        userId: req.user.id,
+        action: "SUSPEND_USER",
+        tableName: "users",
+        recordId: req.params.id,
+        newData: { isActive: false },
+        ipAddress: req.ip,
+      },
+    });
+
+    res.json({ id: updated.id, isActive: updated.isActive });
+  } catch (error) {
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.patch("/users/:id/make-admin", async (req, res) => {
   try {
     const user = await prisma.user.findUnique({ where: { id: req.params.id } });
@@ -221,11 +260,17 @@ router.get("/verification/pending", async (req, res) => {
         take: parseInt(limit),
         select: {
           id: true, email: true, name: true, role: true, image: true,
-          accountStatus: true, verified: true, companyName: true, phone: true,
-          submittedForReviewAt: true, createdAt: true,
+          accountStatus: true, verified: true, companyName: true, brandName: true, phone: true,
+          location: true, submittedForReviewAt: true, createdAt: true,
           businessRegistrationDoc: true, gstNumber: true,
           businessLicenseDoc: true, resumeUrl: true, certifications: true,
+          verificationNotes: true,
           documents: { select: { id: true, type: true, url: true, fileName: true } },
+          education: { select: { id: true, school: true, degree: true, field: true, startYear: true, endYear: true } },
+          experience: { select: { id: true, company: true, role: true, description: true, startDate: true, endDate: true, isCurrent: true } },
+          skills: { select: { id: true, skill: true } },
+          interests: { select: { id: true, interest: true } },
+          verificationHistories: { orderBy: { createdAt: "desc" }, take: 20 },
         },
         orderBy: { submittedForReviewAt: "asc" },
       }),
@@ -372,6 +417,23 @@ router.patch("/verification/:id/review", async (req, res) => {
     }
 
     res.status(400).json({ error: "Invalid action. Use: approve, reject, request_info" });
+  } catch (error) {
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.patch("/verification/:id/internal-notes", async (req, res) => {
+  try {
+    const { notes } = req.body;
+    const user = await prisma.user.findUnique({ where: { id: req.params.id } });
+    if (!user) return res.status(404).json({ error: "User not found" });
+    const updated = await prisma.user.update({
+      where: { id: req.params.id },
+      data: { verificationNotes: notes },
+      select: { id: true, verificationNotes: true },
+    });
+    res.json({ success: true, internalNotes: updated.verificationNotes });
   } catch (error) {
     console.error("Admin route error:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -715,9 +777,22 @@ router.get("/verification/all", async (req, res) => {
           accountStatus: true, verified: true, isActive: true, createdAt: true,
           submittedForReviewAt: true, reviewedAt: true, reviewedBy: true,
           rejectionReason: true, verificationNotes: true,
+          phone: true, location: true, companyName: true, brandName: true,
+          gstNumber: true, businessRegistrationNumber: true,
+          businessRegistrationDoc: true, businessLicenseDoc: true,
+          website: true, yearsInBusiness: true, numberOfOutlets: true,
+          companyDescription: true, consultancyName: true,
+          preferredIndustry: true, preferredLocation: true,
+          investmentRange: true, investmentCapacity: true,
+          experienceYears: true, resumeUrl: true, certifications: true,
           documents: { select: { id: true, type: true, url: true, fileName: true } },
+          education: { select: { id: true, school: true, degree: true, field: true, startYear: true, endYear: true } },
+          experience: { select: { id: true, company: true, role: true, description: true, startDate: true, endDate: true, isCurrent: true } },
+          skills: { select: { id: true, skill: true } },
+          interests: { select: { id: true, interest: true } },
+          verificationHistories: { orderBy: { createdAt: "desc" }, take: 20 },
         },
-        orderBy: { submittedForReviewAt: { sort: "asc", nulls: "last" } },
+        orderBy: { submittedForReviewAt: "asc" },
       }),
       prisma.user.count({ where }),
     ]);

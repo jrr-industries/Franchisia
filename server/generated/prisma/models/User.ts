@@ -29,6 +29,8 @@ export type AggregateUser = {
 export type UserAvgAggregateOutputType = {
   investmentCapacity: runtime.Decimal | null
   experienceYears: number | null
+  followerCount: number | null
+  followingCount: number | null
   numberOfOutlets: number | null
   yearsInBusiness: number | null
 }
@@ -36,6 +38,8 @@ export type UserAvgAggregateOutputType = {
 export type UserSumAggregateOutputType = {
   investmentCapacity: runtime.Decimal | null
   experienceYears: number | null
+  followerCount: number | null
+  followingCount: number | null
   numberOfOutlets: number | null
   yearsInBusiness: number | null
 }
@@ -82,6 +86,8 @@ export type UserMinAggregateOutputType = {
   verifiedAt: Date | null
   verifiedBy: string | null
   isActive: boolean | null
+  followerCount: number | null
+  followingCount: number | null
   lastLoginAt: Date | null
   brandName: string | null
   businessLicenseDoc: string | null
@@ -135,6 +141,8 @@ export type UserMaxAggregateOutputType = {
   verifiedAt: Date | null
   verifiedBy: string | null
   isActive: boolean | null
+  followerCount: number | null
+  followingCount: number | null
   lastLoginAt: Date | null
   brandName: string | null
   businessLicenseDoc: string | null
@@ -189,6 +197,8 @@ export type UserCountAggregateOutputType = {
   verifiedAt: number
   verifiedBy: number
   isActive: number
+  followerCount: number
+  followingCount: number
   lastLoginAt: number
   brandName: number
   businessLicenseDoc: number
@@ -205,6 +215,8 @@ export type UserCountAggregateOutputType = {
 export type UserAvgAggregateInputType = {
   investmentCapacity?: true
   experienceYears?: true
+  followerCount?: true
+  followingCount?: true
   numberOfOutlets?: true
   yearsInBusiness?: true
 }
@@ -212,6 +224,8 @@ export type UserAvgAggregateInputType = {
 export type UserSumAggregateInputType = {
   investmentCapacity?: true
   experienceYears?: true
+  followerCount?: true
+  followingCount?: true
   numberOfOutlets?: true
   yearsInBusiness?: true
 }
@@ -258,6 +272,8 @@ export type UserMinAggregateInputType = {
   verifiedAt?: true
   verifiedBy?: true
   isActive?: true
+  followerCount?: true
+  followingCount?: true
   lastLoginAt?: true
   brandName?: true
   businessLicenseDoc?: true
@@ -311,6 +327,8 @@ export type UserMaxAggregateInputType = {
   verifiedAt?: true
   verifiedBy?: true
   isActive?: true
+  followerCount?: true
+  followingCount?: true
   lastLoginAt?: true
   brandName?: true
   businessLicenseDoc?: true
@@ -365,6 +383,8 @@ export type UserCountAggregateInputType = {
   verifiedAt?: true
   verifiedBy?: true
   isActive?: true
+  followerCount?: true
+  followingCount?: true
   lastLoginAt?: true
   brandName?: true
   businessLicenseDoc?: true
@@ -506,6 +526,8 @@ export type UserGroupByOutputType = {
   verifiedAt: Date | null
   verifiedBy: string | null
   isActive: boolean
+  followerCount: number
+  followingCount: number
   lastLoginAt: Date | null
   brandName: string | null
   businessLicenseDoc: string | null
@@ -575,7 +597,7 @@ export type UserWhereInput = {
   investmentRange?: Prisma.StringNullableFilter<"User"> | string | null
   resumeUrl?: Prisma.StringNullableFilter<"User"> | string | null
   submittedForReviewAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  reviewedBy?: Prisma.UuidNullableFilter<"User"> | string | null
+  reviewedBy?: Prisma.StringNullableFilter<"User"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   verificationNotes?: Prisma.StringNullableFilter<"User"> | string | null
   rejectionReason?: Prisma.StringNullableFilter<"User"> | string | null
@@ -583,6 +605,8 @@ export type UserWhereInput = {
   verifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   verifiedBy?: Prisma.StringNullableFilter<"User"> | string | null
   isActive?: Prisma.BoolFilter<"User"> | boolean
+  followerCount?: Prisma.IntFilter<"User"> | number
+  followingCount?: Prisma.IntFilter<"User"> | number
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   brandName?: Prisma.StringNullableFilter<"User"> | string | null
   businessLicenseDoc?: Prisma.StringNullableFilter<"User"> | string | null
@@ -608,6 +632,8 @@ export type UserWhereInput = {
   notifications?: Prisma.NotificationListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  sentMessageRequests?: Prisma.MessageRequestListRelationFilter
+  receivedMessageRequests?: Prisma.MessageRequestListRelationFilter
   documents?: Prisma.UserDocumentListRelationFilter
   education?: Prisma.UserEducationListRelationFilter
   experience?: Prisma.UserExperienceListRelationFilter
@@ -658,6 +684,8 @@ export type UserOrderByWithRelationInput = {
   verifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   verifiedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  followerCount?: Prisma.SortOrder
+  followingCount?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
   brandName?: Prisma.SortOrderInput | Prisma.SortOrder
   businessLicenseDoc?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -683,6 +711,8 @@ export type UserOrderByWithRelationInput = {
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
+  sentMessageRequests?: Prisma.MessageRequestOrderByRelationAggregateInput
+  receivedMessageRequests?: Prisma.MessageRequestOrderByRelationAggregateInput
   documents?: Prisma.UserDocumentOrderByRelationAggregateInput
   education?: Prisma.UserEducationOrderByRelationAggregateInput
   experience?: Prisma.UserExperienceOrderByRelationAggregateInput
@@ -728,7 +758,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   investmentRange?: Prisma.StringNullableFilter<"User"> | string | null
   resumeUrl?: Prisma.StringNullableFilter<"User"> | string | null
   submittedForReviewAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  reviewedBy?: Prisma.UuidNullableFilter<"User"> | string | null
+  reviewedBy?: Prisma.StringNullableFilter<"User"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   verificationNotes?: Prisma.StringNullableFilter<"User"> | string | null
   rejectionReason?: Prisma.StringNullableFilter<"User"> | string | null
@@ -736,6 +766,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   verifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   verifiedBy?: Prisma.StringNullableFilter<"User"> | string | null
   isActive?: Prisma.BoolFilter<"User"> | boolean
+  followerCount?: Prisma.IntFilter<"User"> | number
+  followingCount?: Prisma.IntFilter<"User"> | number
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   brandName?: Prisma.StringNullableFilter<"User"> | string | null
   businessLicenseDoc?: Prisma.StringNullableFilter<"User"> | string | null
@@ -761,6 +793,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   notifications?: Prisma.NotificationListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  sentMessageRequests?: Prisma.MessageRequestListRelationFilter
+  receivedMessageRequests?: Prisma.MessageRequestListRelationFilter
   documents?: Prisma.UserDocumentListRelationFilter
   education?: Prisma.UserEducationListRelationFilter
   experience?: Prisma.UserExperienceListRelationFilter
@@ -811,6 +845,8 @@ export type UserOrderByWithAggregationInput = {
   verifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   verifiedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  followerCount?: Prisma.SortOrder
+  followingCount?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
   brandName?: Prisma.SortOrderInput | Prisma.SortOrder
   businessLicenseDoc?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -865,7 +901,7 @@ export type UserScalarWhereWithAggregatesInput = {
   investmentRange?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   resumeUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   submittedForReviewAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-  reviewedBy?: Prisma.UuidNullableWithAggregatesFilter<"User"> | string | null
+  reviewedBy?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   verificationNotes?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   rejectionReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -873,6 +909,8 @@ export type UserScalarWhereWithAggregatesInput = {
   verifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   verifiedBy?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  followerCount?: Prisma.IntWithAggregatesFilter<"User"> | number
+  followingCount?: Prisma.IntWithAggregatesFilter<"User"> | number
   lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   brandName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   businessLicenseDoc?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -927,6 +965,8 @@ export type UserCreateInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -952,6 +992,8 @@ export type UserCreateInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -1002,6 +1044,8 @@ export type UserUncheckedCreateInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -1027,6 +1071,8 @@ export type UserUncheckedCreateInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -1077,6 +1123,8 @@ export type UserUpdateInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1102,6 +1150,8 @@ export type UserUpdateInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -1152,6 +1202,8 @@ export type UserUncheckedUpdateInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1177,6 +1229,8 @@ export type UserUncheckedUpdateInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -1227,6 +1281,8 @@ export type UserCreateManyInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -1281,6 +1337,8 @@ export type UserUpdateManyMutationInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1335,6 +1393,8 @@ export type UserUncheckedUpdateManyInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1397,6 +1457,8 @@ export type UserCountOrderByAggregateInput = {
   verifiedAt?: Prisma.SortOrder
   verifiedBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  followerCount?: Prisma.SortOrder
+  followingCount?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
   brandName?: Prisma.SortOrder
   businessLicenseDoc?: Prisma.SortOrder
@@ -1411,6 +1473,8 @@ export type UserCountOrderByAggregateInput = {
 export type UserAvgOrderByAggregateInput = {
   investmentCapacity?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrder
+  followerCount?: Prisma.SortOrder
+  followingCount?: Prisma.SortOrder
   numberOfOutlets?: Prisma.SortOrder
   yearsInBusiness?: Prisma.SortOrder
 }
@@ -1457,6 +1521,8 @@ export type UserMaxOrderByAggregateInput = {
   verifiedAt?: Prisma.SortOrder
   verifiedBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  followerCount?: Prisma.SortOrder
+  followingCount?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
   brandName?: Prisma.SortOrder
   businessLicenseDoc?: Prisma.SortOrder
@@ -1510,6 +1576,8 @@ export type UserMinOrderByAggregateInput = {
   verifiedAt?: Prisma.SortOrder
   verifiedBy?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  followerCount?: Prisma.SortOrder
+  followingCount?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
   brandName?: Prisma.SortOrder
   businessLicenseDoc?: Prisma.SortOrder
@@ -1524,6 +1592,8 @@ export type UserMinOrderByAggregateInput = {
 export type UserSumOrderByAggregateInput = {
   investmentCapacity?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrder
+  followerCount?: Prisma.SortOrder
+  followingCount?: Prisma.SortOrder
   numberOfOutlets?: Prisma.SortOrder
   yearsInBusiness?: Prisma.SortOrder
 }
@@ -1585,6 +1655,14 @@ export type UserUpdateindustriesInput = {
 
 export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
   increment?: number
   decrement?: number
   multiply?: number
@@ -1843,6 +1921,34 @@ export type UserUpdateOneRequiredWithoutMeetingParticipantsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMeetingParticipantsInput, Prisma.UserUpdateWithoutMeetingParticipantsInput>, Prisma.UserUncheckedUpdateWithoutMeetingParticipantsInput>
 }
 
+export type UserCreateNestedOneWithoutSentMessageRequestsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessageRequestsInput, Prisma.UserUncheckedCreateWithoutSentMessageRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessageRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReceivedMessageRequestsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessageRequestsInput, Prisma.UserUncheckedCreateWithoutReceivedMessageRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedMessageRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSentMessageRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessageRequestsInput, Prisma.UserUncheckedCreateWithoutSentMessageRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessageRequestsInput
+  upsert?: Prisma.UserUpsertWithoutSentMessageRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentMessageRequestsInput, Prisma.UserUpdateWithoutSentMessageRequestsInput>, Prisma.UserUncheckedUpdateWithoutSentMessageRequestsInput>
+}
+
+export type UserUpdateOneRequiredWithoutReceivedMessageRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessageRequestsInput, Prisma.UserUncheckedCreateWithoutReceivedMessageRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedMessageRequestsInput
+  upsert?: Prisma.UserUpsertWithoutReceivedMessageRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedMessageRequestsInput, Prisma.UserUpdateWithoutReceivedMessageRequestsInput>, Prisma.UserUncheckedUpdateWithoutReceivedMessageRequestsInput>
+}
+
 export type UserCreateNestedOneWithoutAuditLogsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
@@ -1930,6 +2036,8 @@ export type UserCreateWithoutSessionsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -1954,6 +2062,8 @@ export type UserCreateWithoutSessionsInput = {
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -2004,6 +2114,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -2028,6 +2140,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2094,6 +2208,8 @@ export type UserUpdateWithoutSessionsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2118,6 +2234,8 @@ export type UserUpdateWithoutSessionsInput = {
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -2168,6 +2286,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2192,6 +2312,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2242,6 +2364,8 @@ export type UserCreateWithoutAccountsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -2266,6 +2390,8 @@ export type UserCreateWithoutAccountsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -2316,6 +2442,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -2340,6 +2468,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2406,6 +2536,8 @@ export type UserUpdateWithoutAccountsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2430,6 +2562,8 @@ export type UserUpdateWithoutAccountsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -2480,6 +2614,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2504,6 +2640,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2554,6 +2692,8 @@ export type UserCreateWithoutSkillsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -2579,6 +2719,8 @@ export type UserCreateWithoutSkillsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -2628,6 +2770,8 @@ export type UserUncheckedCreateWithoutSkillsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -2653,6 +2797,8 @@ export type UserUncheckedCreateWithoutSkillsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2718,6 +2864,8 @@ export type UserUpdateWithoutSkillsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2743,6 +2891,8 @@ export type UserUpdateWithoutSkillsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -2792,6 +2942,8 @@ export type UserUncheckedUpdateWithoutSkillsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2817,6 +2969,8 @@ export type UserUncheckedUpdateWithoutSkillsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2866,6 +3020,8 @@ export type UserCreateWithoutInterestsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -2891,6 +3047,8 @@ export type UserCreateWithoutInterestsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -2940,6 +3098,8 @@ export type UserUncheckedCreateWithoutInterestsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -2965,6 +3125,8 @@ export type UserUncheckedCreateWithoutInterestsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -3030,6 +3192,8 @@ export type UserUpdateWithoutInterestsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3055,6 +3219,8 @@ export type UserUpdateWithoutInterestsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -3104,6 +3270,8 @@ export type UserUncheckedUpdateWithoutInterestsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3129,6 +3297,8 @@ export type UserUncheckedUpdateWithoutInterestsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -3178,6 +3348,8 @@ export type UserCreateWithoutEducationInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -3203,6 +3375,8 @@ export type UserCreateWithoutEducationInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
   interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
@@ -3252,6 +3426,8 @@ export type UserUncheckedCreateWithoutEducationInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -3277,6 +3453,8 @@ export type UserUncheckedCreateWithoutEducationInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
   interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
@@ -3342,6 +3520,8 @@ export type UserUpdateWithoutEducationInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3367,6 +3547,8 @@ export type UserUpdateWithoutEducationInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
   interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
@@ -3416,6 +3598,8 @@ export type UserUncheckedUpdateWithoutEducationInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3441,6 +3625,8 @@ export type UserUncheckedUpdateWithoutEducationInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
   interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
@@ -3490,6 +3676,8 @@ export type UserCreateWithoutExperienceInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -3515,6 +3703,8 @@ export type UserCreateWithoutExperienceInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
@@ -3564,6 +3754,8 @@ export type UserUncheckedCreateWithoutExperienceInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -3589,6 +3781,8 @@ export type UserUncheckedCreateWithoutExperienceInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
@@ -3654,6 +3848,8 @@ export type UserUpdateWithoutExperienceInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3679,6 +3875,8 @@ export type UserUpdateWithoutExperienceInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
@@ -3728,6 +3926,8 @@ export type UserUncheckedUpdateWithoutExperienceInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3753,6 +3953,8 @@ export type UserUncheckedUpdateWithoutExperienceInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
@@ -3802,6 +4004,8 @@ export type UserCreateWithoutCompaniesInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -3826,6 +4030,8 @@ export type UserCreateWithoutCompaniesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -3876,6 +4082,8 @@ export type UserUncheckedCreateWithoutCompaniesInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -3900,6 +4108,8 @@ export type UserUncheckedCreateWithoutCompaniesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -3966,6 +4176,8 @@ export type UserUpdateWithoutCompaniesInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3990,6 +4202,8 @@ export type UserUpdateWithoutCompaniesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -4040,6 +4254,8 @@ export type UserUncheckedUpdateWithoutCompaniesInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4064,6 +4280,8 @@ export type UserUncheckedUpdateWithoutCompaniesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -4114,6 +4332,8 @@ export type UserCreateWithoutListingsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -4138,6 +4358,8 @@ export type UserCreateWithoutListingsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -4188,6 +4410,8 @@ export type UserUncheckedCreateWithoutListingsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -4212,6 +4436,8 @@ export type UserUncheckedCreateWithoutListingsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -4278,6 +4504,8 @@ export type UserUpdateWithoutListingsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4302,6 +4530,8 @@ export type UserUpdateWithoutListingsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -4352,6 +4582,8 @@ export type UserUncheckedUpdateWithoutListingsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4376,6 +4608,8 @@ export type UserUncheckedUpdateWithoutListingsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -4426,6 +4660,8 @@ export type UserCreateWithoutApplicationsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -4450,6 +4686,8 @@ export type UserCreateWithoutApplicationsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -4500,6 +4738,8 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -4524,6 +4764,8 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -4590,6 +4832,8 @@ export type UserUpdateWithoutApplicationsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4614,6 +4858,8 @@ export type UserUpdateWithoutApplicationsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -4664,6 +4910,8 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4688,6 +4936,8 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -4738,6 +4988,8 @@ export type UserCreateWithoutSentConnectionsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -4762,6 +5014,8 @@ export type UserCreateWithoutSentConnectionsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -4812,6 +5066,8 @@ export type UserUncheckedCreateWithoutSentConnectionsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -4836,6 +5092,8 @@ export type UserUncheckedCreateWithoutSentConnectionsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -4891,6 +5149,8 @@ export type UserCreateWithoutReceivedConnectionsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -4915,6 +5175,8 @@ export type UserCreateWithoutReceivedConnectionsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -4965,6 +5227,8 @@ export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -4989,6 +5253,8 @@ export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -5055,6 +5321,8 @@ export type UserUpdateWithoutSentConnectionsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5079,6 +5347,8 @@ export type UserUpdateWithoutSentConnectionsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -5129,6 +5399,8 @@ export type UserUncheckedUpdateWithoutSentConnectionsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5153,6 +5425,8 @@ export type UserUncheckedUpdateWithoutSentConnectionsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -5214,6 +5488,8 @@ export type UserUpdateWithoutReceivedConnectionsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5238,6 +5514,8 @@ export type UserUpdateWithoutReceivedConnectionsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -5288,6 +5566,8 @@ export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5312,6 +5592,8 @@ export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -5362,6 +5644,8 @@ export type UserCreateWithoutCompanyFollowersInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -5386,6 +5670,8 @@ export type UserCreateWithoutCompanyFollowersInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -5436,6 +5722,8 @@ export type UserUncheckedCreateWithoutCompanyFollowersInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -5460,6 +5748,8 @@ export type UserUncheckedCreateWithoutCompanyFollowersInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -5526,6 +5816,8 @@ export type UserUpdateWithoutCompanyFollowersInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5550,6 +5842,8 @@ export type UserUpdateWithoutCompanyFollowersInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -5600,6 +5894,8 @@ export type UserUncheckedUpdateWithoutCompanyFollowersInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5624,6 +5920,8 @@ export type UserUncheckedUpdateWithoutCompanyFollowersInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -5674,6 +5972,8 @@ export type UserCreateWithoutParticipantsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -5698,6 +5998,8 @@ export type UserCreateWithoutParticipantsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -5748,6 +6050,8 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -5772,6 +6076,8 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -5838,6 +6144,8 @@ export type UserUpdateWithoutParticipantsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5862,6 +6170,8 @@ export type UserUpdateWithoutParticipantsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -5912,6 +6222,8 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5936,6 +6248,8 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -5986,6 +6300,8 @@ export type UserCreateWithoutMessagesInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -6010,6 +6326,8 @@ export type UserCreateWithoutMessagesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -6060,6 +6378,8 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -6084,6 +6404,8 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -6150,6 +6472,8 @@ export type UserUpdateWithoutMessagesInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6174,6 +6498,8 @@ export type UserUpdateWithoutMessagesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -6224,6 +6550,8 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6248,6 +6576,8 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -6298,6 +6628,8 @@ export type UserCreateWithoutNotificationsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -6322,6 +6654,8 @@ export type UserCreateWithoutNotificationsInput = {
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -6372,6 +6706,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -6396,6 +6732,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -6462,6 +6800,8 @@ export type UserUpdateWithoutNotificationsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6486,6 +6826,8 @@ export type UserUpdateWithoutNotificationsInput = {
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -6536,6 +6878,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6560,6 +6904,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -6610,6 +6956,8 @@ export type UserCreateWithoutReviewsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -6634,6 +6982,8 @@ export type UserCreateWithoutReviewsInput = {
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -6684,6 +7034,8 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -6708,6 +7060,8 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -6774,6 +7128,8 @@ export type UserUpdateWithoutReviewsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6798,6 +7154,8 @@ export type UserUpdateWithoutReviewsInput = {
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -6848,6 +7206,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6872,6 +7232,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -6922,6 +7284,8 @@ export type UserCreateWithoutOrganizedMeetingsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -6946,6 +7310,8 @@ export type UserCreateWithoutOrganizedMeetingsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -6996,6 +7362,8 @@ export type UserUncheckedCreateWithoutOrganizedMeetingsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -7020,6 +7388,8 @@ export type UserUncheckedCreateWithoutOrganizedMeetingsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -7086,6 +7456,8 @@ export type UserUpdateWithoutOrganizedMeetingsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7110,6 +7482,8 @@ export type UserUpdateWithoutOrganizedMeetingsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -7160,6 +7534,8 @@ export type UserUncheckedUpdateWithoutOrganizedMeetingsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7184,6 +7560,8 @@ export type UserUncheckedUpdateWithoutOrganizedMeetingsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -7234,6 +7612,8 @@ export type UserCreateWithoutMeetingParticipantsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -7258,6 +7638,8 @@ export type UserCreateWithoutMeetingParticipantsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -7308,6 +7690,8 @@ export type UserUncheckedCreateWithoutMeetingParticipantsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -7332,6 +7716,8 @@ export type UserUncheckedCreateWithoutMeetingParticipantsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -7398,6 +7784,8 @@ export type UserUpdateWithoutMeetingParticipantsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7422,6 +7810,8 @@ export type UserUpdateWithoutMeetingParticipantsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -7472,6 +7862,8 @@ export type UserUncheckedUpdateWithoutMeetingParticipantsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7496,6 +7888,664 @@ export type UserUncheckedUpdateWithoutMeetingParticipantsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
+  documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSentMessageRequestsInput = {
+  id?: string
+  email: string
+  emailVerified?: boolean
+  name?: string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  onboardingCompleted?: boolean
+  emailVerifiedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.UserRole
+  accountStatus?: $Enums.AccountStatus
+  headline?: string | null
+  bio?: string | null
+  phone?: string | null
+  phoneVerified?: Date | string | null
+  location?: string | null
+  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserCreateindustriesInput | string[]
+  experienceYears?: number | null
+  website?: string | null
+  linkedinUrl?: string | null
+  companyName?: string | null
+  businessEmail?: string | null
+  businessRegistrationNumber?: string | null
+  businessRegistrationDoc?: string | null
+  companyLogo?: string | null
+  gstNumber?: string | null
+  consultancyName?: string | null
+  preferredIndustry?: string | null
+  preferredLocation?: string | null
+  investmentRange?: string | null
+  resumeUrl?: string | null
+  submittedForReviewAt?: Date | string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  verificationNotes?: string | null
+  rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
+  isActive?: boolean
+  followerCount?: number
+  followingCount?: number
+  lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
+  documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSentMessageRequestsInput = {
+  id?: string
+  email: string
+  emailVerified?: boolean
+  name?: string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  onboardingCompleted?: boolean
+  emailVerifiedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.UserRole
+  accountStatus?: $Enums.AccountStatus
+  headline?: string | null
+  bio?: string | null
+  phone?: string | null
+  phoneVerified?: Date | string | null
+  location?: string | null
+  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserCreateindustriesInput | string[]
+  experienceYears?: number | null
+  website?: string | null
+  linkedinUrl?: string | null
+  companyName?: string | null
+  businessEmail?: string | null
+  businessRegistrationNumber?: string | null
+  businessRegistrationDoc?: string | null
+  companyLogo?: string | null
+  gstNumber?: string | null
+  consultancyName?: string | null
+  preferredIndustry?: string | null
+  preferredLocation?: string | null
+  investmentRange?: string | null
+  resumeUrl?: string | null
+  submittedForReviewAt?: Date | string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  verificationNotes?: string | null
+  rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
+  isActive?: boolean
+  followerCount?: number
+  followingCount?: number
+  lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
+  documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSentMessageRequestsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessageRequestsInput, Prisma.UserUncheckedCreateWithoutSentMessageRequestsInput>
+}
+
+export type UserCreateWithoutReceivedMessageRequestsInput = {
+  id?: string
+  email: string
+  emailVerified?: boolean
+  name?: string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  onboardingCompleted?: boolean
+  emailVerifiedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.UserRole
+  accountStatus?: $Enums.AccountStatus
+  headline?: string | null
+  bio?: string | null
+  phone?: string | null
+  phoneVerified?: Date | string | null
+  location?: string | null
+  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserCreateindustriesInput | string[]
+  experienceYears?: number | null
+  website?: string | null
+  linkedinUrl?: string | null
+  companyName?: string | null
+  businessEmail?: string | null
+  businessRegistrationNumber?: string | null
+  businessRegistrationDoc?: string | null
+  companyLogo?: string | null
+  gstNumber?: string | null
+  consultancyName?: string | null
+  preferredIndustry?: string | null
+  preferredLocation?: string | null
+  investmentRange?: string | null
+  resumeUrl?: string | null
+  submittedForReviewAt?: Date | string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  verificationNotes?: string | null
+  rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
+  isActive?: boolean
+  followerCount?: number
+  followingCount?: number
+  lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutReceivedMessageRequestsInput = {
+  id?: string
+  email: string
+  emailVerified?: boolean
+  name?: string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  onboardingCompleted?: boolean
+  emailVerifiedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.UserRole
+  accountStatus?: $Enums.AccountStatus
+  headline?: string | null
+  bio?: string | null
+  phone?: string | null
+  phoneVerified?: Date | string | null
+  location?: string | null
+  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserCreateindustriesInput | string[]
+  experienceYears?: number | null
+  website?: string | null
+  linkedinUrl?: string | null
+  companyName?: string | null
+  businessEmail?: string | null
+  businessRegistrationNumber?: string | null
+  businessRegistrationDoc?: string | null
+  companyLogo?: string | null
+  gstNumber?: string | null
+  consultancyName?: string | null
+  preferredIndustry?: string | null
+  preferredLocation?: string | null
+  investmentRange?: string | null
+  resumeUrl?: string | null
+  submittedForReviewAt?: Date | string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  verificationNotes?: string | null
+  rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
+  isActive?: boolean
+  followerCount?: number
+  followingCount?: number
+  lastLoginAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutReceivedMessageRequestsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessageRequestsInput, Prisma.UserUncheckedCreateWithoutReceivedMessageRequestsInput>
+}
+
+export type UserUpsertWithoutSentMessageRequestsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSentMessageRequestsInput, Prisma.UserUncheckedUpdateWithoutSentMessageRequestsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessageRequestsInput, Prisma.UserUncheckedCreateWithoutSentMessageRequestsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSentMessageRequestsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSentMessageRequestsInput, Prisma.UserUncheckedUpdateWithoutSentMessageRequestsInput>
+}
+
+export type UserUpdateWithoutSentMessageRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserUpdateindustriesInput | string[]
+  experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
+  documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSentMessageRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserUpdateindustriesInput | string[]
+  experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
+  documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutReceivedMessageRequestsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReceivedMessageRequestsInput, Prisma.UserUncheckedUpdateWithoutReceivedMessageRequestsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessageRequestsInput, Prisma.UserUncheckedCreateWithoutReceivedMessageRequestsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReceivedMessageRequestsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReceivedMessageRequestsInput, Prisma.UserUncheckedUpdateWithoutReceivedMessageRequestsInput>
+}
+
+export type UserUpdateWithoutReceivedMessageRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserUpdateindustriesInput | string[]
+  experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReceivedMessageRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserUpdateindustriesInput | string[]
+  experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -7546,6 +8596,8 @@ export type UserCreateWithoutAuditLogsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -7570,6 +8622,8 @@ export type UserCreateWithoutAuditLogsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -7620,6 +8674,8 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -7644,6 +8700,8 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -7710,6 +8768,8 @@ export type UserUpdateWithoutAuditLogsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7734,6 +8794,8 @@ export type UserUpdateWithoutAuditLogsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -7784,6 +8846,8 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7808,6 +8872,8 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -7858,6 +8924,8 @@ export type UserCreateWithoutDocumentsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -7883,6 +8951,8 @@ export type UserCreateWithoutDocumentsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
   interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
@@ -7932,6 +9002,8 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -7957,6 +9029,8 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
   interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
@@ -8022,6 +9096,8 @@ export type UserUpdateWithoutDocumentsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8047,6 +9123,8 @@ export type UserUpdateWithoutDocumentsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
   interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
@@ -8096,6 +9174,8 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8121,6 +9201,8 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
   interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
@@ -8170,6 +9252,8 @@ export type UserCreateWithoutVerificationHistoriesInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -8194,6 +9278,8 @@ export type UserCreateWithoutVerificationHistoriesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
@@ -8244,6 +9330,8 @@ export type UserUncheckedCreateWithoutVerificationHistoriesInput = {
   verifiedAt?: Date | string | null
   verifiedBy?: string | null
   isActive?: boolean
+  followerCount?: number
+  followingCount?: number
   lastLoginAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
@@ -8268,6 +9356,8 @@ export type UserUncheckedCreateWithoutVerificationHistoriesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
   education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
   experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -8334,6 +9424,8 @@ export type UserUpdateWithoutVerificationHistoriesInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8358,6 +9450,8 @@ export type UserUpdateWithoutVerificationHistoriesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
@@ -8408,6 +9502,8 @@ export type UserUncheckedUpdateWithoutVerificationHistoriesInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8432,6 +9528,8 @@ export type UserUncheckedUpdateWithoutVerificationHistoriesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
   education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
   experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -8461,6 +9559,8 @@ export type UserCountOutputType = {
   notifications: number
   reviews: number
   sessions: number
+  sentMessageRequests: number
+  receivedMessageRequests: number
   documents: number
   education: number
   experience: number
@@ -8485,6 +9585,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   reviews?: boolean | UserCountOutputTypeCountReviewsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  sentMessageRequests?: boolean | UserCountOutputTypeCountSentMessageRequestsArgs
+  receivedMessageRequests?: boolean | UserCountOutputTypeCountReceivedMessageRequestsArgs
   documents?: boolean | UserCountOutputTypeCountDocumentsArgs
   education?: boolean | UserCountOutputTypeCountEducationArgs
   experience?: boolean | UserCountOutputTypeCountExperienceArgs
@@ -8617,6 +9719,20 @@ export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.E
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountSentMessageRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReceivedMessageRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserDocumentWhereInput
 }
@@ -8693,6 +9809,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   verifiedAt?: boolean
   verifiedBy?: boolean
   isActive?: boolean
+  followerCount?: boolean
+  followingCount?: boolean
   lastLoginAt?: boolean
   brandName?: boolean
   businessLicenseDoc?: boolean
@@ -8718,6 +9836,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  sentMessageRequests?: boolean | Prisma.User$sentMessageRequestsArgs<ExtArgs>
+  receivedMessageRequests?: boolean | Prisma.User$receivedMessageRequestsArgs<ExtArgs>
   documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
   education?: boolean | Prisma.User$educationArgs<ExtArgs>
   experience?: boolean | Prisma.User$experienceArgs<ExtArgs>
@@ -8769,6 +9889,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   verifiedAt?: boolean
   verifiedBy?: boolean
   isActive?: boolean
+  followerCount?: boolean
+  followingCount?: boolean
   lastLoginAt?: boolean
   brandName?: boolean
   businessLicenseDoc?: boolean
@@ -8823,6 +9945,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   verifiedAt?: boolean
   verifiedBy?: boolean
   isActive?: boolean
+  followerCount?: boolean
+  followingCount?: boolean
   lastLoginAt?: boolean
   brandName?: boolean
   businessLicenseDoc?: boolean
@@ -8877,6 +10001,8 @@ export type UserSelectScalar = {
   verifiedAt?: boolean
   verifiedBy?: boolean
   isActive?: boolean
+  followerCount?: boolean
+  followingCount?: boolean
   lastLoginAt?: boolean
   brandName?: boolean
   businessLicenseDoc?: boolean
@@ -8888,7 +10014,7 @@ export type UserSelectScalar = {
   yearsInBusiness?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "companyLogo" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "verified" | "verifiedAt" | "verifiedBy" | "isActive" | "lastLoginAt" | "brandName" | "businessLicenseDoc" | "certifications" | "companyBanner" | "companyDescription" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "companyLogo" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "verified" | "verifiedAt" | "verifiedBy" | "isActive" | "followerCount" | "followingCount" | "lastLoginAt" | "brandName" | "businessLicenseDoc" | "certifications" | "companyBanner" | "companyDescription" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organizedMeetings?: boolean | Prisma.User$organizedMeetingsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -8906,6 +10032,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  sentMessageRequests?: boolean | Prisma.User$sentMessageRequestsArgs<ExtArgs>
+  receivedMessageRequests?: boolean | Prisma.User$receivedMessageRequestsArgs<ExtArgs>
   documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
   education?: boolean | Prisma.User$educationArgs<ExtArgs>
   experience?: boolean | Prisma.User$experienceArgs<ExtArgs>
@@ -8935,6 +10063,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
+    sentMessageRequests: Prisma.$MessageRequestPayload<ExtArgs>[]
+    receivedMessageRequests: Prisma.$MessageRequestPayload<ExtArgs>[]
     documents: Prisma.$UserDocumentPayload<ExtArgs>[]
     education: Prisma.$UserEducationPayload<ExtArgs>[]
     experience: Prisma.$UserExperiencePayload<ExtArgs>[]
@@ -8984,6 +10114,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     verifiedAt: Date | null
     verifiedBy: string | null
     isActive: boolean
+    followerCount: number
+    followingCount: number
     lastLoginAt: Date | null
     brandName: string | null
     businessLicenseDoc: string | null
@@ -9403,6 +10535,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sentMessageRequests<T extends Prisma.User$sentMessageRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessageRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  receivedMessageRequests<T extends Prisma.User$receivedMessageRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedMessageRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   documents<T extends Prisma.User$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   education<T extends Prisma.User$educationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$educationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserEducationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   experience<T extends Prisma.User$experienceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$experienceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserExperiencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -9479,6 +10613,8 @@ export interface UserFieldRefs {
   readonly verifiedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly verifiedBy: Prisma.FieldRef<"User", 'String'>
   readonly isActive: Prisma.FieldRef<"User", 'Boolean'>
+  readonly followerCount: Prisma.FieldRef<"User", 'Int'>
+  readonly followingCount: Prisma.FieldRef<"User", 'Int'>
   readonly lastLoginAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly brandName: Prisma.FieldRef<"User", 'String'>
   readonly businessLicenseDoc: Prisma.FieldRef<"User", 'String'>
@@ -10262,6 +11398,54 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * User.sentMessageRequests
+ */
+export type User$sentMessageRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MessageRequest
+   */
+  select?: Prisma.MessageRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MessageRequest
+   */
+  omit?: Prisma.MessageRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageRequestInclude<ExtArgs> | null
+  where?: Prisma.MessageRequestWhereInput
+  orderBy?: Prisma.MessageRequestOrderByWithRelationInput | Prisma.MessageRequestOrderByWithRelationInput[]
+  cursor?: Prisma.MessageRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageRequestScalarFieldEnum | Prisma.MessageRequestScalarFieldEnum[]
+}
+
+/**
+ * User.receivedMessageRequests
+ */
+export type User$receivedMessageRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MessageRequest
+   */
+  select?: Prisma.MessageRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MessageRequest
+   */
+  omit?: Prisma.MessageRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageRequestInclude<ExtArgs> | null
+  where?: Prisma.MessageRequestWhereInput
+  orderBy?: Prisma.MessageRequestOrderByWithRelationInput | Prisma.MessageRequestOrderByWithRelationInput[]
+  cursor?: Prisma.MessageRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageRequestScalarFieldEnum | Prisma.MessageRequestScalarFieldEnum[]
 }
 
 /**

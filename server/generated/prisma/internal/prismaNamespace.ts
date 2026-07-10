@@ -404,6 +404,7 @@ export const ModelName = {
   Review: 'Review',
   Meeting: 'Meeting',
   MeetingParticipant: 'MeetingParticipant',
+  MessageRequest: 'MessageRequest',
   SiteStat: 'SiteStat',
   SiteContact: 'SiteContact',
   AboutPage: 'AboutPage',
@@ -428,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "userSkill" | "userInterest" | "userEducation" | "userExperience" | "company" | "franchiseListing" | "application" | "connection" | "companyFollower" | "conversation" | "conversationParticipant" | "message" | "notification" | "review" | "meeting" | "meetingParticipant" | "siteStat" | "siteContact" | "aboutPage" | "aboutTeam" | "aboutTimeline" | "auditLog" | "userDocument" | "verificationHistory" | "report"
+    modelProps: "user" | "session" | "account" | "verification" | "userSkill" | "userInterest" | "userEducation" | "userExperience" | "company" | "franchiseListing" | "application" | "connection" | "companyFollower" | "conversation" | "conversationParticipant" | "message" | "notification" | "review" | "meeting" | "meetingParticipant" | "messageRequest" | "siteStat" | "siteContact" | "aboutPage" | "aboutTeam" | "aboutTimeline" | "auditLog" | "userDocument" | "verificationHistory" | "report"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1912,6 +1913,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MessageRequest: {
+      payload: Prisma.$MessageRequestPayload<ExtArgs>
+      fields: Prisma.MessageRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MessageRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MessageRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.MessageRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MessageRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageRequestPayload>
+        }
+        findMany: {
+          args: Prisma.MessageRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageRequestPayload>[]
+        }
+        create: {
+          args: Prisma.MessageRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageRequestPayload>
+        }
+        createMany: {
+          args: Prisma.MessageRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MessageRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.MessageRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageRequestPayload>
+        }
+        update: {
+          args: Prisma.MessageRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.MessageRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MessageRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MessageRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.MessageRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.MessageRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMessageRequest>
+        }
+        groupBy: {
+          args: Prisma.MessageRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MessageRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MessageRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MessageRequestCountAggregateOutputType> | number
+        }
+      }
+    }
     SiteStat: {
       payload: Prisma.$SiteStatPayload<ExtArgs>
       fields: Prisma.SiteStatFieldRefs
@@ -2660,6 +2735,8 @@ export const UserScalarFieldEnum = {
   verifiedAt: 'verifiedAt',
   verifiedBy: 'verifiedBy',
   isActive: 'isActive',
+  followerCount: 'followerCount',
+  followingCount: 'followingCount',
   lastLoginAt: 'lastLoginAt',
   brandName: 'brandName',
   businessLicenseDoc: 'businessLicenseDoc',
@@ -2876,7 +2953,8 @@ export const ConversationParticipantScalarFieldEnum = {
   id: 'id',
   conversationId: 'conversationId',
   userId: 'userId',
-  lastReadAt: 'lastReadAt'
+  lastReadAt: 'lastReadAt',
+  typingAt: 'typingAt'
 } as const
 
 export type ConversationParticipantScalarFieldEnum = (typeof ConversationParticipantScalarFieldEnum)[keyof typeof ConversationParticipantScalarFieldEnum]
@@ -2886,9 +2964,11 @@ export const MessageScalarFieldEnum = {
   id: 'id',
   conversationId: 'conversationId',
   senderId: 'senderId',
+  parentId: 'parentId',
   content: 'content',
   messageType: 'messageType',
   attachmentUrl: 'attachmentUrl',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt'
 } as const
 
@@ -2946,6 +3026,18 @@ export const MeetingParticipantScalarFieldEnum = {
 } as const
 
 export type MeetingParticipantScalarFieldEnum = (typeof MeetingParticipantScalarFieldEnum)[keyof typeof MeetingParticipantScalarFieldEnum]
+
+
+export const MessageRequestScalarFieldEnum = {
+  id: 'id',
+  senderId: 'senderId',
+  recipientId: 'recipientId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MessageRequestScalarFieldEnum = (typeof MessageRequestScalarFieldEnum)[keyof typeof MessageRequestScalarFieldEnum]
 
 
 export const SiteStatScalarFieldEnum = {
@@ -3265,6 +3357,20 @@ export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
 
 
 /**
+ * Reference to a field of type 'MessageRequestStatus'
+ */
+export type EnumMessageRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageRequestStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'MessageRequestStatus[]'
+ */
+export type ListEnumMessageRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageRequestStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -3407,6 +3513,7 @@ export type GlobalOmitConfig = {
   review?: Prisma.ReviewOmit
   meeting?: Prisma.MeetingOmit
   meetingParticipant?: Prisma.MeetingParticipantOmit
+  messageRequest?: Prisma.MessageRequestOmit
   siteStat?: Prisma.SiteStatOmit
   siteContact?: Prisma.SiteContactOmit
   aboutPage?: Prisma.AboutPageOmit

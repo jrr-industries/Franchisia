@@ -1,4 +1,3 @@
-
 {
   "compilerOptions": {
     "target": "ES2020",
@@ -7,7 +6,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "composite": true,
     "allowJs": true
   },
   "include": ["vite.config.js", "server/**/*"]

@@ -9,6 +9,15 @@
 * 🟢 You can import this file directly.
 */
 
+export const MessageRequestStatus = {
+  pending: 'pending',
+  accepted: 'accepted',
+  declined: 'declined'
+} as const
+
+export type MessageRequestStatus = (typeof MessageRequestStatus)[keyof typeof MessageRequestStatus]
+
+
 export const UserRole = {
   admin: 'admin',
   franchisor: 'franchisor',
@@ -82,7 +91,9 @@ export const NotificationType = {
   account_reactivated: 'account_reactivated',
   admin_promoted: 'admin_promoted',
   admin_demoted: 'admin_demoted',
-  system_alert: 'system_alert'
+  system_alert: 'system_alert',
+  message_request: 'message_request',
+  message_request_accepted: 'message_request_accepted'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
