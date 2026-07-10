@@ -42,7 +42,7 @@ model User {
   investmentRange            String?                   @map("investment_range")
   resumeUrl                  String?                   @map("resume_url")
   submittedForReviewAt       DateTime?                 @map("submitted_for_review_at") @db.Timestamptz(6)
-  reviewedBy                 String?                   @map("reviewed_by") @db.Uuid
+  reviewedBy                 String?                   @map("reviewed_by")
   reviewedAt                 DateTime?                 @map("reviewed_at") @db.Timestamptz(6)
   verificationNotes          String?                   @map("verification_notes")
   rejectionReason            String?                   @map("rejection_reason")

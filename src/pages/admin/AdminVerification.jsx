@@ -70,7 +70,13 @@ export default function AdminVerification() {
   const [infoNotes, setInfoNotes] = useState('');
   const [historyModal, setHistoryModal] = useState(null);
   const [historyData, setHistoryData] = useState([]);
+  const [notification, setNotification] = useState(null);
   const perPage = 10;
+
+  const showNotification = (message, type = 'success') => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
 
   const statusMap = {
     pending: 'pending_admin_review',
@@ -103,15 +109,23 @@ export default function AdminVerification() {
 
   const handleReview = async (userId, action, notes) => {
     try {
-      await fetch(`${API}/admin/verification/${userId}/review`, {
+      const res = await fetch(`${API}/admin/verification/${userId}/review`, {
         method: 'PATCH', headers: { 'Content-Type': 'application/json' }, credentials: 'include',
         body: JSON.stringify({ action, notes: notes || null }),
       });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: 'Request failed' }));
+        showNotification(err.error || `Failed to ${action}`, 'error');
+        return;
+      }
+      showNotification(action === 'approve' ? 'User verified successfully' : action === 'reject' ? 'User rejected' : 'Info request sent');
       setRejectModal(null);
       setInfoModal(null);
       setSelectedUser(null);
       fetchData();
-    } catch (e) { console.error(e); }
+    } catch (e) {
+      showNotification('Network error', 'error');
+    }
   };
 
   const openHistory = async (userId) => {
@@ -332,6 +346,19 @@ export default function AdminVerification() {
             </div>
           </div>
         </Modal>
+      )}
+
+      {/* Toast Notification */}
+      {notification && (
+        <div style={{
+          position: 'fixed', bottom: 24, right: 24, zIndex: 9999,
+          padding: '12px 20px', borderRadius: 8, fontSize: 14, fontWeight: 500,
+          backgroundColor: notification.type === 'error' ? '#DC2626' : '#10B981',
+          color: '#fff', boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          transition: 'all 0.3s',
+        }}>
+          {notification.message}
+        </div>
       )}
 
       {/* History Modal */}

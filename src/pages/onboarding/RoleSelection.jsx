@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Building2, UserCheck, Package, Handshake, DollarSign, ArrowRight, Check } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import logo from "../../assets/logo.png";
 
 const roles = [
   { value: 'franchisor', label: 'Franchisor', desc: 'Own or represent a franchise brand.', icon: Building2 },
@@ -39,10 +40,7 @@ export default function RoleSelection() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--background)' }}>
       <header style={{ padding: '24px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontWeight: 800, fontSize: 22, color: 'var(--primary)' }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--primary)', display: 'inline-block' }} />
-          Franchisia
-        </div>
+        <img src={logo} alt="Franchisia" style={{ height: 32, width: 'auto' }} />
         <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: 14, fontWeight: 500 }}>
           Back to Home
         </button>

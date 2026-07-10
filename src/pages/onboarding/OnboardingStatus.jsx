@@ -2,6 +2,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Clock, ShieldCheck, XCircle, AlertCircle, CheckCircle, ArrowRight, Edit3, Upload, Search, BookOpen, Building2, UserCheck, Package, Handshake, DollarSign } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import logo from "../../assets/logo.png";
 
 const roleIcons = {
   franchisor: { icon: Building2, label: 'Franchisor', emoji: '🏢' },
@@ -98,9 +99,8 @@ export default function OnboardingStatus() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--background)' }}>
       <header style={{ padding: '24px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)' }}>
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, fontWeight: 800, fontSize: 22, color: 'var(--primary)', textDecoration: 'none' }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--primary)', display: 'inline-block' }} />
-          Franchisia
+        <Link to="/">
+          <img src={logo} alt="Franchisia" style={{ height: 32, width: 'auto' }} />
         </Link>
       </header>
 

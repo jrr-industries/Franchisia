@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Upload, Building2, Briefcase, Package, Handshake, DollarSign } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import logo from "../../assets/logo.png";
 
 const roleConfig = {
   franchisor: {
@@ -317,10 +318,7 @@ export default function RoleForm() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--background)' }}>
       <header style={{ padding: '24px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontWeight: 800, fontSize: 22, color: 'var(--primary)' }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--primary)', display: 'inline-block' }} />
-          Franchisia
-        </div>
+        <img src={logo} alt="Franchisia" style={{ height: 32, width: 'auto' }} />
       </header>
 
       <button
