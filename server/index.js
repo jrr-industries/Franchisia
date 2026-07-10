@@ -1,9 +1,13 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import path from "path";
+import { fileURLToPath } from "url";
 import rateLimit from "express-rate-limit";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth.ts";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import companyRoutes from "./routes/companies.js";
@@ -56,6 +60,8 @@ app.use("/api/onboarding", onboardingRoutes);
 app.use("/api/follow", followRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/discover", discoverRoutes);
+
+app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });

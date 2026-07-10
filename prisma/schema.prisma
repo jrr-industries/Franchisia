@@ -53,6 +53,7 @@ model User {
   followerCount              Int                       @default(0) @map("follower_count")
   followingCount             Int                       @default(0) @map("following_count")
   lastLoginAt                DateTime?                 @map("last_login_at") @db.Timestamptz(6)
+  lastActiveAt               DateTime?                 @map("last_active_at") @db.Timestamptz(6)
   brandName                  String?                   @map("brand_name")
   businessLicenseDoc         String?                   @map("business_license_doc")
   certifications             String?                   @map("certifications")

@@ -16,6 +16,28 @@ router.use(async (req, res, next) => {
   }
 });
 
+async function ensureConversation(userId1, userId2) {
+  const existing = await prisma.conversation.findFirst({
+    where: {
+      participants: { every: { userId: { in: [userId1, userId2] } } },
+    },
+    include: {
+      participants: { include: { user: { select: { id: true, name: true, email: true, image: true, role: true } } } },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+  if (existing) return existing;
+
+  return prisma.conversation.create({
+    data: {
+      participants: { create: [{ userId: userId1 }, { userId: userId2 }] },
+    },
+    include: {
+      participants: { include: { user: { select: { id: true, name: true, email: true, image: true, role: true } } } },
+    },
+  });
+}
+
 router.post("/company/:companyId", async (req, res) => {
   try {
     const { companyId } = req.params;
@@ -96,7 +118,57 @@ router.post("/user/:userId", async (req, res) => {
         },
       });
     });
-    res.json({ following: true });
+    let conversation = null;
+    const mutualCheck = await prisma.connection.findUnique({
+      where: { followerId_followingId: { followerId: targetId, followingId: req.user.id } },
+    });
+    if (mutualCheck) {
+      conversation = await ensureConversation(req.user.id, targetId);
+    }
+    res.json({ following: true, conversation });
+  } catch (error) {
+    console.error("Follow route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/user/:userId/mutual-status", async (req, res) => {
+  try {
+    const targetId = req.params.userId;
+    const [iFollowThem, theyFollowMe] = await Promise.all([
+      prisma.connection.findUnique({
+        where: { followerId_followingId: { followerId: req.user.id, followingId: targetId } },
+      }),
+      prisma.connection.findUnique({
+        where: { followerId_followingId: { followerId: targetId, followingId: req.user.id } },
+      }),
+    ]);
+    const following = !!iFollowThem;
+    const followedBy = !!theyFollowMe;
+    const mutual = following && followedBy;
+    let conversation = null;
+    if (mutual) {
+      conversation = await prisma.conversation.findFirst({
+        where: {
+          participants: { every: { userId: { in: [req.user.id, targetId] } } },
+        },
+        select: { id: true },
+        orderBy: { createdAt: "desc" },
+      });
+    }
+    const targetUser = await prisma.user.findUnique({
+      where: { id: targetId },
+      select: { followerCount: true, followingCount: true, lastActiveAt: true },
+    });
+    res.json({
+      following,
+      followedBy,
+      mutual,
+      conversationId: conversation?.id || null,
+      followerCount: targetUser?.followerCount || 0,
+      followingCount: targetUser?.followingCount || 0,
+      lastActiveAt: targetUser?.lastActiveAt,
+    });
   } catch (error) {
     console.error("Follow route error:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -111,13 +183,14 @@ router.get("/user/:userId/status", async (req, res) => {
       }),
       prisma.user.findUnique({
         where: { id: req.params.userId },
-        select: { followerCount: true, followingCount: true },
+        select: { followerCount: true, followingCount: true, lastActiveAt: true },
       }),
     ]);
     res.json({
       following: !!existing,
       followerCount: targetUser?.followerCount || 0,
       followingCount: targetUser?.followingCount || 0,
+      lastActiveAt: targetUser?.lastActiveAt,
     });
   } catch (error) {
     console.error("Follow route error:", error);

@@ -2,6 +2,21 @@ import { Router } from "express";
 import { fromNodeHeaders } from "better-auth/node";
 import { auth } from "../lib/auth.ts";
 import prisma from "../prisma.js";
+import multer from "multer";
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const uploadDir = path.join(__dirname, "..", "public", "uploads");
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+
+const storage = multer.diskStorage({
+  destination: (_req, _file, cb) => cb(null, uploadDir),
+  filename: (_req, file, cb) => cb(null, `${Date.now()}-${Math.random().toString(36).substring(2, 8)}${path.extname(file.originalname)}`),
+});
+
+const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 
 const TypingTimers = {};
 
@@ -18,17 +33,72 @@ router.use(async (req, res, next) => {
   }
 });
 
+router.patch("/heartbeat", async (req, res) => {
+  try {
+    await prisma.user.update({ where: { id: req.user.id }, data: { lastActiveAt: new Date() } });
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Heartbeat error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/conversations", async (req, res) => {
   try {
     const conversations = await prisma.conversation.findMany({
       where: { participants: { some: { userId: req.user.id } } },
       include: {
-        participants: { include: { user: { select: { id: true, name: true, email: true, image: true } } } },
+        participants: {
+          include: {
+            user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true } },
+          },
+        },
         messages: { orderBy: { createdAt: "desc" }, take: 1 },
       },
       orderBy: { updatedAt: "desc" },
     });
-    res.json({ conversations });
+
+    const unreadCounts = await Promise.all(
+      conversations.map(async (conv) => {
+        const myParticipation = conv.participants.find((p) => p.user.id === req.user.id);
+        const lastReadAt = myParticipation?.lastReadAt || new Date(0);
+        const unread = await prisma.message.count({
+          where: {
+            conversationId: conv.id,
+            senderId: { not: req.user.id },
+            createdAt: { gt: lastReadAt },
+          },
+        });
+        return { conversationId: conv.id, unread };
+      })
+    );
+
+    const enriched = conversations.map((conv) => {
+      const uc = unreadCounts.find((u) => u.conversationId === conv.id);
+      return { ...conv, unreadCount: uc?.unread || 0 };
+    });
+
+    res.json({ conversations: enriched });
+  } catch (error) {
+    console.error("Messages route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/conversations/with/:userId", async (req, res) => {
+  try {
+    const conversation = await prisma.conversation.findFirst({
+      where: {
+        participants: { every: { userId: { in: [req.user.id, req.params.userId] } } },
+      },
+      include: {
+        participants: {
+          include: { user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true } } },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+    res.json({ conversation });
   } catch (error) {
     console.error("Messages route error:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -44,19 +114,26 @@ router.post("/conversations", async (req, res) => {
       },
       orderBy: { createdAt: "desc" },
     });
-    if (existing) return res.json({ conversation: existing });
+    if (existing) {
+      const full = await prisma.conversation.findUnique({
+        where: { id: existing.id },
+        include: {
+          participants: {
+            include: { user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true } } },
+          },
+        },
+      });
+      return res.json({ conversation: full });
+    }
     const conversation = await prisma.conversation.create({
       data: {
         subject,
-        participants: {
-          create: [
-            { userId: req.user.id },
-            { userId: participantId },
-          ],
-        },
+        participants: { create: [{ userId: req.user.id }, { userId: participantId }] },
       },
       include: {
-        participants: { include: { user: { select: { id: true, name: true, email: true, image: true } } } },
+        participants: {
+          include: { user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true } } },
+        },
       },
     });
     res.json({ conversation });
@@ -80,17 +157,29 @@ router.get("/conversations/:id/messages", async (req, res) => {
       skip,
       take: parseInt(limit),
       include: {
-        sender: { select: { id: true, name: true, image: true } },
-        parent: { select: { id: true, content: true, senderId: true, sender: { select: { id: true, name: true } } } },
+        sender: { select: { id: true, name: true, image: true, role: true } },
+        parent: {
+          select: {
+            id: true, content: true, senderId: true,
+            sender: { select: { id: true, name: true } },
+          },
+        },
       },
       orderBy: { createdAt: "desc" },
     });
     const total = await prisma.message.count({ where: { conversationId: req.params.id } });
+
     await prisma.conversationParticipant.updateMany({
       where: { conversationId: req.params.id, userId: req.user.id },
       data: { lastReadAt: new Date() },
     });
-    res.json({ messages: messages.reverse(), total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+
+    res.json({
+      messages: messages.reverse(),
+      total,
+      page: parseInt(page),
+      totalPages: Math.ceil(total / parseInt(limit)),
+    });
   } catch (error) {
     console.error("Messages route error:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -116,7 +205,12 @@ router.post("/conversations/:id/messages", async (req, res) => {
       },
       include: {
         sender: { select: { id: true, name: true, image: true, role: true } },
-        parent: { select: { id: true, content: true, senderId: true, sender: { select: { id: true, name: true } } } },
+        parent: {
+          select: {
+            id: true, content: true, senderId: true,
+            sender: { select: { id: true, name: true } },
+          },
+        },
       },
     });
     await prisma.conversation.update({ where: { id: req.params.id }, data: { updatedAt: new Date() } });
@@ -129,7 +223,7 @@ router.post("/conversations/:id/messages", async (req, res) => {
           userId: p.userId,
           type: "new_message",
           title: "New Message",
-          body: `${req.user.name || "Someone"}: ${content.substring(0, 100)}`,
+          body: `${req.user.name || "Someone"}: ${content?.substring(0, 100) || ""}`,
           data: { conversationId: req.params.id, senderId: req.user.id },
         },
       });
@@ -141,27 +235,136 @@ router.post("/conversations/:id/messages", async (req, res) => {
   }
 });
 
+router.post("/conversations/:id/messages/upload", upload.single("file"), async (req, res) => {
+  try {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
+    });
+    if (!participant) return res.status(403).json({ error: "Not a participant" });
+    if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+
+    const attachmentUrl = `/uploads/${req.file.filename}`;
+    const message = await prisma.message.create({
+      data: {
+        conversationId: req.params.id,
+        senderId: req.user.id,
+        content: req.file.originalname,
+        messageType: req.file.mimetype.startsWith("image/") ? "image" : "file",
+        attachmentUrl,
+      },
+      include: { sender: { select: { id: true, name: true, image: true } } },
+    });
+    await prisma.conversation.update({ where: { id: req.params.id }, data: { updatedAt: new Date() } });
+    res.json({ message });
+  } catch (error) {
+    console.error("Messages upload error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/conversations/:convId/messages/:msgId", async (req, res) => {
+  try {
+    const message = await prisma.message.findUnique({ where: { id: req.params.msgId } });
+    if (!message) return res.status(404).json({ error: "Message not found" });
+    if (message.senderId !== req.user.id) return res.status(403).json({ error: "Not authorized" });
+    await prisma.message.update({
+      where: { id: req.params.msgId },
+      data: { content: "[deleted]", isDeleted: true },
+    });
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Messages route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/conversations/:id/typing", async (req, res) => {
+  try {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
+    });
+    if (!participant) return res.status(403).json({ error: "Not a participant" });
+    const otherParticipants = await prisma.conversationParticipant.findMany({
+      where: { conversationId: req.params.id, userId: { not: req.user.id } },
+      select: { userId: true, typingAt: true },
+    });
+    const typingUsers = [];
+    const now = Date.now();
+    for (const p of otherParticipants) {
+      if (p.typingAt && (now - new Date(p.typingAt).getTime()) < 3000) {
+        const u = await prisma.user.findUnique({
+          where: { id: p.userId },
+          select: { id: true, name: true, image: true },
+        });
+        if (u) typingUsers.push(u);
+      }
+    }
+    res.json({ typing: typingUsers });
+  } catch (error) {
+    console.error("Messages route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/conversations/:id/typing", async (req, res) => {
+  try {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
+    });
+    if (!participant) return res.status(403).json({ error: "Not a participant" });
+    await prisma.conversationParticipant.update({
+      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
+      data: { typingAt: new Date() },
+    });
+    const key = `${req.params.id}-${req.user.id}`;
+    if (TypingTimers[key]) clearTimeout(TypingTimers[key]);
+    TypingTimers[key] = setTimeout(async () => {
+      try {
+        await prisma.conversationParticipant.update({
+          where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
+          data: { typingAt: null },
+        });
+      } catch {}
+      delete TypingTimers[key];
+    }, 3000);
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Messages route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/conversations/:convId/messages/:msgId/read", async (req, res) => {
+  try {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: { conversationId_userId: { conversationId: req.params.convId, userId: req.user.id } },
+    });
+    if (!participant) return res.status(403).json({ error: "Not a participant" });
+    await prisma.conversationParticipant.update({
+      where: { conversationId_userId: { conversationId: req.params.convId, userId: req.user.id } },
+      data: { lastReadAt: new Date() },
+    });
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Messages route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.post("/request", async (req, res) => {
   try {
     const { recipientId, content } = req.body;
     if (!recipientId) return res.status(400).json({ error: "recipientId is required" });
     if (recipientId === req.user.id) return res.status(400).json({ error: "Cannot send request to yourself" });
-
     const existing = await prisma.messageRequest.findUnique({
       where: { senderId_recipientId: { senderId: req.user.id, recipientId } },
     });
     if (existing && existing.status !== "declined") {
       return res.status(409).json({ error: "Message request already exists" });
     }
-
     const messageRequest = await prisma.messageRequest.create({
-      data: {
-        senderId: req.user.id,
-        recipientId,
-        status: "pending",
-      },
+      data: { senderId: req.user.id, recipientId, status: "pending" },
     });
-
     await prisma.notification.create({
       data: {
         userId: recipientId,
@@ -171,7 +374,6 @@ router.post("/request", async (req, res) => {
         data: { senderId: req.user.id, requestId: messageRequest.id, content: content || null },
       },
     });
-
     res.json({ request: messageRequest });
   } catch (error) {
     console.error("Messages route error:", error);
@@ -188,23 +390,12 @@ router.post("/accept/:requestId", async (req, res) => {
     if (!messageRequest) return res.status(404).json({ error: "Message request not found" });
     if (messageRequest.recipientId !== req.user.id) return res.status(403).json({ error: "Not authorized" });
     if (messageRequest.status !== "pending") return res.status(400).json({ error: "Request is not pending" });
-
-    await prisma.messageRequest.update({
-      where: { id: req.params.requestId },
-      data: { status: "accepted" },
-    });
-
+    await prisma.messageRequest.update({ where: { id: req.params.requestId }, data: { status: "accepted" } });
     const conversation = await prisma.conversation.create({
       data: {
-        participants: {
-          create: [
-            { userId: messageRequest.senderId },
-            { userId: req.user.id },
-          ],
-        },
+        participants: { create: [{ userId: messageRequest.senderId }, { userId: req.user.id }] },
       },
     });
-
     await prisma.message.create({
       data: {
         conversationId: conversation.id,
@@ -213,7 +404,6 @@ router.post("/accept/:requestId", async (req, res) => {
         messageType: "system",
       },
     });
-
     await prisma.notification.create({
       data: {
         userId: messageRequest.senderId,
@@ -223,7 +413,6 @@ router.post("/accept/:requestId", async (req, res) => {
         data: { recipientId: req.user.id, conversationId: conversation.id },
       },
     });
-
     res.json({ conversation });
   } catch (error) {
     console.error("Messages route error:", error);
@@ -247,108 +436,11 @@ router.get("/requests/pending", async (req, res) => {
 
 router.post("/reject/:requestId", async (req, res) => {
   try {
-    const messageRequest = await prisma.messageRequest.findUnique({
-      where: { id: req.params.requestId },
-    });
+    const messageRequest = await prisma.messageRequest.findUnique({ where: { id: req.params.requestId } });
     if (!messageRequest) return res.status(404).json({ error: "Message request not found" });
     if (messageRequest.recipientId !== req.user.id) return res.status(403).json({ error: "Not authorized" });
     if (messageRequest.status !== "pending") return res.status(400).json({ error: "Request is not pending" });
-
-    await prisma.messageRequest.update({
-      where: { id: req.params.requestId },
-      data: { status: "declined" },
-    });
-
-    res.json({ success: true });
-  } catch (error) {
-    console.error("Messages route error:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.delete("/conversations/:convId/messages/:msgId", async (req, res) => {
-  try {
-    const message = await prisma.message.findUnique({ where: { id: req.params.msgId } });
-    if (!message) return res.status(404).json({ error: "Message not found" });
-    if (message.senderId !== req.user.id) return res.status(403).json({ error: "Not authorized" });
-
-    await prisma.message.update({ where: { id: req.params.msgId }, data: { content: "[deleted]", isDeleted: true } });
-    res.json({ success: true });
-  } catch (error) {
-    console.error("Messages route error:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.get("/conversations/:id/typing", async (req, res) => {
-  try {
-    const participant = await prisma.conversationParticipant.findUnique({
-      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
-    });
-    if (!participant) return res.status(403).json({ error: "Not a participant" });
-
-    const otherParticipants = await prisma.conversationParticipant.findMany({
-      where: { conversationId: req.params.id, userId: { not: req.user.id } },
-      select: { userId: true, typingAt: true },
-    });
-
-    const typingUsers = [];
-    const now = Date.now();
-    for (const p of otherParticipants) {
-      if (p.typingAt && (now - new Date(p.typingAt).getTime()) < 3000) {
-        const u = await prisma.user.findUnique({ where: { id: p.userId }, select: { id: true, name: true, image: true } });
-        if (u) typingUsers.push(u);
-      }
-    }
-    res.json({ typing: typingUsers });
-  } catch (error) {
-    console.error("Messages route error:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.post("/conversations/:id/typing", async (req, res) => {
-  try {
-    const participant = await prisma.conversationParticipant.findUnique({
-      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
-    });
-    if (!participant) return res.status(403).json({ error: "Not a participant" });
-
-    await prisma.conversationParticipant.update({
-      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
-      data: { typingAt: new Date() },
-    });
-
-    const key = `${req.params.id}-${req.user.id}`;
-    if (TypingTimers[key]) clearTimeout(TypingTimers[key]);
-    TypingTimers[key] = setTimeout(async () => {
-      try {
-        await prisma.conversationParticipant.update({
-          where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
-          data: { typingAt: null },
-        });
-      } catch {}
-      delete TypingTimers[key];
-    }, 3000);
-
-    res.json({ success: true });
-  } catch (error) {
-    console.error("Messages route error:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.post("/conversations/:convId/messages/:msgId/read", async (req, res) => {
-  try {
-    const participant = await prisma.conversationParticipant.findUnique({
-      where: { conversationId_userId: { conversationId: req.params.convId, userId: req.user.id } },
-    });
-    if (!participant) return res.status(403).json({ error: "Not a participant" });
-
-    await prisma.conversationParticipant.update({
-      where: { conversationId_userId: { conversationId: req.params.convId, userId: req.user.id } },
-      data: { lastReadAt: new Date() },
-    });
+    await prisma.messageRequest.update({ where: { id: req.params.requestId }, data: { status: "declined" } });
     res.json({ success: true });
   } catch (error) {
     console.error("Messages route error:", error);

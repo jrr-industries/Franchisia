@@ -7,6 +7,7 @@ import Badge from '../../components/ui/Badge';
 import Avatar from '../../components/ui/Avatar';
 import Select from '../../components/ui/Select';
 import Pagination from '../../components/ui/Pagination';
+import Modal from '../../components/ui/Modal';
 import VerifiedBadge from '../../components/ui/VerifiedBadge';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../components/ui/Toast';
@@ -32,6 +33,7 @@ const roleLabels = {
   franchisor: 'Franchisor', franchisee: 'Franchisee',
   consultant: 'Consultant', investor: 'Investor', supplier: 'Supplier',
 };
+const isOnline = (lastActiveAt) => lastActiveAt && (Date.now() - new Date(lastActiveAt).getTime()) < 300000;
 
 export default function Discover() {
   const navigate = useNavigate();
@@ -39,13 +41,18 @@ export default function Discover() {
   const { addToast } = useToast();
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [usersPage, setUsersPage] = useState(1);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({ industry: '', investment: '', country: '', city: '', verified: '', role: '' });
   const [followStates, setFollowStates] = useState({});
+  const [userFollowStates, setUserFollowStates] = useState({});
+  const [messageTarget, setMessageTarget] = useState(null);
+  const [messageContent, setMessageContent] = useState('');
+  const [messageSending, setMessageSending] = useState(false);
 
   const buildParams = useCallback(() => {
-    const params = new URLSearchParams({ page, limit: 12 });
+    const params = new URLSearchParams({ page, limit: 12, usersPage, usersLimit: 12 });
     if (search) params.set('search', search);
     if (filters.industry) params.set('industry', filters.industry);
     if (filters.country) params.set('country', filters.country);
@@ -57,7 +64,7 @@ export default function Discover() {
     else if (filters.investment === '150k-500k') { params.set('minInvestment', '150000'); params.set('maxInvestment', '500000'); }
     else if (filters.investment === '500k-plus') params.set('minInvestment', '500000');
     return params;
-  }, [page, search, filters]);
+  }, [page, usersPage, search, filters]);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -76,13 +83,56 @@ export default function Discover() {
   useEffect(() => { fetchData(); }, [fetchData]);
 
   useEffect(() => {
-    const timer = setTimeout(() => { setPage(1); }, 300);
+    const timer = setTimeout(() => { setPage(1); setUsersPage(1); }, 300);
     return () => clearTimeout(timer);
-  }, [search]);
+  }, [search, filters]);
+
+  const handleSendMessage = async () => {
+    if (!messageContent.trim() || !messageTarget || messageSending) return;
+    setMessageSending(true);
+    try {
+      const res = await fetch(`${API}/messages/request`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ recipientId: messageTarget.id, content: messageContent }),
+      });
+      if (res.ok) {
+        addToast('Message request sent!', 'success');
+        setMessageTarget(null);
+        setMessageContent('');
+      } else {
+        const err = await res.json();
+        addToast(err.error || 'Failed to send', 'error');
+      }
+    } catch {
+      addToast('Failed to send message', 'error');
+    } finally {
+      setMessageSending(false);
+    }
+  };
 
   const handleFilter = (key, value) => {
     setFilters(prev => ({ ...prev, [key]: value }));
     setPage(1);
+  };
+
+  const handleUserFollow = async (userId) => {
+    setUserFollowStates(prev => ({ ...prev, [userId]: { ...prev[userId], loading: true } }));
+    const wasFollowing = data?.users?.find(u => u.id === userId)?.isFollowing;
+    try {
+      const res = await fetch(`${API}/follow/user/${userId}`, { method: 'POST', credentials: 'include' });
+      if (res.ok) {
+        const result = await res.json();
+        setData(prev => ({
+          ...prev,
+          users: prev.users.map(u => u.id === userId ? { ...u, isFollowing: result.following, mutual: result.following && u.isFollowedBy } : u),
+        }));
+        addToast(result.following ? 'Following user' : 'Unfollowed', 'success');
+      }
+    } catch {} finally {
+      setUserFollowStates(prev => ({ ...prev, [userId]: { ...prev[userId], loading: false } }));
+    }
   };
 
   const handleFollow = async (companyId) => {
@@ -147,8 +197,8 @@ export default function Discover() {
               ]} value={filters.verified} onChange={(e) => handleFilter('verified', e.target.value)} />
               <Select label="Role" options={[
                 { value: '', label: 'All Roles' }, { value: 'franchisor', label: 'Franchisor' },
-                { value: 'investor', label: 'Investor' }, { value: 'supplier', label: 'Supplier' },
-                { value: 'consultant', label: 'Consultant' },
+                { value: 'franchisee', label: 'Franchisee' }, { value: 'investor', label: 'Investor' },
+                { value: 'supplier', label: 'Supplier' }, { value: 'consultant', label: 'Consultant' },
               ]} value={filters.role} onChange={(e) => handleFilter('role', e.target.value)} />
               <Button variant="secondary" size="sm" fullWidth onClick={() => { setFilters({ industry: '', investment: '', country: '', city: '', verified: '', role: '' }); setPage(1); }}>
                 Clear Filters
@@ -196,54 +246,62 @@ export default function Discover() {
                 </div>
               )}
 
-              {data?.recommendedUsers?.length > 0 && (
+              {data?.users?.length > 0 && (
                 <div style={{ marginBottom: 32 }}>
-                  <h3 style={s.sectionTitle}>Recommended Professionals</h3>
-                  <div style={{ display: 'flex', gap: 12, overflow: 'auto', paddingBottom: 8 }}>
-                    {data.recommendedUsers.map((u) => (
-                      <Card key={u.id} padding="16px" style={{ minWidth: 210, flexShrink: 0, cursor: 'default' }}>
-                        <div style={{ textAlign: 'center', cursor: 'pointer' }} onClick={() => navigate(`/profile?id=${u.id}`)}>
-                          <Avatar name={u.name} src={u.image} size={48} style={{ margin: '0 auto 8px' }} />
-                          <div style={{ fontWeight: 600, fontSize: 14 }}>{u.name}</div>
-                          {u.verified && <VerifiedBadge size={12} />}
-                          <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 2 }}>{roleLabels[u.role] || u.role}</div>
-                          {u.headline && <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4, lineHeight: 1.3 }}>{u.headline}</div>}
-                          <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>{formatCount(u.followerCount)} followers</div>
-                        </div>
-                        {user && u.id !== user.id && (
-                          <div style={{ display: 'flex', gap: 6, marginTop: 10 }}>
-                            <Button variant={u._isFollowing ? 'secondary' : 'primary'} size="sm"
-                              style={{ flex: 1 }}
-                              onClick={async (e) => {
-                                e.stopPropagation();
-                                try {
-                                  const res = await fetch(`${API}/follow/user/${u.id}`, { method: 'POST', credentials: 'include' });
-                                  if (res.ok) {
-                                    const d = await res.json();
-                                    setData(prev => ({
-                                      ...prev,
-                                      recommendedUsers: prev.recommendedUsers.map(x => x.id === u.id ? { ...x, _isFollowing: d.following } : x),
-                                    }));
-                                    addToast(d.following ? 'Following user' : 'Unfollowed', 'success');
-                                  }
-                                } catch {}
-                              }}>
-                              {u._isFollowing ? 'Following' : 'Follow'}
-                            </Button>
-                            <Button variant="outline" size="sm"
-                              style={{ padding: '0 8px', minWidth: 0 }}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                navigate(`/messages?userId=${u.id}`);
-                              }}
-                              title="Send message">
-                              <MessageSquare size={14} />
-                            </Button>
-                          </div>
-                        )}
-                      </Card>
-                    ))}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+                    <h3 style={s.sectionTitle}>All Professionals</h3>
+                    <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>{data.usersTotal} total</span>
                   </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 16 }}>
+                    {data.users.map((u) => {
+                      const fl = userFollowStates[u.id];
+                      return (
+                        <Card key={u.id} padding="16px" style={{ cursor: 'default' }}>
+                          <div style={{ textAlign: 'center', cursor: 'pointer' }} onClick={() => navigate(`/profile?id=${u.id}`)}>
+                            <Avatar name={u.name} src={u.image} size={52} style={{ margin: '0 auto 8px' }} />
+                            <div style={{ fontWeight: 600, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                              {u.name}
+                              {isOnline(u.lastActiveAt) && <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: '#22C55E', display: 'inline-block', verticalAlign: 'middle' }} />}
+                            </div>
+                            {u.verified && <VerifiedBadge size={12} />}
+                            <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 2 }}>{roleLabels[u.role] || u.role}</div>
+                            {u.headline && <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4, lineHeight: 1.3 }}>{u.headline}</div>}
+                            <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>{formatCount(u.followerCount)} followers</div>
+                            {u.isFollowedBy && !u.isFollowing && (
+                              <div style={{ fontSize: 10, color: 'var(--accent)', backgroundColor: 'var(--accent-light)', padding: '1px 8px', borderRadius: 100, display: 'inline-block', marginTop: 4 }}>Follows you</div>
+                            )}
+                            {u.mutual && (
+                              <div style={{ fontSize: 10, color: 'var(--primary)', backgroundColor: 'var(--primary-light)', padding: '1px 8px', borderRadius: 100, display: 'inline-block', marginTop: 4 }}>Mutual</div>
+                            )}
+                          </div>
+                          {user && u.id !== user.id && (
+                            <div style={{ display: 'flex', gap: 6, marginTop: 10 }}>
+                              <Button variant={u.isFollowing ? 'secondary' : 'primary'} size="sm"
+                                style={{ flex: 1 }}
+                                disabled={fl?.loading}
+                                onClick={(e) => { e.stopPropagation(); handleUserFollow(u.id); }}>
+                                {fl?.loading ? '...' : u.isFollowing ? 'Following' : 'Follow'}
+                              </Button>
+                              <Button variant="outline" size="sm"
+                                style={{ padding: '0 8px', minWidth: 0 }}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setMessageTarget(u);
+                                }}
+                                title="Send message">
+                                <MessageSquare size={14} />
+                              </Button>
+                            </div>
+                          )}
+                        </Card>
+                      );
+                    })}
+                  </div>
+                  {data.usersTotalPages > 1 && (
+                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
+                      <Pagination current={data.usersPage} total={data.usersTotalPages} onChange={(p) => { setUsersPage(p); window.scrollTo({ top: 0, behavior: 'smooth' }); }} />
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -360,6 +418,31 @@ export default function Discover() {
           )}
         </div>
       </div>
+
+      <Modal isOpen={!!messageTarget} onClose={() => { setMessageTarget(null); setMessageContent(''); }} title={`Message ${messageTarget?.name || ''}`}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <p style={{ fontSize: 14, color: 'var(--text-secondary)' }}>
+            Send a message request to {messageTarget?.name}. They will be notified and can choose to accept.
+          </p>
+          <textarea
+            value={messageContent}
+            onChange={(e) => setMessageContent(e.target.value)}
+            placeholder="Write your message..."
+            style={{
+              width: '100%', padding: '10px 14px', borderRadius: 'var(--radius-sm)',
+              border: '1px solid var(--border)', backgroundColor: 'var(--background)',
+              color: 'var(--text)', fontSize: 14, outline: 'none', resize: 'vertical',
+              minHeight: 100, fontFamily: 'inherit', boxSizing: 'border-box',
+            }}
+          />
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
+            <Button variant="secondary" size="sm" onClick={() => { setMessageTarget(null); setMessageContent(''); }}>Cancel</Button>
+            <Button variant="primary" size="sm" onClick={handleSendMessage} disabled={!messageContent.trim() || messageSending}>
+              {messageSending ? 'Sending...' : 'Send'}
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

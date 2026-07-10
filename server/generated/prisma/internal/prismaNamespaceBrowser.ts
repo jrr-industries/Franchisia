@@ -145,6 +145,7 @@ export const UserScalarFieldEnum = {
   followerCount: 'followerCount',
   followingCount: 'followingCount',
   lastLoginAt: 'lastLoginAt',
+  lastActiveAt: 'lastActiveAt',
   brandName: 'brandName',
   businessLicenseDoc: 'businessLicenseDoc',
   certifications: 'certifications',

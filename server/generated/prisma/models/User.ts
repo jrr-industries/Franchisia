@@ -89,6 +89,7 @@ export type UserMinAggregateOutputType = {
   followerCount: number | null
   followingCount: number | null
   lastLoginAt: Date | null
+  lastActiveAt: Date | null
   brandName: string | null
   businessLicenseDoc: string | null
   certifications: string | null
@@ -144,6 +145,7 @@ export type UserMaxAggregateOutputType = {
   followerCount: number | null
   followingCount: number | null
   lastLoginAt: Date | null
+  lastActiveAt: Date | null
   brandName: string | null
   businessLicenseDoc: string | null
   certifications: string | null
@@ -200,6 +202,7 @@ export type UserCountAggregateOutputType = {
   followerCount: number
   followingCount: number
   lastLoginAt: number
+  lastActiveAt: number
   brandName: number
   businessLicenseDoc: number
   certifications: number
@@ -275,6 +278,7 @@ export type UserMinAggregateInputType = {
   followerCount?: true
   followingCount?: true
   lastLoginAt?: true
+  lastActiveAt?: true
   brandName?: true
   businessLicenseDoc?: true
   certifications?: true
@@ -330,6 +334,7 @@ export type UserMaxAggregateInputType = {
   followerCount?: true
   followingCount?: true
   lastLoginAt?: true
+  lastActiveAt?: true
   brandName?: true
   businessLicenseDoc?: true
   certifications?: true
@@ -386,6 +391,7 @@ export type UserCountAggregateInputType = {
   followerCount?: true
   followingCount?: true
   lastLoginAt?: true
+  lastActiveAt?: true
   brandName?: true
   businessLicenseDoc?: true
   certifications?: true
@@ -529,6 +535,7 @@ export type UserGroupByOutputType = {
   followerCount: number
   followingCount: number
   lastLoginAt: Date | null
+  lastActiveAt: Date | null
   brandName: string | null
   businessLicenseDoc: string | null
   certifications: string | null
@@ -608,6 +615,7 @@ export type UserWhereInput = {
   followerCount?: Prisma.IntFilter<"User"> | number
   followingCount?: Prisma.IntFilter<"User"> | number
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   brandName?: Prisma.StringNullableFilter<"User"> | string | null
   businessLicenseDoc?: Prisma.StringNullableFilter<"User"> | string | null
   certifications?: Prisma.StringNullableFilter<"User"> | string | null
@@ -687,6 +695,7 @@ export type UserOrderByWithRelationInput = {
   followerCount?: Prisma.SortOrder
   followingCount?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   brandName?: Prisma.SortOrderInput | Prisma.SortOrder
   businessLicenseDoc?: Prisma.SortOrderInput | Prisma.SortOrder
   certifications?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -769,6 +778,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   followerCount?: Prisma.IntFilter<"User"> | number
   followingCount?: Prisma.IntFilter<"User"> | number
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   brandName?: Prisma.StringNullableFilter<"User"> | string | null
   businessLicenseDoc?: Prisma.StringNullableFilter<"User"> | string | null
   certifications?: Prisma.StringNullableFilter<"User"> | string | null
@@ -848,6 +858,7 @@ export type UserOrderByWithAggregationInput = {
   followerCount?: Prisma.SortOrder
   followingCount?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   brandName?: Prisma.SortOrderInput | Prisma.SortOrder
   businessLicenseDoc?: Prisma.SortOrderInput | Prisma.SortOrder
   certifications?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -912,6 +923,7 @@ export type UserScalarWhereWithAggregatesInput = {
   followerCount?: Prisma.IntWithAggregatesFilter<"User"> | number
   followingCount?: Prisma.IntWithAggregatesFilter<"User"> | number
   lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  lastActiveAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   brandName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   businessLicenseDoc?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   certifications?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -968,6 +980,7 @@ export type UserCreateInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -1047,6 +1060,7 @@ export type UserUncheckedCreateInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -1126,6 +1140,7 @@ export type UserUpdateInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1205,6 +1220,7 @@ export type UserUncheckedUpdateInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1284,6 +1300,7 @@ export type UserCreateManyInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -1340,6 +1357,7 @@ export type UserUpdateManyMutationInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1396,6 +1414,7 @@ export type UserUncheckedUpdateManyInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1460,6 +1479,7 @@ export type UserCountOrderByAggregateInput = {
   followerCount?: Prisma.SortOrder
   followingCount?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrder
   brandName?: Prisma.SortOrder
   businessLicenseDoc?: Prisma.SortOrder
   certifications?: Prisma.SortOrder
@@ -1524,6 +1544,7 @@ export type UserMaxOrderByAggregateInput = {
   followerCount?: Prisma.SortOrder
   followingCount?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrder
   brandName?: Prisma.SortOrder
   businessLicenseDoc?: Prisma.SortOrder
   certifications?: Prisma.SortOrder
@@ -1579,6 +1600,7 @@ export type UserMinOrderByAggregateInput = {
   followerCount?: Prisma.SortOrder
   followingCount?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrder
   brandName?: Prisma.SortOrder
   businessLicenseDoc?: Prisma.SortOrder
   certifications?: Prisma.SortOrder
@@ -2039,6 +2061,7 @@ export type UserCreateWithoutSessionsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -2117,6 +2140,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -2211,6 +2235,7 @@ export type UserUpdateWithoutSessionsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2289,6 +2314,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2367,6 +2393,7 @@ export type UserCreateWithoutAccountsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -2445,6 +2472,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -2539,6 +2567,7 @@ export type UserUpdateWithoutAccountsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2617,6 +2646,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2695,6 +2725,7 @@ export type UserCreateWithoutSkillsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -2773,6 +2804,7 @@ export type UserUncheckedCreateWithoutSkillsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -2867,6 +2899,7 @@ export type UserUpdateWithoutSkillsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2945,6 +2978,7 @@ export type UserUncheckedUpdateWithoutSkillsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3023,6 +3057,7 @@ export type UserCreateWithoutInterestsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -3101,6 +3136,7 @@ export type UserUncheckedCreateWithoutInterestsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -3195,6 +3231,7 @@ export type UserUpdateWithoutInterestsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3273,6 +3310,7 @@ export type UserUncheckedUpdateWithoutInterestsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3351,6 +3389,7 @@ export type UserCreateWithoutEducationInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -3429,6 +3468,7 @@ export type UserUncheckedCreateWithoutEducationInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -3523,6 +3563,7 @@ export type UserUpdateWithoutEducationInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3601,6 +3642,7 @@ export type UserUncheckedUpdateWithoutEducationInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3679,6 +3721,7 @@ export type UserCreateWithoutExperienceInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -3757,6 +3800,7 @@ export type UserUncheckedCreateWithoutExperienceInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -3851,6 +3895,7 @@ export type UserUpdateWithoutExperienceInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3929,6 +3974,7 @@ export type UserUncheckedUpdateWithoutExperienceInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4007,6 +4053,7 @@ export type UserCreateWithoutCompaniesInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -4085,6 +4132,7 @@ export type UserUncheckedCreateWithoutCompaniesInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -4179,6 +4227,7 @@ export type UserUpdateWithoutCompaniesInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4257,6 +4306,7 @@ export type UserUncheckedUpdateWithoutCompaniesInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4335,6 +4385,7 @@ export type UserCreateWithoutListingsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -4413,6 +4464,7 @@ export type UserUncheckedCreateWithoutListingsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -4507,6 +4559,7 @@ export type UserUpdateWithoutListingsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4585,6 +4638,7 @@ export type UserUncheckedUpdateWithoutListingsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4663,6 +4717,7 @@ export type UserCreateWithoutApplicationsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -4741,6 +4796,7 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -4835,6 +4891,7 @@ export type UserUpdateWithoutApplicationsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4913,6 +4970,7 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4991,6 +5049,7 @@ export type UserCreateWithoutSentConnectionsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -5069,6 +5128,7 @@ export type UserUncheckedCreateWithoutSentConnectionsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -5152,6 +5212,7 @@ export type UserCreateWithoutReceivedConnectionsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -5230,6 +5291,7 @@ export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -5324,6 +5386,7 @@ export type UserUpdateWithoutSentConnectionsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5402,6 +5465,7 @@ export type UserUncheckedUpdateWithoutSentConnectionsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5491,6 +5555,7 @@ export type UserUpdateWithoutReceivedConnectionsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5569,6 +5634,7 @@ export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5647,6 +5713,7 @@ export type UserCreateWithoutCompanyFollowersInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -5725,6 +5792,7 @@ export type UserUncheckedCreateWithoutCompanyFollowersInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -5819,6 +5887,7 @@ export type UserUpdateWithoutCompanyFollowersInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5897,6 +5966,7 @@ export type UserUncheckedUpdateWithoutCompanyFollowersInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5975,6 +6045,7 @@ export type UserCreateWithoutParticipantsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -6053,6 +6124,7 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -6147,6 +6219,7 @@ export type UserUpdateWithoutParticipantsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6225,6 +6298,7 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6303,6 +6377,7 @@ export type UserCreateWithoutMessagesInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -6381,6 +6456,7 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -6475,6 +6551,7 @@ export type UserUpdateWithoutMessagesInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6553,6 +6630,7 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6631,6 +6709,7 @@ export type UserCreateWithoutNotificationsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -6709,6 +6788,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -6803,6 +6883,7 @@ export type UserUpdateWithoutNotificationsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6881,6 +6962,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6959,6 +7041,7 @@ export type UserCreateWithoutReviewsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -7037,6 +7120,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -7131,6 +7215,7 @@ export type UserUpdateWithoutReviewsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7209,6 +7294,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7287,6 +7373,7 @@ export type UserCreateWithoutOrganizedMeetingsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -7365,6 +7452,7 @@ export type UserUncheckedCreateWithoutOrganizedMeetingsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -7459,6 +7547,7 @@ export type UserUpdateWithoutOrganizedMeetingsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7537,6 +7626,7 @@ export type UserUncheckedUpdateWithoutOrganizedMeetingsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7615,6 +7705,7 @@ export type UserCreateWithoutMeetingParticipantsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -7693,6 +7784,7 @@ export type UserUncheckedCreateWithoutMeetingParticipantsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -7787,6 +7879,7 @@ export type UserUpdateWithoutMeetingParticipantsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7865,6 +7958,7 @@ export type UserUncheckedUpdateWithoutMeetingParticipantsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7943,6 +8037,7 @@ export type UserCreateWithoutSentMessageRequestsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -8021,6 +8116,7 @@ export type UserUncheckedCreateWithoutSentMessageRequestsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -8104,6 +8200,7 @@ export type UserCreateWithoutReceivedMessageRequestsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -8182,6 +8279,7 @@ export type UserUncheckedCreateWithoutReceivedMessageRequestsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -8276,6 +8374,7 @@ export type UserUpdateWithoutSentMessageRequestsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8354,6 +8453,7 @@ export type UserUncheckedUpdateWithoutSentMessageRequestsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8443,6 +8543,7 @@ export type UserUpdateWithoutReceivedMessageRequestsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8521,6 +8622,7 @@ export type UserUncheckedUpdateWithoutReceivedMessageRequestsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8599,6 +8701,7 @@ export type UserCreateWithoutAuditLogsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -8677,6 +8780,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -8771,6 +8875,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8849,6 +8954,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8927,6 +9033,7 @@ export type UserCreateWithoutDocumentsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -9005,6 +9112,7 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -9099,6 +9207,7 @@ export type UserUpdateWithoutDocumentsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9177,6 +9286,7 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9255,6 +9365,7 @@ export type UserCreateWithoutVerificationHistoriesInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -9333,6 +9444,7 @@ export type UserUncheckedCreateWithoutVerificationHistoriesInput = {
   followerCount?: number
   followingCount?: number
   lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   brandName?: string | null
   businessLicenseDoc?: string | null
   certifications?: string | null
@@ -9427,6 +9539,7 @@ export type UserUpdateWithoutVerificationHistoriesInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9505,6 +9618,7 @@ export type UserUncheckedUpdateWithoutVerificationHistoriesInput = {
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   followingCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9812,6 +9926,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   followerCount?: boolean
   followingCount?: boolean
   lastLoginAt?: boolean
+  lastActiveAt?: boolean
   brandName?: boolean
   businessLicenseDoc?: boolean
   certifications?: boolean
@@ -9892,6 +10007,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   followerCount?: boolean
   followingCount?: boolean
   lastLoginAt?: boolean
+  lastActiveAt?: boolean
   brandName?: boolean
   businessLicenseDoc?: boolean
   certifications?: boolean
@@ -9948,6 +10064,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   followerCount?: boolean
   followingCount?: boolean
   lastLoginAt?: boolean
+  lastActiveAt?: boolean
   brandName?: boolean
   businessLicenseDoc?: boolean
   certifications?: boolean
@@ -10004,6 +10121,7 @@ export type UserSelectScalar = {
   followerCount?: boolean
   followingCount?: boolean
   lastLoginAt?: boolean
+  lastActiveAt?: boolean
   brandName?: boolean
   businessLicenseDoc?: boolean
   certifications?: boolean
@@ -10014,7 +10132,7 @@ export type UserSelectScalar = {
   yearsInBusiness?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "companyLogo" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "verified" | "verifiedAt" | "verifiedBy" | "isActive" | "followerCount" | "followingCount" | "lastLoginAt" | "brandName" | "businessLicenseDoc" | "certifications" | "companyBanner" | "companyDescription" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "companyLogo" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "verified" | "verifiedAt" | "verifiedBy" | "isActive" | "followerCount" | "followingCount" | "lastLoginAt" | "lastActiveAt" | "brandName" | "businessLicenseDoc" | "certifications" | "companyBanner" | "companyDescription" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organizedMeetings?: boolean | Prisma.User$organizedMeetingsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -10117,6 +10235,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     followerCount: number
     followingCount: number
     lastLoginAt: Date | null
+    lastActiveAt: Date | null
     brandName: string | null
     businessLicenseDoc: string | null
     certifications: string | null
@@ -10616,6 +10735,7 @@ export interface UserFieldRefs {
   readonly followerCount: Prisma.FieldRef<"User", 'Int'>
   readonly followingCount: Prisma.FieldRef<"User", 'Int'>
   readonly lastLoginAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly lastActiveAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly brandName: Prisma.FieldRef<"User", 'String'>
   readonly businessLicenseDoc: Prisma.FieldRef<"User", 'String'>
   readonly certifications: Prisma.FieldRef<"User", 'String'>

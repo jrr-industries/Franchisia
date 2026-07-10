@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   MapPin, Briefcase, MessageSquare, UserPlus, Calendar,
@@ -135,6 +135,7 @@ function formatRole(role) {
 export default function Profile() {
   const { user: currentUser } = useAuth();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const { addToast } = useToast();
 
   const profileId = searchParams.get('id');
@@ -147,6 +148,7 @@ export default function Profile() {
   const [followStatus, setFollowStatus] = useState(null);
   const [followLoading, setFollowLoading] = useState(false);
 
+  const [mutualStatus, setMutualStatus] = useState(null);
   const [messageModalOpen, setMessageModalOpen] = useState(false);
   const [messageContent, setMessageContent] = useState('');
   const [messageSending, setMessageSending] = useState(false);
@@ -174,26 +176,25 @@ export default function Profile() {
     }
   }, [userId]);
 
-  const fetchFollowStatus = useCallback(async () => {
-    if (!userId || isOwnProfile) return;
+  const fetchMutualStatus = useCallback(async () => {
+    if (!userId || isOwnProfile || !currentUser) return;
     try {
-      const res = await fetch(`${API}/follow/user/${userId}/status`, { credentials: 'include' });
+      const res = await fetch(`${API}/follow/user/${userId}/mutual-status`, { credentials: 'include' });
       if (res.ok) {
         const data = await res.json();
-        setFollowStatus(data);
+        setFollowStatus({ following: data.following, followerCount: data.followerCount, followingCount: data.followingCount });
+        setMutualStatus(data);
       }
-    } catch {
-      // silently fail
-    }
-  }, [userId, isOwnProfile]);
+    } catch {}
+  }, [userId, isOwnProfile, currentUser]);
 
   useEffect(() => {
     fetchProfile();
   }, [fetchProfile]);
 
   useEffect(() => {
-    fetchFollowStatus();
-  }, [fetchFollowStatus]);
+    fetchMutualStatus();
+  }, [fetchMutualStatus]);
 
   const handleFollowToggle = useCallback(async () => {
     if (!userId || followLoading) return;
@@ -213,6 +214,11 @@ export default function Profile() {
         const data = await res.json();
         setFollowStatus((prev) => ({ ...prev, following: data.following }));
         addToast(data.following ? 'You are now following this user' : 'Unfollowed successfully', 'success');
+        if (data.conversation) {
+          setMutualStatus((prev) => ({ ...prev, mutual: true, conversationId: data.conversation.id }));
+        } else {
+          fetchMutualStatus();
+        }
       } else {
         setFollowStatus((prev) => ({
           ...prev,
@@ -231,7 +237,19 @@ export default function Profile() {
     } finally {
       setFollowLoading(false);
     }
-  }, [userId, followStatus, followLoading, addToast]);
+  }, [userId, followStatus, followLoading, addToast, fetchMutualStatus]);
+
+  const handleMessageClick = useCallback(() => {
+    if (mutualStatus?.mutual) {
+      if (mutualStatus.conversationId) {
+        navigate(`/messages?conversation=${mutualStatus.conversationId}`);
+      } else {
+        navigate('/messages');
+      }
+    } else {
+      setMessageModalOpen(true);
+    }
+  }, [mutualStatus, navigate]);
 
   const handleSendMessage = useCallback(async () => {
     if (!messageContent.trim()) return;
@@ -409,6 +427,11 @@ export default function Profile() {
           <div style={s.nameRow}>
             <h1 style={s.name}>{u.name || 'User'}</h1>
             {u.verified && <VerifiedBadge size={20} />}
+            {(() => {
+              const lastActive = mutualStatus?.lastActiveAt || u.lastActiveAt;
+              const isOnline = lastActive && (Date.now() - new Date(lastActive).getTime()) < 300000;
+              return isOnline ? <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: '#22C55E', display: 'inline-block', marginLeft: 4 }} title="Online" /> : null;
+            })()}
           </div>
           {u.role && (
             <div style={s.title}>
@@ -470,14 +493,17 @@ export default function Profile() {
                   {followStatus?.following ? 'Following' : 'Follow'}
                 </Button>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <motion.div whileHover={mutualStatus?.mutual ? { scale: 1.03 } : {}} whileTap={mutualStatus?.mutual ? { scale: 0.97 } : {}}>
                 <Button
-                  variant="outline"
+                  variant={mutualStatus?.mutual ? 'primary' : 'secondary'}
                   size="sm"
                   icon={<MessageSquare size={16} />}
-                  onClick={() => setMessageModalOpen(true)}
+                  onClick={handleMessageClick}
+                  disabled={!mutualStatus?.mutual}
+                  title={!mutualStatus?.mutual ? 'Follow each other to start messaging' : ''}
+                  style={!mutualStatus?.mutual ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
                 >
-                  Message
+                  {mutualStatus?.mutual ? 'Message' : mutualStatus?.following ? 'Waiting for Follow Back' : 'Message'}
                 </Button>
               </motion.div>
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>

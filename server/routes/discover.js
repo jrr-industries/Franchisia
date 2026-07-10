@@ -7,8 +7,9 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const { industry, minInvestment, maxInvestment, city, country, verified, role, search, page = 1, limit = 20 } = req.query;
+    const { industry, minInvestment, maxInvestment, city, country, verified, role, search, page = 1, limit = 12, usersPage = 1, usersLimit = 12 } = req.query;
     const skip = (parseInt(page) - 1) * parseInt(limit);
+    const usersSkip = (parseInt(usersPage) - 1) * parseInt(usersLimit);
 
     let currentUserId = null;
     try {
@@ -29,7 +30,17 @@ router.get("/", async (req, res) => {
       ];
     }
 
-    const [listings, listingsTotal, featuredListings, companies, trendingListings, users] = await Promise.all([
+    const userWhere = { isActive: true, role: { not: "admin" } };
+    if (role) userWhere.role = role;
+    if (currentUserId) userWhere.id = { not: currentUserId };
+    if (search) {
+      userWhere.OR = [
+        { name: { contains: search, mode: "insensitive" } },
+        { headline: { contains: search, mode: "insensitive" } },
+      ];
+    }
+
+    const [listings, listingsTotal, featuredListings, companies, trendingListings, users, usersTotal] = await Promise.all([
       prisma.franchiseListing.findMany({
         where: listingWhere,
         skip,
@@ -66,18 +77,17 @@ router.get("/", async (req, res) => {
         orderBy: { viewCount: "desc" },
       }),
       prisma.user.findMany({
-        where: {
-          isActive: true,
-          ...(role ? { role } : { role: { in: ["franchisor", "investor", "supplier", "consultant"] } }),
-          ...(currentUserId ? { id: { not: currentUserId } } : {}),
-        },
-        take: 6,
+        where: userWhere,
+        skip: usersSkip,
+        take: parseInt(usersLimit),
         select: {
           id: true, name: true, image: true, headline: true, role: true,
-          location: true, industries: true, verified: true, followerCount: true,
+          location: true, industries: true, verified: true, followerCount: true, lastActiveAt: true,
+          email: true, phone: true,
         },
         orderBy: [{ verified: "desc" }, { followerCount: "desc" }],
       }),
+      prisma.user.count({ where: userWhere }),
     ]);
 
     const companiesWithFollow = await Promise.all(companies.map(async (c) => {
@@ -91,6 +101,20 @@ router.get("/", async (req, res) => {
       return { ...c, isFollowing };
     }));
 
+    const usersWithFollow = await Promise.all(users.map(async (u) => {
+      let isFollowing = false;
+      let isFollowedBy = false;
+      if (currentUserId) {
+        const [iFollow, theyFollow] = await Promise.all([
+          prisma.connection.findUnique({ where: { followerId_followingId: { followerId: currentUserId, followingId: u.id } } }),
+          prisma.connection.findUnique({ where: { followerId_followingId: { followerId: u.id, followingId: currentUserId } } }),
+        ]);
+        isFollowing = !!iFollow;
+        isFollowedBy = !!theyFollow;
+      }
+      return { ...u, isFollowing, isFollowedBy, mutual: isFollowing && isFollowedBy };
+    }));
+
     res.json({
       listings,
       total: listingsTotal,
@@ -99,7 +123,10 @@ router.get("/", async (req, res) => {
       featured: featuredListings,
       trending: trendingListings,
       companies: companiesWithFollow,
-      recommendedUsers: users,
+      users: usersWithFollow,
+      usersTotal,
+      usersPage: parseInt(usersPage),
+      usersTotalPages: Math.ceil(usersTotal / parseInt(usersLimit)),
     });
   } catch (error) {
     console.error("Discover route error:", error);
