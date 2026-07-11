@@ -9,12 +9,13 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const { industry, status, search, franchisor, page = 1, limit = 20 } = req.query;
+    const { industry, status, search, franchisor, ownerId, page = 1, limit = 20 } = req.query;
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
     const where = {};
 
     if (industry) where.industry = industry;
+    if (ownerId) where.ownerId = ownerId;
 
     if (status) {
       where.status = status;

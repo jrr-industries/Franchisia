@@ -248,7 +248,12 @@ model FranchiseListing {
   isRemote         Boolean       @default(false) @map("is_remote")
   images           String[]
   videoUrl         String?       @map("video_url")
-  status           ListingStatus @default(pending)
+  areaRequired     String?       @map("area_required")
+  requirements     String?
+  support          String?
+  training         String?
+  state            String?
+  status           ListingStatus @default(draft)
   isFeatured       Boolean       @default(false) @map("is_featured")
   viewCount        Int           @default(0) @map("view_count")
   applicationCount Int           @default(0) @map("application_count")
@@ -581,10 +586,12 @@ enum AccountStatus {
 }
 
 enum ListingStatus {
+  draft
   active
   pending
   suspended
   inactive
+  closed
 }
 
 enum ApplicationStatus {

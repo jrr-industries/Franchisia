@@ -69,9 +69,30 @@ router.get("/:slug", async (req, res) => {
   }
 });
 
+router.get("/company/:companyId", async (req, res) => {
+  try {
+    const { status } = req.query;
+    const where = { companyId: req.params.companyId };
+    if (status) where.status = status;
+
+    const listings = await prisma.franchiseListing.findMany({
+      where,
+      include: {
+        company: { select: { id: true, name: true, slug: true, logoUrl: true, isVerified: true } },
+        _count: { select: { applications: true, bookmarks: true } },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+    res.json({ listings });
+  } catch (error) {
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.post("/", authenticate, async (req, res) => {
   try {
-    const { companyId, title, slug, description, industry, businessType, investmentMin, investmentMax, roiPercentage, franchiseFee, royaltyFee, breakEvenMonths, location, city, country, isRemote, images, videoUrl } = req.body;
+    const { companyId, title, slug, description, industry, businessType, investmentMin, investmentMax, roiPercentage, franchiseFee, royaltyFee, breakEvenMonths, location, city, country, state, isRemote, images, videoUrl, areaRequired, requirements, support, training } = req.body;
 
     const company = await prisma.company.findUnique({ where: { id: companyId } });
     if (!company) return res.status(404).json({ error: "Company not found" });
@@ -83,7 +104,8 @@ router.post("/", authenticate, async (req, res) => {
       data: {
         companyId, createdBy: req.user.id, title, slug, description, industry,
         businessType, investmentMin, investmentMax, roiPercentage, franchiseFee,
-        royaltyFee, breakEvenMonths, location, city, country, isRemote, images, videoUrl,
+        royaltyFee, breakEvenMonths, location, city, country, state, isRemote,
+        images, videoUrl, areaRequired, requirements, support, training,
       },
     });
 
@@ -112,7 +134,7 @@ router.put("/:id", authenticate, async (req, res) => {
       return res.status(403).json({ error: "Not authorized" });
     }
 
-    const allowedFields = ["title", "description", "industry", "businessType", "investmentMin", "investmentMax", "roiPercentage", "franchiseFee", "royaltyFee", "breakEvenMonths", "location", "city", "country", "isRemote", "images", "videoUrl"];
+    const allowedFields = ["title", "description", "industry", "businessType", "investmentMin", "investmentMax", "roiPercentage", "franchiseFee", "royaltyFee", "breakEvenMonths", "location", "city", "country", "state", "isRemote", "images", "videoUrl", "areaRequired", "requirements", "support", "training"];
     const updates = {};
     for (const key of allowedFields) {
       if (req.body[key] !== undefined) updates[key] = req.body[key];
@@ -122,6 +144,83 @@ router.put("/:id", authenticate, async (req, res) => {
       data: updates,
     });
     res.json(updated);
+  } catch (error) {
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/:id/publish", authenticate, async (req, res) => {
+  try {
+    const listing = await prisma.franchiseListing.findUnique({ where: { id: req.params.id } });
+    if (!listing) return res.status(404).json({ error: "Listing not found" });
+    const company = await prisma.company.findUnique({ where: { id: listing.companyId } });
+    if (company.ownerId !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+    const updated = await prisma.franchiseListing.update({
+      where: { id: req.params.id },
+      data: { status: "active", publishedAt: new Date() },
+    });
+    res.json(updated);
+  } catch (error) {
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/:id/unpublish", authenticate, async (req, res) => {
+  try {
+    const listing = await prisma.franchiseListing.findUnique({ where: { id: req.params.id } });
+    if (!listing) return res.status(404).json({ error: "Listing not found" });
+    const company = await prisma.company.findUnique({ where: { id: listing.companyId } });
+    if (company.ownerId !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+    const updated = await prisma.franchiseListing.update({
+      where: { id: req.params.id },
+      data: { status: "draft" },
+    });
+    res.json(updated);
+  } catch (error) {
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/:id/close", authenticate, async (req, res) => {
+  try {
+    const listing = await prisma.franchiseListing.findUnique({ where: { id: req.params.id } });
+    if (!listing) return res.status(404).json({ error: "Listing not found" });
+    const company = await prisma.company.findUnique({ where: { id: listing.companyId } });
+    if (company.ownerId !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+    const updated = await prisma.franchiseListing.update({
+      where: { id: req.params.id },
+      data: { status: "closed" },
+    });
+    res.json(updated);
+  } catch (error) {
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/:id", authenticate, async (req, res) => {
+  try {
+    const listing = await prisma.franchiseListing.findUnique({ where: { id: req.params.id } });
+    if (!listing) return res.status(404).json({ error: "Listing not found" });
+    const company = await prisma.company.findUnique({ where: { id: listing.companyId } });
+    if (company.ownerId !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+    await prisma.franchiseListing.delete({ where: { id: req.params.id } });
+    await prisma.company.update({
+      where: { id: listing.companyId },
+      data: { listingCount: { decrement: 1 } },
+    });
+    res.json({ success: true });
   } catch (error) {
     console.error("Listings route error:", error);
     res.status(500).json({ error: "Internal server error" });

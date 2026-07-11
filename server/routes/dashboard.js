@@ -37,12 +37,21 @@ router.get("/stats", async (req, res) => {
       select: { id: true },
     });
     const companyIds = userCompanies.map((c) => c.id);
-    const opportunityViews = companyIds.length > 0
-      ? (await prisma.franchiseListing.aggregate({
-          where: { companyId: { in: companyIds } },
-          _sum: { viewCount: true },
-        }))._sum.viewCount || 0
-      : 0;
+
+    const [
+      opportunityViews,
+      totalOpportunities,
+      openOpportunities,
+      closedOpportunities,
+    ] = companyIds.length > 0 ? await Promise.all([
+      prisma.franchiseListing.aggregate({
+        where: { companyId: { in: companyIds } },
+        _sum: { viewCount: true },
+      }).then((r) => r._sum.viewCount || 0),
+      prisma.franchiseListing.count({ where: { companyId: { in: companyIds } } }),
+      prisma.franchiseListing.count({ where: { companyId: { in: companyIds }, status: "active" } }),
+      prisma.franchiseListing.count({ where: { companyId: { in: companyIds }, status: "closed" } }),
+    ]) : [0, 0, 0, 0];
 
     const conversationIds = (
       await prisma.conversationParticipant.findMany({
@@ -71,6 +80,9 @@ router.get("/stats", async (req, res) => {
       notifications,
       companiesFollowing,
       opportunityViews,
+      totalOpportunities,
+      openOpportunities,
+      closedOpportunities,
     });
   } catch (error) {
     console.error("Dashboard stats error:", error);

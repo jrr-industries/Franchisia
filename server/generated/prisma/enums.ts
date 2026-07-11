@@ -45,10 +45,12 @@ export type AccountStatus = (typeof AccountStatus)[keyof typeof AccountStatus]
 
 
 export const ListingStatus = {
+  draft: 'draft',
   active: 'active',
   pending: 'pending',
   suspended: 'suspended',
-  inactive: 'inactive'
+  inactive: 'inactive',
+  closed: 'closed'
 } as const
 
 export type ListingStatus = (typeof ListingStatus)[keyof typeof ListingStatus]

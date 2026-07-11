@@ -30,6 +30,8 @@ import NotificationsPage from "../pages/dashboard/Notifications";
 import Settings from "../pages/dashboard/Settings";
 import Profile from "../pages/dashboard/Profile";
 import CompanyProfile from "../pages/dashboard/CompanyProfile";
+import ListingDetail from "../pages/listing/Detail";
+import SavedListings from "../pages/dashboard/SavedListings";
 
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminUsers from "../pages/admin/AdminUsers";
@@ -91,6 +93,8 @@ export default function AppRoutes() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/company/:id" element={<CompanyProfile />} />
+        <Route path="/listing/:slug" element={<ListingDetail />} />
+        <Route path="/saved-listings" element={<SavedListings />} />
 
         <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>} />

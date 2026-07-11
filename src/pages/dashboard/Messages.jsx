@@ -1,13 +1,17 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   Send, Search as SearchIcon, ArrowLeft, Phone, Video,
   MoreHorizontal, ChevronDown, Loader as Spinner, Inbox,
   User, Clock, CheckCheck, AlertCircle, Trash2, Reply as ReplyIcon,
   SmilePlus, X, Paperclip, Image as ImageIcon, Plus, MessageCircle,
+  Share2, Briefcase, Calendar, Building2, MapPin, Award, Target, Globe, DollarSign,
 } from 'lucide-react';
 import Avatar from '../../components/ui/Avatar';
 import Badge from '../../components/ui/Badge';
 import Button from '../../components/ui/Button';
+import { useConversations } from '../../hooks/useDashboard';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../components/ui/Toast';
 import useSocketStore from '../../store/socketStore';
@@ -55,6 +59,12 @@ function formatDateSeparator(dateString) {
   if (date.toDateString() === now.toDateString()) return 'Today';
   if (date.toDateString() === yesterday.toDateString()) return 'Yesterday';
   return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined });
+}
+
+function formatCurrency(val) {
+  const n = Number(val);
+  if (n >= 1000) return `$${(n / 1000).toFixed(0)}K`;
+  return `$${n.toLocaleString()}`;
 }
 
 function groupMessagesByDate(messages) {
@@ -166,8 +176,22 @@ export default function Messages() {
   const [followLoading, setFollowLoading] = useState({});
 
   const [typingUsers, setTypingUsers] = useState([]);
+  const [convTypingUsers, setConvTypingUsers] = useState({});
   const [reactionPicker, setReactionPicker] = useState(null);
   const [onlineStatuses, setOnlineStatuses] = useState({});
+
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareSearch, setShareSearch] = useState('');
+  const [shareOpportunities, setShareOpportunities] = useState([]);
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [scheduleDate, setScheduleDate] = useState('');
+  const [scheduleTitle, setScheduleTitle] = useState('');
+  const [scheduleDescription, setScheduleDescription] = useState('');
+  const [shareLoading, setShareLoading] = useState(false);
+  const [scheduleLoading, setScheduleLoading] = useState(false);
+
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null);
@@ -388,6 +412,7 @@ export default function Messages() {
     };
 
     const handleTypingStart = ({ conversationId, userId: typingUserId, name }) => {
+      setConvTypingUsers((prev) => ({ ...prev, [conversationId]: { userId: typingUserId, name } }));
       if (conversationId === activeConv && typingUserId !== user?.id) {
         setTypingUsers((prev) => {
           if (prev.find((t) => t.userId === typingUserId)) return prev;
@@ -397,6 +422,15 @@ export default function Messages() {
     };
 
     const handleTypingStop = ({ conversationId, userId: typingUserId }) => {
+      setConvTypingUsers((prev) => {
+        const curr = prev[conversationId];
+        if (curr?.userId === typingUserId) {
+          const updated = { ...prev };
+          delete updated[conversationId];
+          return updated;
+        }
+        return prev;
+      });
       if (conversationId === activeConv) {
         setTypingUsers((prev) => prev.filter((t) => t.userId !== typingUserId));
       }
@@ -713,6 +747,105 @@ export default function Messages() {
     }
   };
 
+  const getCompanyInfo = useCallback(async (userId) => {
+    try {
+      const res = await fetch(`${API}/companies?userId=${userId}`, { credentials: 'include' });
+      if (res.ok) {
+        const data = await res.json();
+        return data.companies?.[0] || null;
+      }
+    } catch {}
+    return null;
+  }, []);
+
+  const [otherCompany, setOtherCompany] = useState(null);
+  const [otherCompanyLoading, setOtherCompanyLoading] = useState(false);
+
+  useEffect(() => {
+    if (!otherParticipant?.id) { setOtherCompany(null); return; }
+    let cancelled = false;
+    setOtherCompanyLoading(true);
+    getCompanyInfo(otherParticipant.id).then((c) => { if (!cancelled) setOtherCompany(c); }).finally(() => { if (!cancelled) setOtherCompanyLoading(false); });
+    return () => { cancelled = true; };
+  }, [otherParticipant?.id, getCompanyInfo]);
+
+  useEffect(() => {
+    if (!showShareModal) { setShareOpportunities([]); setShareSearch(''); return; }
+    let cancelled = false;
+    setShareLoading(true);
+    fetch(`${API}/discover/listings?limit=10`, { credentials: 'include' })
+      .then((r) => r.ok ? r.json() : { listings: [] })
+      .then((data) => { if (!cancelled) setShareOpportunities(data.listings || []); })
+      .catch(() => {})
+      .finally(() => { if (!cancelled) setShareLoading(false); });
+    return () => { cancelled = true; };
+  }, [showShareModal]);
+
+  useEffect(() => {
+    if (!shareSearch.trim() || !showShareModal) return;
+    const timer = setTimeout(() => {
+      fetch(`${API}/discover/listings?search=${encodeURIComponent(shareSearch)}&limit=10`, { credentials: 'include' })
+        .then((r) => r.ok ? r.json() : { listings: [] })
+        .then((data) => setShareOpportunities(data.listings || []))
+        .catch(() => {});
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [shareSearch, showShareModal]);
+
+  const handleShareOpportunity = () => {
+    setShowShareModal(true);
+  };
+
+  const handleConfirmShare = async (opp) => {
+    if (!activeConv || !otherParticipant?.id) return;
+    try {
+      const content = `${opp.title} — ${opp.company?.name || ''} ${window.location.origin}/listing/${opp.slug || opp.id}`;
+      const result = await sendMessage({
+        receiverId: otherParticipant.id,
+        conversationId: activeConv,
+        content,
+        messageType: 'text',
+      });
+      if (result.message) {
+        setMessages((prev) => [...prev, result.message]);
+        addToast('Opportunity shared!', 'success');
+      }
+      setShowShareModal(false);
+    } catch (err) {
+      addToast(err.message || 'Failed to share', 'error');
+    }
+  };
+
+  const handleScheduleMeeting = () => {
+    setShowScheduleModal(true);
+  };
+
+  const handleConfirmSchedule = async () => {
+    if (!scheduleDate || !scheduleTitle.trim() || !activeConv || !otherParticipant?.id) return;
+    setScheduleLoading(true);
+    try {
+      const content = `/meeting:${scheduleTitle.trim()}|${scheduleDate}|${scheduleDescription.trim()}`;
+      const result = await sendMessage({
+        receiverId: otherParticipant.id,
+        conversationId: activeConv,
+        content,
+        messageType: 'text',
+      });
+      if (result.message) {
+        setMessages((prev) => [...prev, result.message]);
+        addToast('Meeting invitation sent!', 'success');
+      }
+      setShowScheduleModal(false);
+      setScheduleTitle('');
+      setScheduleDate('');
+      setScheduleDescription('');
+    } catch (err) {
+      addToast(err.message || 'Failed to schedule meeting', 'error');
+    } finally {
+      setScheduleLoading(false);
+    }
+  };
+
   return (
     <div style={{ display: 'flex', gap: 0, height: 'calc(100vh - 112px)', margin: -24, padding: 0, overflow: 'hidden' }}>
       <div style={{
@@ -1004,11 +1137,11 @@ export default function Messages() {
                           </div>
                         </div>
                         <p style={{
-                          fontSize: 13, color: 'var(--text-secondary)',
+                          fontSize: 13, color: convTypingUsers[c.id] ? 'var(--accent)' : 'var(--text-secondary)',
                           whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: 2,
+                          fontStyle: convTypingUsers[c.id] ? 'italic' : 'normal',
                         }}>
-                          {participant?.id === c.lastMessage?.senderId ? '' : 'You: '}
-                          {lastMsgContent(c)}
+                          {convTypingUsers[c.id] ? `${convTypingUsers[c.id].name} is typing...` : (participant?.id === c.lastMessage?.senderId ? '' : 'You: ') + (convTypingUsers[c.id] ? '' : lastMsgContent(c))}
                         </p>
                       </div>
                     </div>
@@ -1368,17 +1501,39 @@ export default function Messages() {
             </div>
           </>
         ) : (
-          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 12 }}>
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16, padding: 40 }}>
             <Inbox size={48} style={{ color: 'var(--text-muted)' }} />
             <p style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 500 }}>Select a conversation</p>
-            <p style={{ fontSize: 14, color: 'var(--text-muted)' }}>Choose a conversation from the left panel to start messaging</p>
+            <p style={{ fontSize: 14, color: 'var(--text-muted)', textAlign: 'center' }}>Choose a conversation from the left panel to start messaging</p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 12, width: '100%', maxWidth: 400 }}>
+              <div onClick={() => navigate('/discover')} style={{ padding: 16, borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', cursor: 'pointer', textAlign: 'center', transition: 'background 0.15s', backgroundColor: 'var(--surface)' }} onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover)'} onMouseLeave={(e) => e.currentTarget.style.background = 'var(--surface)'}>
+                <Briefcase size={24} style={{ color: 'var(--primary)', marginBottom: 6 }} />
+                <p style={{ fontSize: 13, fontWeight: 600 }}>Browse Opportunities</p>
+                <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>Find franchise investments</p>
+              </div>
+              <div onClick={() => navigate('/companies')} style={{ padding: 16, borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', cursor: 'pointer', textAlign: 'center', transition: 'background 0.15s', backgroundColor: 'var(--surface)' }} onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover)'} onMouseLeave={(e) => e.currentTarget.style.background = 'var(--surface)'}>
+                <Building2 size={24} style={{ color: 'var(--accent)', marginBottom: 6 }} />
+                <p style={{ fontSize: 13, fontWeight: 600 }}>Explore Companies</p>
+                <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>Discover franchisors</p>
+              </div>
+              <div onClick={() => setShowNewChat(true)} style={{ padding: 16, borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', cursor: 'pointer', textAlign: 'center', transition: 'background 0.15s', backgroundColor: 'var(--surface)' }} onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover)'} onMouseLeave={(e) => e.currentTarget.style.background = 'var(--surface)'}>
+                <User size={24} style={{ color: '#EC4899', marginBottom: 6 }} />
+                <p style={{ fontSize: 13, fontWeight: 600 }}>New Message</p>
+                <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>Start a conversation</p>
+              </div>
+              <div onClick={() => navigate('/notifications')} style={{ padding: 16, borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', cursor: 'pointer', textAlign: 'center', transition: 'background 0.15s', backgroundColor: 'var(--surface)' }} onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover)'} onMouseLeave={(e) => e.currentTarget.style.background = 'var(--surface)'}>
+                <Bell size={24} style={{ color: '#F59E0B', marginBottom: 6 }} />
+                <p style={{ fontSize: 13, fontWeight: 600 }}>Notifications</p>
+                <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>View your notifications</p>
+              </div>
+            </div>
           </div>
         )}
       </div>
 
       <div style={{
-        width: 280, borderLeft: '1px solid var(--border)', backgroundColor: 'var(--surface)',
-        padding: 20, flexShrink: 0, overflow: 'auto',
+        width: 300, borderLeft: '1px solid var(--border)', backgroundColor: 'var(--surface)',
+        padding: 20, flexShrink: 0, overflowY: 'auto',
         ...(activeConvData ? {} : { display: 'none' }),
       }}>
         {otherParticipant ? (
@@ -1390,31 +1545,81 @@ export default function Messages() {
               </div>
               <h3 style={{ fontSize: 16, fontWeight: 600 }}>{otherParticipant.name}</h3>
               {otherParticipant.role && (
-                <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 6 }}>{otherParticipant.role}</p>
+                <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 4 }}>{otherParticipant.role}</p>
               )}
-              {otherParticipant.email && <Badge variant="info">{otherParticipant.email}</Badge>}
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 4, flexWrap: 'wrap' }}>
+                {isUserOnline(otherParticipant.id) ? <Badge variant="success">Online</Badge> : <Badge variant="secondary">Offline</Badge>}
+                {otherParticipant.email && <Badge variant="info">{otherParticipant.email}</Badge>}
+              </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+
+            {otherCompany && !otherCompanyLoading ? (
+              <div style={{ marginBottom: 16, padding: 12, borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--background)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+                  {otherCompany.logoUrl ? (
+                    <img src={otherCompany.logoUrl} alt="" style={{ width: 40, height: 40, borderRadius: 8, objectFit: 'cover' }} />
+                  ) : (
+                    <div style={{ width: 40, height: 40, borderRadius: 8, backgroundColor: 'var(--primary-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', fontWeight: 700, fontSize: 16 }}>
+                      {otherCompany.name?.[0] || '?'}
+                    </div>
+                  )}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ fontSize: 14, fontWeight: 600 }}>{otherCompany.name}</span>
+                      {otherCompany.isVerified && <Badge variant="success" style={{ fontSize: 9, padding: '1px 5px' }}>✓</Badge>}
+                    </div>
+                    <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{otherCompany.industry || 'Company'}</p>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, fontSize: 12, color: 'var(--text-muted)', marginBottom: 10 }}>
+                  {otherCompany._count?.followers !== undefined && <span><Heart size={12} style={{ display: 'inline', marginRight: 2 }} />{otherCompany._count.followers} followers</span>}
+                  {otherCompany._count?.listings !== undefined && <span><Briefcase size={12} style={{ display: 'inline', marginRight: 2 }} />{otherCompany._count.listings} listings</span>}
+                  {otherCompany.location && <span><MapPin size={12} style={{ display: 'inline', marginRight: 2 }} />{otherCompany.location}</span>}
+                </div>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <Button size="sm" variant="outline" style={{ flex: 1, padding: '4px 8px', fontSize: 11 }} onClick={() => navigate(`/company/${otherCompany.slug || otherCompany.id}`)}>
+                    <Building2 size={12} /> View Company
+                  </Button>
+                  <Button size="sm" variant="outline" style={{ flex: 1, padding: '4px 8px', fontSize: 11 }} onClick={() => navigate(`/company/${otherCompany.slug || otherCompany.id}?tab=opportunities`)}>
+                    <Target size={12} /> Opportunities
+                  </Button>
+                </div>
+              </div>
+            ) : otherCompanyLoading ? (
+              <div style={{ marginBottom: 16, padding: 12, borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--background)' }}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 8, backgroundColor: 'var(--border)', animation: 'shimmer 1.5s infinite' }} />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ width: '60%', height: 12, backgroundColor: 'var(--border)', borderRadius: 4, marginBottom: 6, animation: 'shimmer 1.5s infinite' }} />
+                    <div style={{ width: '40%', height: 10, backgroundColor: 'var(--border)', borderRadius: 4, animation: 'shimmer 1.5s infinite' }} />
+                  </div>
+                </div>
+              </div>
+            ) : null}
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <div>
-                <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 2 }}>Email</p>
-                <p style={{ fontSize: 14, wordBreak: 'break-all' }}>{otherParticipant.email || '—'}</p>
+                <p style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600, marginBottom: 2 }}>EMAIL</p>
+                <p style={{ fontSize: 13, wordBreak: 'break-all' }}>{otherParticipant.email || '—'}</p>
               </div>
               {otherParticipant.phone && (
                 <div>
-                  <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 2 }}>Phone</p>
-                  <p style={{ fontSize: 14 }}>{otherParticipant.phone}</p>
+                  <p style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600, marginBottom: 2 }}>PHONE</p>
+                  <p style={{ fontSize: 13 }}>{otherParticipant.phone}</p>
                 </div>
               )}
               {otherParticipant.location && (
                 <div>
-                  <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 2 }}>Location</p>
-                  <p style={{ fontSize: 14 }}>{otherParticipant.location}</p>
+                  <p style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600, marginBottom: 2 }}>LOCATION</p>
+                  <p style={{ fontSize: 13 }}>{otherParticipant.location}</p>
                 </div>
               )}
             </div>
             <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 8 }}>
               <Button variant="outline" size="sm" fullWidth icon={<Phone size={14} />}>Call</Button>
               <Button variant="outline" size="sm" fullWidth icon={<Video size={14} />}>Video</Button>
+              <Button variant="primary" size="sm" fullWidth icon={<Share2 size={14} />} onClick={handleShareOpportunity}>Share Opportunity</Button>
+              <Button variant="secondary" size="sm" fullWidth icon={<Calendar size={14} />} onClick={handleScheduleMeeting}>Schedule Meeting</Button>
             </div>
           </>
         ) : activeConvData ? (
@@ -1429,6 +1634,104 @@ export default function Messages() {
           </div>
         )}
       </div>
+
+      {showShareModal && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }} onClick={() => setShowShareModal(false)}>
+          <div style={{ width: 420, maxHeight: '70vh', backgroundColor: 'var(--surface)', borderRadius: 'var(--radius-md)', padding: 24, overflow: 'auto' }} onClick={(e) => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+              <h3 style={{ fontSize: 18, fontWeight: 600 }}>Share an Opportunity</h3>
+              <button onClick={() => setShowShareModal(false)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: 4 }}><X size={20} /></button>
+            </div>
+            <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 16 }}>Send an opportunity link to {otherParticipant?.name}</p>
+            <input
+              placeholder="Search your opportunities..."
+              value={shareSearch}
+              onChange={(e) => setShareSearch(e.target.value)}
+              style={{
+                width: '100%', padding: '10px 14px', fontSize: 13, marginBottom: 12,
+                backgroundColor: 'var(--background)', border: '1px solid var(--border)',
+                borderRadius: 'var(--radius-sm)', color: 'var(--text)', outline: 'none',
+              }}
+            />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {shareLoading ? (
+                <div style={{ padding: 20, textAlign: 'center' }}><Spinner size={18} style={{ animation: 'spin 0.7s linear infinite', color: 'var(--text-muted)' }} /></div>
+              ) : shareOpportunities.length === 0 ? (
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', textAlign: 'center', padding: 20 }}>No opportunities found</p>
+              ) : shareOpportunities.map((opp) => (
+                <div key={opp.id} onClick={() => handleConfirmShare(opp)} style={{ display: 'flex', gap: 12, padding: 12, borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)', cursor: 'pointer', transition: 'background 0.15s' }} onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover)'} onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
+                  <div style={{ width: 36, height: 36, borderRadius: 8, backgroundColor: '#FEF3C7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#D97706', flexShrink: 0 }}>
+                    <Target size={18} />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ fontSize: 13, fontWeight: 600 }}>{opp.title}</p>
+                    <p style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{opp.company?.name}</p>
+                    {opp.investmentMin && <p style={{ fontSize: 11, color: 'var(--text-muted)' }}><DollarSign size={10} style={{ display: 'inline' }} /> {formatCurrency(opp.investmentMin)} - {formatCurrency(opp.investmentMax)}</p>}
+                  </div>
+                  <div style={{ fontSize: 11, color: 'var(--primary)', fontWeight: 600, alignSelf: 'center' }}>Share →</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showScheduleModal && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }} onClick={() => setShowScheduleModal(false)}>
+          <div style={{ width: 420, backgroundColor: 'var(--surface)', borderRadius: 'var(--radius-md)', padding: 24 }} onClick={(e) => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+              <h3 style={{ fontSize: 18, fontWeight: 600 }}>Schedule a Meeting</h3>
+              <button onClick={() => setShowScheduleModal(false)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: 4 }}><X size={20} /></button>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Meeting Title</label>
+                <input
+                  placeholder="e.g. Discuss franchise opportunity"
+                  value={scheduleTitle}
+                  onChange={(e) => setScheduleTitle(e.target.value)}
+                  style={{
+                    width: '100%', padding: '10px 14px', fontSize: 13,
+                    backgroundColor: 'var(--background)', border: '1px solid var(--border)',
+                    borderRadius: 'var(--radius-sm)', color: 'var(--text)', outline: 'none',
+                  }}
+                />
+              </div>
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Date & Time</label>
+                <input
+                  type="datetime-local"
+                  value={scheduleDate}
+                  onChange={(e) => setScheduleDate(e.target.value)}
+                  style={{
+                    width: '100%', padding: '10px 14px', fontSize: 13,
+                    backgroundColor: 'var(--background)', border: '1px solid var(--border)',
+                    borderRadius: 'var(--radius-sm)', color: 'var(--text)', outline: 'none',
+                  }}
+                />
+              </div>
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Description (optional)</label>
+                <textarea
+                  placeholder="Meeting agenda, notes..."
+                  value={scheduleDescription}
+                  onChange={(e) => setScheduleDescription(e.target.value)}
+                  rows={3}
+                  style={{
+                    width: '100%', padding: '10px 14px', fontSize: 13, resize: 'vertical',
+                    backgroundColor: 'var(--background)', border: '1px solid var(--border)',
+                    borderRadius: 'var(--radius-sm)', color: 'var(--text)', outline: 'none',
+                    fontFamily: 'inherit',
+                  }}
+                />
+              </div>
+              <Button variant="primary" fullWidth onClick={handleConfirmSchedule} disabled={scheduleLoading || !scheduleTitle.trim() || !scheduleDate}>
+                {scheduleLoading ? 'Sending...' : 'Send Invitation'}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

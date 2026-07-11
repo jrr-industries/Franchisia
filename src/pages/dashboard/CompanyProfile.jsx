@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   MapPin, Globe, MessageSquare, UserPlus, ExternalLink, Star,
   Briefcase, Users, TrendingUp, Calendar, CheckCircle, Phone,
   Mail, Clock, DollarSign, ChevronRight, Heart, Share2, Check,
-  Building2, Award, Target
+  Building2, Award, Target, Plus, Edit3, Trash2, Send, Eye,
 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
@@ -15,6 +15,7 @@ import Tabs from '../../components/ui/Tabs';
 import Modal from '../../components/ui/Modal';
 import VerifiedBadge from '../../components/ui/VerifiedBadge';
 import Pagination from '../../components/ui/Pagination';
+import Select from '../../components/ui/Select';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../components/ui/Toast';
 
@@ -123,7 +124,15 @@ function formatDate(year) {
   return String(year);
 }
 
+function formatCurrency(val) {
+  if (!val && val !== 0) return '';
+  const n = Number(val);
+  if (n >= 1000) return `$${(n / 1000).toFixed(0)}K`;
+  return `$${n.toLocaleString()}`;
+}
+
 export default function CompanyProfile() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { user: currentUser } = useAuth();
   const { addToast } = useToast();
@@ -148,6 +157,152 @@ export default function CompanyProfile() {
   const [newReviewTitle, setNewReviewTitle] = useState('');
   const [newReviewContent, setNewReviewContent] = useState('');
   const [reviewSubmitting, setReviewSubmitting] = useState(false);
+
+  const [opportunities, setOpportunities] = useState([]);
+  const [opportunityModal, setOpportunityModal] = useState(null);
+  const [oppForm, setOppForm] = useState({ title: '', description: '', industry: '', investmentMin: '', investmentMax: '', franchiseFee: '', royaltyFee: '', roiPercentage: '', breakEvenMonths: '', location: '', city: '', country: '', state: '', areaRequired: '', requirements: '', support: '', training: '', businessType: '' });
+  const [oppSubmitting, setOppSubmitting] = useState(false);
+  const [oppStatusTab, setOppStatusTab] = useState('active');
+
+  const fetchOpportunities = useCallback(async (companyId) => {
+    if (!companyId) return;
+    try {
+      const res = await fetch(`${API}/listings/company/${companyId}`, { credentials: 'include' });
+      if (res.ok) {
+        const d = await res.json();
+        setOpportunities(d.listings || []);
+      }
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    if (company?.id) fetchOpportunities(company.id);
+  }, [company?.id, fetchOpportunities]);
+
+  const openCreateOpp = () => {
+    setOppForm({ title: '', description: '', industry: company?.industry || '', investmentMin: '', investmentMax: '', franchiseFee: '', royaltyFee: '', roiPercentage: '', breakEvenMonths: '', location: '', city: '', country: '', state: '', areaRequired: '', requirements: '', support: '', training: '', businessType: '' });
+    setOpportunityModal('create');
+  };
+
+  const openEditOpp = (opp) => {
+    setOppForm({
+      title: opp.title || '',
+      description: opp.description || '',
+      industry: opp.industry || '',
+      investmentMin: opp.investmentMin?.toString() || '',
+      investmentMax: opp.investmentMax?.toString() || '',
+      franchiseFee: opp.franchiseFee?.toString() || '',
+      royaltyFee: opp.royaltyFee || '',
+      roiPercentage: opp.roiPercentage?.toString() || '',
+      breakEvenMonths: opp.breakEvenMonths?.toString() || '',
+      location: opp.location || '',
+      city: opp.city || '',
+      country: opp.country || '',
+      state: opp.state || '',
+      areaRequired: opp.areaRequired || '',
+      requirements: opp.requirements || '',
+      support: opp.support || '',
+      training: opp.training || '',
+      businessType: opp.businessType || '',
+    });
+    setOpportunityModal('edit-' + opp.id);
+  };
+
+  const handleOppFormChange = (key, value) => {
+    setOppForm((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSaveOpp = async () => {
+    if (!oppForm.title.trim() || !oppForm.industry.trim()) {
+      addToast('Title and industry are required', 'error');
+      return;
+    }
+    setOppSubmitting(true);
+    try {
+      const isEdit = opportunityModal && opportunityModal !== 'create';
+      const url = isEdit
+        ? `${API}/listings/${opportunityModal.replace('edit-', '')}`
+        : `${API}/listings`;
+      const method = isEdit ? 'PUT' : 'POST';
+
+      const body = {
+        companyId: company.id,
+        title: oppForm.title.trim(),
+        slug: isEdit ? undefined : oppForm.title.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+        description: oppForm.description.trim() || undefined,
+        industry: oppForm.industry.trim(),
+        businessType: oppForm.businessType.trim() || undefined,
+        investmentMin: oppForm.investmentMin ? parseFloat(oppForm.investmentMin) : undefined,
+        investmentMax: oppForm.investmentMax ? parseFloat(oppForm.investmentMax) : undefined,
+        franchiseFee: oppForm.franchiseFee ? parseFloat(oppForm.franchiseFee) : undefined,
+        royaltyFee: oppForm.royaltyFee || undefined,
+        roiPercentage: oppForm.roiPercentage ? parseFloat(oppForm.roiPercentage) : undefined,
+        breakEvenMonths: oppForm.breakEvenMonths ? parseInt(oppForm.breakEvenMonths) : undefined,
+        location: oppForm.location || undefined,
+        city: oppForm.city || undefined,
+        country: oppForm.country || undefined,
+        state: oppForm.state || undefined,
+        areaRequired: oppForm.areaRequired || undefined,
+        requirements: oppForm.requirements || undefined,
+        support: oppForm.support || undefined,
+        training: oppForm.training || undefined,
+      };
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(body),
+      });
+
+      if (res.ok) {
+        addToast(`Opportunity ${isEdit ? 'updated' : 'created'}!`, 'success');
+        setOpportunityModal(null);
+        fetchOpportunities(company.id);
+        fetchCompany();
+      } else {
+        const err = await res.json();
+        addToast(err.error || 'Failed to save', 'error');
+      }
+    } catch {
+      addToast('Network error', 'error');
+    } finally {
+      setOppSubmitting(false);
+    }
+  };
+
+  const handlePublishOpp = async (id) => {
+    try {
+      const res = await fetch(`${API}/listings/${id}/publish`, { method: 'PUT', credentials: 'include' });
+      if (res.ok) { addToast('Opportunity published!', 'success'); fetchOpportunities(company.id); }
+      else { const err = await res.json(); addToast(err.error || 'Failed', 'error'); }
+    } catch { addToast('Network error', 'error'); }
+  };
+
+  const handleUnpublishOpp = async (id) => {
+    try {
+      const res = await fetch(`${API}/listings/${id}/unpublish`, { method: 'PUT', credentials: 'include' });
+      if (res.ok) { addToast('Opportunity unpublished', 'success'); fetchOpportunities(company.id); }
+      else { const err = await res.json(); addToast(err.error || 'Failed', 'error'); }
+    } catch { addToast('Network error', 'error'); }
+  };
+
+  const handleCloseOpp = async (id) => {
+    try {
+      const res = await fetch(`${API}/listings/${id}/close`, { method: 'PUT', credentials: 'include' });
+      if (res.ok) { addToast('Opportunity closed', 'success'); fetchOpportunities(company.id); }
+      else { const err = await res.json(); addToast(err.error || 'Failed', 'error'); }
+    } catch { addToast('Network error', 'error'); }
+  };
+
+  const handleDeleteOpp = async (id) => {
+    if (!confirm('Delete this opportunity?')) return;
+    try {
+      const res = await fetch(`${API}/listings/${id}`, { method: 'DELETE', credentials: 'include' });
+      if (res.ok) { addToast('Opportunity deleted', 'success'); fetchOpportunities(company.id); fetchCompany(); }
+      else { const err = await res.json(); addToast(err.error || 'Failed', 'error'); }
+    } catch { addToast('Network error', 'error'); }
+  };
 
   const fetchCompany = useCallback(async () => {
     if (!id) return;
@@ -327,9 +482,15 @@ export default function CompanyProfile() {
 
   const c = company;
   const followerCount = followStatus?.followerCount ?? c._count?.followers ?? c.followerCount ?? 0;
-  const listingCount = c._count?.listings ?? c.listings?.length ?? c.listingCount ?? 0;
-  const listings = c.listings || [];
+  const listingCount = c._count?.listings ?? c.listingCount ?? 0;
   const isOwnCompany = currentUser && (c.ownerId === currentUser.id);
+
+  const oppStatuses = ['draft', 'active', 'closed'];
+  const oppLabels = { draft: 'Draft', active: 'Open', closed: 'Closed' };
+  const oppColors = { draft: '#6B7280', active: '#10B981', closed: '#DC2626' };
+  const filteredOpps = opportunities.filter((o) => oppStatusTab === 'all' || o.status === oppStatusTab);
+  const oppCounts = { draft: 0, active: 0, closed: 0, all: opportunities.length };
+  opportunities.forEach((o) => { if (oppCounts[o.status] !== undefined) oppCounts[o.status]++; });
 
   const aboutContent = (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
@@ -359,7 +520,7 @@ export default function CompanyProfile() {
           )}
           <Card padding="20px" style={s.statCard}>
             <Target size={24} color="#10B981" />
-            <div style={{ fontSize: 20, fontWeight: 700, marginTop: 8 }}>{formatCount(c._count?.listings ?? c.listings?.length ?? 0)}</div>
+            <div style={{ fontSize: 20, fontWeight: 700, marginTop: 8 }}>{formatCount(c._count?.listings ?? 0)}</div>
             <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Opportunities</div>
           </Card>
         </div>
@@ -369,31 +530,154 @@ export default function CompanyProfile() {
 
   const opportunitiesContent = (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-      <h3 style={s.sectionTitle}>Available Opportunities</h3>
-      {listings.length > 0 ? (
-        listings.map((opp, i) => (
-          <div key={opp.id || i} style={s.oppCard}>
-            <div style={s.oppInfo}>
-              <div style={s.oppName}>{opp.name || opp.title}</div>
-              <div style={s.oppMeta}>
-                {opp.investmentRange && (
-                  <span><DollarSign size={14} style={{ verticalAlign: 'middle' }} /> {opp.investmentRange}</span>
-                )}
-                {(opp.location || opp.city) && (
-                  <span><MapPin size={14} style={{ verticalAlign: 'middle' }} /> {opp.location || opp.city}</span>
-                )}
-                {opp.type && <Badge variant="info">{opp.type}</Badge>}
-                {opp.industry && <Badge variant="info">{opp.industry}</Badge>}
-              </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <h3 style={s.sectionTitle}>Opportunities</h3>
+        {isOwnCompany && (
+          <Button variant="primary" size="sm" icon={<Plus size={14} />} onClick={openCreateOpp}>
+            Create Opportunity
+          </Button>
+        )}
+      </div>
+
+      <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
+        {['all', ...oppStatuses].map((st) => (
+          <button
+            key={st}
+            onClick={() => setOppStatusTab(st)}
+            style={{
+              padding: '5px 14px', fontSize: 13, fontWeight: 500, borderRadius: 100,
+              border: '1px solid', cursor: 'pointer', transition: 'all 0.15s',
+              borderColor: oppStatusTab === st ? 'var(--primary)' : 'var(--border)',
+              backgroundColor: oppStatusTab === st ? 'var(--primary-light)' : 'transparent',
+              color: oppStatusTab === st ? 'var(--primary)' : 'var(--text-secondary)',
+            }}
+          >
+            {st === 'all' ? 'All' : oppLabels[st] || st} ({oppCounts[st] || 0})
+          </button>
+        ))}
+      </div>
+
+      {filteredOpps.length > 0 ? filteredOpps.map((opp) => (
+        <div key={opp.id} style={s.oppCard}>
+          <div style={s.oppInfo}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+              <div style={s.oppName}>{opp.title}</div>
+              <Badge variant={opp.status === 'active' ? 'success' : opp.status === 'draft' ? 'default' : 'secondary'}
+                style={{ fontSize: 10, padding: '1px 8px' }}>
+                {oppLabels[opp.status] || opp.status}
+              </Badge>
             </div>
-            <Link to="/discover">
-              <Button variant="primary" size="sm">Apply</Button>
-            </Link>
+            <div style={s.oppMeta}>
+              {(opp.investmentMin || opp.investmentMax) && (
+                <span><DollarSign size={14} style={{ verticalAlign: 'middle' }} /> {formatCurrency(opp.investmentMin)}-{formatCurrency(opp.investmentMax)}</span>
+              )}
+              {(opp.location || opp.city) && (
+                <span><MapPin size={14} style={{ verticalAlign: 'middle' }} /> {opp.location || opp.city}</span>
+              )}
+              {opp.roiPercentage && <span><TrendingUp size={14} style={{ verticalAlign: 'middle' }} /> {opp.roiPercentage}% ROI</span>}
+              {opp.franchiseFee && <span>Fee: ${Number(opp.franchiseFee).toLocaleString()}</span>}
+            </div>
           </div>
-        ))
-      ) : (
-        <p style={{ fontSize: 14, color: 'var(--text-muted)' }}>No opportunities available at this time.</p>
+          <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+            {isOwnCompany ? (
+              <>
+                {opp.status === 'draft' && (
+                  <Button size="sm" variant="primary" onClick={() => handlePublishOpp(opp.id)} style={{ padding: '2px 8px', fontSize: 11 }}>
+                    <Send size={12} /> Publish
+                  </Button>
+                )}
+                {opp.status === 'active' && (
+                  <>
+                    <Button size="sm" variant="ghost" onClick={() => handleUnpublishOpp(opp.id)} style={{ padding: '2px 8px', fontSize: 11 }}>
+                      Unpublish
+                    </Button>
+                    <Button size="sm" variant="ghost" onClick={() => handleCloseOpp(opp.id)} style={{ padding: '2px 8px', fontSize: 11, color: '#DC2626' }}>
+                      Close
+                    </Button>
+                  </>
+                )}
+                {opp.status === 'closed' && (
+                  <Button size="sm" variant="ghost" onClick={() => handlePublishOpp(opp.id)} style={{ padding: '2px 8px', fontSize: 11 }}>
+                    Reopen
+                  </Button>
+                )}
+                <Button size="sm" variant="ghost" onClick={() => openEditOpp(opp)} style={{ padding: '2px 8px', fontSize: 11 }}>
+                  <Edit3 size={12} /> Edit
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => handleDeleteOpp(opp.id)} style={{ padding: '2px 8px', fontSize: 11, color: 'var(--danger)' }}>
+                  <Trash2 size={12} />
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => navigate(`/listing/${opp.slug || opp.id}`)} style={{ padding: '2px 8px', fontSize: 11 }}>
+                  <Eye size={12} />
+                </Button>
+              </>
+            ) : opp.status === 'active' ? (
+              <>
+                <Button size="sm" variant="primary" onClick={() => navigate(`/listing/${opp.slug || opp.id}`)} style={{ padding: '2px 8px', fontSize: 11 }}>
+                  Apply
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => {
+                  fetch(`${API}/bookmarks`, { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ listingId: opp.id }) })
+                    .then((r) => r.ok ? addToast('Saved!', 'success') : null);
+                }} style={{ padding: '2px 8px', fontSize: 11 }}>
+                  <Heart size={12} /> Save
+                </Button>
+              </>
+            ) : null}
+          </div>
+        </div>
+      )) : (
+        <p style={{ fontSize: 14, color: 'var(--text-muted)' }}>No opportunities {oppStatusTab !== 'all' ? oppLabels[oppStatusTab]?.toLowerCase() : ''}.</p>
       )}
+
+      <Modal isOpen={!!opportunityModal} onClose={() => setOpportunityModal(null)}
+        title={opportunityModal === 'create' ? 'Create Opportunity' : 'Edit Opportunity'}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxHeight: 500, overflowY: 'auto' }}>
+          {['title', 'description', 'industry', 'businessType'].map((f) => (
+            <div key={f}>
+              <label style={{ fontSize: 12, fontWeight: 500, display: 'block', marginBottom: 4 }}>{f.charAt(0).toUpperCase() + f.slice(1)}</label>
+              {f === 'description' ? (
+                <textarea value={oppForm[f]} onChange={(e) => handleOppFormChange(f, e.target.value)}
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: 6, border: '1px solid var(--border)', backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 13, outline: 'none', fontFamily: 'inherit', resize: 'vertical', minHeight: 60, boxSizing: 'border-box' }} />
+              ) : (
+                <input value={oppForm[f]} onChange={(e) => handleOppFormChange(f, e.target.value)}
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: 6, border: '1px solid var(--border)', backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+              )}
+            </div>
+          ))}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            {[['investmentMin', 'Min Investment ($)'], ['investmentMax', 'Max Investment ($)'], ['franchiseFee', 'Franchise Fee ($)'], ['royaltyFee', 'Royalty Fee (%)'], ['roiPercentage', 'ROI (%)'], ['breakEvenMonths', 'Break-Even (months)']].map(([key, label]) => (
+              <div key={key}>
+                <label style={{ fontSize: 12, fontWeight: 500, display: 'block', marginBottom: 4 }}>{label}</label>
+                <input type="number" value={oppForm[key]} onChange={(e) => handleOppFormChange(key, e.target.value)}
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: 6, border: '1px solid var(--border)', backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+            {[['location', 'Location'], ['city', 'City'], ['country', 'Country'], ['state', 'State'], ['areaRequired', 'Area Required']].map(([key, label]) => (
+              <div key={key}>
+                <label style={{ fontSize: 12, fontWeight: 500, display: 'block', marginBottom: 4 }}>{label}</label>
+                <input value={oppForm[key]} onChange={(e) => handleOppFormChange(key, e.target.value)}
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: 6, border: '1px solid var(--border)', backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+              </div>
+            ))}
+          </div>
+          {['requirements', 'support', 'training'].map((f) => (
+            <div key={f}>
+              <label style={{ fontSize: 12, fontWeight: 500, display: 'block', marginBottom: 4 }}>{f.charAt(0).toUpperCase() + f.slice(1)}</label>
+              <textarea value={oppForm[f]} onChange={(e) => handleOppFormChange(f, e.target.value)}
+                style={{ width: '100%', padding: '8px 12px', borderRadius: 6, border: '1px solid var(--border)', backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 13, outline: 'none', fontFamily: 'inherit', resize: 'vertical', minHeight: 50, boxSizing: 'border-box' }} />
+            </div>
+          ))}
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', paddingTop: 8 }}>
+            <Button variant="secondary" size="sm" onClick={() => setOpportunityModal(null)}>Cancel</Button>
+            <Button variant="primary" size="sm" onClick={handleSaveOpp} disabled={oppSubmitting}>
+              {oppSubmitting ? 'Saving...' : 'Save'}
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </motion.div>
   );
 
@@ -598,7 +882,7 @@ export default function CompanyProfile() {
               </motion.div>
             </>
           )}
-          {!isOwnCompany && listings.length > 0 && (
+          {!isOwnCompany && opportunities.filter((o) => o.status === 'active').length > 0 && (
             <Link to="/discover">
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Button variant="accent" size="sm" icon={<ExternalLink size={16} />}>Apply</Button>

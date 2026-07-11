@@ -1,8 +1,9 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import useSocketStore from "../../store/socketStore";
 import { getSocket } from "../../lib/socket";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Eye, Users, Briefcase, MessageSquare, TrendingUp, Calendar,
   ArrowRight, Clock, Bell, ChevronRight, Star, Bookmark,
@@ -14,6 +15,12 @@ import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
 import Avatar from "../../components/ui/Avatar";
 import Badge from "../../components/ui/Badge";
+import {
+  useStats, useAnalytics, useActivities, useMeetings,
+  useNotifications, useRecommendedCompanies, useRecommendedOpportunities,
+  usePeopleYouMayKnow, useRecentMessages, useSavedListings, useTasks,
+  useMarkNotificationRead, useMarkAllNotificationsRead, useDashboardPrefetch,
+} from "../../hooks/useDashboard";
 
 const statConfig = [
   { key: "profileViews", label: "Profile Views", icon: Eye, color: "#8B5CF6", bg: "#EDE9FE", suffix: "total" },
@@ -27,85 +34,121 @@ const statConfig = [
   { key: "opportunityViews", label: "Opportunity Views", icon: TrendingUp, color: "#F97316", bg: "#FFEDD5", suffix: "views" },
 ];
 
+function SkeletonBar({ width = "60%", height = 14, style }) {
+  return (
+    <div style={{ width, height, borderRadius: 6, backgroundColor: "var(--border)", animation: "shimmer 1.5s infinite", ...style }} />
+  );
+}
+
+function StatSkeleton() {
+  return (
+    <Card hover={false} padding="14px">
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ width: 38, height: 38, borderRadius: 10, backgroundColor: "var(--border)", animation: "shimmer 1.5s infinite" }} />
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <SkeletonBar width="70%" height={11} style={{ marginBottom: 6 }} />
+          <SkeletonBar width="40%" height={20} />
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+function ActivitySkeleton() {
+  return (
+    <div style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
+      <div style={{ width: 32, height: 32, borderRadius: 8, backgroundColor: "var(--border)", animation: "shimmer 1.5s infinite", flexShrink: 0 }} />
+      <div style={{ flex: 1 }}>
+        <SkeletonBar width="80%" height={13} style={{ marginBottom: 4 }} />
+        <SkeletonBar width="30%" height={11} />
+      </div>
+    </div>
+  );
+}
+
+function ListItemSkeleton({ avatar = true }) {
+  return (
+    <div style={{ display: "flex", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
+      {avatar && <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "var(--border)", animation: "shimmer 1.5s infinite", flexShrink: 0 }} />}
+      <div style={{ flex: 1 }}>
+        <SkeletonBar width="50%" height={13} style={{ marginBottom: 6 }} />
+        <SkeletonBar width="70%" height={11} style={{ marginBottom: 4 }} />
+        <SkeletonBar width="30%" height={11} />
+      </div>
+    </div>
+  );
+}
+
+function AnalyticsChartLazy({ children }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } }, { rootMargin: "200px" });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return <div ref={ref}>{visible ? children : <div style={{ height: 260, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)", fontSize: 13 }}>Scroll to load analytics...</div>}</div>;
+}
+
 export default function DashboardHome() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const isConnected = useSocketStore((s) => s.isConnected);
+  const queryClient = useQueryClient();
+  const prefetchDashboard = useDashboardPrefetch();
 
-  const [stats, setStats] = useState(null);
-  const [analytics, setAnalytics] = useState({ period: "monthly", data: [] });
-  const [activities, setActivities] = useState([]);
-  const [meetings, setMeetings] = useState([]);
-  const [notifications, setNotifications] = useState([]);
-  const [notifUnread, setNotifUnread] = useState(0);
-  const [recommendedCompanies, setRecommendedCompanies] = useState([]);
-  const [opportunities, setOpportunities] = useState([]);
-  const [people, setPeople] = useState([]);
-  const [recentMessages, setRecentMessages] = useState([]);
-  const [savedListings, setSavedListings] = useState([]);
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: stats, isLoading: statsLoading } = useStats();
+  const { data: analyticsData, isLoading: analyticsLoading } = useAnalytics();
+  const { data: activities = [] } = useActivities();
+  const { data: meetings = [] } = useMeetings();
+  const { data: notifData } = useNotifications();
+  const { data: recommendedCompanies = [] } = useRecommendedCompanies();
+  const { data: opportunities = [] } = useRecommendedOpportunities();
+  const { data: people = [] } = usePeopleYouMayKnow();
+  const { data: recentMessages = [] } = useRecentMessages();
+  const { data: savedListings } = useSavedListings();
+  const { data: tasks = [] } = useTasks();
 
-  const fetchAll = useCallback(async () => {
-    try {
-      const [statsRes, analyticsRes, activityRes, meetingsRes, notifRes, companiesRes, oppsRes, peopleRes, messagesRes, savedRes, tasksRes] = await Promise.all([
-        fetch("/api/dashboard/stats", { credentials: "include" }),
-        fetch("/api/dashboard/analytics?period=monthly", { credentials: "include" }),
-        fetch("/api/dashboard/activity", { credentials: "include" }),
-        fetch("/api/dashboard/meetings?limit=5", { credentials: "include" }),
-        fetch("/api/notifications?limit=5", { credentials: "include" }),
-        fetch("/api/dashboard/recommended-companies", { credentials: "include" }),
-        fetch("/api/dashboard/recommended-opportunities", { credentials: "include" }),
-        fetch("/api/dashboard/people-you-may-know", { credentials: "include" }),
-        fetch("/api/dashboard/recent-messages", { credentials: "include" }),
-        fetch("/api/dashboard/saved-listings?limit=3", { credentials: "include" }),
-        fetch("/api/dashboard/tasks", { credentials: "include" }),
-      ]);
+  const markRead = useMarkNotificationRead();
+  const markAllRead = useMarkAllNotificationsRead();
 
-      if (statsRes.ok) setStats(await statsRes.json());
-      if (analyticsRes.ok) setAnalytics(await analyticsRes.json());
-      if (activityRes.ok) { const d = await activityRes.json(); setActivities(d.activities || []); }
-      if (meetingsRes.ok) { const d = await meetingsRes.json(); setMeetings(d.meetings || []); }
-      if (notifRes.ok) { const d = await notifRes.json(); setNotifications(d.notifications || []); setNotifUnread(d.unreadCount || 0); }
-      if (companiesRes.ok) { const d = await companiesRes.json(); setRecommendedCompanies(d.companies || []); }
-      if (oppsRes.ok) { const d = await oppsRes.json(); setOpportunities(d.opportunities || []); }
-      if (peopleRes.ok) { const d = await peopleRes.json(); setPeople(d.users || []); }
-      if (messagesRes.ok) { const d = await messagesRes.json(); setRecentMessages(d.conversations || []); }
-      if (savedRes.ok) setSavedListings(await savedRes.json());
-      if (tasksRes.ok) { const d = await tasksRes.json(); setTasks(d.tasks || []); }
-    } catch (err) {
-      console.error("Dashboard fetch error:", err);
-    }
-    setLoading(false);
+  const [creatingCompany, setCreatingCompany] = useState(false);
+  const [analyticsPeriod, setAnalyticsPeriod] = useState("monthly");
+
+  const { data: analytics } = useAnalytics(analyticsPeriod);
+  const analyticsLoadingPeriod = useAnalytics(analyticsPeriod).isLoading;
+
+  useEffect(() => {
+    prefetchDashboard();
   }, []);
-
-  useEffect(() => { fetchAll(); }, [fetchAll]);
 
   useEffect(() => {
     if (!isConnected) return;
     const socket = getSocket();
     if (!socket) return;
 
-    const refresh = () => fetchAll();
+    const invalidate = (...keys) => queryClient.invalidateQueries({ queryKey: keys });
 
-    socket.on("new-message", refresh);
-    socket.on("notification", refresh);
-    socket.on("company-created", refresh);
-    socket.on("company-updated", refresh);
-    socket.on("company-verified", refresh);
-    socket.on("connection-updated", refresh);
-    socket.on("stats-updated", refresh);
+    socket.on("new-message", () => invalidate("dashboard", "recent-messages"));
+    socket.on("notification", () => invalidate("dashboard", "notifications"));
+    socket.on("company-created", () => { invalidate("dashboard", "recommended-companies"); invalidate("dashboard", "stats"); });
+    socket.on("company-updated", () => invalidate("dashboard", "recommended-companies"));
+    socket.on("company-verified", () => invalidate("dashboard", "recommended-companies"));
+    socket.on("connection-updated", () => { invalidate("dashboard", "stats"); invalidate("dashboard", "people"); });
+    socket.on("stats-updated", () => invalidate("dashboard", "stats"));
+    socket.on("listing-updated", () => invalidate("dashboard", "recommended-opportunities"));
+    socket.on("listing-created", () => invalidate("dashboard", "recommended-opportunities"));
+    socket.on("listing-deleted", () => invalidate("dashboard", "recommended-opportunities"));
+    socket.on("bookmark-updated", () => invalidate("dashboard", "saved-listings"));
+    socket.on("application-updated", () => { invalidate("dashboard", "stats"); invalidate("dashboard", "activity"); });
+    socket.on("dashboard-refresh", () => queryClient.invalidateQueries({ queryKey: ["dashboard"] }));
 
-    return () => {
-      socket.off("new-message", refresh);
-      socket.off("notification", refresh);
-      socket.off("company-created", refresh);
-      socket.off("company-updated", refresh);
-      socket.off("company-verified", refresh);
-      socket.off("connection-updated", refresh);
-      socket.off("stats-updated", refresh);
-    };
-  }, [isConnected, fetchAll]);
+    return () => { socket.off("new-message"); socket.off("notification"); socket.off("company-created"); socket.off("company-updated"); socket.off("company-verified"); socket.off("connection-updated"); socket.off("stats-updated"); socket.off("listing-updated"); socket.off("listing-created"); socket.off("listing-deleted"); socket.off("bookmark-updated"); socket.off("application-updated"); socket.off("dashboard-refresh"); };
+  }, [isConnected, queryClient]);
 
   const needsOnboarding = user && !["verified", "pending_admin_review"].includes(user.accountStatus);
   const statusBanners = {
@@ -115,8 +158,6 @@ export default function DashboardHome() {
     rejected: { icon: Clock, msg: "Your verification was rejected. Contact support.", to: "/account-status", color: "#DC2626", bg: "#FEE2E2" },
     need_more_information: { icon: Clock, msg: "Additional information required for verification", to: "/account-status", color: "#F59E0B", bg: "#FEF3C7" },
   };
-
-  const [creatingCompany, setCreatingCompany] = useState(false);
 
   const handleCreateCompany = async () => {
     setCreatingCompany(true);
@@ -160,58 +201,35 @@ export default function DashboardHome() {
 
   const handleFollowCompany = async (companyId) => {
     try {
-      const res = await fetch(`/api/follow/company/${companyId}`, { method: "POST", credentials: "include" });
-      if (res.ok) {
-        const data = await res.json();
-        setRecommendedCompanies((prev) => prev.map((c) => c.id === companyId ? { ...c, isFollowing: data.following } : c));
-      }
+      await fetch(`/api/follow/company/${companyId}`, { method: "POST", credentials: "include" });
+      queryClient.invalidateQueries({ queryKey: ["dashboard", "recommended-companies"] });
     } catch {}
   };
 
   const handleToggleBookmark = async (listingId) => {
     try {
-      const res = await fetch("/api/bookmarks", { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ listingId }) });
-      if (res.ok) fetchAll();
+      await fetch("/api/bookmarks", { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ listingId }) });
+      queryClient.invalidateQueries({ queryKey: ["dashboard", "saved-listings"] });
     } catch {}
   };
 
   const handleRemoveSaved = async (id) => {
     try {
-      await fetch(`/api/dashboard/saved-listings/${id}`, { method: "DELETE", credentials: "include" });
-      setSavedListings((prev) => ({ ...prev, bookmarks: prev.bookmarks?.filter((b) => b.id !== id) }));
+      await fetch(`/api/bookmarks/${id}`, { method: "DELETE", credentials: "include" });
+      queryClient.invalidateQueries({ queryKey: ["dashboard", "saved-listings"] });
     } catch {}
   };
 
   const handleMeetingRespond = async (meetingId, action) => {
     try {
       await fetch(`/api/dashboard/meetings/${meetingId}/respond`, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action }) });
-      fetchAll();
+      queryClient.invalidateQueries({ queryKey: ["dashboard", "meetings"] });
     } catch {}
-  };
-
-  const handleMarkNotifRead = async (id) => {
-    await fetch(`/api/notifications/${id}/read`, { method: "PATCH", credentials: "include" });
-    setNotifications((prev) => prev.map((n) => n.id === id ? { ...n, isRead: true } : n));
-    setNotifUnread((prev) => Math.max(0, prev - 1));
-  };
-
-  const handleMarkAllRead = async () => {
-    await fetch("/api/notifications/read-all", { method: "POST", credentials: "include" });
-    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
-    setNotifUnread(0);
   };
 
   const handleToggleTask = (taskId) => {
     setTasks((prev) => prev.map((t) => t.id === taskId ? { ...t, completed: !t.completed } : t));
   };
-
-  if (loading) {
-    return (
-      <div style={{ display: "flex", justifyContent: "center", padding: 80 }}>
-        <div style={{ width: 32, height: 32, borderRadius: "50%", border: "3px solid var(--border)", borderTopColor: "var(--primary)", animation: "spin 1s linear infinite" }} />
-      </div>
-    );
-  }
 
   const s = stats || {};
 
@@ -262,7 +280,7 @@ export default function DashboardHome() {
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 12, marginBottom: 24 }}>
-        {statConfig.map((cfg) => (
+        {statsLoading ? statConfig.map((cfg) => <StatSkeleton key={cfg.key} />) : statConfig.map((cfg) => (
           <Card key={cfg.key} hover={false} padding="14px">
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ width: 38, height: 38, borderRadius: 10, backgroundColor: cfg.bg, display: "flex", alignItems: "center", justifyContent: "center", color: cfg.color, flexShrink: 0 }}>
@@ -277,40 +295,48 @@ export default function DashboardHome() {
         ))}
       </div>
 
-      <Card hover={false} style={{ marginBottom: 24 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-          <h2 style={{ fontSize: 18, fontWeight: 600 }}>Analytics</h2>
-          <div style={{ display: "flex", gap: 8 }}>
-            {["weekly", "monthly", "yearly"].map((p) => (
-              <button key={p} onClick={() => fetch(`/api/dashboard/analytics?period=${p}`, { credentials: "include" }).then((r) => r.ok && r.json()).then(setAnalytics)} style={{ padding: "4px 12px", fontSize: 12, fontWeight: 600, borderRadius: 100, border: analytics.period === p ? "2px solid var(--primary)" : "1px solid var(--border)", background: analytics.period === p ? "var(--primary-light)" : "transparent", color: analytics.period === p ? "var(--primary)" : "var(--text-muted)", cursor: "pointer" }}>
-                {p.charAt(0).toUpperCase() + p.slice(1)}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div style={{ height: 200, display: "flex", alignItems: "flex-end", gap: 8, padding: "0 4px" }}>
-          {(analytics.data || []).length > 0 ? analytics.data.map((d, i) => {
-            const maxVal = Math.max(1, ...analytics.data.map((x) => Math.max(x.applications || 0, x.messages || 0, x.followers || 0)));
-            return (
-              <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 2, height: "100%", justifyContent: "flex-end" }}>
-                <div style={{ display: "flex", gap: 2, width: "100%", alignItems: "flex-end", height: 160 }}>
-                  <div style={{ flex: 1, height: `${((d.applications || 0) / maxVal) * 100}%`, backgroundColor: "var(--primary)", borderRadius: "3px 3px 0 0", minHeight: 2, opacity: 0.8 }} title={`Apps: ${d.applications || 0}`} />
-                  <div style={{ flex: 1, height: `${((d.messages || 0) / maxVal) * 100}%`, backgroundColor: "var(--accent)", borderRadius: "3px 3px 0 0", minHeight: 2, opacity: 0.8 }} title={`Messages: ${d.messages || 0}`} />
-                  <div style={{ flex: 1, height: `${((d.followers || 0) / maxVal) * 100}%`, backgroundColor: "#EC4899", borderRadius: "3px 3px 0 0", minHeight: 2, opacity: 0.8 }} title={`Followers: ${d.followers || 0}`} />
-                </div>
-                <span style={{ fontSize: 10, color: "var(--text-muted)" }}>{d.date?.length > 7 ? d.date.slice(5) : d.date}</span>
-              </div>
-            );
-          }) : <div style={{ width: "100%", textAlign: "center", padding: 40, color: "var(--text-muted)" }}>No analytics data yet</div>}
-        </div>
-        <div style={{ display: "flex", gap: 16, marginTop: 12, paddingTop: 10, borderTop: "1px solid var(--border)" }}>
-          {[{ label: "Applications", color: "var(--primary)" }, { label: "Messages", color: "var(--accent)" }, { label: "Followers", color: "#EC4899" }].map((l) => (
-            <div key={l.label} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: "var(--text-muted)" }}>
-              <div style={{ width: 8, height: 8, borderRadius: 2, backgroundColor: l.color }} />{l.label}
+      <AnalyticsChartLazy>
+        <Card hover={false} style={{ marginBottom: 24 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 600 }}>Analytics</h2>
+            <div style={{ display: "flex", gap: 8 }}>
+              {["weekly", "monthly", "yearly"].map((p) => (
+                <button key={p} onClick={() => setAnalyticsPeriod(p)} style={{ padding: "4px 12px", fontSize: 12, fontWeight: 600, borderRadius: 100, border: analyticsPeriod === p ? "2px solid var(--primary)" : "1px solid var(--border)", background: analyticsPeriod === p ? "var(--primary-light)" : "transparent", color: analyticsPeriod === p ? "var(--primary)" : "var(--text-muted)", cursor: "pointer" }}>
+                  {p.charAt(0).toUpperCase() + p.slice(1)}
+                </button>
+              ))}
             </div>
-          ))}
-        </div>
-      </Card>
+          </div>
+          {analyticsLoadingPeriod ? (
+            <div style={{ height: 200, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)", fontSize: 13 }}>Loading analytics...</div>
+          ) : (
+            <>
+              <div style={{ height: 200, display: "flex", alignItems: "flex-end", gap: 8, padding: "0 4px" }}>
+                {(analytics?.data || []).length > 0 ? analytics.data.map((d, i) => {
+                  const maxVal = Math.max(1, ...analytics.data.map((x) => Math.max(x.applications || 0, x.messages || 0, x.followers || 0)));
+                  return (
+                    <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 2, height: "100%", justifyContent: "flex-end" }}>
+                      <div style={{ display: "flex", gap: 2, width: "100%", alignItems: "flex-end", height: 160 }}>
+                        <div style={{ flex: 1, height: `${((d.applications || 0) / maxVal) * 100}%`, backgroundColor: "var(--primary)", borderRadius: "3px 3px 0 0", minHeight: 2, opacity: 0.8 }} title={`Apps: ${d.applications || 0}`} />
+                        <div style={{ flex: 1, height: `${((d.messages || 0) / maxVal) * 100}%`, backgroundColor: "var(--accent)", borderRadius: "3px 3px 0 0", minHeight: 2, opacity: 0.8 }} title={`Messages: ${d.messages || 0}`} />
+                        <div style={{ flex: 1, height: `${((d.followers || 0) / maxVal) * 100}%`, backgroundColor: "#EC4899", borderRadius: "3px 3px 0 0", minHeight: 2, opacity: 0.8 }} title={`Followers: ${d.followers || 0}`} />
+                      </div>
+                      <span style={{ fontSize: 10, color: "var(--text-muted)" }}>{d.date?.length > 7 ? d.date.slice(5) : d.date}</span>
+                    </div>
+                  );
+                }) : <div style={{ width: "100%", textAlign: "center", padding: 40, color: "var(--text-muted)" }}>No analytics data yet</div>}
+              </div>
+              <div style={{ display: "flex", gap: 16, marginTop: 12, paddingTop: 10, borderTop: "1px solid var(--border)" }}>
+                {[{ label: "Applications", color: "var(--primary)" }, { label: "Messages", color: "var(--accent)" }, { label: "Followers", color: "#EC4899" }].map((l) => (
+                  <div key={l.label} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: "var(--text-muted)" }}>
+                    <div style={{ width: 8, height: 8, borderRadius: 2, backgroundColor: l.color }} />{l.label}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </Card>
+      </AnalyticsChartLazy>
 
       <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 24, marginBottom: 24 }}>
         <Card hover={false}>
@@ -353,10 +379,10 @@ export default function DashboardHome() {
           <Card hover={false} padding="16px">
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
               <h2 style={{ fontSize: 18, fontWeight: 600 }}>Notifications</h2>
-              {notifUnread > 0 && <button onClick={handleMarkAllRead} style={{ fontSize: 11, color: "var(--primary)", background: "none", border: "none", cursor: "pointer", fontWeight: 500 }}>Mark all read</button>}
+              {(notifData?.unreadCount || 0) > 0 && <button onClick={() => markAllRead.mutate()} style={{ fontSize: 11, color: "var(--primary)", background: "none", border: "none", cursor: "pointer", fontWeight: 500 }}>Mark all read</button>}
             </div>
-            {notifications.length > 0 ? notifications.slice(0, 3).map((n) => (
-              <div key={n.id} style={{ display: "flex", gap: 10, padding: "8px 0", borderBottom: "1px solid var(--border)", cursor: "pointer" }} onClick={() => !n.isRead && handleMarkNotifRead(n.id)}>
+            {(notifData?.notifications || []).length > 0 ? notifData.notifications.slice(0, 3).map((n) => (
+              <div key={n.id} style={{ display: "flex", gap: 10, padding: "8px 0", borderBottom: "1px solid var(--border)", cursor: "pointer" }} onClick={() => !n.isRead && markRead.mutate(n.id)}>
                 <div style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: n.isRead ? "transparent" : "var(--primary)", flexShrink: 0, marginTop: 5 }} />
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <p style={{ fontSize: 13, color: n.isRead ? "var(--text-secondary)" : "var(--text)", fontWeight: n.isRead ? 400 : 500, lineHeight: 1.4 }}>{n.body || n.title}</p>
@@ -428,7 +454,7 @@ export default function DashboardHome() {
                 <p style={{ fontSize: 11, color: "var(--text-secondary)" }}>{p.headline || p.role}</p>
                 {p.mutualConnectionCount > 0 && <p style={{ fontSize: 11, color: "var(--text-muted)" }}>{p.mutualConnectionCount} mutual</p>}
               </div>
-              <Button size="sm" variant="outline" style={{ padding: "3px 8px", fontSize: 11, flexShrink: 0 }} onClick={async () => { await fetch(`/api/follow/user/${p.id}`, { method: "POST", credentials: "include" }); fetchAll(); }}>
+              <Button size="sm" variant="outline" style={{ padding: "3px 8px", fontSize: 11, flexShrink: 0 }} onClick={async () => { await fetch(`/api/follow/user/${p.id}`, { method: "POST", credentials: "include" }); queryClient.invalidateQueries({ queryKey: ["dashboard", "people"] }); }}>
                 <UserPlus size={12} /> Connect
               </Button>
             </div>
@@ -457,8 +483,8 @@ export default function DashboardHome() {
         </Card>
 
         <Card hover={false}>
-          <SectionHeader title="Saved Listings" link="/discover" />
-          {(savedListings.bookmarks || []).length > 0 ? savedListings.bookmarks.slice(0, 3).map((b) => (
+          <SectionHeader title="Saved Listings" link="/saved-listings" />
+          {(savedListings?.bookmarks || []).length > 0 ? savedListings.bookmarks.slice(0, 3).map((b) => (
             <div key={b.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
               <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "#FCE7F3", display: "flex", alignItems: "center", justifyContent: "center", color: "#DB2777", flexShrink: 0 }}>
                 <Heart size={16} />

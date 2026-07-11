@@ -368,3 +368,27 @@ export function emitStatsUpdate(userId) {
 export function emitNotification(notification) {
   ioInstance?.to(notification.userId).emit("notification", notification);
 }
+
+export function emitBookmarkUpdate(userId, listingId, bookmarked) {
+  ioInstance?.to(userId).emit("bookmark-updated", { listingId, bookmarked });
+}
+
+export function emitListingUpdate(listing) {
+  ioInstance?.emit("listing-updated", listing);
+}
+
+export function emitListingCreated(listing) {
+  ioInstance?.emit("listing-created", listing);
+}
+
+export function emitListingDeleted(listingId) {
+  ioInstance?.emit("listing-deleted", { id: listingId });
+}
+
+export function emitApplicationUpdate(application) {
+  ioInstance?.emit("application-updated", application);
+}
+
+export function emitDashboardRefresh(userId) {
+  ioInstance?.to(userId).emit("dashboard-refresh");
+}

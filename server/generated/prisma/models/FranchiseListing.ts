@@ -66,6 +66,11 @@ export type FranchiseListingMinAggregateOutputType = {
   country: string | null
   isRemote: boolean | null
   videoUrl: string | null
+  areaRequired: string | null
+  requirements: string | null
+  support: string | null
+  training: string | null
+  state: string | null
   status: $Enums.ListingStatus | null
   isFeatured: boolean | null
   viewCount: number | null
@@ -95,6 +100,11 @@ export type FranchiseListingMaxAggregateOutputType = {
   country: string | null
   isRemote: boolean | null
   videoUrl: string | null
+  areaRequired: string | null
+  requirements: string | null
+  support: string | null
+  training: string | null
+  state: string | null
   status: $Enums.ListingStatus | null
   isFeatured: boolean | null
   viewCount: number | null
@@ -125,6 +135,11 @@ export type FranchiseListingCountAggregateOutputType = {
   isRemote: number
   images: number
   videoUrl: number
+  areaRequired: number
+  requirements: number
+  support: number
+  training: number
+  state: number
   status: number
   isFeatured: number
   viewCount: number
@@ -176,6 +191,11 @@ export type FranchiseListingMinAggregateInputType = {
   country?: true
   isRemote?: true
   videoUrl?: true
+  areaRequired?: true
+  requirements?: true
+  support?: true
+  training?: true
+  state?: true
   status?: true
   isFeatured?: true
   viewCount?: true
@@ -205,6 +225,11 @@ export type FranchiseListingMaxAggregateInputType = {
   country?: true
   isRemote?: true
   videoUrl?: true
+  areaRequired?: true
+  requirements?: true
+  support?: true
+  training?: true
+  state?: true
   status?: true
   isFeatured?: true
   viewCount?: true
@@ -235,6 +260,11 @@ export type FranchiseListingCountAggregateInputType = {
   isRemote?: true
   images?: true
   videoUrl?: true
+  areaRequired?: true
+  requirements?: true
+  support?: true
+  training?: true
+  state?: true
   status?: true
   isFeatured?: true
   viewCount?: true
@@ -352,6 +382,11 @@ export type FranchiseListingGroupByOutputType = {
   isRemote: boolean
   images: string[]
   videoUrl: string | null
+  areaRequired: string | null
+  requirements: string | null
+  support: string | null
+  training: string | null
+  state: string | null
   status: $Enums.ListingStatus
   isFeatured: boolean
   viewCount: number
@@ -405,6 +440,11 @@ export type FranchiseListingWhereInput = {
   isRemote?: Prisma.BoolFilter<"FranchiseListing"> | boolean
   images?: Prisma.StringNullableListFilter<"FranchiseListing">
   videoUrl?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  areaRequired?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  requirements?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  support?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  training?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  state?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
   status?: Prisma.EnumListingStatusFilter<"FranchiseListing"> | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFilter<"FranchiseListing"> | boolean
   viewCount?: Prisma.IntFilter<"FranchiseListing"> | number
@@ -440,6 +480,11 @@ export type FranchiseListingOrderByWithRelationInput = {
   isRemote?: Prisma.SortOrder
   images?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  areaRequired?: Prisma.SortOrderInput | Prisma.SortOrder
+  requirements?: Prisma.SortOrderInput | Prisma.SortOrder
+  support?: Prisma.SortOrderInput | Prisma.SortOrder
+  training?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
@@ -478,6 +523,11 @@ export type FranchiseListingWhereUniqueInput = Prisma.AtLeast<{
   isRemote?: Prisma.BoolFilter<"FranchiseListing"> | boolean
   images?: Prisma.StringNullableListFilter<"FranchiseListing">
   videoUrl?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  areaRequired?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  requirements?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  support?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  training?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  state?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
   status?: Prisma.EnumListingStatusFilter<"FranchiseListing"> | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFilter<"FranchiseListing"> | boolean
   viewCount?: Prisma.IntFilter<"FranchiseListing"> | number
@@ -513,6 +563,11 @@ export type FranchiseListingOrderByWithAggregationInput = {
   isRemote?: Prisma.SortOrder
   images?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  areaRequired?: Prisma.SortOrderInput | Prisma.SortOrder
+  requirements?: Prisma.SortOrderInput | Prisma.SortOrder
+  support?: Prisma.SortOrderInput | Prisma.SortOrder
+  training?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
@@ -551,6 +606,11 @@ export type FranchiseListingScalarWhereWithAggregatesInput = {
   isRemote?: Prisma.BoolWithAggregatesFilter<"FranchiseListing"> | boolean
   images?: Prisma.StringNullableListFilter<"FranchiseListing">
   videoUrl?: Prisma.StringNullableWithAggregatesFilter<"FranchiseListing"> | string | null
+  areaRequired?: Prisma.StringNullableWithAggregatesFilter<"FranchiseListing"> | string | null
+  requirements?: Prisma.StringNullableWithAggregatesFilter<"FranchiseListing"> | string | null
+  support?: Prisma.StringNullableWithAggregatesFilter<"FranchiseListing"> | string | null
+  training?: Prisma.StringNullableWithAggregatesFilter<"FranchiseListing"> | string | null
+  state?: Prisma.StringNullableWithAggregatesFilter<"FranchiseListing"> | string | null
   status?: Prisma.EnumListingStatusWithAggregatesFilter<"FranchiseListing"> | $Enums.ListingStatus
   isFeatured?: Prisma.BoolWithAggregatesFilter<"FranchiseListing"> | boolean
   viewCount?: Prisma.IntWithAggregatesFilter<"FranchiseListing"> | number
@@ -579,6 +639,11 @@ export type FranchiseListingCreateInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -614,6 +679,11 @@ export type FranchiseListingUncheckedCreateInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -645,6 +715,11 @@ export type FranchiseListingUpdateInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -680,6 +755,11 @@ export type FranchiseListingUncheckedUpdateInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -713,6 +793,11 @@ export type FranchiseListingCreateManyInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -741,6 +826,11 @@ export type FranchiseListingUpdateManyMutationInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -771,6 +861,11 @@ export type FranchiseListingUncheckedUpdateManyInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -811,6 +906,11 @@ export type FranchiseListingCountOrderByAggregateInput = {
   isRemote?: Prisma.SortOrder
   images?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
+  areaRequired?: Prisma.SortOrder
+  requirements?: Prisma.SortOrder
+  support?: Prisma.SortOrder
+  training?: Prisma.SortOrder
+  state?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
@@ -850,6 +950,11 @@ export type FranchiseListingMaxOrderByAggregateInput = {
   country?: Prisma.SortOrder
   isRemote?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
+  areaRequired?: Prisma.SortOrder
+  requirements?: Prisma.SortOrder
+  support?: Prisma.SortOrder
+  training?: Prisma.SortOrder
+  state?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
@@ -879,6 +984,11 @@ export type FranchiseListingMinOrderByAggregateInput = {
   country?: Prisma.SortOrder
   isRemote?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
+  areaRequired?: Prisma.SortOrder
+  requirements?: Prisma.SortOrder
+  support?: Prisma.SortOrder
+  training?: Prisma.SortOrder
+  state?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
@@ -1064,6 +1174,11 @@ export type FranchiseListingCreateWithoutCreatedByUserInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -1097,6 +1212,11 @@ export type FranchiseListingUncheckedCreateWithoutCreatedByUserInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -1159,6 +1279,11 @@ export type FranchiseListingScalarWhereInput = {
   isRemote?: Prisma.BoolFilter<"FranchiseListing"> | boolean
   images?: Prisma.StringNullableListFilter<"FranchiseListing">
   videoUrl?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  areaRequired?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  requirements?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  support?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  training?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  state?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
   status?: Prisma.EnumListingStatusFilter<"FranchiseListing"> | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFilter<"FranchiseListing"> | boolean
   viewCount?: Prisma.IntFilter<"FranchiseListing"> | number
@@ -1187,6 +1312,11 @@ export type FranchiseListingCreateWithoutCompanyInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -1220,6 +1350,11 @@ export type FranchiseListingUncheckedCreateWithoutCompanyInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -1277,6 +1412,11 @@ export type FranchiseListingCreateWithoutApplicationsInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -1311,6 +1451,11 @@ export type FranchiseListingUncheckedCreateWithoutApplicationsInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -1357,6 +1502,11 @@ export type FranchiseListingUpdateWithoutApplicationsInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1391,6 +1541,11 @@ export type FranchiseListingUncheckedUpdateWithoutApplicationsInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1421,6 +1576,11 @@ export type FranchiseListingCreateWithoutReviewsInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -1455,6 +1615,11 @@ export type FranchiseListingUncheckedCreateWithoutReviewsInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -1501,6 +1666,11 @@ export type FranchiseListingUpdateWithoutReviewsInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1535,6 +1705,11 @@ export type FranchiseListingUncheckedUpdateWithoutReviewsInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1565,6 +1740,11 @@ export type FranchiseListingCreateWithoutBookmarksInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -1599,6 +1779,11 @@ export type FranchiseListingUncheckedCreateWithoutBookmarksInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -1645,6 +1830,11 @@ export type FranchiseListingUpdateWithoutBookmarksInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1679,6 +1869,11 @@ export type FranchiseListingUncheckedUpdateWithoutBookmarksInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1710,6 +1905,11 @@ export type FranchiseListingCreateManyCreatedByUserInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -1738,6 +1938,11 @@ export type FranchiseListingUpdateWithoutCreatedByUserInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1771,6 +1976,11 @@ export type FranchiseListingUncheckedUpdateWithoutCreatedByUserInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1803,6 +2013,11 @@ export type FranchiseListingUncheckedUpdateManyWithoutCreatedByUserInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1832,6 +2047,11 @@ export type FranchiseListingCreateManyCompanyInput = {
   isRemote?: boolean
   images?: Prisma.FranchiseListingCreateimagesInput | string[]
   videoUrl?: string | null
+  areaRequired?: string | null
+  requirements?: string | null
+  support?: string | null
+  training?: string | null
+  state?: string | null
   status?: $Enums.ListingStatus
   isFeatured?: boolean
   viewCount?: number
@@ -1860,6 +2080,11 @@ export type FranchiseListingUpdateWithoutCompanyInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1893,6 +2118,11 @@ export type FranchiseListingUncheckedUpdateWithoutCompanyInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1925,6 +2155,11 @@ export type FranchiseListingUncheckedUpdateManyWithoutCompanyInput = {
   isRemote?: Prisma.BoolFieldUpdateOperationsInput | boolean
   images?: Prisma.FranchiseListingUpdateimagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  areaRequired?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  support?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  training?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2004,6 +2239,11 @@ export type FranchiseListingSelect<ExtArgs extends runtime.Types.Extensions.Inte
   isRemote?: boolean
   images?: boolean
   videoUrl?: boolean
+  areaRequired?: boolean
+  requirements?: boolean
+  support?: boolean
+  training?: boolean
+  state?: boolean
   status?: boolean
   isFeatured?: boolean
   viewCount?: boolean
@@ -2040,6 +2280,11 @@ export type FranchiseListingSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   isRemote?: boolean
   images?: boolean
   videoUrl?: boolean
+  areaRequired?: boolean
+  requirements?: boolean
+  support?: boolean
+  training?: boolean
+  state?: boolean
   status?: boolean
   isFeatured?: boolean
   viewCount?: boolean
@@ -2072,6 +2317,11 @@ export type FranchiseListingSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   isRemote?: boolean
   images?: boolean
   videoUrl?: boolean
+  areaRequired?: boolean
+  requirements?: boolean
+  support?: boolean
+  training?: boolean
+  state?: boolean
   status?: boolean
   isFeatured?: boolean
   viewCount?: boolean
@@ -2104,6 +2354,11 @@ export type FranchiseListingSelectScalar = {
   isRemote?: boolean
   images?: boolean
   videoUrl?: boolean
+  areaRequired?: boolean
+  requirements?: boolean
+  support?: boolean
+  training?: boolean
+  state?: boolean
   status?: boolean
   isFeatured?: boolean
   viewCount?: boolean
@@ -2113,7 +2368,7 @@ export type FranchiseListingSelectScalar = {
   publishedAt?: boolean
 }
 
-export type FranchiseListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "createdBy" | "title" | "slug" | "description" | "industry" | "businessType" | "investmentMin" | "investmentMax" | "roiPercentage" | "franchiseFee" | "royaltyFee" | "breakEvenMonths" | "location" | "city" | "country" | "isRemote" | "images" | "videoUrl" | "status" | "isFeatured" | "viewCount" | "applicationCount" | "createdAt" | "updatedAt" | "publishedAt", ExtArgs["result"]["franchiseListing"]>
+export type FranchiseListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "createdBy" | "title" | "slug" | "description" | "industry" | "businessType" | "investmentMin" | "investmentMax" | "roiPercentage" | "franchiseFee" | "royaltyFee" | "breakEvenMonths" | "location" | "city" | "country" | "isRemote" | "images" | "videoUrl" | "areaRequired" | "requirements" | "support" | "training" | "state" | "status" | "isFeatured" | "viewCount" | "applicationCount" | "createdAt" | "updatedAt" | "publishedAt", ExtArgs["result"]["franchiseListing"]>
 export type FranchiseListingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   applications?: boolean | Prisma.FranchiseListing$applicationsArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -2161,6 +2416,11 @@ export type $FranchiseListingPayload<ExtArgs extends runtime.Types.Extensions.In
     isRemote: boolean
     images: string[]
     videoUrl: string | null
+    areaRequired: string | null
+    requirements: string | null
+    support: string | null
+    training: string | null
+    state: string | null
     status: $Enums.ListingStatus
     isFeatured: boolean
     viewCount: number
@@ -2616,6 +2876,11 @@ export interface FranchiseListingFieldRefs {
   readonly isRemote: Prisma.FieldRef<"FranchiseListing", 'Boolean'>
   readonly images: Prisma.FieldRef<"FranchiseListing", 'String[]'>
   readonly videoUrl: Prisma.FieldRef<"FranchiseListing", 'String'>
+  readonly areaRequired: Prisma.FieldRef<"FranchiseListing", 'String'>
+  readonly requirements: Prisma.FieldRef<"FranchiseListing", 'String'>
+  readonly support: Prisma.FieldRef<"FranchiseListing", 'String'>
+  readonly training: Prisma.FieldRef<"FranchiseListing", 'String'>
+  readonly state: Prisma.FieldRef<"FranchiseListing", 'String'>
   readonly status: Prisma.FieldRef<"FranchiseListing", 'ListingStatus'>
   readonly isFeatured: Prisma.FieldRef<"FranchiseListing", 'Boolean'>
   readonly viewCount: Prisma.FieldRef<"FranchiseListing", 'Int'>
