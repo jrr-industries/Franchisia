@@ -9,13 +9,16 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const { industry, status, search, page = 1, limit = 20 } = req.query;
+    const { industry, status, search, franchisor, page = 1, limit = 20 } = req.query;
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
     const where = {};
     if (industry) where.industry = industry;
     if (status) where.status = status;
     else where.status = "active";
+    if (franchisor === "true") {
+      where.owner = { role: "franchisor" };
+    }
     if (search) {
       where.OR = [
         { name: { contains: search, mode: "insensitive" } },
@@ -29,7 +32,7 @@ router.get("/", async (req, res) => {
         skip,
         take: parseInt(limit),
         include: {
-          owner: { select: { id: true, name: true, image: true } },
+          owner: { select: { id: true, name: true, image: true, role: true } },
           _count: { select: { listings: true, followers: true } },
         },
         orderBy: [{ isVerified: "desc" }, { createdAt: "desc" }],

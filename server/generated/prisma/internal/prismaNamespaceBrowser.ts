@@ -81,6 +81,7 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   UserDocument: 'UserDocument',
   VerificationHistory: 'VerificationHistory',
+  Bookmark: 'Bookmark',
   Report: 'Report'
 } as const
 
@@ -557,6 +558,16 @@ export const VerificationHistoryScalarFieldEnum = {
 } as const
 
 export type VerificationHistoryScalarFieldEnum = (typeof VerificationHistoryScalarFieldEnum)[keyof typeof VerificationHistoryScalarFieldEnum]
+
+
+export const BookmarkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  listingId: 'listingId',
+  createdAt: 'createdAt'
+} as const
+
+export type BookmarkScalarFieldEnum = (typeof BookmarkScalarFieldEnum)[keyof typeof BookmarkScalarFieldEnum]
 
 
 export const ReportScalarFieldEnum = {

@@ -192,6 +192,11 @@ export type UserDocument = Prisma.UserDocumentModel
  */
 export type VerificationHistory = Prisma.VerificationHistoryModel
 /**
+ * Model Bookmark
+ * 
+ */
+export type Bookmark = Prisma.BookmarkModel
+/**
  * Model Report
  * 
  */

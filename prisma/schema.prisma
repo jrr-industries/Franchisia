@@ -85,6 +85,7 @@ model User {
   experience                 UserExperience[]
   interests                  UserInterest[]
   skills                     UserSkill[]
+  bookmarks                  Bookmark[]
   reactions                  MessageReaction[]
 
   @@index([email])
@@ -256,6 +257,7 @@ model FranchiseListing {
   company          Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
   createdByUser    User          @relation(fields: [createdBy], references: [id])
   reviews          Review[]
+  bookmarks        Bookmark[]
 
   @@index([companyId])
   @@index([industry])
@@ -542,6 +544,18 @@ model VerificationHistory {
   @@index([userId])
   @@index([createdAt])
   @@map("verification_history")
+}
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  listingId String   @map("listing_id")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing   FranchiseListing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, listingId])
+  @@map("bookmarks")
 }
 
 enum UserRole {

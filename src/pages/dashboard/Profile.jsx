@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useSearchParams, Link, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   MapPin, Briefcase, MessageSquare, UserPlus, Calendar,
   GraduationCap, Star, ExternalLink, Award, ThumbsUp, Globe,
   Share2, Flag, Check, CheckCircle, Link as LinkIcon, X,
-  Send, Settings, Edit3
+  Send, Settings, Edit3, Save
 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
@@ -164,6 +164,57 @@ export default function Profile() {
   const [reportReason, setReportReason] = useState('spam');
   const [reportDescription, setReportDescription] = useState('');
   const [reportSending, setReportSending] = useState(false);
+
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editForm, setEditForm] = useState({ name: '', headline: '', bio: '', location: '', website: '', linkedinUrl: '', phone: '', industries: '' });
+  const [editSaving, setEditSaving] = useState(false);
+
+  useEffect(() => {
+    if (editModalOpen && profileUser) {
+      setEditForm({
+        name: profileUser.name || '',
+        headline: profileUser.headline || '',
+        bio: profileUser.bio || '',
+        location: profileUser.location || '',
+        website: profileUser.website || '',
+        linkedinUrl: profileUser.linkedinUrl || '',
+        phone: profileUser.phone || '',
+        industries: (profileUser.industries || []).join(', '),
+      });
+    }
+  }, [editModalOpen, profileUser]);
+
+  const handleSaveProfile = useCallback(async () => {
+    setEditSaving(true);
+    try {
+      const res = await fetch(`${API}/users/me`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          fullName: editForm.name,
+          headline: editForm.headline,
+          bio: editForm.bio,
+          location: editForm.location,
+          website: editForm.website,
+          linkedinUrl: editForm.linkedinUrl,
+          phone: editForm.phone,
+          industries: editForm.industries.split(',').map((s) => s.trim()).filter(Boolean),
+        }),
+      });
+      if (res.ok) {
+        const updated = await res.json();
+        setProfileUser((prev) => ({ ...prev, ...updated }));
+        addToast('Profile updated successfully', 'success');
+        setEditModalOpen(false);
+      } else {
+        addToast('Failed to update profile', 'error');
+      }
+    } catch {
+      addToast('Failed to update profile', 'error');
+    }
+    setEditSaving(false);
+  }, [editForm, addToast]);
 
   const userId = profileId || currentUser?.id;
 
@@ -477,12 +528,8 @@ export default function Profile() {
         <div style={s.btns}>
           {isOwnProfile ? (
             <>
-              <Link to="/settings">
-                <Button variant="outline" size="sm" icon={<Edit3 size={16} />}>Edit Profile</Button>
-              </Link>
-              <Link to="/settings">
-                <Button variant="ghost" size="sm" icon={<Settings size={16} />}>Settings</Button>
-              </Link>
+              <Button variant="outline" size="sm" icon={<Edit3 size={16} />} onClick={() => setEditModalOpen(true)}>Edit Profile</Button>
+              <Button variant="ghost" size="sm" icon={<Settings size={16} />} onClick={() => navigate('/settings')}>Settings</Button>
             </>
           ) : (
             <>
@@ -571,6 +618,51 @@ export default function Profile() {
       <Card padding="28px">
         <Tabs tabs={tabs} />
       </Card>
+
+      <Modal isOpen={editModalOpen} onClose={() => setEditModalOpen(false)} title="Edit Profile" width={520}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div>
+            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Full Name</label>
+            <input style={s.input} value={editForm.name} onChange={(e) => setEditForm({ ...editForm, name: e.target.value })} />
+          </div>
+          <div>
+            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Headline</label>
+            <input style={s.input} value={editForm.headline} onChange={(e) => setEditForm({ ...editForm, headline: e.target.value })} placeholder="e.g. Franchise Investor & Business Owner" />
+          </div>
+          <div>
+            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Bio</label>
+            <textarea style={s.textarea} value={editForm.bio} onChange={(e) => setEditForm({ ...editForm, bio: e.target.value })} placeholder="Tell us about yourself" />
+          </div>
+          <div>
+            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Location</label>
+            <input style={s.input} value={editForm.location} onChange={(e) => setEditForm({ ...editForm, location: e.target.value })} placeholder="City, State" />
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+            <div>
+              <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Website</label>
+              <input style={s.input} value={editForm.website} onChange={(e) => setEditForm({ ...editForm, website: e.target.value })} placeholder="https://" />
+            </div>
+            <div>
+              <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>LinkedIn URL</label>
+              <input style={s.input} value={editForm.linkedinUrl} onChange={(e) => setEditForm({ ...editForm, linkedinUrl: e.target.value })} placeholder="https://linkedin.com/in/" />
+            </div>
+          </div>
+          <div>
+            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Phone</label>
+            <input style={s.input} value={editForm.phone} onChange={(e) => setEditForm({ ...editForm, phone: e.target.value })} placeholder="+1 (555) 123-4567" />
+          </div>
+          <div>
+            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Industries (comma separated)</label>
+            <input style={s.input} value={editForm.industries} onChange={(e) => setEditForm({ ...editForm, industries: e.target.value })} placeholder="Food & Beverage, Retail, Fitness" />
+          </div>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 8 }}>
+            <Button variant="secondary" size="sm" onClick={() => setEditModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" size="sm" onClick={handleSaveProfile} disabled={editSaving} icon={<Save size={14} />}>
+              {editSaving ? 'Saving...' : 'Save Changes'}
+            </Button>
+          </div>
+        </div>
+      </Modal>
 
       <Modal isOpen={messageModalOpen} onClose={() => setMessageModalOpen(false)} title="Send Message Request">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>

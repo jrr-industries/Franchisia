@@ -2,6 +2,7 @@ import { Router } from "express";
 import { fromNodeHeaders } from "better-auth/node";
 import { auth } from "../lib/auth.ts";
 import prisma from "../prisma.js";
+import { emitConnectionUpdate } from "../socket.js";
 
 const router = Router();
 
@@ -102,22 +103,26 @@ router.post("/user/:userId", async (req, res) => {
         await tx.user.update({ where: { id: req.user.id }, data: { followingCount: { decrement: 1 } } });
         await tx.user.update({ where: { id: targetId }, data: { followerCount: { decrement: 1 } } });
       });
+      emitConnectionUpdate(req.user.id);
+      emitConnectionUpdate(targetId);
       return res.json({ following: false });
     }
-    await prisma.$transaction(async (tx) => {
-      await tx.connection.create({ data: { followerId: req.user.id, followingId: targetId } });
-      await tx.user.update({ where: { id: req.user.id }, data: { followingCount: { increment: 1 } } });
-      await tx.user.update({ where: { id: targetId }, data: { followerCount: { increment: 1 } } });
-      await tx.notification.create({
-        data: {
-          userId: targetId,
-          type: "new_follower",
-          title: "New Follower",
-          body: `${req.user.name || "Someone"} started following you`,
-          data: { followerId: req.user.id },
-        },
+      await prisma.$transaction(async (tx) => {
+        await tx.connection.create({ data: { followerId: req.user.id, followingId: targetId } });
+        await tx.user.update({ where: { id: req.user.id }, data: { followingCount: { increment: 1 } } });
+        await tx.user.update({ where: { id: targetId }, data: { followerCount: { increment: 1 } } });
+        await tx.notification.create({
+          data: {
+            userId: targetId,
+            type: "new_follower",
+            title: "New Follower",
+            body: `${req.user.name || "Someone"} started following you`,
+            data: { followerId: req.user.id },
+          },
+        });
       });
-    });
+      emitConnectionUpdate(req.user.id);
+      emitConnectionUpdate(targetId);
     let conversation = null;
     const mutualCheck = await prisma.connection.findUnique({
       where: { followerId_followingId: { followerId: targetId, followingId: req.user.id } },

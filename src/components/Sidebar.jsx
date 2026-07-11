@@ -1,5 +1,6 @@
+import { useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Compass, Building2, MessageSquare, Bell, User, Settings, LogOut, Users, BarChart3, Shield, ShieldCheck, FileText, AlertTriangle, Heart, Search, Briefcase, ClipboardList, Activity, Server, Megaphone } from 'lucide-react';
+import { LayoutDashboard, Compass, Building2, MessageSquare, Bell, User, Settings, LogOut, Users, BarChart3, Shield, ShieldCheck, FileText, AlertTriangle, Heart, Search, Briefcase, ClipboardList, Activity, Server, Megaphone, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/logo.png';
 
@@ -16,9 +17,29 @@ const accountLinks = [
   { label: 'Settings', path: '/settings', icon: Settings },
 ];
 
-export default function Sidebar({ collapsed, onToggle }) {
+export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClose }) {
   const location = useLocation();
   const { user, isAdmin, logout } = useAuth();
+
+  const handleClose = useCallback(() => { onOverlayClose?.(); }, [onOverlayClose]);
+
+  useEffect(() => {
+    if (overlayOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [overlayOpen]);
+
+  useEffect(() => {
+    if (!overlayOpen) return;
+    const handler = (e) => { if (e.key === 'Escape') handleClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [overlayOpen, handleClose]);
+
+  useEffect(() => { handleClose(); }, [location.pathname, handleClose]);
 
   const isActive = (path) => location.pathname === path;
 
@@ -37,29 +58,21 @@ export default function Sidebar({ collapsed, onToggle }) {
     cursor: 'pointer',
     width: '100%',
     textDecoration: 'none',
+    whiteSpace: 'nowrap',
   });
 
-  return (
-    <aside
-      style={{
-        width: collapsed ? 64 : 'var(--sidebar-width)',
-        height: '100vh',
-        position: 'sticky',
-        top: 0,
-        backgroundColor: 'var(--surface)',
-        borderRight: '1px solid var(--border)',
-        display: 'flex',
-        flexDirection: 'column',
-        transition: 'width 0.3s',
-        overflow: 'hidden',
-        flexShrink: 0,
-      }}
-    >
-      <div style={{ padding: collapsed ? 16 : '20px 20px', display: 'flex', alignItems: 'center', gap: 10, borderBottom: '1px solid var(--border)' }}>
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+  const sidebarContent = (
+    <>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: collapsed ? 16 : '20px 20px', borderBottom: '1px solid var(--border)' }}>
+        <Link to="/" onClick={handleClose} style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', whiteSpace: 'nowrap' }}>
           <img src={logo} alt="Franchisia" style={{ height: collapsed ? 28 : 32, width: 'auto' }} />
           {!collapsed && <span style={{ fontSize: 18, fontWeight: 800, color: 'var(--text)' }}>Franchisia</span>}
         </Link>
+        {overlayOpen && (
+          <button onClick={handleClose} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: 4, display: 'flex' }} aria-label="Close sidebar">
+            <X size={20} />
+          </button>
+        )}
       </div>
 
       <div style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 4, flex: 1, overflow: 'auto' }}>
@@ -73,7 +86,7 @@ export default function Sidebar({ collapsed, onToggle }) {
 
         <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>Account</p>
         {accountLinks.map((l) => (
-          <Link key={l.path} to={l.path} style={linkStyle(l.path)} title={l.label}>
+          <Link key={l.path} to={l.path} onClick={handleClose} style={linkStyle(l.path)} title={l.label}>
             <l.icon size={20} style={{ flexShrink: 0 }} />
             {!collapsed && l.label}
           </Link>
@@ -99,7 +112,7 @@ export default function Sidebar({ collapsed, onToggle }) {
               { label: 'Audit Logs', path: '/admin/audit-logs', icon: FileText },
               { label: 'System Health', path: '/admin/system-health', icon: Server },
             ].map((l) => (
-              <Link key={l.path} to={l.path} style={linkStyle(l.path)} title={l.label}>
+              <Link key={l.path} to={l.path} onClick={handleClose} style={linkStyle(l.path)} title={l.label}>
                 <l.icon size={20} style={{ flexShrink: 0 }} />
                 {!collapsed && l.label}
               </Link>
@@ -109,15 +122,28 @@ export default function Sidebar({ collapsed, onToggle }) {
       </div>
 
       <div style={{ padding: 12, borderTop: '1px solid var(--border)' }}>
-        <button
-          onClick={logout}
-          style={linkStyle('#')}
-          title="Logout"
-        >
+        <button onClick={() => { logout(); handleClose(); }} style={linkStyle('#')} title="Logout">
           <LogOut size={20} style={{ flexShrink: 0 }} />
           {!collapsed && 'Logout'}
         </button>
       </div>
+    </>
+  );
+
+  if (overlayOpen) {
+    return (
+      <>
+        <div onClick={handleClose} style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 300, opacity: 1, transition: 'opacity 0.25s ease' }} />
+        <aside style={{ position: 'fixed', top: 0, left: 0, bottom: 0, width: 'var(--sidebar-width)', backgroundColor: 'var(--surface)', zIndex: 301, display: 'flex', flexDirection: 'column', boxShadow: 'var(--shadow-xl)', transform: 'translateX(0)', transition: 'transform 0.3s ease' }}>
+          {sidebarContent}
+        </aside>
+      </>
+    );
+  }
+
+  return (
+    <aside style={{ width: collapsed ? 64 : 'var(--sidebar-width)', height: '100vh', position: 'sticky', top: 0, backgroundColor: 'var(--surface)', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', transition: 'width 0.3s', overflow: 'hidden', flexShrink: 0 }}>
+      {sidebarContent}
     </aside>
   );
 }

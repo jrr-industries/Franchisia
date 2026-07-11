@@ -9,7 +9,7 @@ const useCompanyStore = create((set, get) => ({
   fetchCompanies: async () => {
     set({ loading: true, error: null });
     try {
-      const res = await fetch("/api/companies", { credentials: "include" });
+      const res = await fetch("/api/companies?franchisor=true", { credentials: "include" });
       if (!res.ok) throw new Error("Failed to load companies");
       const data = await res.json();
       const companies = (data.companies || []).map(normalizeCompany);

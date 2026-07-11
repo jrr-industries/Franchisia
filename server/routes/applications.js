@@ -1,6 +1,7 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authenticate } from "../middleware/auth.js";
+import { emitStatsUpdate, getIO } from "../socket.js";
 
 const router = Router();
 
@@ -26,6 +27,7 @@ router.post("/", authenticate, async (req, res) => {
       return [app];
     });
 
+    emitStatsUpdate(req.user.id);
     res.status(201).json(application);
   } catch (error) {
     console.error("Applications route error:", error);

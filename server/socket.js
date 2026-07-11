@@ -356,3 +356,15 @@ export function emitCompanyDeleted(companyId) {
 export function emitCompanyVerified(company) {
   ioInstance?.emit("company-verified", company);
 }
+
+export function emitConnectionUpdate(userId) {
+  ioInstance?.to(userId).emit("connection-updated", { userId });
+}
+
+export function emitStatsUpdate(userId) {
+  ioInstance?.to(userId).emit("stats-updated", { userId });
+}
+
+export function emitNotification(notification) {
+  ioInstance?.to(notification.userId).emit("notification", notification);
+}

@@ -139,7 +139,7 @@ export default function Header({ onToggleSidebar }) {
             )}
 
             <button
-              onClick={() => setMobileDrawerOpen(true)}
+              onClick={() => { isDashboard && onToggleSidebar ? onToggleSidebar() : setMobileDrawerOpen(true); }}
               style={{ background: "none", border: "none", color: "var(--text)", padding: 8, display: "none", cursor: "pointer" }}
               className="header-mobile-btn"
               aria-label="Open menu"
