@@ -1,4 +1,6 @@
-export default function Avatar({ src, name, size = 40, style, ...props }) {
+import { memo } from "react";
+
+function Avatar({ src, name, size = 40, style, ...props }) {
   const initials = name
     ? name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)
     : '?';
@@ -30,3 +32,5 @@ export default function Avatar({ src, name, size = 40, style, ...props }) {
     </div>
   );
 }
+
+export default memo(Avatar);

@@ -42,14 +42,14 @@ router.get("/status", async (req, res) => {
     });
 
     if (!session?.user?.id) {
-      return res.status(401).json({ error: "Authentication required" });
+      return res.json(null);
     }
 
     let user = await prisma.user.findUnique({
       where: { id: session.user.id },
     });
 
-    if (!user) return res.status(404).json({ error: "User not found" });
+    if (!user) return res.json(null);
 
     let needsCompany = false;
     let companyStatus = null;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Moon, Sun, Bell, MessageSquare, LogIn, UserPlus, Menu, LayoutDashboard, User, PanelLeft } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
@@ -9,7 +9,7 @@ import SearchBar from "./SearchBar";
 import MobileDrawer from "./MobileDrawer";
 import VerifiedBadge from "./ui/VerifiedBadge";
 import useSocketStore from "../store/socketStore";
-import logo from "../assets/logo.png";
+import Logo from "./Logo";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -25,7 +25,21 @@ export default function Header({ onToggleSidebar }) {
   const { isAuthenticated, user, isVerified, logout } = useAuth();
   const location = useLocation();
   const isConnected = useSocketStore((s) => s.isConnected);
+  const unreadCount = useSocketStore((s) => s.unreadCount);
   const notificationCount = useSocketStore((s) => s.notificationCount);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    fetch("/api/messages/unread-count", { credentials: "include" })
+      .then((r) => r.json())
+      .then((data) => {
+        if (typeof data.unreadCount === "number") {
+          const store = useSocketStore.getState();
+          store.setUnreadCount(data.unreadCount);
+        }
+      })
+      .catch(() => {});
+  }, [isAuthenticated, location.pathname]);
 
   const isDashboard = location.pathname.startsWith("/dashboard") || location.pathname.startsWith("/admin") || location.pathname.startsWith("/messages") || location.pathname.startsWith("/notifications") || location.pathname.startsWith("/profile") || location.pathname.startsWith("/settings");
 
@@ -46,10 +60,7 @@ export default function Header({ onToggleSidebar }) {
                 <PanelLeft size={18} />
               </button>
             )}
-            <Link to="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", flexShrink: 0 }}>
-              <img src={logo} alt="Franchisia" style={{ height: 40, width: "auto" }} />
-              <span style={{ fontSize: 18, fontWeight: 800, color: "var(--text)" }} className="header-brand-text">Franchisia</span>
-            </Link>
+            <Logo size={44} />
           </div>
 
           <div style={{ display: "flex", gap: 24, alignItems: "center" }} className="header-nav-links">
@@ -82,7 +93,9 @@ export default function Header({ onToggleSidebar }) {
               <>
                 <Link to="/messages" style={{ position: "relative", background: "none", border: "none", color: "var(--text-muted)", padding: 8, display: "flex", borderRadius: 8, textDecoration: "none" }} aria-label="Messages">
                   <MessageSquare size={18} />
-                  {isConnected && (
+                  {unreadCount > 0 ? (
+                    <BadgeNumber count={unreadCount} />
+                  ) : isConnected && (
                     <BadgeDot />
                   )}
                 </Link>

@@ -6,7 +6,9 @@ const variants = {
   info: { backgroundColor: '#DBEAFE', color: '#2563EB' },
 };
 
-export default function Badge({ variant = 'default', children, style, ...props }) {
+import { memo } from "react";
+
+const Badge = memo(function Badge({ variant = 'default', children, style, ...props }) {
   return (
     <span
       style={{
@@ -26,4 +28,6 @@ export default function Badge({ variant = 'default', children, style, ...props }
       {children}
     </span>
   );
-}
+});
+
+export default Badge;

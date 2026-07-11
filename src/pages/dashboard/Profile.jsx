@@ -17,6 +17,9 @@ import Modal from '../../components/ui/Modal';
 import VerifiedBadge from '../../components/ui/VerifiedBadge';
 import { useToast } from '../../components/ui/Toast';
 import { useOnlineStatus } from '../../hooks/useOnlineStatus';
+import SearchableSelect from '../../components/ui/SearchableSelect';
+import INDUSTRIES from '../../data/industries';
+import { getCountries, getStates, getCities } from '../../data/locations';
 
 const API = '/api';
 
@@ -166,8 +169,11 @@ export default function Profile() {
   const [reportSending, setReportSending] = useState(false);
 
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editForm, setEditForm] = useState({ name: '', headline: '', bio: '', location: '', website: '', phone: '', industries: '' });
+  const [editForm, setEditForm] = useState({ name: '', headline: '', bio: '', location: '', country: '', state: '', city: '', website: '', phone: '', industry: '' });
   const [editSaving, setEditSaving] = useState(false);
+
+  const [availableStates, setAvailableStates] = useState([]);
+  const [availableCities, setAvailableCities] = useState([]);
 
   useEffect(() => {
     if (editModalOpen && profileUser) {
@@ -176,16 +182,42 @@ export default function Profile() {
         headline: profileUser.headline || '',
         bio: profileUser.bio || '',
         location: profileUser.location || '',
+        country: profileUser.country || 'India',
+        state: profileUser.state || '',
+        city: profileUser.city || '',
         website: profileUser.website || '',
         phone: profileUser.phone || '',
-        industries: (profileUser.industries || []).join(', '),
+        industry: (profileUser.industries || [])[0] || '',
       });
     }
   }, [editModalOpen, profileUser]);
 
+  useEffect(() => {
+    setEditForm(prev => {
+      if (prev.country !== 'India') {
+        setAvailableStates([]);
+        setAvailableCities([]);
+        return { ...prev, state: '', city: '' };
+      }
+      const states = getStates(prev.country);
+      setAvailableStates(states);
+      if (!states.includes(prev.state)) {
+        setAvailableCities([]);
+        return { ...prev, state: '', city: '' };
+      }
+      const cities = getCities(prev.country, prev.state);
+      setAvailableCities(cities);
+      if (!cities.includes(prev.city)) {
+        return { ...prev, city: '' };
+      }
+      return prev;
+    });
+  }, [editForm.country, editForm.state]);
+
   const handleSaveProfile = useCallback(async () => {
     setEditSaving(true);
     try {
+      const locationParts = [editForm.city, editForm.state, editForm.country].filter(Boolean);
       const res = await fetch(`${API}/users/me`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -194,11 +226,13 @@ export default function Profile() {
           fullName: editForm.name,
           headline: editForm.headline,
           bio: editForm.bio,
-          location: editForm.location,
+          location: locationParts.join(', '),
+          country: editForm.country || null,
+          state: editForm.state || null,
+          city: editForm.city || null,
           website: editForm.website,
-
           phone: editForm.phone,
-          industries: editForm.industries.split(',').map((s) => s.trim()).filter(Boolean),
+          industries: editForm.industry ? [editForm.industry] : [],
         }),
       });
       if (res.ok) {
@@ -474,7 +508,7 @@ export default function Profile() {
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
           {u.industries && u.industries.length > 0 ? (
             <>
-              <h3 style={s.sectionTitle}>Industry Interests</h3>
+              <h3 style={s.sectionTitle}>Primary Industry</h3>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                 {u.industries.map((item, i) => (
                   <span key={i} style={s.skillChip}>{item}</span>
@@ -482,7 +516,7 @@ export default function Profile() {
               </div>
             </>
           ) : (
-            <p style={{ color: 'var(--text-muted)', fontSize: 14 }}>No interests listed yet.</p>
+            <p style={{ color: 'var(--text-muted)', fontSize: 14 }}>No industry selected yet.</p>
           )}
         </motion.div>
       ),
@@ -513,9 +547,13 @@ export default function Profile() {
             </div>
           )}
           <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 4 }}>
-            {u.location && (
-              <div style={s.loc}><MapPin size={14} />{u.location}</div>
-            )}
+            {(() => {
+              const locParts = [u.city, u.state, u.country].filter(Boolean);
+              const displayLoc = locParts.length > 0 ? locParts.join(', ') : u.location;
+              return displayLoc ? (
+                <div style={s.loc}><MapPin size={14} />{displayLoc}</div>
+              ) : null;
+            })()}
             {u.createdAt && (
               <div style={s.loc}><Calendar size={14} />Joined {formatDate(u.createdAt)}</div>
             )}
@@ -622,7 +660,7 @@ export default function Profile() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           <div>
             <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Full Name</label>
-            <input style={s.input} value={editForm.name} onChange={(e) => setEditForm({ ...editForm, name: e.target.value })} />
+            <input style={s.input} value={editForm.name} onChange={(e) => setEditForm({ ...editForm, name: e.target.value })} placeholder="Your full name" />
           </div>
           <div>
             <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Headline</label>
@@ -632,22 +670,54 @@ export default function Profile() {
             <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Bio</label>
             <textarea style={s.textarea} value={editForm.bio} onChange={(e) => setEditForm({ ...editForm, bio: e.target.value })} placeholder="Tell us about yourself" />
           </div>
-          <div>
-            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Location</label>
-            <input style={s.input} value={editForm.location} onChange={(e) => setEditForm({ ...editForm, location: e.target.value })} placeholder="City, State" />
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+            <SearchableSelect
+              label="Country"
+              options={getCountries()}
+              value={editForm.country}
+              onChange={(v) => setEditForm({ ...editForm, country: v })}
+              placeholder="Select country"
+            />
+            {editForm.country === 'India' && (
+              <SearchableSelect
+                label="State"
+                options={availableStates}
+                value={editForm.state}
+                onChange={(v) => setEditForm({ ...editForm, state: v })}
+                placeholder="Select state"
+              />
+            )}
+            {editForm.country === 'India' && editForm.state && (
+              <SearchableSelect
+                label="City"
+                options={availableCities}
+                value={editForm.city}
+                onChange={(v) => setEditForm({ ...editForm, city: v })}
+                placeholder="Select city"
+              />
+            )}
           </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+            <SearchableSelect
+              label="Primary Industry"
+              options={INDUSTRIES}
+              value={editForm.industry}
+              onChange={(v) => setEditForm({ ...editForm, industry: v })}
+              placeholder="Select your industry"
+            />
+            <div>
+              <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Phone</label>
+              <input style={s.input} value={editForm.phone} onChange={(e) => setEditForm({ ...editForm, phone: e.target.value })} placeholder="+91 98765 43210" />
+            </div>
+          </div>
+
           <div>
             <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Website</label>
             <input style={s.input} value={editForm.website} onChange={(e) => setEditForm({ ...editForm, website: e.target.value })} placeholder="https://" />
           </div>
-          <div>
-            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Phone</label>
-            <input style={s.input} value={editForm.phone} onChange={(e) => setEditForm({ ...editForm, phone: e.target.value })} placeholder="+1 (555) 123-4567" />
-          </div>
-          <div>
-            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Industries (comma separated)</label>
-            <input style={s.input} value={editForm.industries} onChange={(e) => setEditForm({ ...editForm, industries: e.target.value })} placeholder="Food & Beverage, Retail, Fitness" />
-          </div>
+
           <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 8 }}>
             <Button variant="secondary" size="sm" onClick={() => setEditModalOpen(false)}>Cancel</Button>
             <Button variant="primary" size="sm" onClick={handleSaveProfile} disabled={editSaving} icon={<Save size={14} />}>

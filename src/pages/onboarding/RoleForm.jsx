@@ -3,6 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Upload, Building2, Briefcase, Package, Handshake, DollarSign } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import logo from "../../assets/logo.png";
+import SearchableSelect from '../../components/ui/SearchableSelect';
+import INDUSTRIES from '../../data/industries';
+import { getCountries, getStates, getCities } from '../../data/locations';
 
 const roleConfig = {
   franchisor: {
@@ -15,7 +18,7 @@ const roleConfig = {
       { name: 'companyName', label: 'Company Name', type: 'text', required: true },
       { name: 'brandName', label: 'Brand Name', type: 'text', required: true },
       { name: 'website', label: 'Website', type: 'url', required: true, placeholder: 'https://' },
-      { name: 'industry', label: 'Industry', type: 'text', required: true },
+      { name: 'industry', label: 'Industry', type: 'select-industry', required: true },
       { name: 'businessRegistrationNumber', label: 'Company Registration Number', type: 'text', required: true },
       { name: 'gstNumber', label: 'GST (Optional)', type: 'text', required: false },
       { name: 'businessEmail', label: 'Business Email', type: 'email', required: true },
@@ -39,10 +42,10 @@ const roleConfig = {
     status: 'verified',
     fields: [
       { name: 'phone', label: 'Phone Number', type: 'tel', required: true },
-      { name: 'city', label: 'City', type: 'text', required: true },
-      { name: 'country', label: 'Country', type: 'text', required: true },
-      { name: 'investmentBudget', label: 'Investment Budget', type: 'text', required: true, placeholder: 'e.g. $50,000 - $200,000' },
-      { name: 'preferredIndustry', label: 'Preferred Industry', type: 'text', required: true },
+      { name: 'city', label: 'City', type: 'select-city', required: true },
+      { name: 'country', label: 'Country', type: 'select-country', required: true },
+      { name: 'investmentBudget', label: 'Investment Budget', type: 'text', required: true, placeholder: 'e.g. ₹10,00,000 - ₹50,00,000' },
+      { name: 'preferredIndustry', label: 'Preferred Industry', type: 'select-industry', required: true },
       { name: 'businessExperience', label: 'Business Experience', type: 'text', required: true, placeholder: 'Years of experience in this field' },
       { name: 'linkedinProfile', label: 'LinkedIn (Optional)', type: 'url', required: false, placeholder: 'https://linkedin.com/in/' },
     ],
@@ -93,7 +96,7 @@ const roleConfig = {
     status: 'verified',
     fields: [
       { name: 'investmentRange', label: 'Investment Capacity', type: 'text', required: true, placeholder: 'e.g. $100,000 - $1,000,000' },
-      { name: 'interestedIndustries', label: 'Preferred Industries', type: 'text', required: true },
+      { name: 'interestedIndustries', label: 'Preferred Industry', type: 'select-industry', required: true },
       { name: 'company', label: 'Company (Optional)', type: 'text', required: false },
       { name: 'linkedinProfile', label: 'LinkedIn', type: 'url', required: false, placeholder: 'https://linkedin.com/in/' },
     ],
@@ -117,6 +120,11 @@ export default function RoleForm() {
   const [uploadingSecond, setUploadingSecond] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [uploadingBanner, setUploadingBanner] = useState(false);
+
+  const [selectedCountry, setSelectedCountry] = useState('India');
+  const [selectedState, setSelectedState] = useState('');
+  const [availableStates, setAvailableStates] = useState(getStates('India'));
+  const [availableCities, setAvailableCities] = useState([]);
 
   useEffect(() => {
     if (!config) navigate('/onboarding/select-role');
@@ -343,48 +351,113 @@ export default function RoleForm() {
 
           <form onSubmit={handleSubmit}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 28 }}>
-              {config.fields.map((field) => (
-                <div key={field.name}>
-                  <label style={{ fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 6 }}>
-                    {field.label}
-                    {field.required && <span style={{ color: '#DC2626', marginLeft: 2 }}>*</span>}
-                  </label>
-                  {field.type === 'textarea' ? (
-                    <textarea
-                      name={field.name}
-                      value={form[field.name] || ''}
-                      onChange={handleChange}
-                      placeholder={field.placeholder || ''}
-                      rows={4}
-                      style={{
-                        width: '100%', padding: '12px 16px', fontSize: 14,
-                        color: 'var(--text)', backgroundColor: 'var(--surface)',
-                        border: '2px solid var(--border)', borderRadius: 8, outline: 'none',
-                        fontFamily: 'inherit', resize: 'vertical',
-                      }}
-                      onFocus={(e) => e.currentTarget.style.borderColor = 'var(--primary)'}
-                      onBlur={(e) => e.currentTarget.style.borderColor = 'var(--border)'}
-                    />
-                  ) : (
-                    <input
-                      type={field.type}
-                      name={field.name}
-                      value={form[field.name] || ''}
-                      onChange={handleChange}
-                      placeholder={field.placeholder || ''}
-                      required={field.required}
-                      style={{
-                        width: '100%', padding: '12px 16px', fontSize: 14,
-                        color: 'var(--text)', backgroundColor: 'var(--surface)',
-                        border: '2px solid var(--border)', borderRadius: 8, outline: 'none',
-                        fontFamily: 'inherit',
-                      }}
-                      onFocus={(e) => e.currentTarget.style.borderColor = 'var(--primary)'}
-                      onBlur={(e) => e.currentTarget.style.borderColor = 'var(--border)'}
-                    />
-                  )}
-                </div>
-              ))}
+              {config.fields.map((field) => {
+                if (field.type === 'select-industry') {
+                  return (
+                    <div key={field.name}>
+                      <SearchableSelect
+                        label={field.label}
+                        options={INDUSTRIES}
+                        value={form[field.name] || ''}
+                        onChange={(v) => setForm({ ...form, [field.name]: v })}
+                        placeholder={`Select ${field.label.toLowerCase()}`}
+                        required={field.required}
+                      />
+                    </div>
+                  );
+                }
+                if (field.type === 'select-country') {
+                  return (
+                    <div key={field.name}>
+                      <SearchableSelect
+                        label={field.label}
+                        options={getCountries()}
+                        value={form[field.name] || selectedCountry}
+                        onChange={(v) => {
+                          setForm({ ...form, [field.name]: v });
+                          setSelectedCountry(v);
+                          setSelectedState('');
+                          setAvailableStates(getStates(v));
+                          setAvailableCities([]);
+                        }}
+                        placeholder="Select country"
+                        required={field.required}
+                      />
+                    </div>
+                  );
+                }
+                if (field.type === 'select-city') {
+                  return (
+                    <>
+                      <div key="country-select" style={{ marginBottom: 16 }}>
+                        <SearchableSelect
+                          label="State"
+                          options={availableStates}
+                          value={selectedState}
+                          onChange={(v) => {
+                            setSelectedState(v);
+                            setAvailableCities(getCities(selectedCountry, v));
+                            setForm({ ...form, state: v });
+                          }}
+                          placeholder="Select state"
+                        />
+                      </div>
+                      <div key={field.name}>
+                        <SearchableSelect
+                          label={field.label}
+                          options={availableCities}
+                          value={form[field.name] || ''}
+                          onChange={(v) => setForm({ ...form, [field.name]: v })}
+                          placeholder="Select city"
+                          required={field.required}
+                        />
+                      </div>
+                    </>
+                  );
+                }
+                return (
+                  <div key={field.name}>
+                    <label style={{ fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 6 }}>
+                      {field.label}
+                      {field.required && <span style={{ color: '#DC2626', marginLeft: 2 }}>*</span>}
+                    </label>
+                    {field.type === 'textarea' ? (
+                      <textarea
+                        name={field.name}
+                        value={form[field.name] || ''}
+                        onChange={handleChange}
+                        placeholder={field.placeholder || ''}
+                        rows={4}
+                        style={{
+                          width: '100%', padding: '12px 16px', fontSize: 14,
+                          color: 'var(--text)', backgroundColor: 'var(--surface)',
+                          border: '2px solid var(--border)', borderRadius: 8, outline: 'none',
+                          fontFamily: 'inherit', resize: 'vertical',
+                        }}
+                        onFocus={(e) => e.currentTarget.style.borderColor = 'var(--primary)'}
+                        onBlur={(e) => e.currentTarget.style.borderColor = 'var(--border)'}
+                      />
+                    ) : (
+                      <input
+                        type={field.type}
+                        name={field.name}
+                        value={form[field.name] || ''}
+                        onChange={handleChange}
+                        placeholder={field.placeholder || ''}
+                        required={field.required}
+                        style={{
+                          width: '100%', padding: '12px 16px', fontSize: 14,
+                          color: 'var(--text)', backgroundColor: 'var(--surface)',
+                          border: '2px solid var(--border)', borderRadius: 8, outline: 'none',
+                          fontFamily: 'inherit',
+                        }}
+                        onFocus={(e) => e.currentTarget.style.borderColor = 'var(--primary)'}
+                        onBlur={(e) => e.currentTarget.style.borderColor = 'var(--border)'}
+                      />
+                    )}
+                  </div>
+                );
+              })}
 
               {config.hasImageUpload && (
                 <div>

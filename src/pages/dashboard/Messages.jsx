@@ -6,7 +6,7 @@ import {
   MoreHorizontal, ChevronDown, Loader as Spinner, Inbox,
   User, Clock, CheckCheck, AlertCircle, Trash2, Reply as ReplyIcon,
   SmilePlus, X, Paperclip, Image as ImageIcon, Plus, MessageCircle,
-  Share2, Briefcase, Calendar, Building2, MapPin, Award, Target, Globe, DollarSign,
+  Share2, Briefcase, Calendar, Building2, MapPin, Award, Target, Globe, DollarSign, Bell,
 } from 'lucide-react';
 import Avatar from '../../components/ui/Avatar';
 import Badge from '../../components/ui/Badge';
@@ -221,14 +221,17 @@ export default function Messages() {
       const res = await fetch(`${API}/messages/conversations`, { credentials: 'include' });
       if (!res.ok) throw new Error('Failed to load conversations');
       const data = await res.json();
-      setConversations(data.conversations || []);
+      const convs = data.conversations || [];
+      setConversations(convs);
+      useSocketStore.getState().setConversations(convs);
+      queryClient.invalidateQueries({ queryKey: ["dashboard", "stats"] });
     } catch (err) {
       setConvError(err.message);
       addToast(err.message, 'error');
     } finally {
       setConvLoading(false);
     }
-  }, [addToast]);
+  }, [addToast, queryClient]);
 
   const fetchMessagesApi = useCallback(async (convId, page = 1, append = false) => {
     if (!convId) return;
@@ -300,6 +303,11 @@ export default function Messages() {
     setHasMoreMessages(true);
     setReplyingTo(null);
     setTypingUsers([]);
+    useSocketStore.getState().setActiveConversationId(convId);
+    setConversations((prev) => prev.map((c) =>
+      c.id === convId ? { ...c, unreadCount: 0 } : c
+    ));
+    queryClient.invalidateQueries({ queryKey: ["dashboard", "stats"] });
     fetchMessagesApi(convId, 1);
   };
 
@@ -341,11 +349,15 @@ export default function Messages() {
 
       const msg = result.message;
       setMessages((prev) => prev.map((m) => (m.id === tempId ? { ...m, id: msg.id, _optimistic: false, deliveredAt: msg.deliveredAt || null } : m)));
-      setConversations((prev) => prev.map((c) =>
-        c.id === activeConv
-          ? { ...c, updatedAt: new Date().toISOString() }
-          : c
-      ));
+      setConversations((prev) => {
+        const updated = prev.map((c) =>
+          c.id === activeConv
+            ? { ...c, updatedAt: new Date().toISOString() }
+            : c
+        );
+        useSocketStore.getState().setConversations(updated);
+        return updated;
+      });
     } catch (err) {
       setMessages((prev) => prev.filter((m) => m.id !== tempId));
       addToast(err.message || 'Failed to send message', 'error');
@@ -403,11 +415,17 @@ export default function Messages() {
         }
       }
       if (!isOwn) {
-        setConversations((prev) => prev.map((c) =>
-          c.id === msg.conversationId
-            ? { ...c, updatedAt: new Date().toISOString(), unreadCount: (c.unreadCount || 0) + 1 }
-            : c
-        ));
+        setConversations((prev) => {
+          const updated = prev.map((c) =>
+            c.id === msg.conversationId
+              ? { ...c, updatedAt: new Date().toISOString(), unreadCount: msg.conversationId === activeConv ? c.unreadCount : (c.unreadCount || 0) + 1 }
+              : c
+          );
+          useSocketStore.getState().setConversations(updated);
+          return updated;
+        });
+        queryClient.invalidateQueries({ queryKey: ["dashboard", "recent-messages"] });
+        queryClient.invalidateQueries({ queryKey: ["dashboard", "stats"] });
       }
     };
 
@@ -442,11 +460,21 @@ export default function Messages() {
       ));
     };
 
-    const handleMessageReadEvent = ({ conversationId, messageIds }) => {
+    const handleMessageReadEvent = ({ conversationId, readBy, messageIds }) => {
       if (messageIds?.length > 0) {
         setMessages((prev) => prev.map((m) =>
-          m.senderId === user?.id && messageIds.includes(m.id) ? { ...m, readAt: new Date().toISOString() } : m
+          messageIds.includes(m.id) ? { ...m, readAt: new Date().toISOString() } : m
         ));
+      }
+      if (readBy === user?.id) {
+        setConversations((prev) => {
+          const updated = prev.map((c) =>
+            c.id === conversationId ? { ...c, unreadCount: 0 } : c
+          );
+          useSocketStore.getState().setConversations(updated);
+          return updated;
+        });
+        queryClient.invalidateQueries({ queryKey: ["dashboard", "stats"] });
       }
     };
 
@@ -536,7 +564,11 @@ export default function Messages() {
       addToast('Request accepted!', 'success');
       setRequests((prev) => prev.filter((r) => r.id !== requestId));
       if (data.conversation) {
-        setConversations((prev) => [...prev, data.conversation]);
+        setConversations((prev) => {
+          const updated = [data.conversation, ...prev];
+          useSocketStore.getState().setConversations(updated);
+          return updated;
+        });
         handleSelectConversation(data.conversation.id);
       } else {
         fetchConversations();
@@ -624,7 +656,9 @@ export default function Messages() {
         if (data.conversation) {
           setConversations((prev) => {
             const exists = prev.find((c) => c.id === data.conversation.id);
-            return exists ? prev : [data.conversation, ...prev];
+            const updated = exists ? prev : [data.conversation, ...prev];
+            useSocketStore.getState().setConversations(updated);
+            return updated;
           });
         }
         await fetchMutualStatus(targetId);
@@ -647,7 +681,9 @@ export default function Messages() {
       if (data.conversation) {
         setConversations((prev) => {
           const exists = prev.find((c) => c.id === data.conversation.id);
-          return exists ? prev : [data.conversation, ...prev];
+          const updated = exists ? prev : [data.conversation, ...prev];
+          useSocketStore.getState().setConversations(updated);
+          return updated;
         });
         handleSelectConversation(data.conversation.id);
         setShowNewChat(false);

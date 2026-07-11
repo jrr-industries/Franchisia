@@ -1,6 +1,10 @@
 import { create } from "zustand";
 import { connectSocket, disconnectSocket, getSocket } from "../lib/socket";
 
+function computeUnreadCount(conversations) {
+  return conversations.reduce((sum, c) => sum + (c.unreadCount || 0), 0);
+}
+
 const useSocketStore = create((set, get) => ({
   isConnected: false,
   socketId: null,
@@ -37,13 +41,16 @@ const useSocketStore = create((set, get) => ({
     });
 
     socket.on("new-message", (message) => {
-      set((state) => ({
-        conversations: state.conversations.map((c) =>
+      set((state) => {
+        const isActive = state.activeConversationId === message.conversationId;
+        const updatedConvs = state.conversations.map((c) =>
           c.id === message.conversationId
-            ? { ...c, lastMessage: message, updatedAt: new Date().toISOString(), unreadCount: c.id === get().activeConversationId ? c.unreadCount : (c.unreadCount || 0) + 1 }
+            ? { ...c, lastMessage: message, updatedAt: new Date().toISOString(), unreadCount: isActive ? c.unreadCount : (c.unreadCount || 0) + 1 }
             : c
-        ),
-      }));
+        );
+        const totalUnread = computeUnreadCount(updatedConvs);
+        return { conversations: updatedConvs, unreadCount: totalUnread };
+      });
     });
 
     socket.on("message-delivered", ({ messageId, conversationId }) => {
@@ -91,9 +98,21 @@ const useSocketStore = create((set, get) => ({
     });
   },
 
-  setConversations: (conversations) => set({ conversations }),
+  setConversations: (conversations) => set({ conversations, unreadCount: computeUnreadCount(conversations) }),
 
-  setActiveConversationId: (id) => set({ activeConversationId: id }),
+  setUnreadCount: (count) => set({ unreadCount: count }),
+
+  updateNotificationCount: (count) => set({ notificationCount: count }),
+
+  setActiveConversationId: (id) => {
+    set((state) => {
+      if (id === state.activeConversationId) return state;
+      const updatedConvs = state.conversations.map((c) =>
+        c.id === id ? { ...c, unreadCount: 0 } : c
+      );
+      return { activeConversationId: id, conversations: updatedConvs, unreadCount: computeUnreadCount(updatedConvs) };
+    });
+  },
 
   setTyping: (conversationId, userId, name, isTyping) => {
     set((state) => {

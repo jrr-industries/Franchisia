@@ -97,13 +97,13 @@ router.get("/:slug", async (req, res) => {
 
 router.post("/", authenticate, async (req, res) => {
   try {
-    const { name, slug, industry, description, website, foundedYear, employeeCount, email, phone, address, city, country } = req.body;
+    const { name, slug, industry, description, website, foundedYear, employeeCount, email, phone, address, city, state, country } = req.body;
 
     const company = await prisma.company.create({
       data: {
         ownerId: req.user.id,
         name, slug, industry, description, website, foundedYear,
-        employeeCount, email, phone, address, city, country,
+        employeeCount, email, phone, address, city, state, country,
       },
       include: { _count: { select: { followers: true, listings: true } } },
     });
@@ -126,7 +126,7 @@ router.put("/:id", authenticate, async (req, res) => {
       return res.status(403).json({ error: "Not authorized" });
     }
 
-    const allowedFields = ["name", "industry", "description", "website", "foundedYear", "employeeCount", "email", "phone", "address", "city", "country"];
+    const allowedFields = ["name", "industry", "description", "website", "foundedYear", "employeeCount", "email", "phone", "address", "city", "state", "country"];
     const updates = {};
     for (const key of allowedFields) {
       if (req.body[key] !== undefined) updates[key] = req.body[key];

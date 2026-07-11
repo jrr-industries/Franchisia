@@ -14,6 +14,11 @@ export async function authenticate(req, res, next) {
 
     const fullUser = await prisma.user.findUnique({
       where: { id: session.user.id },
+      select: {
+        id: true, email: true, name: true, role: true, image: true,
+        isActive: true, verified: true, accountStatus: true,
+        onboardingCompleted: true, createdAt: true,
+      },
     });
 
     if (!fullUser) {

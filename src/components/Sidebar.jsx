@@ -2,7 +2,7 @@ import { useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Compass, Building2, MessageSquare, Bell, User, Settings, LogOut, Users, BarChart3, Shield, ShieldCheck, FileText, AlertTriangle, Heart, Search, Briefcase, ClipboardList, Activity, Server, Megaphone, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import logo from '../assets/logo.png';
+import Logo from './Logo';
 
 const mainLinks = [
   { label: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
@@ -64,10 +64,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
   const sidebarContent = (
     <>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: collapsed ? 16 : '20px 20px', borderBottom: '1px solid var(--border)' }}>
-        <Link to="/" onClick={handleClose} style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', whiteSpace: 'nowrap' }}>
-          <img src={logo} alt="Franchisia" style={{ height: collapsed ? 36 : 40, width: 'auto' }} />
-          {!collapsed && <span style={{ fontSize: 18, fontWeight: 800, color: 'var(--text)' }}>Franchisia</span>}
-        </Link>
+        <Logo size={collapsed ? 36 : 40} collapsed={collapsed} onClick={handleClose} />
         {overlayOpen && (
           <button onClick={handleClose} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: 4, display: 'flex' }} aria-label="Close sidebar">
             <X size={20} />

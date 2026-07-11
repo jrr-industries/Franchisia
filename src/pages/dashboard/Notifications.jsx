@@ -151,6 +151,7 @@ export default function Notifications() {
         setTotal(data.total);
         setUnreadCount(data.unreadCount);
         setGroupCounts(data.groupCounts || {});
+        useSocketStore.getState().updateNotificationCount(data.unreadCount);
       }
     } catch (e) {
       console.error('Failed to fetch notifications', e);
@@ -176,7 +177,11 @@ export default function Notifications() {
       const res = await fetch(`${API}/notifications/${id}/read`, { method: 'PATCH', credentials: 'include' });
       if (res.ok) {
         setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, isRead: true } : n)));
-        setUnreadCount((prev) => Math.max(0, prev - 1));
+        setUnreadCount((prev) => {
+          const newCount = Math.max(0, prev - 1);
+          useSocketStore.getState().updateNotificationCount(newCount);
+          return newCount;
+        });
       }
     } catch (e) {
       console.error('Failed to mark as read', e);
@@ -191,6 +196,7 @@ export default function Notifications() {
       if (res.ok) {
         setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
         setUnreadCount(0);
+        useSocketStore.getState().updateNotificationCount(0);
       }
     } catch (e) {
       console.error('Failed to mark all as read', e);

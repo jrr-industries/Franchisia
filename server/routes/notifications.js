@@ -48,11 +48,15 @@ router.get("/", async (req, res) => {
       prisma.notification.count({ where: { userId: req.user.id, isRead: false } }),
     ]);
 
+    const typeCounts = await prisma.notification.groupBy({
+      by: ["type"],
+      where: { userId: req.user.id },
+      _count: { type: true },
+    });
+    const countByType = Object.fromEntries(typeCounts.map((t) => [t.type, t._count.type]));
     const groupCounts = {};
     for (const [group, types] of Object.entries(TYPE_GROUPS)) {
-      groupCounts[group] = await prisma.notification.count({
-        where: { userId: req.user.id, type: { in: types } },
-      });
+      groupCounts[group] = types.reduce((sum, t) => sum + (countByType[t] || 0), 0);
     }
 
     res.json({

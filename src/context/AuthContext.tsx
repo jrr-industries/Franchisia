@@ -17,11 +17,13 @@ export function AuthProvider({ children }) {
       });
       if (res.ok) {
         const data = await res.json();
-        setUser({
-          ...data,
-          onboardingCompleted: data.onboardingCompleted ?? false,
-        });
-        return { user: data };
+        if (data) {
+          setUser({
+            ...data,
+            onboardingCompleted: data.onboardingCompleted ?? false,
+          });
+          return { user: data };
+        }
       }
     } catch {
       // Not authenticated
@@ -90,8 +92,17 @@ export function AuthProvider({ children }) {
     if (error) throw new Error(error.message || "Failed to reset password");
   }, []);
 
+  const [socialLoading, setSocialLoading] = useState(null);
+
   const loginSocial = useCallback(async (provider) => {
-    await authClient.signIn.social({ provider, callbackURL: "/onboarding/select-role" });
+    setSocialLoading(provider);
+    try {
+      const { error } = await authClient.signIn.social({ provider, callbackURL: "/onboarding/select-role" });
+      if (error) throw new Error(error.message || "Social login failed");
+    } catch (err) {
+      setSocialLoading(null);
+      throw err;
+    }
   }, []);
 
   const selectRole = useCallback(async (role) => {
@@ -155,13 +166,18 @@ export function AuthProvider({ children }) {
   }, []);
 
   const fetchAuthStatus = useCallback(async () => {
-    const res = await fetch(`${API}/auth/status`, {
-      credentials: "include",
-    });
-    if (!res.ok) throw new Error("Failed to fetch status");
-    const data = await res.json();
-    setUser(data);
-    return data;
+    try {
+      const res = await fetch(`${API}/auth/status`, {
+        credentials: "include",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data);
+        return data;
+      }
+    } catch {}
+    setUser(null);
+    return null;
   }, []);
 
   const isAdmin = user?.role === "admin";
@@ -174,6 +190,7 @@ export function AuthProvider({ children }) {
       isAdmin,
       isVerified,
       loading,
+      socialLoading,
       login,
       signup,
       logout,

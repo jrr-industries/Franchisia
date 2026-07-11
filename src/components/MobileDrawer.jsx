@@ -7,7 +7,7 @@ import {
   FileText, Server, LogIn, UserPlus, Menu
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
-import logo from "../assets/logo.png";
+import Logo from "./Logo";
 
 const mainLinks = [
   { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
@@ -95,10 +95,7 @@ export default function MobileDrawer({ open, onClose }) {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", borderBottom: "1px solid var(--border)" }}>
-          <Link to="/" onClick={onClose} style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-            <img src={logo} alt="Franchisia" style={{ height: 36, width: "auto" }} />
-            <span style={{ fontSize: 18, fontWeight: 800, color: "var(--text)" }}>Franchisia</span>
-          </Link>
+          <Logo size={40} onClick={onClose} />
           <button onClick={onClose} style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", padding: 4, display: "flex" }} aria-label="Close menu">
             <X size={20} />
           </button>

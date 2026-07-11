@@ -120,6 +120,17 @@ export function useTasks() {
   });
 }
 
+export function useUnreadMessageCount() {
+  return useQuery({
+    queryKey: ["messages", "unread-count"],
+    queryFn: async () => {
+      const d = await fetchJSON(`${API}/messages/unread-count`);
+      return d.unreadCount || 0;
+    },
+    staleTime: 30 * 1000,
+  });
+}
+
 export function useConversations() {
   return useQuery({
     queryKey: ["messages", "conversations"],

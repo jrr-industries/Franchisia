@@ -196,13 +196,19 @@ export function initSocket(httpServer) {
           select: { userId: true },
         });
 
-        for (const p of participants) {
-          io.to(p.userId).emit("message-read", {
-            conversationId,
-            readBy: userId,
-            messageIds,
-          });
-        }
+    for (const p of participants) {
+      io.to(p.userId).emit("message-read", {
+        conversationId,
+        readBy: userId,
+        messageIds,
+      });
+    }
+
+    io.to(userId).emit("message-read", {
+      conversationId,
+      readBy: userId,
+      messageIds,
+    });
       } catch (err) {
         console.error("message-read error:", err);
       }

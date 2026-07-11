@@ -25,12 +25,12 @@ router.get("/me", authenticate, async (req, res) => {
 
 router.put("/me", authenticate, async (req, res) => {
   try {
-    const { fullName, name: reqName, headline, bio, phone, location, website, linkedinUrl, investmentCapacity, industries, experienceYears } = req.body;
+    const { fullName, name: reqName, headline, bio, phone, location, country, state, city, website, linkedinUrl, investmentCapacity, industries, experienceYears } = req.body;
 
     const user = await prisma.user.update({
       where: { id: req.user.id },
       data: {
-        name: fullName || reqName, headline, bio, phone, location, website, linkedinUrl,
+        name: fullName || reqName, headline, bio, phone, location, country, state, city, website, linkedinUrl,
         investmentCapacity, industries, experienceYears,
       },
     });
@@ -48,7 +48,7 @@ router.get("/:id", async (req, res) => {
       where: { id: req.params.id },
       select: {
         id: true, name: true, image: true, headline: true, bio: true,
-        location: true, website: true, linkedinUrl: true, industries: true,
+        location: true, country: true, state: true, city: true, website: true, linkedinUrl: true, industries: true,
         experienceYears: true, role: true, skills: true, education: true,
         experience: true, createdAt: true, followerCount: true, followingCount: true,
         verified: true, accountStatus: true, companyName: true, brandName: true, phone: true,
@@ -83,7 +83,8 @@ router.get("/", async (req, res) => {
         take: parseInt(limit),
         select: {
           id: true, name: true, image: true, headline: true,
-          location: true, role: true, industries: true, createdAt: true,
+          location: true, country: true, state: true, city: true,
+          role: true, industries: true, createdAt: true,
         },
         orderBy: { createdAt: "desc" },
       }),

@@ -62,6 +62,9 @@ export type UserMinAggregateOutputType = {
   phone: string | null
   phoneVerified: Date | null
   location: string | null
+  country: string | null
+  state: string | null
+  city: string | null
   investmentCapacity: runtime.Decimal | null
   experienceYears: number | null
   website: string | null
@@ -118,6 +121,9 @@ export type UserMaxAggregateOutputType = {
   phone: string | null
   phoneVerified: Date | null
   location: string | null
+  country: string | null
+  state: string | null
+  city: string | null
   investmentCapacity: runtime.Decimal | null
   experienceYears: number | null
   website: string | null
@@ -174,6 +180,9 @@ export type UserCountAggregateOutputType = {
   phone: number
   phoneVerified: number
   location: number
+  country: number
+  state: number
+  city: number
   investmentCapacity: number
   industries: number
   experienceYears: number
@@ -251,6 +260,9 @@ export type UserMinAggregateInputType = {
   phone?: true
   phoneVerified?: true
   location?: true
+  country?: true
+  state?: true
+  city?: true
   investmentCapacity?: true
   experienceYears?: true
   website?: true
@@ -307,6 +319,9 @@ export type UserMaxAggregateInputType = {
   phone?: true
   phoneVerified?: true
   location?: true
+  country?: true
+  state?: true
+  city?: true
   investmentCapacity?: true
   experienceYears?: true
   website?: true
@@ -363,6 +378,9 @@ export type UserCountAggregateInputType = {
   phone?: true
   phoneVerified?: true
   location?: true
+  country?: true
+  state?: true
+  city?: true
   investmentCapacity?: true
   industries?: true
   experienceYears?: true
@@ -507,6 +525,9 @@ export type UserGroupByOutputType = {
   phone: string | null
   phoneVerified: Date | null
   location: string | null
+  country: string | null
+  state: string | null
+  city: string | null
   investmentCapacity: runtime.Decimal | null
   industries: string[]
   experienceYears: number | null
@@ -587,6 +608,9 @@ export type UserWhereInput = {
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   phoneVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   location?: Prisma.StringNullableFilter<"User"> | string | null
+  country?: Prisma.StringNullableFilter<"User"> | string | null
+  state?: Prisma.StringNullableFilter<"User"> | string | null
+  city?: Prisma.StringNullableFilter<"User"> | string | null
   investmentCapacity?: Prisma.DecimalNullableFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.StringNullableListFilter<"User">
   experienceYears?: Prisma.IntNullableFilter<"User"> | number | null
@@ -669,6 +693,9 @@ export type UserOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneVerified?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
   investmentCapacity?: Prisma.SortOrderInput | Prisma.SortOrder
   industries?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -754,6 +781,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   phoneVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   location?: Prisma.StringNullableFilter<"User"> | string | null
+  country?: Prisma.StringNullableFilter<"User"> | string | null
+  state?: Prisma.StringNullableFilter<"User"> | string | null
+  city?: Prisma.StringNullableFilter<"User"> | string | null
   investmentCapacity?: Prisma.DecimalNullableFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.StringNullableListFilter<"User">
   experienceYears?: Prisma.IntNullableFilter<"User"> | number | null
@@ -836,6 +866,9 @@ export type UserOrderByWithAggregationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneVerified?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
   investmentCapacity?: Prisma.SortOrderInput | Prisma.SortOrder
   industries?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -901,6 +934,9 @@ export type UserScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   phoneVerified?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   location?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  country?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  state?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  city?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   investmentCapacity?: Prisma.DecimalNullableWithAggregatesFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.StringNullableListFilter<"User">
   experienceYears?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
@@ -958,6 +994,9 @@ export type UserCreateInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -1040,6 +1079,9 @@ export type UserUncheckedCreateInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -1122,6 +1164,9 @@ export type UserUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1204,6 +1249,9 @@ export type UserUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1286,6 +1334,9 @@ export type UserCreateManyInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -1343,6 +1394,9 @@ export type UserUpdateManyMutationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1400,6 +1454,9 @@ export type UserUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1465,6 +1522,9 @@ export type UserCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   phoneVerified?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  state?: Prisma.SortOrder
+  city?: Prisma.SortOrder
   investmentCapacity?: Prisma.SortOrder
   industries?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrder
@@ -1531,6 +1591,9 @@ export type UserMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   phoneVerified?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  state?: Prisma.SortOrder
+  city?: Prisma.SortOrder
   investmentCapacity?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrder
   website?: Prisma.SortOrder
@@ -1587,6 +1650,9 @@ export type UserMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   phoneVerified?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  state?: Prisma.SortOrder
+  city?: Prisma.SortOrder
   investmentCapacity?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrder
   website?: Prisma.SortOrder
@@ -2075,6 +2141,9 @@ export type UserCreateWithoutSessionsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -2156,6 +2225,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -2253,6 +2325,9 @@ export type UserUpdateWithoutSessionsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -2334,6 +2409,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -2415,6 +2493,9 @@ export type UserCreateWithoutAccountsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -2496,6 +2577,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -2593,6 +2677,9 @@ export type UserUpdateWithoutAccountsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -2674,6 +2761,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -2755,6 +2845,9 @@ export type UserCreateWithoutSkillsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -2836,6 +2929,9 @@ export type UserUncheckedCreateWithoutSkillsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -2933,6 +3029,9 @@ export type UserUpdateWithoutSkillsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -3014,6 +3113,9 @@ export type UserUncheckedUpdateWithoutSkillsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -3095,6 +3197,9 @@ export type UserCreateWithoutInterestsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -3176,6 +3281,9 @@ export type UserUncheckedCreateWithoutInterestsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -3273,6 +3381,9 @@ export type UserUpdateWithoutInterestsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -3354,6 +3465,9 @@ export type UserUncheckedUpdateWithoutInterestsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -3435,6 +3549,9 @@ export type UserCreateWithoutEducationInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -3516,6 +3633,9 @@ export type UserUncheckedCreateWithoutEducationInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -3613,6 +3733,9 @@ export type UserUpdateWithoutEducationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -3694,6 +3817,9 @@ export type UserUncheckedUpdateWithoutEducationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -3775,6 +3901,9 @@ export type UserCreateWithoutExperienceInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -3856,6 +3985,9 @@ export type UserUncheckedCreateWithoutExperienceInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -3953,6 +4085,9 @@ export type UserUpdateWithoutExperienceInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -4034,6 +4169,9 @@ export type UserUncheckedUpdateWithoutExperienceInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -4115,6 +4253,9 @@ export type UserCreateWithoutCompaniesInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -4196,6 +4337,9 @@ export type UserUncheckedCreateWithoutCompaniesInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -4293,6 +4437,9 @@ export type UserUpdateWithoutCompaniesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -4374,6 +4521,9 @@ export type UserUncheckedUpdateWithoutCompaniesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -4455,6 +4605,9 @@ export type UserCreateWithoutListingsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -4536,6 +4689,9 @@ export type UserUncheckedCreateWithoutListingsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -4633,6 +4789,9 @@ export type UserUpdateWithoutListingsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -4714,6 +4873,9 @@ export type UserUncheckedUpdateWithoutListingsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -4795,6 +4957,9 @@ export type UserCreateWithoutApplicationsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -4876,6 +5041,9 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -4973,6 +5141,9 @@ export type UserUpdateWithoutApplicationsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -5054,6 +5225,9 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -5135,6 +5309,9 @@ export type UserCreateWithoutSentConnectionsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -5216,6 +5393,9 @@ export type UserUncheckedCreateWithoutSentConnectionsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -5302,6 +5482,9 @@ export type UserCreateWithoutReceivedConnectionsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -5383,6 +5566,9 @@ export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -5480,6 +5666,9 @@ export type UserUpdateWithoutSentConnectionsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -5561,6 +5750,9 @@ export type UserUncheckedUpdateWithoutSentConnectionsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -5653,6 +5845,9 @@ export type UserUpdateWithoutReceivedConnectionsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -5734,6 +5929,9 @@ export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -5815,6 +6013,9 @@ export type UserCreateWithoutCompanyFollowersInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -5896,6 +6097,9 @@ export type UserUncheckedCreateWithoutCompanyFollowersInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -5993,6 +6197,9 @@ export type UserUpdateWithoutCompanyFollowersInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -6074,6 +6281,9 @@ export type UserUncheckedUpdateWithoutCompanyFollowersInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -6155,6 +6365,9 @@ export type UserCreateWithoutParticipantsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -6236,6 +6449,9 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -6333,6 +6549,9 @@ export type UserUpdateWithoutParticipantsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -6414,6 +6633,9 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -6495,6 +6717,9 @@ export type UserCreateWithoutMessagesInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -6576,6 +6801,9 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -6673,6 +6901,9 @@ export type UserUpdateWithoutMessagesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -6754,6 +6985,9 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -6835,6 +7069,9 @@ export type UserCreateWithoutReactionsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -6916,6 +7153,9 @@ export type UserUncheckedCreateWithoutReactionsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -7013,6 +7253,9 @@ export type UserUpdateWithoutReactionsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -7094,6 +7337,9 @@ export type UserUncheckedUpdateWithoutReactionsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -7175,6 +7421,9 @@ export type UserCreateWithoutNotificationsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -7256,6 +7505,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -7353,6 +7605,9 @@ export type UserUpdateWithoutNotificationsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -7434,6 +7689,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -7515,6 +7773,9 @@ export type UserCreateWithoutReviewsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -7596,6 +7857,9 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -7693,6 +7957,9 @@ export type UserUpdateWithoutReviewsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -7774,6 +8041,9 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -7855,6 +8125,9 @@ export type UserCreateWithoutOrganizedMeetingsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -7936,6 +8209,9 @@ export type UserUncheckedCreateWithoutOrganizedMeetingsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -8033,6 +8309,9 @@ export type UserUpdateWithoutOrganizedMeetingsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -8114,6 +8393,9 @@ export type UserUncheckedUpdateWithoutOrganizedMeetingsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -8195,6 +8477,9 @@ export type UserCreateWithoutMeetingParticipantsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -8276,6 +8561,9 @@ export type UserUncheckedCreateWithoutMeetingParticipantsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -8373,6 +8661,9 @@ export type UserUpdateWithoutMeetingParticipantsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -8454,6 +8745,9 @@ export type UserUncheckedUpdateWithoutMeetingParticipantsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -8535,6 +8829,9 @@ export type UserCreateWithoutSentMessageRequestsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -8616,6 +8913,9 @@ export type UserUncheckedCreateWithoutSentMessageRequestsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -8702,6 +9002,9 @@ export type UserCreateWithoutReceivedMessageRequestsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -8783,6 +9086,9 @@ export type UserUncheckedCreateWithoutReceivedMessageRequestsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -8880,6 +9186,9 @@ export type UserUpdateWithoutSentMessageRequestsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -8961,6 +9270,9 @@ export type UserUncheckedUpdateWithoutSentMessageRequestsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -9053,6 +9365,9 @@ export type UserUpdateWithoutReceivedMessageRequestsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -9134,6 +9449,9 @@ export type UserUncheckedUpdateWithoutReceivedMessageRequestsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -9215,6 +9533,9 @@ export type UserCreateWithoutAuditLogsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -9296,6 +9617,9 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -9393,6 +9717,9 @@ export type UserUpdateWithoutAuditLogsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -9474,6 +9801,9 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -9555,6 +9885,9 @@ export type UserCreateWithoutDocumentsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -9636,6 +9969,9 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -9733,6 +10069,9 @@ export type UserUpdateWithoutDocumentsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -9814,6 +10153,9 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -9895,6 +10237,9 @@ export type UserCreateWithoutVerificationHistoriesInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -9976,6 +10321,9 @@ export type UserUncheckedCreateWithoutVerificationHistoriesInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -10073,6 +10421,9 @@ export type UserUpdateWithoutVerificationHistoriesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -10154,6 +10505,9 @@ export type UserUncheckedUpdateWithoutVerificationHistoriesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -10235,6 +10589,9 @@ export type UserCreateWithoutBookmarksInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -10316,6 +10673,9 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   phone?: string | null
   phoneVerified?: Date | string | null
   location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
@@ -10413,6 +10773,9 @@ export type UserUpdateWithoutBookmarksInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -10494,6 +10857,9 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -10822,6 +11188,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   phone?: boolean
   phoneVerified?: boolean
   location?: boolean
+  country?: boolean
+  state?: boolean
+  city?: boolean
   investmentCapacity?: boolean
   industries?: boolean
   experienceYears?: boolean
@@ -10905,6 +11274,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   phoneVerified?: boolean
   location?: boolean
+  country?: boolean
+  state?: boolean
+  city?: boolean
   investmentCapacity?: boolean
   industries?: boolean
   experienceYears?: boolean
@@ -10962,6 +11334,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   phoneVerified?: boolean
   location?: boolean
+  country?: boolean
+  state?: boolean
+  city?: boolean
   investmentCapacity?: boolean
   industries?: boolean
   experienceYears?: boolean
@@ -11019,6 +11394,9 @@ export type UserSelectScalar = {
   phone?: boolean
   phoneVerified?: boolean
   location?: boolean
+  country?: boolean
+  state?: boolean
+  city?: boolean
   investmentCapacity?: boolean
   industries?: boolean
   experienceYears?: boolean
@@ -11058,7 +11436,7 @@ export type UserSelectScalar = {
   yearsInBusiness?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "companyLogo" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "verified" | "verifiedAt" | "verifiedBy" | "isActive" | "followerCount" | "followingCount" | "lastLoginAt" | "lastActiveAt" | "brandName" | "businessLicenseDoc" | "certifications" | "companyBanner" | "companyDescription" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "country" | "state" | "city" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "companyLogo" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "verified" | "verifiedAt" | "verifiedBy" | "isActive" | "followerCount" | "followingCount" | "lastLoginAt" | "lastActiveAt" | "brandName" | "businessLicenseDoc" | "certifications" | "companyBanner" | "companyDescription" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organizedMeetings?: boolean | Prisma.User$organizedMeetingsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -11137,6 +11515,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     phone: string | null
     phoneVerified: Date | null
     location: string | null
+    country: string | null
+    state: string | null
+    city: string | null
     investmentCapacity: runtime.Decimal | null
     industries: string[]
     experienceYears: number | null
@@ -11639,6 +12020,9 @@ export interface UserFieldRefs {
   readonly phone: Prisma.FieldRef<"User", 'String'>
   readonly phoneVerified: Prisma.FieldRef<"User", 'DateTime'>
   readonly location: Prisma.FieldRef<"User", 'String'>
+  readonly country: Prisma.FieldRef<"User", 'String'>
+  readonly state: Prisma.FieldRef<"User", 'String'>
+  readonly city: Prisma.FieldRef<"User", 'String'>
   readonly investmentCapacity: Prisma.FieldRef<"User", 'Decimal'>
   readonly industries: Prisma.FieldRef<"User", 'String[]'>
   readonly experienceYears: Prisma.FieldRef<"User", 'Int'>

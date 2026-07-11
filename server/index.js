@@ -47,7 +47,23 @@ const limiter = rateLimit({
 app.use("/api/auth", limiter);
 app.use("/api/admin", limiter);
 
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "Too many requests, please try again later" },
+});
+
 app.use(express.json({ limit: "1mb" }));
+
+app.use("/api", apiLimiter);
+
+app.use((_req, res, next) => {
+  res.setHeader("Connection", "keep-alive");
+  res.setHeader("Keep-Alive", "timeout=60");
+  next();
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/auth", toNodeHandler(auth));

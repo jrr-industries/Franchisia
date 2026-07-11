@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, memo } from 'react';
 
 const variants = {
   primary: {
@@ -79,4 +79,4 @@ const Button = forwardRef(({ variant = 'primary', size = 'md', fullWidth, icon, 
 ));
 
 Button.displayName = 'Button';
-export default Button;
+export default memo(Button);

@@ -1,4 +1,6 @@
-export default function Card({ children, style, hover = true, padding = '24px', ...props }) {
+import { memo } from "react";
+
+const Card = memo(function Card({ children, style, hover = true, padding = '24px', ...props }) {
   return (
     <div
       style={{
@@ -27,4 +29,6 @@ export default function Card({ children, style, hover = true, padding = '24px', 
       {children}
     </div>
   );
-}
+});
+
+export default Card;

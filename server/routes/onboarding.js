@@ -30,6 +30,7 @@ router.put("/franchisor", async (req, res) => {
         brandName,
         website,
         preferredIndustry: industry,
+        industries: industry ? [industry] : [],
         businessRegistrationNumber,
         gstNumber: gstNumber || null,
         businessEmail,
@@ -83,17 +84,22 @@ router.put("/franchisee", async (req, res) => {
     const session = await getSession(req);
     if (!session) return res.status(401).json({ error: "Authentication required" });
 
-    const { phone, city, country, investmentBudget, preferredIndustry, businessExperience, linkedinProfile } = req.body;
+    const { phone, city, country, state: formState, investmentBudget, preferredIndustry, businessExperience, linkedinProfile } = req.body;
+
+    const locationStr = [city, formState, country].filter(Boolean).join(', ');
 
     const user = await prisma.user.update({
       where: { id: session.user.id },
       data: {
         role: "franchisee",
         phone,
-        preferredLocation: city,
-        location: country,
+        city,
+        state: formState || null,
+        country: country || null,
+        location: locationStr,
         investmentCapacity: investmentBudget ? parseFloat(investmentBudget.replace(/[^0-9.]/g, '')) : null,
         preferredIndustry,
+        industries: preferredIndustry ? [preferredIndustry] : [],
         headline: businessExperience,
         linkedinUrl: linkedinProfile || null,
         accountStatus: "pending_admin_review",
@@ -181,6 +187,7 @@ router.put("/investor", async (req, res) => {
         role: "investor",
         investmentRange,
         preferredIndustry: interestedIndustries,
+        industries: interestedIndustries ? [interestedIndustries] : [],
         companyName: company || null,
         linkedinUrl: linkedinProfile || null,
         accountStatus: "pending_admin_review",

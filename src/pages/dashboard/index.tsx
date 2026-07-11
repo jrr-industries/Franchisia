@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import useSocketStore from "../../store/socketStore";
@@ -15,6 +15,7 @@ import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
 import Avatar from "../../components/ui/Avatar";
 import Badge from "../../components/ui/Badge";
+import { SkeletonBar, SkeletonCircle } from "../../components/ui/Skeleton";
 import {
   useStats, useAnalytics, useActivities, useMeetings,
   useNotifications, useRecommendedCompanies, useRecommendedOpportunities,
@@ -34,17 +35,11 @@ const statConfig = [
   { key: "opportunityViews", label: "Opportunity Views", icon: TrendingUp, color: "#F97316", bg: "#FFEDD5", suffix: "views" },
 ];
 
-function SkeletonBar({ width = "60%", height = 14, style }) {
-  return (
-    <div style={{ width, height, borderRadius: 6, backgroundColor: "var(--border)", animation: "shimmer 1.5s infinite", ...style }} />
-  );
-}
-
 function StatSkeleton() {
   return (
     <Card hover={false} padding="14px">
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <div style={{ width: 38, height: 38, borderRadius: 10, backgroundColor: "var(--border)", animation: "shimmer 1.5s infinite" }} />
+        <SkeletonCircle size={38} style={{ borderRadius: 10 }} />
         <div style={{ minWidth: 0, flex: 1 }}>
           <SkeletonBar width="70%" height={11} style={{ marginBottom: 6 }} />
           <SkeletonBar width="40%" height={20} />
@@ -57,7 +52,7 @@ function StatSkeleton() {
 function ActivitySkeleton() {
   return (
     <div style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
-      <div style={{ width: 32, height: 32, borderRadius: 8, backgroundColor: "var(--border)", animation: "shimmer 1.5s infinite", flexShrink: 0 }} />
+      <SkeletonCircle size={32} style={{ borderRadius: 8, flexShrink: 0 }} />
       <div style={{ flex: 1 }}>
         <SkeletonBar width="80%" height={13} style={{ marginBottom: 4 }} />
         <SkeletonBar width="30%" height={11} />
@@ -66,18 +61,178 @@ function ActivitySkeleton() {
   );
 }
 
-function ListItemSkeleton({ avatar = true }) {
+const StatCard = memo(({ cfg, value }) => (
+  <Card hover={false} padding="14px">
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <div style={{ width: 38, height: 38, borderRadius: 10, backgroundColor: cfg.bg, display: "flex", alignItems: "center", justifyContent: "center", color: cfg.color, flexShrink: 0 }}>
+        <cfg.icon size={18} />
+      </div>
+      <div style={{ minWidth: 0 }}>
+        <p style={{ fontSize: 11, color: "var(--text-secondary)", fontWeight: 500 }}>{cfg.label}</p>
+        <p style={{ fontSize: 20, fontWeight: 700 }}>{value ?? 0}</p>
+      </div>
+    </div>
+  </Card>
+));
+
+const SectionHeader = memo(({ title, link, onLinkClick }) => (
+  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+    <h2 style={{ fontSize: 18, fontWeight: 600 }}>{title}</h2>
+    {link && (
+      <button onClick={onLinkClick} style={{ color: "var(--primary)", fontSize: 13, fontWeight: 500, display: "flex", alignItems: "center", gap: 4, textDecoration: "none", background: "none", border: "none", cursor: "pointer" }}>
+        View All <ChevronRight size={14} />
+      </button>
+    )}
+  </div>
+));
+
+const ActivityItem = memo(({ activity }) => {
+  const Icon = activity.type === "connection" ? UserPlus : activity.type === "application" ? Briefcase : activity.type === "message" ? MessageSquare : Bell;
   return (
-    <div style={{ display: "flex", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
-      {avatar && <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "var(--border)", animation: "shimmer 1.5s infinite", flexShrink: 0 }} />}
-      <div style={{ flex: 1 }}>
-        <SkeletonBar width="50%" height={13} style={{ marginBottom: 6 }} />
-        <SkeletonBar width="70%" height={11} style={{ marginBottom: 4 }} />
-        <SkeletonBar width="30%" height={11} />
+    <div style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
+      <div style={{ width: 32, height: 32, borderRadius: 8, backgroundColor: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--primary)", fontSize: 12 }}>
+        <Icon size={14} />
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <p style={{ fontSize: 13, lineHeight: 1.4 }}>{activity.body || activity.title || `${activity.type} activity`}</p>
+        <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{activity.createdAt ? timeAgo(new Date(activity.createdAt)) : ""}</span>
       </div>
     </div>
   );
-}
+});
+
+const MeetingItem = memo(({ meeting, onRespond }) => (
+  <div style={{ padding: "8px 0", borderBottom: "1px solid var(--border)" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <div style={{ width: 34, height: 34, borderRadius: 8, backgroundColor: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", flexShrink: 0 }}>
+        <Calendar size={16} />
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <p style={{ fontSize: 13, fontWeight: 600 }}>{meeting.title}</p>
+        <p style={{ fontSize: 11, color: "var(--text-muted)" }}>{meeting.startTime ? new Date(meeting.startTime).toLocaleDateString() + " " + new Date(meeting.startTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : ""}</p>
+      </div>
+    </div>
+    <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
+      <Button size="sm" onClick={() => onRespond(meeting.id, "accept")} style={{ padding: "3px 10px", fontSize: 11 }}>Accept</Button>
+      <Button size="sm" variant="ghost" onClick={() => onRespond(meeting.id, "decline")} style={{ padding: "3px 10px", fontSize: 11, color: "var(--danger)" }}>Decline</Button>
+    </div>
+  </div>
+));
+
+const NotificationItem = memo(({ notification, onRead }) => (
+  <div style={{ display: "flex", gap: 10, padding: "8px 0", borderBottom: "1px solid var(--border)", cursor: "pointer" }} onClick={() => !notification.isRead && onRead(notification.id)}>
+    <div style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: notification.isRead ? "transparent" : "var(--primary)", flexShrink: 0, marginTop: 5 }} />
+    <div style={{ flex: 1, minWidth: 0 }}>
+      <p style={{ fontSize: 13, color: notification.isRead ? "var(--text-secondary)" : "var(--text)", fontWeight: notification.isRead ? 400 : 500, lineHeight: 1.4 }}>{notification.body || notification.title}</p>
+      <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{notification.createdAt ? timeAgo(new Date(notification.createdAt)) : ""}</span>
+    </div>
+  </div>
+));
+
+const RecommendCompanyItem = memo(({ company, onFollow, onView }) => (
+  <div style={{ display: "flex", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
+    {company.logoUrl ? <img src={company.logoUrl} alt="" style={{ width: 40, height: 40, borderRadius: 10, objectFit: "cover", flexShrink: 0 }} /> :
+      <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 14, color: "var(--primary)", flexShrink: 0 }}>{company.name?.[0]}</div>}
+    <div style={{ flex: 1, minWidth: 0 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+        <span style={{ fontWeight: 600, fontSize: 13 }}>{company.name}</span>
+        {company.isVerified && <Badge variant="success" style={{ fontSize: 9, padding: "1px 6px" }}>✓</Badge>}
+      </div>
+      <p style={{ fontSize: 11, color: "var(--text-secondary)" }}>{company.industry}</p>
+      <div style={{ display: "flex", gap: 4, marginTop: 6 }}>
+        <Button size="sm" variant={company.isFollowing ? "secondary" : "primary"} onClick={() => onFollow(company.id)} style={{ padding: "2px 8px", fontSize: 11 }}>
+          {company.isFollowing ? "Following" : "Follow"}
+        </Button>
+        <Button size="sm" variant="ghost" onClick={() => onView(company.slug || company.id)} style={{ padding: "2px 8px", fontSize: 11 }}>View</Button>
+      </div>
+    </div>
+  </div>
+));
+
+const OpportunityItem = memo(({ opportunity, onApply, onBookmark }) => (
+  <div style={{ display: "flex", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
+    <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "#FEF3C7", display: "flex", alignItems: "center", justifyContent: "center", color: "#D97706", flexShrink: 0 }}>
+      <Zap size={18} />
+    </div>
+    <div style={{ flex: 1, minWidth: 0 }}>
+      <p style={{ fontWeight: 600, fontSize: 13 }}>{opportunity.title}</p>
+      <p style={{ fontSize: 11, color: "var(--text-secondary)" }}>{opportunity.company?.name}</p>
+      <div style={{ display: "flex", gap: 8, marginTop: 4, fontSize: 11, color: "var(--text-muted)", flexWrap: "wrap" }}>
+        {opportunity.investmentMin && <span><DollarSign size={10} style={{ display: "inline" }} /> {formatCurrency(opportunity.investmentMin)}-{formatCurrency(opportunity.investmentMax)}</span>}
+        {opportunity.roiPercentage && <span style={{ color: "var(--accent)" }}>{opportunity.roiPercentage}% ROI</span>}
+        {opportunity.location && <span><MapPin size={10} style={{ display: "inline" }} /> {opportunity.location}</span>}
+      </div>
+      <div style={{ display: "flex", gap: 4, marginTop: 6 }}>
+        <Button size="sm" onClick={() => onApply(opportunity.slug || opportunity.id)} style={{ padding: "2px 8px", fontSize: 11 }}>Apply</Button>
+        <Button size="sm" variant="ghost" onClick={() => onBookmark(opportunity.id)} style={{ padding: "2px 8px", fontSize: 11 }}>
+          <Bookmark size={12} />
+        </Button>
+      </div>
+    </div>
+  </div>
+));
+
+const PeopleItem = memo(({ person, onConnect }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
+    <Avatar name={person.name} src={person.image} size={36} />
+    <div style={{ flex: 1, minWidth: 0 }}>
+      <p style={{ fontWeight: 600, fontSize: 13 }}>{person.name}</p>
+      <p style={{ fontSize: 11, color: "var(--text-secondary)" }}>{person.headline || person.role}</p>
+      {person.mutualConnectionCount > 0 && <p style={{ fontSize: 11, color: "var(--text-muted)" }}>{person.mutualConnectionCount} mutual</p>}
+    </div>
+    <Button size="sm" variant="outline" style={{ padding: "3px 8px", fontSize: 11, flexShrink: 0 }} onClick={() => onConnect(person.id)}>
+      <UserPlus size={12} /> Connect
+    </Button>
+  </div>
+));
+
+const RecentMessageItem = memo(({ conversation, userId, onClick }) => {
+  const other = conversation.participants?.find((p) => p.userId !== userId)?.user || conversation.participants?.[0]?.user;
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderBottom: "1px solid var(--border)", cursor: "pointer" }} onClick={onClick}>
+      <Avatar name={other?.name} src={other?.image} size={32} />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <p style={{ fontSize: 13, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }}>
+          {other?.name || "Unknown"}
+          {conversation.unreadCount > 0 && <span style={{ width: 6, height: 6, borderRadius: "50%", backgroundColor: "var(--primary)", display: "inline-block" }} />}
+        </p>
+        <p style={{ fontSize: 11, color: "var(--text-muted)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{conversation.lastMessage?.content || conversation.lastMessage || "No messages yet"}</p>
+      </div>
+    </div>
+  );
+});
+
+const SavedListingItem = memo(({ bookmark, onView, onRemove }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
+    <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "#FCE7F3", display: "flex", alignItems: "center", justifyContent: "center", color: "#DB2777", flexShrink: 0 }}>
+      <Heart size={16} />
+    </div>
+    <div style={{ flex: 1, minWidth: 0 }}>
+      <p style={{ fontWeight: 600, fontSize: 13 }}>{bookmark.listing?.title}</p>
+      <p style={{ fontSize: 11, color: "var(--text-secondary)" }}>{bookmark.listing?.company?.name}</p>
+    </div>
+    <div style={{ display: "flex", gap: 4 }}>
+      <Button size="sm" variant="ghost" onClick={() => onView(bookmark.listing?.slug || bookmark.listing?.id)} style={{ padding: "2px 6px", fontSize: 11 }}><ExternalLink size={12} /></Button>
+      <Button size="sm" variant="ghost" onClick={() => onRemove(bookmark.id)} style={{ padding: "2px 6px", fontSize: 11, color: "var(--danger)" }}><Trash2 size={12} /></Button>
+    </div>
+  </div>
+));
+
+const TaskItem = memo(({ task, onToggle }) => {
+  const priorityColors = { high: "#DC2626", medium: "#F59E0B", low: "#10B981" };
+  return (
+    <div style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "8px 0", borderBottom: "1px solid var(--border)", opacity: task.completed ? 0.5 : 1 }}>
+      <input type="checkbox" checked={task.completed} onChange={() => onToggle(task.id)} style={{ marginTop: 3, accentColor: "var(--primary)", width: 16, height: 16, cursor: "pointer" }} />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <p style={{ fontSize: 13, fontWeight: 500, textDecoration: task.completed ? "line-through" : "none" }}>{task.task}</p>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 2 }}>
+          {task.deadline && <span style={{ fontSize: 11, color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 3 }}><Clock size={11} /> {task.deadline}</span>}
+          <span style={{ fontSize: 10, fontWeight: 600, color: priorityColors[task.priority], backgroundColor: `${priorityColors[task.priority]}15`, padding: "1px 6px", borderRadius: 100 }}>{task.priority}</span>
+        </div>
+      </div>
+    </div>
+  );
+});
 
 function AnalyticsChartLazy({ children }) {
   const ref = useRef(null);
@@ -102,7 +257,6 @@ export default function DashboardHome() {
   const prefetchDashboard = useDashboardPrefetch();
 
   const { data: stats, isLoading: statsLoading } = useStats();
-  const { data: analyticsData, isLoading: analyticsLoading } = useAnalytics();
   const { data: activities = [] } = useActivities();
   const { data: meetings = [] } = useMeetings();
   const { data: notifData } = useNotifications();
@@ -119,12 +273,30 @@ export default function DashboardHome() {
   const [creatingCompany, setCreatingCompany] = useState(false);
   const [analyticsPeriod, setAnalyticsPeriod] = useState("monthly");
 
-  const { data: analytics } = useAnalytics(analyticsPeriod);
-  const analyticsLoadingPeriod = useAnalytics(analyticsPeriod).isLoading;
+  const { data: analytics, isLoading: analyticsLoading } = useAnalytics(analyticsPeriod);
 
   useEffect(() => {
     prefetchDashboard();
-  }, []);
+  }, [prefetchDashboard]);
+
+  useEffect(() => {
+    if (notifData?.unreadCount !== undefined) {
+      useSocketStore.getState().updateNotificationCount(notifData.unreadCount);
+    }
+  }, [notifData]);
+
+  useEffect(() => {
+    if (stats?.messages !== undefined) {
+      useSocketStore.getState().setUnreadCount(stats.messages);
+    }
+  }, [stats]);
+
+  useEffect(() => {
+    if (recentMessages.length > 0) {
+      const store = useSocketStore.getState();
+      store.setConversations(recentMessages);
+    }
+  }, [recentMessages]);
 
   useEffect(() => {
     if (!isConnected) return;
@@ -133,7 +305,7 @@ export default function DashboardHome() {
 
     const invalidate = (...keys) => queryClient.invalidateQueries({ queryKey: keys });
 
-    socket.on("new-message", () => invalidate("dashboard", "recent-messages"));
+    socket.on("new-message", () => { invalidate("dashboard", "recent-messages"); invalidate("dashboard", "stats"); invalidate("messages", "conversations"); });
     socket.on("notification", () => invalidate("dashboard", "notifications"));
     socket.on("company-created", () => { invalidate("dashboard", "recommended-companies"); invalidate("dashboard", "stats"); });
     socket.on("company-updated", () => invalidate("dashboard", "recommended-companies"));
@@ -188,48 +360,39 @@ export default function DashboardHome() {
     }
   };
 
-  const SectionHeader = ({ title, link, onLinkClick }) => (
-    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-      <h2 style={{ fontSize: 18, fontWeight: 600 }}>{title}</h2>
-      {link && (
-        <button onClick={onLinkClick || (() => navigate(link))} style={{ color: "var(--primary)", fontSize: 13, fontWeight: 500, display: "flex", alignItems: "center", gap: 4, textDecoration: "none", background: "none", border: "none", cursor: "pointer" }}>
-          View All <ChevronRight size={14} />
-        </button>
-      )}
-    </div>
-  );
-
-  const handleFollowCompany = async (companyId) => {
+  const handleFollowCompany = useCallback(async (companyId) => {
     try {
       await fetch(`/api/follow/company/${companyId}`, { method: "POST", credentials: "include" });
       queryClient.invalidateQueries({ queryKey: ["dashboard", "recommended-companies"] });
     } catch {}
-  };
+  }, [queryClient]);
 
-  const handleToggleBookmark = async (listingId) => {
+  const handleToggleBookmark = useCallback(async (listingId) => {
     try {
       await fetch("/api/bookmarks", { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ listingId }) });
       queryClient.invalidateQueries({ queryKey: ["dashboard", "saved-listings"] });
     } catch {}
-  };
+  }, [queryClient]);
 
-  const handleRemoveSaved = async (id) => {
+  const handleRemoveSaved = useCallback(async (id) => {
     try {
       await fetch(`/api/bookmarks/${id}`, { method: "DELETE", credentials: "include" });
       queryClient.invalidateQueries({ queryKey: ["dashboard", "saved-listings"] });
     } catch {}
-  };
+  }, [queryClient]);
 
-  const handleMeetingRespond = async (meetingId, action) => {
+  const handleMeetingRespond = useCallback(async (meetingId, action) => {
     try {
       await fetch(`/api/dashboard/meetings/${meetingId}/respond`, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action }) });
       queryClient.invalidateQueries({ queryKey: ["dashboard", "meetings"] });
     } catch {}
-  };
+  }, [queryClient]);
 
-  const handleToggleTask = (taskId) => {
+  const handleToggleTask = useCallback((taskId) => {
     setTasks((prev) => prev.map((t) => t.id === taskId ? { ...t, completed: !t.completed } : t));
-  };
+  }, []);
+
+  const handleNavigate = useCallback((path) => navigate(path), [navigate]);
 
   const s = stats || {};
 
@@ -281,17 +444,7 @@ export default function DashboardHome() {
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 12, marginBottom: 24 }}>
         {statsLoading ? statConfig.map((cfg) => <StatSkeleton key={cfg.key} />) : statConfig.map((cfg) => (
-          <Card key={cfg.key} hover={false} padding="14px">
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{ width: 38, height: 38, borderRadius: 10, backgroundColor: cfg.bg, display: "flex", alignItems: "center", justifyContent: "center", color: cfg.color, flexShrink: 0 }}>
-                <cfg.icon size={18} />
-              </div>
-              <div style={{ minWidth: 0 }}>
-                <p style={{ fontSize: 11, color: "var(--text-secondary)", fontWeight: 500 }}>{cfg.label}</p>
-                <p style={{ fontSize: 20, fontWeight: 700 }}>{s[cfg.key] ?? 0}</p>
-              </div>
-            </div>
-          </Card>
+          <StatCard key={cfg.key} cfg={cfg} value={s[cfg.key]} />
         ))}
       </div>
 
@@ -307,7 +460,7 @@ export default function DashboardHome() {
               ))}
             </div>
           </div>
-          {analyticsLoadingPeriod ? (
+          {analyticsLoading ? (
             <div style={{ height: 200, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)", fontSize: 13 }}>Loading analytics...</div>
           ) : (
             <>
@@ -341,16 +494,8 @@ export default function DashboardHome() {
       <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 24, marginBottom: 24 }}>
         <Card hover={false}>
           <SectionHeader title="Recent Activity" link="/discover" />
-          {activities.length > 0 ? activities.slice(0, 6).map((a, i) => (
-            <div key={a.id || i} style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
-              <div style={{ width: 32, height: 32, borderRadius: 8, backgroundColor: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--primary)", fontSize: 12 }}>
-                {a.type === "connection" ? <UserPlus size={14} /> : a.type === "application" ? <Briefcase size={14} /> : a.type === "message" ? <MessageSquare size={14} /> : <Bell size={14} />}
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: 13, lineHeight: 1.4 }}>{a.body || a.title || `${a.type} activity`}</p>
-                <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{a.createdAt ? timeAgo(new Date(a.createdAt)) : ""}</span>
-              </div>
-            </div>
+          {activities.length > 0 ? activities.slice(0, 6).map((a) => (
+            <ActivityItem key={a.id} activity={a} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No recent activity</p>}
         </Card>
 
@@ -358,21 +503,7 @@ export default function DashboardHome() {
           <Card hover={false} padding="16px">
             <SectionHeader title="Upcoming Meetings" />
             {meetings.length > 0 ? meetings.slice(0, 3).map((m) => (
-              <div key={m.id} style={{ padding: "8px 0", borderBottom: "1px solid var(--border)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <div style={{ width: 34, height: 34, borderRadius: 8, backgroundColor: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", flexShrink: 0 }}>
-                    <Calendar size={16} />
-                  </div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontSize: 13, fontWeight: 600 }}>{m.title}</p>
-                    <p style={{ fontSize: 11, color: "var(--text-muted)" }}>{m.startTime ? new Date(m.startTime).toLocaleDateString() + " " + new Date(m.startTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : ""}</p>
-                  </div>
-                </div>
-                <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
-                  <Button size="sm" onClick={() => handleMeetingRespond(m.id, "accept")} style={{ padding: "3px 10px", fontSize: 11 }}>Accept</Button>
-                  <Button size="sm" variant="ghost" onClick={() => handleMeetingRespond(m.id, "decline")} style={{ padding: "3px 10px", fontSize: 11, color: "var(--danger)" }}>Decline</Button>
-                </div>
-              </div>
+              <MeetingItem key={m.id} meeting={m} onRespond={handleMeetingRespond} />
             )) : <p style={{ padding: 12, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No upcoming meetings</p>}
           </Card>
 
@@ -382,13 +513,7 @@ export default function DashboardHome() {
               {(notifData?.unreadCount || 0) > 0 && <button onClick={() => markAllRead.mutate()} style={{ fontSize: 11, color: "var(--primary)", background: "none", border: "none", cursor: "pointer", fontWeight: 500 }}>Mark all read</button>}
             </div>
             {(notifData?.notifications || []).length > 0 ? notifData.notifications.slice(0, 3).map((n) => (
-              <div key={n.id} style={{ display: "flex", gap: 10, padding: "8px 0", borderBottom: "1px solid var(--border)", cursor: "pointer" }} onClick={() => !n.isRead && markRead.mutate(n.id)}>
-                <div style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: n.isRead ? "transparent" : "var(--primary)", flexShrink: 0, marginTop: 5 }} />
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: 13, color: n.isRead ? "var(--text-secondary)" : "var(--text)", fontWeight: n.isRead ? 400 : 500, lineHeight: 1.4 }}>{n.body || n.title}</p>
-                  <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{n.createdAt ? timeAgo(new Date(n.createdAt)) : ""}</span>
-                </div>
-              </div>
+              <NotificationItem key={n.id} notification={n} onRead={(id) => markRead.mutate(id)} />
             )) : <p style={{ padding: 8, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No notifications</p>}
           </Card>
         </div>
@@ -398,66 +523,21 @@ export default function DashboardHome() {
         <Card hover={false}>
           <SectionHeader title="Recommended Companies" link="/companies" />
           {recommendedCompanies.length > 0 ? recommendedCompanies.slice(0, 3).map((c) => (
-            <div key={c.id} style={{ display: "flex", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
-              {c.logoUrl ? <img src={c.logoUrl} alt="" style={{ width: 40, height: 40, borderRadius: 10, objectFit: "cover", flexShrink: 0 }} /> :
-                <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 14, color: "var(--primary)", flexShrink: 0 }}>{c.name?.[0]}</div>}
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                  <span style={{ fontWeight: 600, fontSize: 13 }}>{c.name}</span>
-                  {c.isVerified && <Badge variant="success" style={{ fontSize: 9, padding: "1px 6px" }}>✓</Badge>}
-                </div>
-                <p style={{ fontSize: 11, color: "var(--text-secondary)" }}>{c.industry}</p>
-                <div style={{ display: "flex", gap: 4, marginTop: 6 }}>
-                  <Button size="sm" variant={c.isFollowing ? "secondary" : "primary"} onClick={() => handleFollowCompany(c.id)} style={{ padding: "2px 8px", fontSize: 11 }}>
-                    {c.isFollowing ? "Following" : "Follow"}
-                  </Button>
-                  <Button size="sm" variant="ghost" onClick={() => navigate(`/company/${c.slug || c.id}`)} style={{ padding: "2px 8px", fontSize: 11 }}>View</Button>
-                </div>
-              </div>
-            </div>
+            <RecommendCompanyItem key={c.id} company={c} onFollow={handleFollowCompany} onView={(slug) => navigate(`/company/${slug}`)} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No franchisor companies available.</p>}
         </Card>
 
         <Card hover={false}>
           <SectionHeader title="Recommended Opportunities" link="/discover" />
           {opportunities.length > 0 ? opportunities.slice(0, 3).map((o) => (
-            <div key={o.id} style={{ display: "flex", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
-              <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "#FEF3C7", display: "flex", alignItems: "center", justifyContent: "center", color: "#D97706", flexShrink: 0 }}>
-                <Zap size={18} />
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontWeight: 600, fontSize: 13 }}>{o.title}</p>
-                <p style={{ fontSize: 11, color: "var(--text-secondary)" }}>{o.company?.name}</p>
-                <div style={{ display: "flex", gap: 8, marginTop: 4, fontSize: 11, color: "var(--text-muted)", flexWrap: "wrap" }}>
-                  {o.investmentMin && <span><DollarSign size={10} style={{ display: "inline" }} /> {formatCurrency(o.investmentMin)}-{formatCurrency(o.investmentMax)}</span>}
-                  {o.roiPercentage && <span style={{ color: "var(--accent)" }}>{o.roiPercentage}% ROI</span>}
-                  {o.location && <span><MapPin size={10} style={{ display: "inline" }} /> {o.location}</span>}
-                </div>
-                <div style={{ display: "flex", gap: 4, marginTop: 6 }}>
-                  <Button size="sm" onClick={() => navigate(`/listing/${o.slug || o.id}`)} style={{ padding: "2px 8px", fontSize: 11 }}>Apply</Button>
-                  <Button size="sm" variant="ghost" onClick={() => handleToggleBookmark(o.id)} style={{ padding: "2px 8px", fontSize: 11 }}>
-                    <Bookmark size={12} />
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <OpportunityItem key={o.id} opportunity={o} onApply={(slug) => navigate(`/listing/${slug}`)} onBookmark={handleToggleBookmark} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No opportunities available yet.</p>}
         </Card>
 
         <Card hover={false}>
           <SectionHeader title="People You May Know" />
           {people.length > 0 ? people.slice(0, 3).map((p) => (
-            <div key={p.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
-              <Avatar name={p.name} src={p.image} size={36} />
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontWeight: 600, fontSize: 13 }}>{p.name}</p>
-                <p style={{ fontSize: 11, color: "var(--text-secondary)" }}>{p.headline || p.role}</p>
-                {p.mutualConnectionCount > 0 && <p style={{ fontSize: 11, color: "var(--text-muted)" }}>{p.mutualConnectionCount} mutual</p>}
-              </div>
-              <Button size="sm" variant="outline" style={{ padding: "3px 8px", fontSize: 11, flexShrink: 0 }} onClick={async () => { await fetch(`/api/follow/user/${p.id}`, { method: "POST", credentials: "include" }); queryClient.invalidateQueries({ queryKey: ["dashboard", "people"] }); }}>
-                <UserPlus size={12} /> Connect
-              </Button>
-            </div>
+            <PeopleItem key={p.id} person={p} onConnect={async (id) => { await fetch(`/api/follow/user/${id}`, { method: "POST", credentials: "include" }); queryClient.invalidateQueries({ queryKey: ["dashboard", "people"] }); }} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No suggestions yet.</p>}
         </Card>
       </div>
@@ -465,59 +545,23 @@ export default function DashboardHome() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
         <Card hover={false}>
           <SectionHeader title="Recent Messages" link="/messages" />
-          {recentMessages.length > 0 ? recentMessages.slice(0, 3).map((c, i) => {
-            const other = c.participants?.find((p) => p.userId !== user?.id)?.user || c.participants?.[0]?.user;
-            return (
-              <div key={c.id || i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderBottom: "1px solid var(--border)", cursor: "pointer" }} onClick={() => navigate("/messages")}>
-                <Avatar name={other?.name} src={other?.image} size={32} />
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: 13, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }}>
-                    {other?.name || "Unknown"}
-                    {c.unreadCount > 0 && <span style={{ width: 6, height: 6, borderRadius: "50%", backgroundColor: "var(--primary)", display: "inline-block" }} />}
-                  </p>
-                  <p style={{ fontSize: 11, color: "var(--text-muted)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.lastMessage?.content || c.lastMessage || "No messages yet"}</p>
-                </div>
-              </div>
-            );
-          }) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No conversations yet.</p>}
+          {recentMessages.length > 0 ? recentMessages.slice(0, 3).map((c) => (
+            <RecentMessageItem key={c.id} conversation={c} userId={user?.id} onClick={() => navigate("/messages")} />
+          )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No conversations yet.</p>}
         </Card>
 
         <Card hover={false}>
           <SectionHeader title="Saved Listings" link="/saved-listings" />
           {(savedListings?.bookmarks || []).length > 0 ? savedListings.bookmarks.slice(0, 3).map((b) => (
-            <div key={b.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
-              <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "#FCE7F3", display: "flex", alignItems: "center", justifyContent: "center", color: "#DB2777", flexShrink: 0 }}>
-                <Heart size={16} />
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontWeight: 600, fontSize: 13 }}>{b.listing?.title}</p>
-                <p style={{ fontSize: 11, color: "var(--text-secondary)" }}>{b.listing?.company?.name}</p>
-              </div>
-              <div style={{ display: "flex", gap: 4 }}>
-                <Button size="sm" variant="ghost" onClick={() => navigate(`/listing/${b.listing?.slug || b.listing?.id}`)} style={{ padding: "2px 6px", fontSize: 11 }}><ExternalLink size={12} /></Button>
-                <Button size="sm" variant="ghost" onClick={() => handleRemoveSaved(b.id)} style={{ padding: "2px 6px", fontSize: 11, color: "var(--danger)" }}><Trash2 size={12} /></Button>
-              </div>
-            </div>
+            <SavedListingItem key={b.id} bookmark={b} onView={(slug) => navigate(`/listing/${slug}`)} onRemove={handleRemoveSaved} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No saved listings yet.</p>}
         </Card>
 
         <Card hover={false}>
           <SectionHeader title="Tasks" />
-          {tasks.length > 0 ? tasks.map((t) => {
-            const priorityColors = { high: "#DC2626", medium: "#F59E0B", low: "#10B981" };
-            return (
-              <div key={t.id} style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "8px 0", borderBottom: "1px solid var(--border)", opacity: t.completed ? 0.5 : 1 }}>
-                <input type="checkbox" checked={t.completed} onChange={() => handleToggleTask(t.id)} style={{ marginTop: 3, accentColor: "var(--primary)", width: 16, height: 16, cursor: "pointer" }} />
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: 13, fontWeight: 500, textDecoration: t.completed ? "line-through" : "none" }}>{t.task}</p>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 2 }}>
-                    {t.deadline && <span style={{ fontSize: 11, color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 3 }}><Clock size={11} /> {t.deadline}</span>}
-                    <span style={{ fontSize: 10, fontWeight: 600, color: priorityColors[t.priority], backgroundColor: `${priorityColors[t.priority]}15`, padding: "1px 6px", borderRadius: 100 }}>{t.priority}</span>
-                  </div>
-                </div>
-              </div>
-            );
-          }) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No tasks. You're all caught up!</p>}
+          {tasks.length > 0 ? tasks.map((t) => (
+            <TaskItem key={t.id} task={t} onToggle={handleToggleTask} />
+          )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No tasks. You're all caught up!</p>}
         </Card>
       </div>
     </div>

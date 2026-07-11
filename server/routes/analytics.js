@@ -1,6 +1,4 @@
 import { Router } from "express";
-import { fromNodeHeaders } from "better-auth/node";
-import { auth } from "../lib/auth.ts";
 import prisma from "../prisma.js";
 import { authenticate, authorize } from "../middleware/auth.js";
 
@@ -23,28 +21,61 @@ function buildDayBuckets(start, end) {
   return days;
 }
 
+async function getDailySeries(table, dateCol, from, to) {
+  const rows = await prisma.$queryRawUnsafe(`
+    SELECT DATE_TRUNC('day', "${dateCol}"::timestamptz)::date AS day, COUNT(*)::int AS count
+    FROM "${table}"
+    WHERE "${dateCol}" >= $1::timestamptz AND "${dateCol}" <= $2::timestamptz
+    GROUP BY DATE_TRUNC('day', "${dateCol}"::timestamptz)
+    ORDER BY day ASC
+  `, from, to);
+  const countMap = {};
+  for (const row of rows) {
+    const key = new Date(row.day).toISOString().split("T")[0];
+    countMap[key] = Number(row.count);
+  }
+  const days = buildDayBuckets(from, to);
+  return days.map((d) => ({
+    date: d.toISOString().split("T")[0],
+    count: countMap[d.toISOString().split("T")[0]] || 0,
+  }));
+}
+
+async function getMonthlySeries(table, dateCol, from, to) {
+  const rows = await prisma.$queryRawUnsafe(`
+    SELECT DATE_TRUNC('month', "${dateCol}"::timestamptz)::date AS month, COUNT(*)::int AS count
+    FROM "${table}"
+    WHERE "${dateCol}" >= $1::timestamptz AND "${dateCol}" <= $2::timestamptz
+    GROUP BY DATE_TRUNC('month', "${dateCol}"::timestamptz)
+    ORDER BY month ASC
+  `, from, to);
+  const countMap = {};
+  for (const row of rows) {
+    const key = new Date(row.month).toISOString().slice(0, 7);
+    countMap[key] = Number(row.count);
+  }
+  const months = [];
+  const cursor = new Date(from.getFullYear(), from.getMonth(), 1);
+  while (cursor <= to) {
+    months.push(new Date(cursor));
+    cursor.setMonth(cursor.getMonth() + 1);
+  }
+  return months.map((m) => ({
+    month: m.toISOString().slice(0, 7),
+    count: countMap[m.toISOString().slice(0, 7)] || 0,
+  }));
+}
+
 router.get("/user-growth", async (req, res) => {
   try {
     const { start: from, end: to } = getDateRange(req.query.from, req.query.to);
-    const days = buildDayBuckets(from, to);
-    const users = await prisma.user.findMany({
-      where: { createdAt: { gte: from, lte: to } },
-      select: { createdAt: true },
-      orderBy: { createdAt: "asc" },
-    });
-    const series = days.map((day) => {
-      const next = new Date(day.getTime() + 86400000);
-      return {
-        date: day.toISOString().split("T")[0],
-        count: users.filter((u) => u.createdAt >= day && u.createdAt < next).length,
-      };
-    });
+    const daily = await getDailySeries("users", "created_at", from, to);
     let cumulative = 0;
-    const cumulativeSeries = series.map((s) => {
+    const series = daily.map((s) => {
       cumulative += s.count;
       return { ...s, cumulative };
     });
-    res.json({ series: cumulativeSeries });
+    res.json({ series });
   } catch (error) {
     console.error("Analytics route error:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -54,19 +85,7 @@ router.get("/user-growth", async (req, res) => {
 router.get("/verification-trend", async (req, res) => {
   try {
     const { start: from, end: to } = getDateRange(req.query.from, req.query.to);
-    const days = buildDayBuckets(from, to);
-    const history = await prisma.verificationHistory.findMany({
-      where: { createdAt: { gte: from, lte: to }, action: "approved" },
-      select: { createdAt: true },
-      orderBy: { createdAt: "asc" },
-    });
-    const series = days.map((day) => {
-      const next = new Date(day.getTime() + 86400000);
-      return {
-        date: day.toISOString().split("T")[0],
-        count: history.filter((h) => h.createdAt >= day && h.createdAt < next).length,
-      };
-    });
+    const series = await getDailySeries("verification_history", "created_at", from, to);
     res.json({ series });
   } catch (error) {
     console.error("Analytics route error:", error);
@@ -104,18 +123,7 @@ router.get("/role-distribution", async (req, res) => {
 router.get("/daily-active-users", async (req, res) => {
   try {
     const { start: from, end: to } = getDateRange(req.query.from, req.query.to);
-    const days = buildDayBuckets(from, to);
-    const users = await prisma.user.findMany({
-      where: { lastLoginAt: { gte: from, lte: to } },
-      select: { lastLoginAt: true },
-    });
-    const series = days.map((day) => {
-      const next = new Date(day.getTime() + 86400000);
-      return {
-        date: day.toISOString().split("T")[0],
-        count: users.filter((u) => u.lastLoginAt >= day && u.lastLoginAt < next).length,
-      };
-    });
+    const series = await getDailySeries("users", "last_login_at", from, to);
     res.json({ series });
   } catch (error) {
     console.error("Analytics route error:", error);
@@ -126,23 +134,7 @@ router.get("/daily-active-users", async (req, res) => {
 router.get("/monthly-signups", async (req, res) => {
   try {
     const { start: from, end: to } = getDateRange(req.query.from, req.query.to);
-    const months = [];
-    const cursor = new Date(from.getFullYear(), from.getMonth(), 1);
-    while (cursor <= to) {
-      months.push(new Date(cursor));
-      cursor.setMonth(cursor.getMonth() + 1);
-    }
-    const users = await prisma.user.findMany({
-      where: { createdAt: { gte: from, lte: to } },
-      select: { createdAt: true },
-    });
-    const series = months.map((m) => {
-      const next = new Date(m.getFullYear(), m.getMonth() + 1, 1);
-      return {
-        month: m.toISOString().slice(0, 7),
-        count: users.filter((u) => u.createdAt >= m && u.createdAt < next).length,
-      };
-    });
+    const series = await getMonthlySeries("users", "created_at", from, to);
     res.json({ series });
   } catch (error) {
     console.error("Analytics route error:", error);
@@ -153,19 +145,7 @@ router.get("/monthly-signups", async (req, res) => {
 router.get("/messages-sent", async (req, res) => {
   try {
     const { start: from, end: to } = getDateRange(req.query.from, req.query.to);
-    const days = buildDayBuckets(from, to);
-    const messages = await prisma.message.findMany({
-      where: { createdAt: { gte: from, lte: to } },
-      select: { createdAt: true },
-      orderBy: { createdAt: "asc" },
-    });
-    const series = days.map((day) => {
-      const next = new Date(day.getTime() + 86400000);
-      return {
-        date: day.toISOString().split("T")[0],
-        count: messages.filter((m) => m.createdAt >= day && m.createdAt < next).length,
-      };
-    });
+    const series = await getDailySeries("messages", "created_at", from, to);
     res.json({ series });
   } catch (error) {
     console.error("Analytics route error:", error);
@@ -176,19 +156,7 @@ router.get("/messages-sent", async (req, res) => {
 router.get("/followers-growth", async (req, res) => {
   try {
     const { start: from, end: to } = getDateRange(req.query.from, req.query.to);
-    const days = buildDayBuckets(from, to);
-    const followers = await prisma.companyFollower.findMany({
-      where: { createdAt: { gte: from, lte: to } },
-      select: { createdAt: true },
-      orderBy: { createdAt: "asc" },
-    });
-    const series = days.map((day) => {
-      const next = new Date(day.getTime() + 86400000);
-      return {
-        date: day.toISOString().split("T")[0],
-        count: followers.filter((f) => f.createdAt >= day && f.createdAt < next).length,
-      };
-    });
+    const series = await getDailySeries("company_followers", "created_at", from, to);
     res.json({ series });
   } catch (error) {
     console.error("Analytics route error:", error);
@@ -199,19 +167,7 @@ router.get("/followers-growth", async (req, res) => {
 router.get("/applications-trend", async (req, res) => {
   try {
     const { start: from, end: to } = getDateRange(req.query.from, req.query.to);
-    const days = buildDayBuckets(from, to);
-    const applications = await prisma.application.findMany({
-      where: { createdAt: { gte: from, lte: to } },
-      select: { createdAt: true },
-      orderBy: { createdAt: "asc" },
-    });
-    const series = days.map((day) => {
-      const next = new Date(day.getTime() + 86400000);
-      return {
-        date: day.toISOString().split("T")[0],
-        count: applications.filter((a) => a.createdAt >= day && a.createdAt < next).length,
-      };
-    });
+    const series = await getDailySeries("applications", "created_at", from, to);
     res.json({ series });
   } catch (error) {
     console.error("Analytics route error:", error);

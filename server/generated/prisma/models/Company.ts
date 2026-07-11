@@ -58,6 +58,7 @@ export type CompanyMinAggregateOutputType = {
   phone: string | null
   address: string | null
   city: string | null
+  state: string | null
   country: string | null
   isVerified: boolean | null
   status: $Enums.ListingStatus | null
@@ -85,6 +86,7 @@ export type CompanyMaxAggregateOutputType = {
   phone: string | null
   address: string | null
   city: string | null
+  state: string | null
   country: string | null
   isVerified: boolean | null
   status: $Enums.ListingStatus | null
@@ -112,6 +114,7 @@ export type CompanyCountAggregateOutputType = {
   phone: number
   address: number
   city: number
+  state: number
   country: number
   isVerified: number
   status: number
@@ -157,6 +160,7 @@ export type CompanyMinAggregateInputType = {
   phone?: true
   address?: true
   city?: true
+  state?: true
   country?: true
   isVerified?: true
   status?: true
@@ -184,6 +188,7 @@ export type CompanyMaxAggregateInputType = {
   phone?: true
   address?: true
   city?: true
+  state?: true
   country?: true
   isVerified?: true
   status?: true
@@ -211,6 +216,7 @@ export type CompanyCountAggregateInputType = {
   phone?: true
   address?: true
   city?: true
+  state?: true
   country?: true
   isVerified?: true
   status?: true
@@ -325,6 +331,7 @@ export type CompanyGroupByOutputType = {
   phone: string | null
   address: string | null
   city: string | null
+  state: string | null
   country: string | null
   isVerified: boolean
   status: $Enums.ListingStatus
@@ -375,6 +382,7 @@ export type CompanyWhereInput = {
   phone?: Prisma.StringNullableFilter<"Company"> | string | null
   address?: Prisma.StringNullableFilter<"Company"> | string | null
   city?: Prisma.StringNullableFilter<"Company"> | string | null
+  state?: Prisma.StringNullableFilter<"Company"> | string | null
   country?: Prisma.StringNullableFilter<"Company"> | string | null
   isVerified?: Prisma.BoolFilter<"Company"> | boolean
   status?: Prisma.EnumListingStatusFilter<"Company"> | $Enums.ListingStatus
@@ -406,6 +414,7 @@ export type CompanyOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -440,6 +449,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringNullableFilter<"Company"> | string | null
   address?: Prisma.StringNullableFilter<"Company"> | string | null
   city?: Prisma.StringNullableFilter<"Company"> | string | null
+  state?: Prisma.StringNullableFilter<"Company"> | string | null
   country?: Prisma.StringNullableFilter<"Company"> | string | null
   isVerified?: Prisma.BoolFilter<"Company"> | boolean
   status?: Prisma.EnumListingStatusFilter<"Company"> | $Enums.ListingStatus
@@ -471,6 +481,7 @@ export type CompanyOrderByWithAggregationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -506,6 +517,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   city?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
+  state?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   country?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   isVerified?: Prisma.BoolWithAggregatesFilter<"Company"> | boolean
   status?: Prisma.EnumListingStatusWithAggregatesFilter<"Company"> | $Enums.ListingStatus
@@ -532,6 +544,7 @@ export type CompanyCreateInput = {
   phone?: string | null
   address?: string | null
   city?: string | null
+  state?: string | null
   country?: string | null
   isVerified?: boolean
   status?: $Enums.ListingStatus
@@ -563,6 +576,7 @@ export type CompanyUncheckedCreateInput = {
   phone?: string | null
   address?: string | null
   city?: string | null
+  state?: string | null
   country?: string | null
   isVerified?: boolean
   status?: $Enums.ListingStatus
@@ -592,6 +606,7 @@ export type CompanyUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -623,6 +638,7 @@ export type CompanyUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -653,6 +669,7 @@ export type CompanyCreateManyInput = {
   phone?: string | null
   address?: string | null
   city?: string | null
+  state?: string | null
   country?: string | null
   isVerified?: boolean
   status?: $Enums.ListingStatus
@@ -679,6 +696,7 @@ export type CompanyUpdateManyMutationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -706,6 +724,7 @@ export type CompanyUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -743,6 +762,7 @@ export type CompanyCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   city?: Prisma.SortOrder
+  state?: Prisma.SortOrder
   country?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -778,6 +798,7 @@ export type CompanyMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   city?: Prisma.SortOrder
+  state?: Prisma.SortOrder
   country?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -805,6 +826,7 @@ export type CompanyMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   city?: Prisma.SortOrder
+  state?: Prisma.SortOrder
   country?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -947,6 +969,7 @@ export type CompanyCreateWithoutOwnerInput = {
   phone?: string | null
   address?: string | null
   city?: string | null
+  state?: string | null
   country?: string | null
   isVerified?: boolean
   status?: $Enums.ListingStatus
@@ -976,6 +999,7 @@ export type CompanyUncheckedCreateWithoutOwnerInput = {
   phone?: string | null
   address?: string | null
   city?: string | null
+  state?: string | null
   country?: string | null
   isVerified?: boolean
   status?: $Enums.ListingStatus
@@ -1035,6 +1059,7 @@ export type CompanyScalarWhereInput = {
   phone?: Prisma.StringNullableFilter<"Company"> | string | null
   address?: Prisma.StringNullableFilter<"Company"> | string | null
   city?: Prisma.StringNullableFilter<"Company"> | string | null
+  state?: Prisma.StringNullableFilter<"Company"> | string | null
   country?: Prisma.StringNullableFilter<"Company"> | string | null
   isVerified?: Prisma.BoolFilter<"Company"> | boolean
   status?: Prisma.EnumListingStatusFilter<"Company"> | $Enums.ListingStatus
@@ -1061,6 +1086,7 @@ export type CompanyCreateWithoutListingsInput = {
   phone?: string | null
   address?: string | null
   city?: string | null
+  state?: string | null
   country?: string | null
   isVerified?: boolean
   status?: $Enums.ListingStatus
@@ -1091,6 +1117,7 @@ export type CompanyUncheckedCreateWithoutListingsInput = {
   phone?: string | null
   address?: string | null
   city?: string | null
+  state?: string | null
   country?: string | null
   isVerified?: boolean
   status?: $Enums.ListingStatus
@@ -1135,6 +1162,7 @@ export type CompanyUpdateWithoutListingsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -1165,6 +1193,7 @@ export type CompanyUncheckedUpdateWithoutListingsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -1193,6 +1222,7 @@ export type CompanyCreateWithoutFollowersInput = {
   phone?: string | null
   address?: string | null
   city?: string | null
+  state?: string | null
   country?: string | null
   isVerified?: boolean
   status?: $Enums.ListingStatus
@@ -1223,6 +1253,7 @@ export type CompanyUncheckedCreateWithoutFollowersInput = {
   phone?: string | null
   address?: string | null
   city?: string | null
+  state?: string | null
   country?: string | null
   isVerified?: boolean
   status?: $Enums.ListingStatus
@@ -1267,6 +1298,7 @@ export type CompanyUpdateWithoutFollowersInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -1297,6 +1329,7 @@ export type CompanyUncheckedUpdateWithoutFollowersInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -1325,6 +1358,7 @@ export type CompanyCreateWithoutReviewsInput = {
   phone?: string | null
   address?: string | null
   city?: string | null
+  state?: string | null
   country?: string | null
   isVerified?: boolean
   status?: $Enums.ListingStatus
@@ -1355,6 +1389,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   phone?: string | null
   address?: string | null
   city?: string | null
+  state?: string | null
   country?: string | null
   isVerified?: boolean
   status?: $Enums.ListingStatus
@@ -1399,6 +1434,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -1429,6 +1465,7 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -1457,6 +1494,7 @@ export type CompanyCreateManyOwnerInput = {
   phone?: string | null
   address?: string | null
   city?: string | null
+  state?: string | null
   country?: string | null
   isVerified?: boolean
   status?: $Enums.ListingStatus
@@ -1483,6 +1521,7 @@ export type CompanyUpdateWithoutOwnerInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -1512,6 +1551,7 @@ export type CompanyUncheckedUpdateWithoutOwnerInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -1541,6 +1581,7 @@ export type CompanyUncheckedUpdateManyWithoutOwnerInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
@@ -1617,6 +1658,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   phone?: boolean
   address?: boolean
   city?: boolean
+  state?: boolean
   country?: boolean
   isVerified?: boolean
   status?: boolean
@@ -1649,6 +1691,7 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   phone?: boolean
   address?: boolean
   city?: boolean
+  state?: boolean
   country?: boolean
   isVerified?: boolean
   status?: boolean
@@ -1677,6 +1720,7 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   phone?: boolean
   address?: boolean
   city?: boolean
+  state?: boolean
   country?: boolean
   isVerified?: boolean
   status?: boolean
@@ -1705,6 +1749,7 @@ export type CompanySelectScalar = {
   phone?: boolean
   address?: boolean
   city?: boolean
+  state?: boolean
   country?: boolean
   isVerified?: boolean
   status?: boolean
@@ -1716,7 +1761,7 @@ export type CompanySelectScalar = {
   updatedAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "slug" | "logoUrl" | "bannerUrl" | "industry" | "description" | "website" | "foundedYear" | "employeeCount" | "email" | "phone" | "address" | "city" | "country" | "isVerified" | "status" | "followerCount" | "listingCount" | "averageRating" | "reviewCount" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "slug" | "logoUrl" | "bannerUrl" | "industry" | "description" | "website" | "foundedYear" | "employeeCount" | "email" | "phone" | "address" | "city" | "state" | "country" | "isVerified" | "status" | "followerCount" | "listingCount" | "averageRating" | "reviewCount" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   followers?: boolean | Prisma.Company$followersArgs<ExtArgs>
@@ -1755,6 +1800,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     phone: string | null
     address: string | null
     city: string | null
+    state: string | null
     country: string | null
     isVerified: boolean
     status: $Enums.ListingStatus
@@ -2206,6 +2252,7 @@ export interface CompanyFieldRefs {
   readonly phone: Prisma.FieldRef<"Company", 'String'>
   readonly address: Prisma.FieldRef<"Company", 'String'>
   readonly city: Prisma.FieldRef<"Company", 'String'>
+  readonly state: Prisma.FieldRef<"Company", 'String'>
   readonly country: Prisma.FieldRef<"Company", 'String'>
   readonly isVerified: Prisma.FieldRef<"Company", 'Boolean'>
   readonly status: Prisma.FieldRef<"Company", 'ListingStatus'>

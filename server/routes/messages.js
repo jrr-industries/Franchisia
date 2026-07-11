@@ -43,6 +43,28 @@ router.patch("/heartbeat", async (req, res) => {
   }
 });
 
+router.get("/unread-count", async (req, res) => {
+  try {
+    const [result] = await prisma.$queryRawUnsafe(`
+      SELECT COALESCE(SUM(sub.c), 0)::int AS "unreadCount"
+      FROM (
+        SELECT COUNT(*)::int AS c
+        FROM "conversation_participants" cp
+        JOIN "messages" m ON m."conversation_id" = cp."conversation_id"
+        WHERE cp."user_id" = $1
+          AND m."sender_id" <> $1
+          AND m."created_at" > COALESCE(cp."last_read_at", '1970-01-01'::timestamptz)
+        GROUP BY cp."conversation_id"
+      ) sub
+    `, req.user.id);
+
+    res.json({ unreadCount: Number(result?.unreadCount || 0) });
+  } catch (error) {
+    console.error("Unread count error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/conversations", async (req, res) => {
   try {
     const conversations = await prisma.conversation.findMany({
@@ -58,25 +80,25 @@ router.get("/conversations", async (req, res) => {
       orderBy: { updatedAt: "desc" },
     });
 
-    const unreadCounts = await Promise.all(
-      conversations.map(async (conv) => {
-        const myParticipation = conv.participants.find((p) => p.user.id === req.user.id);
-        const lastReadAt = myParticipation?.lastReadAt || new Date(0);
-        const unread = await prisma.message.count({
-          where: {
-            conversationId: conv.id,
-            senderId: { not: req.user.id },
-            createdAt: { gt: lastReadAt },
-          },
-        });
-        return { conversationId: conv.id, unread };
-      })
+    const conversationIds = conversations.map((c) => c.id);
+    const rawCounts = await prisma.$queryRawUnsafe(`
+      SELECT cp."conversation_id" AS id, COUNT(m.*)::int AS unread
+      FROM "conversation_participants" cp
+      LEFT JOIN "messages" m ON m."conversation_id" = cp."conversation_id"
+        AND m."sender_id" <> $1
+        AND m."created_at" > COALESCE(cp."last_read_at", '1970-01-01'::timestamptz)
+      WHERE cp."user_id" = $1 AND cp."conversation_id" = ANY($2::text[])
+      GROUP BY cp."conversation_id"
+    `, req.user.id, conversationIds);
+
+    const unreadMap = Object.fromEntries(
+      (rawCounts || []).map((r) => [r.id, Number(r.unread)])
     );
 
-    const enriched = conversations.map((conv) => {
-      const uc = unreadCounts.find((u) => u.conversationId === conv.id);
-      return { ...conv, unreadCount: uc?.unread || 0 };
-    });
+    const enriched = conversations.map((conv) => ({
+      ...conv,
+      unreadCount: unreadMap[conv.id] || 0,
+    }));
 
     res.json({ conversations: enriched });
   } catch (error) {
@@ -216,16 +238,17 @@ router.post("/conversations/:id/messages", async (req, res) => {
     await prisma.conversation.update({ where: { id: req.params.id }, data: { updatedAt: new Date() } });
     const participants = await prisma.conversationParticipant.findMany({
       where: { conversationId: req.params.id, userId: { not: req.user.id } },
+      select: { userId: true },
     });
-    for (const p of participants) {
-      await prisma.notification.create({
-        data: {
+    if (participants.length > 0) {
+      await prisma.notification.createMany({
+        data: participants.map((p) => ({
           userId: p.userId,
           type: "new_message",
           title: "New Message",
           body: `${req.user.name || "Someone"}: ${content?.substring(0, 100) || ""}`,
           data: { conversationId: req.params.id, senderId: req.user.id },
-        },
+        })),
       });
     }
     res.json({ message });
@@ -288,17 +311,18 @@ router.get("/conversations/:id/typing", async (req, res) => {
       where: { conversationId: req.params.id, userId: { not: req.user.id } },
       select: { userId: true, typingAt: true },
     });
-    const typingUsers = [];
     const now = Date.now();
-    for (const p of otherParticipants) {
-      if (p.typingAt && (now - new Date(p.typingAt).getTime()) < 3000) {
-        const u = await prisma.user.findUnique({
-          where: { id: p.userId },
-          select: { id: true, name: true, image: true },
-        });
-        if (u) typingUsers.push(u);
-      }
-    }
+    const activeUserIds = otherParticipants
+      .filter((p) => p.typingAt && (now - new Date(p.typingAt).getTime()) < 3000)
+      .map((p) => p.userId);
+
+    if (activeUserIds.length === 0) return res.json({ typing: [] });
+
+    const typingUsers = await prisma.user.findMany({
+      where: { id: { in: activeUserIds } },
+      select: { id: true, name: true, image: true },
+    });
+
     res.json({ typing: typingUsers });
   } catch (error) {
     console.error("Messages route error:", error);
