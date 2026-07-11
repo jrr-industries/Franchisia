@@ -16,6 +16,7 @@ import Tabs from '../../components/ui/Tabs';
 import Modal from '../../components/ui/Modal';
 import VerifiedBadge from '../../components/ui/VerifiedBadge';
 import { useToast } from '../../components/ui/Toast';
+import { useOnlineStatus } from '../../hooks/useOnlineStatus';
 
 const API = '/api';
 
@@ -125,6 +126,12 @@ function formatDate(dateStr) {
   const d = new Date(dateStr);
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   return `${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function OnlineDot({ userId }) {
+  const online = useOnlineStatus(userId);
+  if (!online) return null;
+  return <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: '#22C55E', display: 'inline-block', marginLeft: 4 }} title="Online" />;
 }
 
 function formatRole(role) {
@@ -239,17 +246,37 @@ export default function Profile() {
     }
   }, [userId, followStatus, followLoading, addToast, fetchMutualStatus]);
 
-  const handleMessageClick = useCallback(() => {
-    if (mutualStatus?.mutual) {
-      if (mutualStatus.conversationId) {
-        navigate(`/messages?conversation=${mutualStatus.conversationId}`);
-      } else {
-        navigate('/messages');
+  const handleMessageClick = useCallback(async () => {
+    if (!userId) return;
+    try {
+      const existingRes = await fetch(`${API}/messages/conversations/with/${userId}`, { credentials: 'include' });
+      if (existingRes.ok) {
+        const existingData = await existingRes.json();
+        if (existingData.conversation) {
+          navigate(`/messages?conversation=${existingData.conversation.id}`);
+          return;
+        }
       }
-    } else {
+      const res = await fetch(`${API}/messages/conversations`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ participantId: userId }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.conversation) {
+          navigate(`/messages?conversation=${data.conversation.id}`);
+        } else {
+          navigate('/messages');
+        }
+      } else {
+        setMessageModalOpen(true);
+      }
+    } catch {
       setMessageModalOpen(true);
     }
-  }, [mutualStatus, navigate]);
+  }, [userId, navigate]);
 
   const handleSendMessage = useCallback(async () => {
     if (!messageContent.trim()) return;
@@ -425,13 +452,9 @@ export default function Profile() {
         <Avatar src={u.image} name={u.name || 'User'} size={80} style={{ border: '4px solid var(--surface)' }} />
         <div style={s.infoText}>
           <div style={s.nameRow}>
-            <h1 style={s.name}>{u.name || 'User'}</h1>
+            <h1 style={s.name}>          {u.name || 'User'}</h1>
             {u.verified && <VerifiedBadge size={20} />}
-            {(() => {
-              const lastActive = mutualStatus?.lastActiveAt || u.lastActiveAt;
-              const isOnline = lastActive && (Date.now() - new Date(lastActive).getTime()) < 300000;
-              return isOnline ? <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: '#22C55E', display: 'inline-block', marginLeft: 4 }} title="Online" /> : null;
-            })()}
+            {u.id && <OnlineDot userId={u.id} />}
           </div>
           {u.role && (
             <div style={s.title}>
@@ -493,17 +516,14 @@ export default function Profile() {
                   {followStatus?.following ? 'Following' : 'Follow'}
                 </Button>
               </motion.div>
-              <motion.div whileHover={mutualStatus?.mutual ? { scale: 1.03 } : {}} whileTap={mutualStatus?.mutual ? { scale: 0.97 } : {}}>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Button
-                  variant={mutualStatus?.mutual ? 'primary' : 'secondary'}
+                  variant="primary"
                   size="sm"
                   icon={<MessageSquare size={16} />}
                   onClick={handleMessageClick}
-                  disabled={!mutualStatus?.mutual}
-                  title={!mutualStatus?.mutual ? 'Follow each other to start messaging' : ''}
-                  style={!mutualStatus?.mutual ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
                 >
-                  {mutualStatus?.mutual ? 'Message' : mutualStatus?.following ? 'Waiting for Follow Back' : 'Message'}
+                  Message
                 </Button>
               </motion.div>
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>

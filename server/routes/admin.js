@@ -1,6 +1,7 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authenticate, authorize } from "../middleware/auth.js";
+import { emitCompanyCreated, emitCompanyUpdated, emitCompanyDeleted, emitCompanyVerified, getIO } from "../socket.js";
 
 const router = Router();
 
@@ -508,7 +509,10 @@ router.patch("/companies/:id/verify", async (req, res) => {
     const company = await prisma.company.update({
       where: { id: req.params.id },
       data: { isVerified: req.body.isVerified },
+      include: { _count: { select: { followers: true, listings: true } } },
     });
+    emitCompanyVerified(company);
+    emitCompanyUpdated(company);
     res.json(company);
   } catch (error) {
     console.error("Admin route error:", error);
@@ -880,14 +884,23 @@ router.post("/companies/bulk-action", async (req, res) => {
     if (!companyIds?.length || !action) return res.status(400).json({ error: "companyIds and action required" });
     if (action === "delete") {
       await prisma.company.deleteMany({ where: { id: { in: companyIds } } });
+      for (const id of companyIds) emitCompanyDeleted(id);
     } else if (action === "verify") {
       await prisma.company.updateMany({ where: { id: { in: companyIds } }, data: { isVerified: true } });
+      const companies = await prisma.company.findMany({ where: { id: { in: companyIds } }, include: { _count: { select: { followers: true, listings: true } } } });
+      for (const c of companies) { emitCompanyVerified(c); emitCompanyUpdated(c); }
     } else if (action === "unverify") {
       await prisma.company.updateMany({ where: { id: { in: companyIds } }, data: { isVerified: false } });
+      const companies = await prisma.company.findMany({ where: { id: { in: companyIds } }, include: { _count: { select: { followers: true, listings: true } } } });
+      for (const c of companies) emitCompanyUpdated(c);
     } else if (action === "suspend") {
       await prisma.company.updateMany({ where: { id: { in: companyIds } }, data: { status: "suspended" } });
+      const companies = await prisma.company.findMany({ where: { id: { in: companyIds } }, include: { _count: { select: { followers: true, listings: true } } } });
+      for (const c of companies) emitCompanyUpdated(c);
     } else if (action === "activate") {
       await prisma.company.updateMany({ where: { id: { in: companyIds } }, data: { status: "active" } });
+      const companies = await prisma.company.findMany({ where: { id: { in: companyIds } }, include: { _count: { select: { followers: true, listings: true } } } });
+      for (const c of companies) emitCompanyUpdated(c);
     } else {
       return res.status(400).json({ error: "Invalid action" });
     }
@@ -912,7 +925,12 @@ router.patch("/companies/:id/profile", async (req, res) => {
       if (req.body[key] !== undefined) updates[key] = req.body[key];
     }
     if (Object.keys(updates).length === 0) return res.status(400).json({ error: "No valid fields to update" });
-    const company = await prisma.company.update({ where: { id: req.params.id }, data: updates });
+    const company = await prisma.company.update({
+      where: { id: req.params.id },
+      data: updates,
+      include: { _count: { select: { followers: true, listings: true } } },
+    });
+    emitCompanyUpdated(company);
     res.json({ company });
   } catch (error) {
     console.error("Admin route error:", error);

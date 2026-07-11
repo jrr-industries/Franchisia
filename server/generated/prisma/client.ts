@@ -122,6 +122,11 @@ export type ConversationParticipant = Prisma.ConversationParticipantModel
  */
 export type Message = Prisma.MessageModel
 /**
+ * Model MessageReaction
+ * 
+ */
+export type MessageReaction = Prisma.MessageReactionModel
+/**
  * Model Notification
  * 
  */

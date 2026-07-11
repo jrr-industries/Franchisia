@@ -1,5 +1,6 @@
 import { fromNodeHeaders } from "better-auth/node";
 import { auth } from "../lib/auth.ts";
+import prisma from "../prisma.js";
 
 export async function authenticate(req, res, next) {
   try {
@@ -11,7 +12,15 @@ export async function authenticate(req, res, next) {
       return res.status(401).json({ error: "Authentication required" });
     }
 
-    req.user = session.user;
+    const fullUser = await prisma.user.findUnique({
+      where: { id: session.user.id },
+    });
+
+    if (!fullUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    req.user = fullUser;
     next();
   } catch (error) {
     console.error("Auth middleware error:", error);

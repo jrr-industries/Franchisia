@@ -13,10 +13,10 @@
     "prisma:push": "prisma db push",
     "prisma:pull": "prisma db pull",
     "prisma:studio": "prisma studio",
-    "prisma:seed": "node prisma/seed.js"
+    "prisma:seed": "tsx prisma/seed.js"
   },
   "prisma": {
-    "seed": "node prisma/seed.js"
+    "seed": "tsx prisma/seed.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
@@ -40,7 +40,10 @@
     "react-hook-form": "^7.81.0",
     "react-router-dom": "^7.0.0",
     "recharts": "^3.9.2",
-    "zod": "^4.4.3"
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",

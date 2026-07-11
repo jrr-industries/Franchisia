@@ -2,10 +2,12 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import path from "path";
+import http from "http";
 import { fileURLToPath } from "url";
 import rateLimit from "express-rate-limit";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth.ts";
+import { initSocket } from "./socket.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import authRoutes from "./routes/auth.js";
@@ -22,6 +24,7 @@ import onboardingRoutes from "./routes/onboarding.js";
 import followRoutes from "./routes/follow.js";
 import reportRoutes from "./routes/reports.js";
 import discoverRoutes from "./routes/discover.js";
+import searchRoutes from "./routes/search.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -60,6 +63,7 @@ app.use("/api/onboarding", onboardingRoutes);
 app.use("/api/follow", followRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/discover", discoverRoutes);
+app.use("/api/search", searchRoutes);
 
 app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
 
@@ -72,6 +76,9 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: "Internal server error" });
 });
 
-app.listen(PORT, () => {
+const httpServer = http.createServer(app);
+initSocket(httpServer);
+
+httpServer.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

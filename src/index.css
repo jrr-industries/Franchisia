@@ -114,4 +114,10 @@ img {
   .container {
     padding: 0 16px;
   }
+  .sidebar-desktop {
+    display: none !important;
+  }
+  .header-brand-text {
+    display: none !important;
+  }
 }

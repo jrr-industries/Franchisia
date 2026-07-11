@@ -3,6 +3,7 @@ import { fromNodeHeaders } from "better-auth/node";
 import { auth } from "../lib/auth.ts";
 import prisma from "../prisma.js";
 import { authenticate } from "../middleware/auth.js";
+import { emitCompanyCreated, emitCompanyUpdated } from "../socket.js";
 
 const router = Router();
 
@@ -86,7 +87,9 @@ router.post("/", authenticate, async (req, res) => {
         name, slug, industry, description, website, foundedYear,
         employeeCount, email, phone, address, city, country,
       },
+      include: { _count: { select: { followers: true, listings: true } } },
     });
+    emitCompanyCreated(company);
     res.status(201).json(company);
   } catch (error) {
     if (error.code === "P2002") {
@@ -113,7 +116,9 @@ router.put("/:id", authenticate, async (req, res) => {
     const updated = await prisma.company.update({
       where: { id: req.params.id },
       data: updates,
+      include: { _count: { select: { followers: true, listings: true } } },
     });
+    emitCompanyUpdated(updated);
     res.json(updated);
   } catch (error) {
     console.error("Companies route error:", error);
@@ -127,26 +132,29 @@ router.post("/:id/follow", authenticate, async (req, res) => {
       where: { userId_companyId: { userId: req.user.id, companyId: req.params.id } },
     });
 
+    let updatedCompany;
     if (existing) {
       await prisma.companyFollower.delete({ where: { id: existing.id } });
       const current = await prisma.company.findUnique({ where: { id: req.params.id }, select: { followerCount: true } });
       if ((current?.followerCount || 0) > 0) {
-        await prisma.company.update({
+        updatedCompany = await prisma.company.update({
           where: { id: req.params.id },
           data: { followerCount: { decrement: 1 } },
+          include: { _count: { select: { followers: true, listings: true } } },
         });
       }
-      return res.json({ following: false });
+    } else {
+      await prisma.companyFollower.create({
+        data: { userId: req.user.id, companyId: req.params.id },
+      });
+      updatedCompany = await prisma.company.update({
+        where: { id: req.params.id },
+        data: { followerCount: { increment: 1 } },
+        include: { _count: { select: { followers: true, listings: true } } },
+      });
     }
-
-    await prisma.companyFollower.create({
-      data: { userId: req.user.id, companyId: req.params.id },
-    });
-    await prisma.company.update({
-      where: { id: req.params.id },
-      data: { followerCount: { increment: 1 } },
-    });
-    res.json({ following: true });
+    if (updatedCompany) emitCompanyUpdated(updatedCompany);
+    res.json({ following: !existing });
   } catch (error) {
     console.error("Companies route error:", error);
     res.status(500).json({ error: "Internal server error" });

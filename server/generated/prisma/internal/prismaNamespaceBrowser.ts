@@ -67,6 +67,7 @@ export const ModelName = {
   Conversation: 'Conversation',
   ConversationParticipant: 'ConversationParticipant',
   Message: 'Message',
+  MessageReaction: 'MessageReaction',
   Notification: 'Notification',
   Review: 'Review',
   Meeting: 'Meeting',
@@ -376,11 +377,29 @@ export const MessageScalarFieldEnum = {
   content: 'content',
   messageType: 'messageType',
   attachmentUrl: 'attachmentUrl',
+  attachmentName: 'attachmentName',
+  attachmentSize: 'attachmentSize',
   isDeleted: 'isDeleted',
-  createdAt: 'createdAt'
+  deliveredAt: 'deliveredAt',
+  readAt: 'readAt',
+  editedAt: 'editedAt',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const MessageReactionScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  userId: 'userId',
+  emoji: 'emoji',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageReactionScalarFieldEnum = (typeof MessageReactionScalarFieldEnum)[keyof typeof MessageReactionScalarFieldEnum]
 
 
 export const NotificationScalarFieldEnum = {

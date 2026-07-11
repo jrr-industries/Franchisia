@@ -10,11 +10,18 @@ import Badge from '../../components/ui/Badge';
 import Button from '../../components/ui/Button';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../components/ui/Toast';
+import useSocketStore from '../../store/socketStore';
+import {
+  getSocket, sendMessage, startTyping, stopTyping,
+  markAsRead, deleteMessageSocket, addReaction, removeReaction, checkOnline,
+} from '../../lib/socket';
 
 const API = '/api';
 const PAGE_SIZE = 50;
 
 const EMOJIS = ['😀','😁','😂','🤣','😃','😄','😅','😆','😉','😊','😋','😎','😍','🥰','😘','😗','😙','🥲','😛','😜','🤪','😝','🤑','🤗','🤭','🫡','🤔','🤐','🤨','😐','😑','😶','😏','😒','🙄','😬','😮','😯','😲','😳','🥺','😢','😭','😤','😡','🤬','😈','👿','💀','☠️','💩','🤡','👹','👺','👻','👽','👾','🤖','🎃','😺','😸','😹','😻','😼','😽','🙀','😿','😾','💋','👋','🤚','🖐','✋','🖖','👌','🤌','🤏','✌️','🤞','🫰','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👍','👎','✊','👊','🤛','🤜','👏','🙌','🫶','👐','🤲','🤝','🙏','✍️','💅','🤳','💪','🦵','🦶','👂','🦻','👃','🧠','🫀','🫁','🦷','🦴','👀','👁','👅','👄','💘','❤️','🩷','🧡','💛','💚','💙','🩵','💜','🖤','🩶','🤍','🤎','💔','❤️‍🔥','❤️‍🩹','❣️','💕','💞','💓','💗','💖','💝','💟','☮️','✝️','☪️','🕉','☸️','✡️','🔯','🕎','☯️','☦️','🛐','⛎','♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓','🆔','⚕️','🌍','🌎','🌏','🌐','🗺','🧭','🏔','⛰','🌋','🗻','🏕','🏖','🏜','🏝','🏞','🏟','🏛','🏗','🛖','🏘','🏚','🏠','🏡','🏢','🏣','🏤','🏥','🏦','🏨','🏩','🏪','🏫','🏬','🏭','🏯','🏰','💒','🗼','🗽','⛪','🕌','🛕','🕍','⛩','🕋','⛲','⛺','🌁','🌃','🏙','🌄','🌅','🌆','🌇','🌇','🌉','🎠','🎡','🎢','💈','🎪','🚂','🚃','🚄','🚅','🚆','🚇','🚈','🚉','🚊','🚝','🚞','🚋','🚌','🚍','🚎','🚐','🚑','🚒','🚓','🚔','🚕','🚖','🚗','🚘','🚙','🛻','🚚','🚛','🚜','🏎','🏍','🛵','🛺','🚲','🛴','🛹','🛼','🚏','🛣','🛤','⛽','🛞','🚨','🚥','🚦','🛑','🚧','⚓','🛟','⛵','🛶','🚤','🛳','⛴','🛥','🚢','✈️','🛩','🛫','🛬','🪂','💺','🚁','🚟','🚠','🚡','🛰','🚀','🛸','🏧','🚮','🚰','♿','🚹','🚺','🚻','🚼','🚾','🛂','🛃','🛄','🛅','⚠️','🚸','⛔','🚫','🚳','🚭','🚯','🚱','🚷','📵','🔞','☢️','☣️','💯','♻️','✅','🈯','💹','❇️','✳️','❌','❎','💠','🏁','🚩','🎌','🏴','🏳️‍🌈','🏳️‍⚧️'];
+
+const REACTION_EMOJIS = ['❤️', '👍', '🔥', '😂', '👏', '🎉'];
 
 function formatTime(dateString) {
   if (!dateString) return '';
@@ -122,10 +129,6 @@ function EmojiPicker({ onSelect, onClose }) {
   );
 }
 
-function isOnline(lastActiveAt) {
-  return lastActiveAt && (Date.now() - new Date(lastActiveAt).getTime()) < 300000;
-}
-
 export default function Messages() {
   const { user } = useAuth();
   const { addToast } = useToast();
@@ -143,7 +146,6 @@ export default function Messages() {
   const [hasMoreMessages, setHasMoreMessages] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [sending, setSending] = useState(false);
-  const [typingUsers, setTypingUsers] = useState([]);
 
   const [newMessage, setNewMessage] = useState('');
   const [showMobileList, setShowMobileList] = useState(true);
@@ -163,11 +165,16 @@ export default function Messages() {
   const [userFollowStatus, setUserFollowStatus] = useState({});
   const [followLoading, setFollowLoading] = useState({});
 
+  const [typingUsers, setTypingUsers] = useState([]);
+  const [reactionPicker, setReactionPicker] = useState(null);
+  const [onlineStatuses, setOnlineStatuses] = useState({});
+
   const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null);
   const previousScrollHeight = useRef(0);
   const prevFirstMessageId = useRef(null);
-  const typingIntervalRef = useRef(null);
+  const typingTimeoutRef = useRef(null);
+  const socketConnected = useSocketStore((s) => s.isConnected);
 
   const filteredConvs = conversations.filter((c) => {
     const search = searchQuery.toLowerCase();
@@ -199,7 +206,7 @@ export default function Messages() {
     }
   }, [addToast]);
 
-  const fetchMessages = useCallback(async (convId, page = 1, append = false) => {
+  const fetchMessagesApi = useCallback(async (convId, page = 1, append = false) => {
     if (!convId) return;
     if (append) {
       setLoadingMore(true);
@@ -223,6 +230,14 @@ export default function Messages() {
       }
       setMsgPage(page);
       setHasMoreMessages(newMsgs.length >= PAGE_SIZE);
+      if (page === 1 && newMsgs.length > 0 && socketConnected) {
+        const unreadIds = newMsgs
+          .filter((m) => m.senderId !== user?.id && !m.readAt)
+          .map((m) => m.id);
+        if (unreadIds.length > 0) {
+          markAsRead({ conversationId: convId, messageIds: unreadIds });
+        }
+      }
     } catch (err) {
       setMsgError(err.message);
       addToast(err.message, 'error');
@@ -230,63 +245,15 @@ export default function Messages() {
       setMsgLoading(false);
       setLoadingMore(false);
     }
-  }, [addToast]);
+  }, [addToast, user?.id, socketConnected]);
 
   const loadMoreMessages = useCallback(() => {
     if (loadingMore || !hasMoreMessages || !activeConv) return;
     previousScrollHeight.current = messagesContainerRef.current?.scrollHeight || 0;
     const firstMsg = messages[0];
     prevFirstMessageId.current = firstMsg?.id || null;
-    fetchMessages(activeConv, msgPage + 1, true);
-  }, [loadingMore, hasMoreMessages, activeConv, msgPage, fetchMessages, messages]);
-
-  const fetchTyping = useCallback(async () => {
-    if (!activeConv) return;
-    try {
-      const res = await fetch(`${API}/messages/conversations/${activeConv}/typing`, { credentials: 'include' });
-      if (res.ok) {
-        const data = await res.json();
-        setTypingUsers(data.typing || []);
-      }
-    } catch {}
-  }, [activeConv]);
-
-  useEffect(() => {
-    if (activeConv) {
-      fetchTyping();
-      typingIntervalRef.current = setInterval(fetchTyping, 2500);
-    }
-    return () => {
-      if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
-      setTypingUsers([]);
-    };
-  }, [activeConv, fetchTyping]);
-
-  const emitTyping = useCallback(async () => {
-    if (!activeConv) return;
-    try {
-      await fetch(`${API}/messages/conversations/${activeConv}/typing`, {
-        method: 'POST', credentials: 'include',
-      });
-    } catch {}
-  }, [activeConv]);
-
-  const handleDelete = async (msgId) => {
-    if (!activeConv) return;
-    try {
-      const res = await fetch(`${API}/messages/conversations/${activeConv}/messages/${msgId}`, {
-        method: 'DELETE', credentials: 'include',
-      });
-      if (res.ok) {
-        setMessages((prev) => prev.map(m => m.id === msgId ? { ...m, content: '[deleted]', isDeleted: true } : m));
-        addToast('Message deleted', 'success');
-      } else {
-        addToast('Failed to delete message', 'error');
-      }
-    } catch {
-      addToast('Failed to delete message', 'error');
-    }
-  };
+    fetchMessagesApi(activeConv, msgPage + 1, true);
+  }, [loadingMore, hasMoreMessages, activeConv, msgPage, fetchMessagesApi, messages]);
 
   useEffect(() => {
     if (loadingMore && messagesContainerRef.current && prevFirstMessageId.current) {
@@ -295,9 +262,27 @@ export default function Messages() {
     }
   }, [messages, loadingMore]);
 
+  useEffect(() => {
+    if (messagesEndRef.current && !loadingMore) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages.length, loadingMore]);
+
+  const handleSelectConversation = (convId) => {
+    setActiveConv(convId);
+    setShowMobileList(false);
+    setMessages([]);
+    setMsgPage(1);
+    setHasMoreMessages(true);
+    setReplyingTo(null);
+    setTypingUsers([]);
+    fetchMessagesApi(convId, 1);
+  };
+
   const handleSend = async () => {
     const content = newMessage.trim();
     if (!content || sending || !activeConv) return;
+    if (!socketConnected) return addToast('Connecting to server...', 'info');
 
     const tempId = `temp-${Date.now()}`;
     const optimisticMsg = {
@@ -320,19 +305,21 @@ export default function Messages() {
     setReplyingTo(null);
 
     try {
-      const res = await fetch(`${API}/messages/conversations/${activeConv}/messages`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ content, parentId: replySnapshot?.id || null }),
+      const receiverId = otherParticipant?.id;
+      if (!receiverId) throw new Error('No receiver');
+
+      const result = await sendMessage({
+        receiverId,
+        conversationId: activeConv,
+        content,
+        parentId: replySnapshot?.id || null,
       });
-      if (!res.ok) throw new Error('Failed to send message');
-      const data = await res.json();
-      const msg = data.message || data;
-      setMessages((prev) => prev.map((m) => (m.id === tempId ? { ...m, id: msg.id, _optimistic: false } : m)));
+
+      const msg = result.message;
+      setMessages((prev) => prev.map((m) => (m.id === tempId ? { ...m, id: msg.id, _optimistic: false, deliveredAt: msg.deliveredAt || null } : m)));
       setConversations((prev) => prev.map((c) =>
         c.id === activeConv
-          ? { ...c, lastMessage: { content, createdAt: new Date().toISOString() }, updatedAt: new Date().toISOString() }
+          ? { ...c, updatedAt: new Date().toISOString() }
           : c
       ));
     } catch (err) {
@@ -343,17 +330,168 @@ export default function Messages() {
     }
   };
 
-  const handleSelectConversation = (convId) => {
-    setActiveConv(convId);
-    setShowMobileList(false);
-    setMessages([]);
-    setMsgPage(1);
-    setHasMoreMessages(true);
-    setReplyingTo(null);
-    fetchMessages(convId, 1);
-    setConversations((prev) => prev.map((c) =>
-      c.id === convId ? { ...c, _lastReadAt: new Date().toISOString() } : c
-    ));
+  const handleDelete = async (msgId) => {
+    if (!activeConv) return;
+    try {
+      await deleteMessageSocket({ messageId: msgId, conversationId: activeConv });
+      setMessages((prev) => prev.map(m => m.id === msgId ? { ...m, content: '[deleted]', isDeleted: true } : m));
+      addToast('Message deleted', 'success');
+    } catch (err) {
+      addToast(err.message || 'Failed to delete', 'error');
+    }
+  };
+
+  const handleReaction = async (messageId, emoji) => {
+    try {
+      const msg = messages.find((m) => m.id === messageId);
+      const existingReaction = msg?.reactions?.find((r) => r.userId === user?.id);
+      if (existingReaction?.emoji === emoji) {
+        await removeReaction({ messageId });
+      } else {
+        await addReaction({ messageId, emoji });
+      }
+    } catch (err) {
+      addToast(err.message || 'Failed to add reaction', 'error');
+    }
+    setReactionPicker(null);
+  };
+
+  useEffect(() => {
+    if (!socketConnected) return;
+    const socket = getSocket();
+    if (!socket) return;
+
+    const handleNewMessage = (msg) => {
+      const isOwn = msg.senderId === user?.id;
+      if (msg.conversationId === activeConv) {
+        setMessages((prev) => {
+          if (prev.find((m) => m.id === msg.id)) return prev;
+          const optimistic = prev.findIndex((m) => m._optimistic && m.senderId === msg.senderId && m.content === msg.content && m.conversationId === msg.conversationId);
+          if (optimistic >= 0) {
+            const updated = [...prev];
+            updated[optimistic] = { ...msg, _optimistic: false };
+            return updated;
+          }
+          return [...prev, msg];
+        });
+        if (!isOwn && !msg.readAt) {
+          markAsRead({ conversationId: msg.conversationId, messageIds: [msg.id] });
+        }
+      }
+      if (!isOwn) {
+        setConversations((prev) => prev.map((c) =>
+          c.id === msg.conversationId
+            ? { ...c, updatedAt: new Date().toISOString(), unreadCount: (c.unreadCount || 0) + 1 }
+            : c
+        ));
+      }
+    };
+
+    const handleTypingStart = ({ conversationId, userId: typingUserId, name }) => {
+      if (conversationId === activeConv && typingUserId !== user?.id) {
+        setTypingUsers((prev) => {
+          if (prev.find((t) => t.userId === typingUserId)) return prev;
+          return [...prev, { userId: typingUserId, name }];
+        });
+      }
+    };
+
+    const handleTypingStop = ({ conversationId, userId: typingUserId }) => {
+      if (conversationId === activeConv) {
+        setTypingUsers((prev) => prev.filter((t) => t.userId !== typingUserId));
+      }
+    };
+
+    const handleMessageDelivered = ({ messageId, conversationId }) => {
+      setMessages((prev) => prev.map((m) =>
+        m.id === messageId ? { ...m, deliveredAt: new Date().toISOString() } : m
+      ));
+    };
+
+    const handleMessageReadEvent = ({ conversationId, messageIds }) => {
+      if (messageIds?.length > 0) {
+        setMessages((prev) => prev.map((m) =>
+          m.senderId === user?.id && messageIds.includes(m.id) ? { ...m, readAt: new Date().toISOString() } : m
+        ));
+      }
+    };
+
+    const handleMessageDeleted = ({ messageId, conversationId }) => {
+      setMessages((prev) => prev.map((m) =>
+        m.id === messageId ? { ...m, content: '[deleted]', isDeleted: true } : m
+      ));
+    };
+
+    const handleReactionAdded = ({ messageId, reaction }) => {
+      setMessages((prev) => prev.map((m) => {
+        if (m.id !== messageId) return m;
+        const reactions = m.reactions ? [...m.reactions] : [];
+        const existing = reactions.findIndex((r) => r.userId === reaction.userId);
+        if (existing >= 0) {
+          reactions[existing] = reaction;
+        } else {
+          reactions.push(reaction);
+        }
+        return { ...m, reactions };
+      }));
+    };
+
+    const handleReactionRemoved = ({ messageId, userId: reactionUserId }) => {
+      setMessages((prev) => prev.map((m) => {
+        if (m.id !== messageId) return m;
+        return { ...m, reactions: (m.reactions || []).filter((r) => r.userId !== reactionUserId) };
+      }));
+    };
+
+    const handleUserOnline = ({ userId }) => {
+      setOnlineStatuses((prev) => ({ ...prev, [userId]: true }));
+    };
+
+    const handleUserOffline = ({ userId }) => {
+      setOnlineStatuses((prev) => ({ ...prev, [userId]: false }));
+    };
+
+    socket.on('new-message', handleNewMessage);
+    socket.on('typing-start', handleTypingStart);
+    socket.on('typing-stop', handleTypingStop);
+    socket.on('message-delivered', handleMessageDelivered);
+    socket.on('message-read', handleMessageReadEvent);
+    socket.on('message-deleted', handleMessageDeleted);
+    socket.on('reaction-added', handleReactionAdded);
+    socket.on('reaction-removed', handleReactionRemoved);
+    socket.on('user-online', handleUserOnline);
+    socket.on('user-offline', handleUserOffline);
+
+    return () => {
+      socket.off('new-message', handleNewMessage);
+      socket.off('typing-start', handleTypingStart);
+      socket.off('typing-stop', handleTypingStop);
+      socket.off('message-delivered', handleMessageDelivered);
+      socket.off('message-read', handleMessageReadEvent);
+      socket.off('message-deleted', handleMessageDeleted);
+      socket.off('reaction-added', handleReactionAdded);
+      socket.off('reaction-removed', handleReactionRemoved);
+      socket.off('user-online', handleUserOnline);
+      socket.off('user-offline', handleUserOffline);
+    };
+  }, [socketConnected, activeConv, user?.id]);
+
+  useEffect(() => {
+    if (activeConv && otherParticipant?.id) {
+      checkOnline(otherParticipant.id).then((res) => {
+        setOnlineStatuses((prev) => ({ ...prev, [otherParticipant.id]: res.online }));
+      });
+    }
+  }, [activeConv, otherParticipant?.id]);
+
+  const handleInputChange = (e) => {
+    setNewMessage(e.target.value);
+    if (!activeConv || !otherParticipant?.id || !socketConnected) return;
+    startTyping({ conversationId: activeConv, receiverId: otherParticipant.id });
+    if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+    typingTimeoutRef.current = setTimeout(() => {
+      stopTyping({ conversationId: activeConv, receiverId: otherParticipant.id });
+    }, 3000);
   };
 
   const handleAcceptRequest = async (requestId) => {
@@ -526,49 +664,7 @@ export default function Messages() {
     return () => clearInterval(interval);
   }, []);
 
-  const messageIdsRef = useRef(new Set());
-
-  useEffect(() => { messageIdsRef.current = new Set(messages.map((m) => m.id)); }, [messages]);
-
-  useEffect(() => {
-    if (!activeConv) return;
-    const interval = setInterval(async () => {
-      try {
-        const res = await fetch(`${API}/messages/conversations/${activeConv}/messages?page=1&limit=5`, { credentials: 'include' });
-        if (!res.ok) return;
-        const data = await res.json();
-        const ids = messageIdsRef.current;
-        const newMsgs = (data.messages || []).filter((m) => !ids.has(m.id));
-        if (newMsgs.length > 0) {
-          setMessages((prev) => {
-            const merged = [...prev];
-            for (const nm of newMsgs) {
-              if (!merged.find((m) => m.id === nm.id)) merged.push(nm);
-            }
-            merged.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-            return merged;
-          });
-        }
-      } catch {}
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [activeConv]);
-
-  useEffect(() => {
-    const interval = setInterval(() => { fetchConversations(); }, 5000);
-    return () => clearInterval(interval);
-  }, [fetchConversations]);
-
-  useEffect(() => {
-    const interval = setInterval(() => { fetchRequests(); }, 10000);
-    return () => clearInterval(interval);
-  }, [fetchRequests]);
-
-  useEffect(() => {
-    if (messagesEndRef.current && !loadingMore) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages.length, loadingMore]);
+  const isUserOnline = (userId) => onlineStatuses[userId] === true;
 
   const lastMsgContent = (conv) => {
     if (conv.lastMessage?.content) return conv.lastMessage.content;
@@ -580,13 +676,6 @@ export default function Messages() {
     if (conv.lastMessage?.createdAt) return formatTime(conv.lastMessage.createdAt);
     if (conv.messages?.length) return formatTime(conv.messages[conv.messages.length - 1]?.createdAt);
     return formatTime(conv.updatedAt);
-  };
-
-  const isUnread = (conv) => {
-    const lastRead = conv._lastReadAt || conv.lastReadAt;
-    const lastCreated = conv.lastMessage?.createdAt || conv.messages?.[conv.messages.length - 1]?.createdAt || conv.updatedAt;
-    if (!lastRead || !lastCreated) return false;
-    return new Date(lastCreated) > new Date(lastRead);
   };
 
   const hasRequests = requests.length > 0;
@@ -622,11 +711,6 @@ export default function Messages() {
       setUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
     }
-  };
-
-  const handleInputChange = (e) => {
-    setNewMessage(e.target.value);
-    emitTyping();
   };
 
   return (
@@ -706,16 +790,15 @@ export default function Messages() {
                       const following = status?.following;
                       const fl = followLoading[u.id];
                       return (
-                        <div
-                          key={u.id}
-                          style={{
-                            display: 'flex', gap: 10, padding: '10px 12px',
-                            borderRadius: 'var(--radius-sm)', transition: 'background 0.15s',
-                          }}
+                        <div key={u.id}
+                          style={{ display: 'flex', gap: 10, padding: '10px 12px', borderRadius: 'var(--radius-sm)', transition: 'background 0.15s' }}
                           onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--surface-hover)'}
                           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                         >
-                          <Avatar name={u.name} src={u.image} size={36} />
+                          <div style={{ position: 'relative' }}>
+                            <Avatar name={u.name} src={u.image} size={36} />
+                            {isUserOnline(u.id) && <span style={{ position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', backgroundColor: '#22C55E', border: '2px solid var(--surface)' }} />}
+                          </div>
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <div style={{ fontSize: 14, fontWeight: 500, display: 'flex', alignItems: 'center', gap: 6 }}>
                               {u.name}
@@ -726,8 +809,7 @@ export default function Messages() {
                             </p>
                           </div>
                           <div style={{ display: 'flex', gap: 4, alignItems: 'center', flexShrink: 0 }}>
-                            <button
-                              onClick={(e) => { e.stopPropagation(); handleToggleFollow(u.id); }}
+                            <button onClick={(e) => { e.stopPropagation(); handleToggleFollow(u.id); }}
                               disabled={fl}
                               style={{
                                 padding: '4px 10px', fontSize: 12, fontWeight: 600, borderRadius: 100,
@@ -737,12 +819,9 @@ export default function Messages() {
                                 cursor: fl ? 'default' : 'pointer', opacity: fl ? 0.6 : 1,
                                 whiteSpace: 'nowrap',
                               }}
-                            >
-                              {fl ? '...' : following ? 'Following' : 'Follow'}
-                            </button>
+                            >{fl ? '...' : following ? 'Following' : 'Follow'}</button>
                             {isMutual && (
-                              <button
-                                onClick={() => handleStartChat(u)}
+                              <button onClick={() => handleStartChat(u)}
                                 style={{
                                   width: 32, height: 32, borderRadius: 8, border: 'none',
                                   backgroundColor: 'var(--primary-light)', color: 'var(--primary)',
@@ -783,16 +862,15 @@ export default function Messages() {
                       const following = status?.following;
                       const fl = followLoading[u.id];
                       return (
-                        <div
-                          key={u.id}
-                          style={{
-                            display: 'flex', gap: 10, padding: '10px 12px',
-                            borderRadius: 'var(--radius-sm)', transition: 'background 0.15s',
-                          }}
+                        <div key={u.id}
+                          style={{ display: 'flex', gap: 10, padding: '10px 12px', borderRadius: 'var(--radius-sm)', transition: 'background 0.15s' }}
                           onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--surface-hover)'}
                           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                         >
-                          <Avatar name={u.name} src={u.image} size={36} />
+                          <div style={{ position: 'relative' }}>
+                            <Avatar name={u.name} src={u.image} size={36} />
+                            {isUserOnline(u.id) && <span style={{ position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', backgroundColor: '#22C55E', border: '2px solid var(--surface)' }} />}
+                          </div>
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <div style={{ fontSize: 14, fontWeight: 500, display: 'flex', alignItems: 'center', gap: 6 }}>
                               {u.name}
@@ -803,8 +881,7 @@ export default function Messages() {
                             </p>
                           </div>
                           <div style={{ display: 'flex', gap: 4, alignItems: 'center', flexShrink: 0 }}>
-                            <button
-                              onClick={(e) => { e.stopPropagation(); handleToggleFollow(u.id); }}
+                            <button onClick={(e) => { e.stopPropagation(); handleToggleFollow(u.id); }}
                               disabled={fl}
                               style={{
                                 padding: '4px 10px', fontSize: 12, fontWeight: 600, borderRadius: 100,
@@ -814,12 +891,9 @@ export default function Messages() {
                                 cursor: fl ? 'default' : 'pointer', opacity: fl ? 0.6 : 1,
                                 whiteSpace: 'nowrap',
                               }}
-                            >
-                              {fl ? '...' : following ? 'Following' : 'Follow'}
-                            </button>
+                            >{fl ? '...' : following ? 'Following' : 'Follow'}</button>
                             {isMutual && (
-                              <button
-                                onClick={() => handleStartChat(u)}
+                              <button onClick={() => handleStartChat(u)}
                                 style={{
                                   width: 32, height: 32, borderRadius: 8, border: 'none',
                                   backgroundColor: 'var(--primary-light)', color: 'var(--primary)',
@@ -894,7 +968,6 @@ export default function Messages() {
                 </div>
               ) : (
                 filteredConvs.map((c) => {
-                  const unread = isUnread(c);
                   const participant = c.participants?.find((p) => p.user?.id !== user?.id)?.user;
                   const displayName = participant?.name || c.subject || 'Unknown';
                   const avatarName = participant?.name || c.subject || '?';
@@ -914,19 +987,14 @@ export default function Messages() {
                     >
                       <div style={{ position: 'relative' }}>
                         <Avatar name={avatarName} src={avatarSrc} size={44} />
-                        {unread && (
-                          <span style={{
-                            position: 'absolute', top: 0, right: 0, width: 10, height: 10,
-                            borderRadius: '50%', backgroundColor: 'var(--primary)',
-                            border: '2px solid var(--surface)',
-                          }} />
+                        {isUserOnline(participant?.id) && (
+                          <span style={{ position: 'absolute', bottom: 0, right: 0, width: 12, height: 12, borderRadius: '50%', backgroundColor: '#22C55E', border: '2px solid var(--surface)' }} />
                         )}
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ fontSize: 14, fontWeight: unread ? 600 : 400 }}>
+                          <span style={{ fontSize: 14, fontWeight: 400 }}>
                             {displayName}
-                            {isOnline(participant?.lastActiveAt) && <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: '#22C55E', display: 'inline-block', marginLeft: 6, verticalAlign: 'middle' }} />}
                           </span>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                             {c.unreadCount > 0 && (
@@ -968,15 +1036,13 @@ export default function Messages() {
               >
                 <ArrowLeft size={20} />
               </button>
-              <Avatar
-                name={otherParticipant?.name || activeConvData.subject || '?'}
-                src={otherParticipant?.image}
-                size={38}
-              />
+              <div style={{ position: 'relative' }}>
+                <Avatar name={otherParticipant?.name || activeConvData.subject || '?'} src={otherParticipant?.image} size={38} />
+                {isUserOnline(otherParticipant?.id) && <span style={{ position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', backgroundColor: '#22C55E', border: '2px solid var(--surface)' }} />}
+              </div>
               <div style={{ flex: 1 }}>
                 <span style={{ fontSize: 14, fontWeight: 600 }}>
                   {otherParticipant?.name || activeConvData.subject || 'Unknown'}
-                  {isOnline(otherParticipant?.lastActiveAt) && <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: '#22C55E', display: 'inline-block', marginLeft: 6, verticalAlign: 'middle' }} />}
                 </span>
                 {typingUsers.length > 0 && (
                   <p style={{ fontSize: 12, color: 'var(--accent)' }}>typing...</p>
@@ -1016,7 +1082,7 @@ export default function Messages() {
                 <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 8, padding: 20 }}>
                   <AlertCircle size={32} style={{ color: 'var(--danger)' }} />
                   <p style={{ fontSize: 14, color: 'var(--text-secondary)' }}>{msgError}</p>
-                  <Button variant="outline" size="sm" onClick={() => fetchMessages(activeConv, 1)}>Retry</Button>
+                  <Button variant="outline" size="sm" onClick={() => fetchMessagesApi(activeConv, 1)}>Retry</Button>
                 </div>
               ) : messages.length === 0 ? (
                 <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 8 }}>
@@ -1074,12 +1140,7 @@ export default function Messages() {
                             onMouseLeave={() => setHoveredMsgId(null)}
                           >
                             {!isMine && (
-                              <Avatar
-                                name={sender.name || '?'}
-                                src={sender.image}
-                                size={28}
-                                style={{ marginTop: 4, flexShrink: 0 }}
-                              />
+                              <Avatar name={sender.name || '?'} src={sender.image} size={28} style={{ marginTop: 4, flexShrink: 0 }} />
                             )}
                             <div style={{
                               maxWidth: '70%',
@@ -1119,14 +1180,29 @@ export default function Messages() {
                                 opacity: m.isDeleted ? 0.5 : 1,
                                 fontStyle: m.isDeleted ? 'italic' : 'normal',
                               }}>
-                                <p style={{ fontSize: 14, lineHeight: 1.5 }}>                                {m.isDeleted ? 'Message deleted' : m.messageType === 'image' ? (
-                                  <img src={m.attachmentUrl} alt={m.content} style={{ maxWidth: 240, maxHeight: 240, borderRadius: 8, display: 'block' }} />
-                                ) : m.messageType === 'file' ? (
-                                  <a href={m.attachmentUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline', display: 'flex', alignItems: 'center', gap: 6 }}>
-                                    <Paperclip size={14} /> {m.content}
-                                  </a>
-                                ) : m.content}</p>
+                                <p style={{ fontSize: 14, lineHeight: 1.5 }}>
+                                  {m.isDeleted ? 'Message deleted' : m.messageType === 'image' ? (
+                                    <img src={m.attachmentUrl} alt={m.content} style={{ maxWidth: 240, maxHeight: 240, borderRadius: 8, display: 'block' }} />
+                                  ) : m.messageType === 'file' ? (
+                                    <a href={m.attachmentUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline', display: 'flex', alignItems: 'center', gap: 6 }}>
+                                      <Paperclip size={14} /> {m.content}
+                                    </a>
+                                  ) : m.content}
+                                </p>
                               </div>
+                              {m.reactions && m.reactions.length > 0 && (
+                                <div style={{ display: 'flex', gap: 2, marginTop: 2, flexWrap: 'wrap' }}>
+                                  {m.reactions.map((r) => (
+                                    <span key={r.id} style={{
+                                      fontSize: 14, padding: '1px 4px', borderRadius: 8,
+                                      backgroundColor: r.userId === user?.id ? 'var(--primary-light)' : 'var(--surface)',
+                                      cursor: 'default',
+                                    }} title={r.user?.name || ''}>
+                                      {r.emoji}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
                               <span style={{
                                 fontSize: 11,
                                 color: isMine ? 'var(--text-muted)' : 'var(--text-muted)',
@@ -1137,8 +1213,11 @@ export default function Messages() {
                               }}>
                                 {formatMessageTime(m.createdAt)}
                                 {isMine && (
-                                  <span style={{ marginLeft: 4, display: 'inline-flex', verticalAlign: 'middle' }}>
-                                    <CheckCheck size={12} style={{ color: m._optimistic ? 'var(--text-muted)' : 'var(--accent)' }} />
+                                  <span style={{ marginLeft: 4, display: 'inline-flex', gap: 2, verticalAlign: 'middle' }}>
+                                    {m.deliveredAt && !m.readAt && <CheckCheck size={12} style={{ color: 'var(--text-muted)' }} />}
+                                    {m.readAt && <CheckCheck size={12} style={{ color: 'var(--accent)' }} />}
+                                    {!m.deliveredAt && !m._optimistic && <Clock size={12} style={{ color: 'var(--text-muted)' }} />}
+                                    {m._optimistic && <Clock size={12} style={{ color: 'var(--text-muted)' }} />}
                                   </span>
                                 )}
                               </span>
@@ -1147,6 +1226,11 @@ export default function Messages() {
                                   display: 'flex', gap: 2, marginTop: 2,
                                   alignSelf: isMine ? 'flex-end' : 'flex-start',
                                 }}>
+                                  <button onClick={() => setReactionPicker(reactionPicker === m.id ? null : m.id)}
+                                    style={{ ...iconBtnStyle, width: 28, height: 28 }}
+                                    title="React">
+                                    <SmilePlus size={14} />
+                                  </button>
                                   <button onClick={() => setReplyingTo({ id: m.id, content: m.content, senderId: sender.id || m.senderId, sender: sender })}
                                     style={{ ...iconBtnStyle, width: 28, height: 28 }}
                                     title="Reply">
@@ -1159,6 +1243,26 @@ export default function Messages() {
                                       <Trash2 size={14} />
                                     </button>
                                   )}
+                                  {reactionPicker === m.id && (
+                                    <div style={{
+                                      position: 'absolute', bottom: '100%', left: isMine ? 'auto' : 0, right: isMine ? 0 : 'auto',
+                                      display: 'flex', gap: 2, padding: '4px 6px',
+                                      backgroundColor: 'var(--surface)', border: '1px solid var(--border)',
+                                      borderRadius: 100, boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                                      zIndex: 10, marginBottom: 4,
+                                    }}>
+                                      {REACTION_EMOJIS.map((emoji) => (
+                                        <button key={emoji} onClick={() => handleReaction(m.id, emoji)}
+                                          style={{
+                                            border: 'none', background: 'none', fontSize: 18, cursor: 'pointer',
+                                            padding: 2, borderRadius: 4, lineHeight: 1,
+                                          }}
+                                          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--surface-hover)'}
+                                          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                                        >{emoji}</button>
+                                      ))}
+                                    </div>
+                                  )}
                                 </div>
                               )}
                             </div>
@@ -1169,7 +1273,7 @@ export default function Messages() {
                   ))}
                   {typingUsers.length > 0 && (
                     <div style={{ display: 'flex', gap: 10, padding: '0 20px', marginTop: 4 }}>
-                      <Avatar name={typingUsers[0]?.name || '?'} src={typingUsers[0]?.image} size={28} />
+                      <Avatar name={typingUsers[0]?.name || '?'} src={''} size={28} />
                       <div style={{
                         padding: '10px 16px', borderRadius: 16,
                         borderBottomLeftRadius: 4, backgroundColor: 'var(--surface)',
@@ -1209,8 +1313,7 @@ export default function Messages() {
               <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end' }}>
                 <div style={{ position: 'relative', flex: 1 }}>
                   <div style={{ display: 'flex', gap: 4, alignItems: 'flex-end' }}>
-                    <button onClick={() => setEmojiOpen(!emojiOpen)}
-                      style={{ ...iconBtnStyle, marginBottom: 2 }} title="Emoji">
+                    <button onClick={() => setEmojiOpen(!emojiOpen)} style={{ ...iconBtnStyle, marginBottom: 2 }} title="Emoji">
                       <SmilePlus size={18} />
                     </button>
                     <input type="file" ref={fileInputRef} onChange={handleFileUpload} style={{ display: 'none' }} />
@@ -1281,7 +1384,10 @@ export default function Messages() {
         {otherParticipant ? (
           <>
             <div style={{ textAlign: 'center', marginBottom: 20 }}>
-              <Avatar name={otherParticipant.name} src={otherParticipant.image} size={64} style={{ margin: '0 auto 12px' }} />
+              <div style={{ position: 'relative', display: 'inline-block' }}>
+                <Avatar name={otherParticipant.name} src={otherParticipant.image} size={64} style={{ margin: '0 auto 12px' }} />
+                {isUserOnline(otherParticipant.id) && <span style={{ position: 'absolute', bottom: 4, right: 4, width: 14, height: 14, borderRadius: '50%', backgroundColor: '#22C55E', border: '3px solid var(--surface)' }} />}
+              </div>
               <h3 style={{ fontSize: 16, fontWeight: 600 }}>{otherParticipant.name}</h3>
               {otherParticipant.role && (
                 <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 6 }}>{otherParticipant.role}</p>

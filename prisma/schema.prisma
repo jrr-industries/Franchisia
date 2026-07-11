@@ -85,6 +85,7 @@ model User {
   experience                 UserExperience[]
   interests                  UserInterest[]
   skills                     UserSkill[]
+  reactions                  MessageReaction[]
 
   @@index([email])
   @@index([role])
@@ -339,15 +340,36 @@ model Message {
   content        String
   messageType    MessageType  @default(text) @map("message_type")
   attachmentUrl  String?      @map("attachment_url")
+  attachmentName String?      @map("attachment_name")
+  attachmentSize Int?         @map("attachment_size")
   isDeleted      Boolean      @default(false) @map("is_deleted")
+  deliveredAt    DateTime?    @map("delivered_at") @db.Timestamptz(6)
+  readAt         DateTime?    @map("read_at") @db.Timestamptz(6)
+  editedAt       DateTime?    @map("edited_at") @db.Timestamptz(6)
+  deletedAt      DateTime?    @map("deleted_at") @db.Timestamptz(6)
   createdAt      DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime     @updatedAt @map("updated_at") @db.Timestamptz(6)
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
   parent         Message?     @relation("MessageReplies", fields: [parentId], references: [id])
   replies        Message[]    @relation("MessageReplies")
+  reactions      MessageReaction[]
 
   @@index([conversationId, createdAt])
   @@map("messages")
+}
+
+model MessageReaction {
+  id        String   @id @default(cuid())
+  messageId String   @map("message_id")
+  userId    String   @map("user_id")
+  emoji     String
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, userId])
+  @@map("message_reactions")
 }
 
 model Notification {
