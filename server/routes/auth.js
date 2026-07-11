@@ -51,8 +51,19 @@ router.get("/status", async (req, res) => {
 
     if (!user) return res.status(404).json({ error: "User not found" });
 
+    let needsCompany = false;
+    let companyStatus = null;
+    if (user.role === "franchisor") {
+      const company = await prisma.company.findFirst({ where: { ownerId: user.id } });
+      if (!company) {
+        needsCompany = true;
+      } else {
+        companyStatus = company.status;
+      }
+    }
+
     const { passwordHash, ...userData } = user;
-    res.json(userData);
+    res.json({ ...userData, needsCompany, companyStatus });
   } catch (error) {
     console.error("Auth route error:", error);
     res.status(500).json({ error: "Internal server error" });

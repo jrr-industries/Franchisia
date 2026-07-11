@@ -65,7 +65,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
     <>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: collapsed ? 16 : '20px 20px', borderBottom: '1px solid var(--border)' }}>
         <Link to="/" onClick={handleClose} style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', whiteSpace: 'nowrap' }}>
-          <img src={logo} alt="Franchisia" style={{ height: collapsed ? 28 : 32, width: 'auto' }} />
+          <img src={logo} alt="Franchisia" style={{ height: collapsed ? 36 : 40, width: 'auto' }} />
           {!collapsed && <span style={{ fontSize: 18, fontWeight: 800, color: 'var(--text)' }}>Franchisia</span>}
         </Link>
         {overlayOpen && (

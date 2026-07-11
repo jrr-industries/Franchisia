@@ -6,6 +6,7 @@ import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
 import VerifiedBadge from "../../components/ui/VerifiedBadge";
 import useCompanyStore from "../../store/companyStore";
+import { useAuth } from "../../context/AuthContext";
 
 const API = "/api";
 
@@ -15,6 +16,7 @@ function getInitials(name) {
 }
 
 export default function Companies() {
+  const { user: currentUser } = useAuth();
   const companies = useCompanyStore((s) => s.companies);
   const loading = useCompanyStore((s) => s.loading);
   const error = useCompanyStore((s) => s.error);
@@ -32,7 +34,9 @@ export default function Companies() {
     };
   }, [fetchCompanies, initSocketListeners, removeSocketListeners]);
 
-  const filtered = companies.filter((c) => {
+  const visible = companies.filter((c) => c.ownerId !== currentUser?.id);
+
+  const filtered = visible.filter((c) => {
     const q = search.toLowerCase();
     if (!q) return true;
     return (

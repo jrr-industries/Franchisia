@@ -13,16 +13,26 @@ router.get("/", async (req, res) => {
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
     const where = {};
+
     if (industry) where.industry = industry;
-    if (status) where.status = status;
-    else where.status = "active";
-    if (franchisor === "true") {
-      where.owner = { role: "franchisor" };
+
+    if (status) {
+      where.status = status;
+    } else {
+      where.status = "active";
     }
+
+    if (franchisor === "true" || franchisor === undefined) {
+      where.owner = { role: "franchisor", isActive: true };
+    } else if (franchisor === "false") {
+      where.owner = { role: { not: "franchisor" } };
+    }
+
     if (search) {
       where.OR = [
         { name: { contains: search, mode: "insensitive" } },
         { description: { contains: search, mode: "insensitive" } },
+        { industry: { contains: search, mode: "insensitive" } },
       ];
     }
 
@@ -32,7 +42,7 @@ router.get("/", async (req, res) => {
         skip,
         take: parseInt(limit),
         include: {
-          owner: { select: { id: true, name: true, image: true, role: true } },
+          owner: { select: { id: true, name: true, image: true, role: true, isActive: true } },
           _count: { select: { listings: true, followers: true } },
         },
         orderBy: [{ isVerified: "desc" }, { createdAt: "desc" }],
@@ -40,7 +50,11 @@ router.get("/", async (req, res) => {
       prisma.company.count({ where }),
     ]);
 
-    res.json({ companies, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+    const filtered = franchisor !== "false"
+      ? companies.filter((c) => c.owner && c.owner.role === "franchisor" && c.owner.isActive !== false)
+      : companies;
+
+    res.json({ companies: filtered, total: filtered.length, page: parseInt(page), totalPages: Math.ceil(filtered.length / parseInt(limit)) });
   } catch (error) {
     console.error("Companies route error:", error);
     res.status(500).json({ error: "Internal server error" });

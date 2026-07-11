@@ -22,6 +22,7 @@ export function ProtectedRoute({ children }) {
 
 export function AdminRoute({ children }) {
   const { isAuthenticated, isAdmin, loading } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -32,7 +33,7 @@ export function AdminRoute({ children }) {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   if (!isAdmin) {
@@ -64,6 +65,9 @@ export function OnboardingRoute({ children }) {
 
   const hasRole = user?.role && user?.role !== "none";
   if (hasRole) {
+    if (user?.onboardingCompleted || user?.accountStatus === "verified") {
+      return <Navigate to="/dashboard" replace />;
+    }
     return <Navigate to="/onboarding/status" replace />;
   }
 
@@ -87,6 +91,9 @@ export function AuthRedirect({ children }) {
     }
     const hasRole = user?.role && user?.role !== "none";
     if (hasRole) {
+      if (user?.onboardingCompleted || user?.accountStatus === "verified") {
+        return <Navigate to="/dashboard" replace />;
+      }
       return <Navigate to="/onboarding/status" replace />;
     }
     return <Navigate to="/onboarding/select-role" replace />;

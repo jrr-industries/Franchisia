@@ -1,0 +1,4 @@
+◇ injected env (0) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+[2m2026-07-11T07:22:20.140Z[0m [33mWARN[0m [1m[Better Auth]:[0m Social provider linkedin is missing clientId or clientSecret
+[2m2026-07-11T07:22:20.141Z[0m [33mWARN[0m [1m[Better Auth]:[0m Social provider facebook is missing clientId or clientSecret
+Server running on http://localhost:3001

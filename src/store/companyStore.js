@@ -24,6 +24,7 @@ const useCompanyStore = create((set, get) => ({
     if (!socket) return;
 
     socket.on("company-created", (company) => {
+      if (company.status !== "active") return;
       set((state) => ({
         companies: addSorted([...state.companies, normalizeCompany(company)]),
       }));
@@ -31,9 +32,16 @@ const useCompanyStore = create((set, get) => ({
 
     socket.on("company-updated", (company) => {
       const n = normalizeCompany(company);
-      set((state) => ({
-        companies: addSorted(state.companies.map((c) => (c.id === n.id ? { ...c, ...n } : c))),
-      }));
+      set((state) => {
+        const exists = state.companies.some((c) => c.id === n.id);
+        if (company.status !== "active") {
+          return { companies: state.companies.filter((c) => c.id !== n.id) };
+        }
+        if (exists) {
+          return { companies: addSorted(state.companies.map((c) => (c.id === n.id ? { ...c, ...n } : c))) };
+        }
+        return { companies: addSorted([...state.companies, n]) };
+      });
     });
 
     socket.on("company-deleted", ({ id }) => {
@@ -43,6 +51,7 @@ const useCompanyStore = create((set, get) => ({
     });
 
     socket.on("company-verified", (company) => {
+      if (company.status !== "active") return;
       const n = normalizeCompany(company);
       set((state) => ({
         companies: addSorted(state.companies.map((c) => (c.id === n.id ? { ...c, ...n } : c))),
@@ -77,7 +86,7 @@ function normalizeCompany(c) {
 }
 
 function addSorted(companies) {
-  return companies.sort((a, b) => {
+  return [...companies].sort((a, b) => {
     if (a.isVerified !== b.isVerified) return a.isVerified ? -1 : 1;
     return new Date(b.createdAt) - new Date(a.createdAt);
   });

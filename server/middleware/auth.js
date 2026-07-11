@@ -20,6 +20,10 @@ export async function authenticate(req, res, next) {
       return res.status(404).json({ error: "User not found" });
     }
 
+    if (!fullUser.isActive) {
+      return res.status(403).json({ error: "Account suspended" });
+    }
+
     req.user = fullUser;
     next();
   } catch (error) {

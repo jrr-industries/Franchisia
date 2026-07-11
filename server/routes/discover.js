@@ -62,7 +62,7 @@ router.get("/", async (req, res) => {
         orderBy: { viewCount: "desc" },
       }),
       prisma.company.findMany({
-        where: { status: "active", ...(verified === "true" ? { isVerified: true } : {}) },
+        where: { status: "active", owner: { role: "franchisor", isActive: true }, ...(verified === "true" ? { isVerified: true } : {}) },
         take: 6,
         include: { _count: { select: { followers: true, listings: true } } },
         orderBy: [{ isVerified: "desc" }, { followerCount: "desc" }],

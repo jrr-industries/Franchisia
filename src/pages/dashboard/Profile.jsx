@@ -166,7 +166,7 @@ export default function Profile() {
   const [reportSending, setReportSending] = useState(false);
 
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editForm, setEditForm] = useState({ name: '', headline: '', bio: '', location: '', website: '', linkedinUrl: '', phone: '', industries: '' });
+  const [editForm, setEditForm] = useState({ name: '', headline: '', bio: '', location: '', website: '', phone: '', industries: '' });
   const [editSaving, setEditSaving] = useState(false);
 
   useEffect(() => {
@@ -177,7 +177,6 @@ export default function Profile() {
         bio: profileUser.bio || '',
         location: profileUser.location || '',
         website: profileUser.website || '',
-        linkedinUrl: profileUser.linkedinUrl || '',
         phone: profileUser.phone || '',
         industries: (profileUser.industries || []).join(', '),
       });
@@ -197,7 +196,7 @@ export default function Profile() {
           bio: editForm.bio,
           location: editForm.location,
           website: editForm.website,
-          linkedinUrl: editForm.linkedinUrl,
+
           phone: editForm.phone,
           industries: editForm.industries.split(',').map((s) => s.trim()).filter(Boolean),
         }),
@@ -637,15 +636,9 @@ export default function Profile() {
             <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Location</label>
             <input style={s.input} value={editForm.location} onChange={(e) => setEditForm({ ...editForm, location: e.target.value })} placeholder="City, State" />
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-            <div>
-              <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Website</label>
-              <input style={s.input} value={editForm.website} onChange={(e) => setEditForm({ ...editForm, website: e.target.value })} placeholder="https://" />
-            </div>
-            <div>
-              <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>LinkedIn URL</label>
-              <input style={s.input} value={editForm.linkedinUrl} onChange={(e) => setEditForm({ ...editForm, linkedinUrl: e.target.value })} placeholder="https://linkedin.com/in/" />
-            </div>
+          <div>
+            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Website</label>
+            <input style={s.input} value={editForm.website} onChange={(e) => setEditForm({ ...editForm, website: e.target.value })} placeholder="https://" />
           </div>
           <div>
             <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Phone</label>

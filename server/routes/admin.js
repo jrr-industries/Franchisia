@@ -329,6 +329,31 @@ router.patch("/verification/:id/review", async (req, res) => {
         },
       });
 
+      if (user.role === "franchisor") {
+        let company = await prisma.company.findFirst({ where: { ownerId: userId } });
+        if (company) {
+          company = await prisma.company.update({ where: { id: company.id }, data: { status: "active" } });
+        } else {
+          const companyName = user.companyName || user.brandName || `${user.name || "Unknown"}'s Company`;
+          const slug = companyName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + "-" + userId.slice(0, 6);
+          company = await prisma.company.create({
+            data: {
+              ownerId: userId,
+              name: companyName,
+              slug,
+              industry: user.preferredIndustry || user.industries?.[0] || "Other",
+              description: user.companyDescription || null,
+              website: user.website || null,
+              email: user.businessEmail || user.email || null,
+              address: user.location || null,
+              status: "active",
+            },
+          });
+          try { emitCompanyCreated(company); } catch {}
+        }
+        try { emitCompanyUpdated(company); } catch {}
+      }
+
       await prisma.verificationHistory.create({
         data: {
           userId,
@@ -377,6 +402,14 @@ router.patch("/verification/:id/review", async (req, res) => {
           ipAddress: req.ip,
         },
       });
+
+      if (user.role === "franchisor") {
+        const company = await prisma.company.findFirst({ where: { ownerId: userId } });
+        if (company) {
+          const updated = await prisma.company.update({ where: { id: company.id }, data: { status: "inactive" } });
+          try { emitCompanyUpdated(updated); } catch {}
+        }
+      }
 
       await prisma.verificationHistory.create({
         data: {
@@ -526,6 +559,7 @@ router.patch("/companies/:id/status", async (req, res) => {
       where: { id: req.params.id },
       data: { status: req.body.status },
     });
+    emitCompanyUpdated(company);
     res.json(company);
   } catch (error) {
     console.error("Admin route error:", error);

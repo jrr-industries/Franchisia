@@ -72,7 +72,7 @@ router.get("/reviews", async (req, res) => {
 router.get("/industries", async (_req, res) => {
   try {
     const companies = await prisma.company.findMany({
-      where: { status: "active" },
+      where: { status: "active", owner: { role: "franchisor", isActive: true } },
       select: { industry: true },
       distinct: ["industry"],
     });

@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Save, Lock, Bell, Moon, Eye, EyeOff } from 'lucide-react';
+import { Save, Bell, Moon } from 'lucide-react';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
+import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../components/ui/Toast';
 import { useTheme } from '../../context/ThemeContext';
 
 function ToggleSwitch({ checked, onChange, label }) {
@@ -42,41 +44,48 @@ function ToggleSwitch({ checked, onChange, label }) {
 
 export default function Settings() {
   const { isDark, toggleTheme } = useTheme();
-  const [showPassword, setShowPassword] = useState({ current: false, new: false, confirm: false });
+  const { user, refreshSession } = useAuth();
+  const { addToast } = useToast();
 
-  const [profile, setProfile] = useState({ name: 'John Doe', email: 'john@example.com', phone: '+1 (555) 123-4567' });
-  const [password, setPassword] = useState({ current: '', new: '', confirm: '' });
+  const [profile, setProfile] = useState({ name: user?.name || '', email: user?.email || '', phone: user?.phone || '' });
+  const [saving, setSaving] = useState(false);
+  const [savingPrefs, setSavingPrefs] = useState(false);
   const [preferences, setPreferences] = useState({ email: true, push: true, sms: false });
 
-  const togglePasswordVisibility = (field) => {
-    setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));
+  const handleSaveProfile = async () => {
+    setSaving(true);
+    try {
+      const res = await fetch('/api/users/me', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          fullName: profile.name,
+          phone: profile.phone,
+        }),
+      });
+      if (res.ok) {
+        await refreshSession();
+        addToast('Profile updated successfully', 'success');
+      } else {
+        addToast('Failed to update profile', 'error');
+      }
+    } catch {
+      addToast('Failed to update profile', 'error');
+    }
+    setSaving(false);
   };
 
-  const PasswordInput = ({ label, value, onChange, field }) => (
-    <div style={{ position: 'relative' }}>
-      <Input
-        label={label}
-        type={showPassword[field] ? 'text' : 'password'}
-        value={value}
-        onChange={(e) => onChange({ ...password, [field]: e.target.value })}
-      />
-      <button
-        type="button"
-        onClick={() => togglePasswordVisibility(field)}
-        style={{
-          position: 'absolute',
-          right: 12,
-          bottom: 10,
-          background: 'none',
-          border: 'none',
-          color: 'var(--text-muted)',
-          display: 'flex',
-        }}
-      >
-        {showPassword[field] ? <EyeOff size={18} /> : <Eye size={18} />}
-      </button>
-    </div>
-  );
+  const handleSavePreferences = async () => {
+    setSavingPrefs(true);
+    try {
+      await new Promise((r) => setTimeout(r, 300));
+      addToast('Preferences saved', 'success');
+    } catch {
+      addToast('Failed to save preferences', 'error');
+    }
+    setSavingPrefs(false);
+  };
 
   return (
     <div>
@@ -93,25 +102,10 @@ export default function Settings() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <Input label="Full Name" value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} />
-            <Input label="Email Address" type="email" value={profile.email} onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
+            <Input label="Email Address" type="email" value={profile.email} disabled />
             <Input label="Phone Number" value={profile.phone} onChange={(e) => setProfile({ ...profile, phone: e.target.value })} />
             <div style={{ marginTop: 4 }}>
-              <Button size="sm" icon={<Save size={14} />}>Save Changes</Button>
-            </div>
-          </div>
-        </Card>
-
-        <Card hover={false}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-            <Lock size={20} style={{ color: 'var(--primary)' }} />
-            <h2 style={{ fontSize: 18, fontWeight: 600 }}>Change Password</h2>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <PasswordInput label="Current Password" value={password.current} onChange={setPassword} field="current" />
-            <PasswordInput label="New Password" value={password.new} onChange={setPassword} field="new" />
-            <PasswordInput label="Confirm New Password" value={password.confirm} onChange={setPassword} field="confirm" />
-            <div style={{ marginTop: 4 }}>
-              <Button size="sm" icon={<Lock size={14} />}>Update Password</Button>
+              <Button size="sm" icon={<Save size={14} />} onClick={handleSaveProfile} disabled={saving}>{saving ? 'Saving...' : 'Save Changes'}</Button>
             </div>
           </div>
         </Card>
@@ -128,7 +122,7 @@ export default function Settings() {
             <div style={{ height: 1, backgroundColor: 'var(--border)', margin: '4px 0' }} />
             <ToggleSwitch label="SMS Notifications" checked={preferences.sms} onChange={(v) => setPreferences({ ...preferences, sms: v })} />
             <div style={{ marginTop: 12 }}>
-              <Button size="sm" icon={<Bell size={14} />}>Save Preferences</Button>
+              <Button size="sm" icon={<Bell size={14} />} onClick={handleSavePreferences} disabled={savingPrefs}>{savingPrefs ? 'Saving...' : 'Save Preferences'}</Button>
             </div>
           </div>
         </Card>

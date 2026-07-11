@@ -1,5 +1,5 @@
 import { useNavigate, Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Clock, ShieldCheck, XCircle, AlertCircle, CheckCircle, ArrowRight, Edit3, Upload, Search, BookOpen, Building2, UserCheck, Package, Handshake, DollarSign } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import logo from "../../assets/logo.png";
@@ -13,6 +13,15 @@ const roleIcons = {
 };
 
 const statusConfig = {
+  pending_profile_completion: {
+    label: 'Profile Incomplete',
+    icon: AlertCircle,
+    color: '#F59E0B',
+    bg: '#FEF3C7',
+    title: 'Profile Not Completed',
+    description: 'Please complete your profile to continue.',
+    note: 'Fill in your details and submit for verification.',
+  },
   pending_admin_review: {
     label: 'Pending Verification',
     icon: Clock,
@@ -61,6 +70,7 @@ const steps = [
 export default function OnboardingStatus() {
   const { user, fetchAuthStatus } = useAuth();
   const navigate = useNavigate();
+  const [creatingCompany, setCreatingCompany] = useState(false);
 
   useEffect(() => {
     if (!user) navigate('/login');
@@ -74,6 +84,36 @@ export default function OnboardingStatus() {
   useEffect(() => {
     if (user && !hasValidRole) navigate('/onboarding/select-role');
   }, [user, hasValidRole, navigate]);
+
+  const handleCreateCompany = async () => {
+    setCreatingCompany(true);
+    try {
+      const res = await fetch('/api/onboarding/create-company', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          companyName: user.companyName || user.brandName || `${user.name || 'Unknown'}'s Company`,
+          industry: user.preferredIndustry || user.industries?.[0] || 'Other',
+          companyDescription: user.companyDescription || null,
+          website: user.website || null,
+          businessEmail: user.businessEmail || null,
+          businessAddress: typeof user.location === 'string' ? user.location : null,
+        }),
+      });
+      if (res.ok) {
+        await fetchAuthStatus();
+      } else {
+        const err = await res.json().catch(() => ({ error: 'Failed to create company' }));
+        alert(err.error || 'Failed to create company');
+      }
+    } catch {
+      alert('Network error');
+    } finally {
+      setCreatingCompany(false);
+    }
+  };
+
   const roleInfo = roleIcons[role] || { icon: Building2, label: role || 'User', emoji: '👤' };
   const status = user.accountStatus || 'pending_admin_review';
   const config = statusConfig[status] || statusConfig.pending_admin_review;
@@ -100,7 +140,7 @@ export default function OnboardingStatus() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--background)' }}>
       <header style={{ padding: '24px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)' }}>
         <Link to="/">
-          <img src={logo} alt="Franchisia" style={{ height: 32, width: 'auto' }} />
+          <img src={logo} alt="Franchisia" style={{ height: 48, width: 'auto' }} />
         </Link>
       </header>
 
@@ -115,6 +155,33 @@ export default function OnboardingStatus() {
               You are registered as <strong style={{ color: 'var(--primary)' }}>{roleInfo.label}</strong>
             </p>
           </div>
+
+          {user.needsCompany && (
+            <div style={{
+              padding: 20, borderRadius: 12, backgroundColor: '#FEF3C7',
+              marginBottom: 24, border: '2px solid #F59E0B',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+                <AlertCircle size={24} color="#F59E0B" />
+                <div>
+                  <p style={{ fontSize: 15, fontWeight: 600, color: '#92400E' }}>Company Registration Required</p>
+                  <p style={{ fontSize: 13, color: '#92400E', opacity: 0.8 }}>You need to register a company before you can access all features.</p>
+                </div>
+              </div>
+              <button
+                onClick={handleCreateCompany}
+                disabled={creatingCompany}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  padding: '12px 24px', borderRadius: 8, border: 'none',
+                  backgroundColor: '#F59E0B', color: '#fff', cursor: 'pointer',
+                  fontSize: 14, fontWeight: 600, opacity: creatingCompany ? 0.7 : 1,
+                }}
+              >
+                {creatingCompany ? 'Creating...' : 'Complete Company Registration'}
+              </button>
+            </div>
+          )}
 
           <div style={{
             padding: 24, borderRadius: 12, backgroundColor: config.bg,

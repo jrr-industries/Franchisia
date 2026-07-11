@@ -274,6 +274,8 @@ export const CompanyScalarFieldEnum = {
   status: 'status',
   followerCount: 'followerCount',
   listingCount: 'listingCount',
+  averageRating: 'averageRating',
+  reviewCount: 'reviewCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

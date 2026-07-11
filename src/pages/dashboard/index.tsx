@@ -8,7 +8,7 @@ import {
   ArrowRight, Clock, Bell, ChevronRight, Star, Bookmark,
   CheckCircle, UserPlus, Building2, BarChart3, Activity,
   Zap, Heart, DollarSign, MapPin, Award, Target, LogIn,
-  ExternalLink, Share2, Trash2, X, MoreHorizontal,
+  ExternalLink, Share2, Trash2, X, MoreHorizontal, AlertCircle,
 } from "lucide-react";
 import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
@@ -64,15 +64,15 @@ export default function DashboardHome() {
 
       if (statsRes.ok) setStats(await statsRes.json());
       if (analyticsRes.ok) setAnalytics(await analyticsRes.json());
-      if (activityRes.ok) setActivities(await activityRes.json());
-      if (meetingsRes.ok) setMeetings(await meetingsRes.json());
+      if (activityRes.ok) { const d = await activityRes.json(); setActivities(d.activities || []); }
+      if (meetingsRes.ok) { const d = await meetingsRes.json(); setMeetings(d.meetings || []); }
       if (notifRes.ok) { const d = await notifRes.json(); setNotifications(d.notifications || []); setNotifUnread(d.unreadCount || 0); }
-      if (companiesRes.ok) setRecommendedCompanies(await companiesRes.json());
-      if (oppsRes.ok) setOpportunities(await oppsRes.json());
-      if (peopleRes.ok) setPeople(await peopleRes.json());
-      if (messagesRes.ok) setRecentMessages(await messagesRes.json());
+      if (companiesRes.ok) { const d = await companiesRes.json(); setRecommendedCompanies(d.companies || []); }
+      if (oppsRes.ok) { const d = await oppsRes.json(); setOpportunities(d.opportunities || []); }
+      if (peopleRes.ok) { const d = await peopleRes.json(); setPeople(d.users || []); }
+      if (messagesRes.ok) { const d = await messagesRes.json(); setRecentMessages(d.conversations || []); }
       if (savedRes.ok) setSavedListings(await savedRes.json());
-      if (tasksRes.ok) setTasks(await tasksRes.json());
+      if (tasksRes.ok) { const d = await tasksRes.json(); setTasks(d.tasks || []); }
     } catch (err) {
       console.error("Dashboard fetch error:", err);
     }
@@ -111,9 +111,40 @@ export default function DashboardHome() {
   const statusBanners = {
     pending_email_verification: { icon: Clock, msg: "Please verify your email address", to: "/verify-email", color: "#F59E0B", bg: "#FEF3C7" },
     pending_phone_verification: { icon: Clock, msg: "Please verify your phone number", to: "/verify-phone", color: "#F59E0B", bg: "#FEF3C7" },
-    pending_profile_completion: { icon: Clock, msg: "Complete your profile to get started", to: "/select-role", color: "#F59E0B", bg: "#FEF3C7" },
+    pending_profile_completion: { icon: Clock, msg: "Complete your profile to get started", to: "/onboarding/select-role", color: "#F59E0B", bg: "#FEF3C7" },
     rejected: { icon: Clock, msg: "Your verification was rejected. Contact support.", to: "/account-status", color: "#DC2626", bg: "#FEE2E2" },
     need_more_information: { icon: Clock, msg: "Additional information required for verification", to: "/account-status", color: "#F59E0B", bg: "#FEF3C7" },
+  };
+
+  const [creatingCompany, setCreatingCompany] = useState(false);
+
+  const handleCreateCompany = async () => {
+    setCreatingCompany(true);
+    try {
+      const res = await fetch('/api/onboarding/create-company', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          companyName: user?.companyName || user?.brandName || `${user?.name || 'Unknown'}'s Company`,
+          industry: user?.preferredIndustry || user?.industries?.[0] || 'Other',
+          companyDescription: user?.companyDescription || null,
+          website: user?.website || null,
+          businessEmail: user?.businessEmail || null,
+          businessAddress: typeof user?.location === 'string' ? user.location : null,
+        }),
+      });
+      if (res.ok) {
+        window.location.reload();
+      } else {
+        const err = await res.json().catch(() => ({ error: 'Failed to create company' }));
+        alert(err.error || 'Failed to create company');
+      }
+    } catch {
+      alert('Network error');
+    } finally {
+      setCreatingCompany(false);
+    }
   };
 
   const SectionHeader = ({ title, link, onLinkClick }) => (
@@ -186,6 +217,24 @@ export default function DashboardHome() {
 
   return (
     <div>
+      {user?.needsCompany && (
+        <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 20px", borderRadius: "var(--radius-sm)", backgroundColor: "#FEF3C7", color: "#92400E", marginBottom: 20, fontSize: 14, flexWrap: "wrap" }}>
+          <AlertCircle size={20} />
+          <span style={{ flex: 1, fontWeight: 500 }}>You need to register a company to access all features.</span>
+          <button
+            onClick={handleCreateCompany}
+            disabled={creatingCompany}
+            style={{
+              padding: "8px 16px", borderRadius: 6, border: "none",
+              backgroundColor: "#F59E0B", color: "#fff", cursor: "pointer",
+              fontSize: 13, fontWeight: 600, opacity: creatingCompany ? 0.7 : 1,
+            }}
+          >
+            {creatingCompany ? "Creating..." : "Complete Company Registration"}
+          </button>
+        </div>
+      )}
+
       {needsOnboarding && user.accountStatus !== "pending_admin_review" && statusBanners[user.accountStatus] && (
         <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 20px", borderRadius: "var(--radius-sm)", backgroundColor: statusBanners[user.accountStatus].bg, color: statusBanners[user.accountStatus].color, marginBottom: 20, fontSize: 14 }}>
           <Clock size={20} />

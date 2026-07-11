@@ -96,7 +96,7 @@ export default function MobileDrawer({ open, onClose }) {
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", borderBottom: "1px solid var(--border)" }}>
           <Link to="/" onClick={onClose} style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-            <img src={logo} alt="Franchisia" style={{ height: 28, width: "auto" }} />
+            <img src={logo} alt="Franchisia" style={{ height: 36, width: "auto" }} />
             <span style={{ fontSize: 18, fontWeight: 800, color: "var(--text)" }}>Franchisia</span>
           </Link>
           <button onClick={onClose} style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", padding: 4, display: "flex" }} aria-label="Close menu">

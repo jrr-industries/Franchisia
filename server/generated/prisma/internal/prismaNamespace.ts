@@ -3015,6 +3015,8 @@ export const CompanyScalarFieldEnum = {
   status: 'status',
   followerCount: 'followerCount',
   listingCount: 'listingCount',
+  averageRating: 'averageRating',
+  reviewCount: 'reviewCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -3480,6 +3482,20 @@ export type ListEnumListingStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
  * Reference to a field of type 'ApplicationStatus'
  */
 export type EnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus'>
@@ -3546,20 +3562,6 @@ export type EnumMessageRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputT
  * Reference to a field of type 'MessageRequestStatus[]'
  */
 export type ListEnumMessageRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageRequestStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'Float'
- */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-/**
- * Reference to a field of type 'Float[]'
- */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**

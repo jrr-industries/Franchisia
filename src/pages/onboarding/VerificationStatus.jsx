@@ -65,7 +65,7 @@ export default function VerificationStatus() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--background)' }}>
       <header style={{ padding: '24px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <img src={logo} alt="Franchisia" style={{ height: 32, width: 'auto' }} />
+        <img src={logo} alt="Franchisia" style={{ height: 48, width: 'auto' }} />
       </header>
 
       <main style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>

@@ -316,8 +316,7 @@ router.get("/recommended-companies", async (req, res) => {
     const companies = await prisma.company.findMany({
       where: {
         status: "active",
-        isVerified: true,
-        owner: { role: "franchisor" },
+        owner: { role: "franchisor", isActive: true },
         ownerId: { not: userId },
       },
       include: {
@@ -490,7 +489,8 @@ router.get("/recent-messages", async (req, res) => {
             createdAt: { gt: lastReadAt },
           },
         });
-        return { ...conv, unreadCount: unread };
+        const lastMsg = conv.messages?.[0] || null;
+        return { ...conv, unreadCount: unread, lastMessage: lastMsg };
       })
     );
 
@@ -570,6 +570,18 @@ router.get("/tasks", async (req, res) => {
       where: { applicantId: userId, status: "submitted" },
     });
 
+    const incomingApps = await prisma.application.count({
+      where: { listing: { company: { ownerId: userId } }, status: "submitted" },
+    });
+
+    const unreadMessages = await prisma.message.count({
+      where: {
+        conversation: { participants: { some: { userId } } },
+        senderId: { not: userId },
+        readAt: null,
+      },
+    });
+
     const tasks = [];
 
     if (!user.headline || !user.bio) {
@@ -584,10 +596,10 @@ router.get("/tasks", async (req, res) => {
     if (user._count.documents === 0) {
       tasks.push({ id: "upload-documents", task: "Upload identity documents", deadline: "14 days", priority: "medium", completed: false });
     }
-    if (submittedApps > 0) {
+    if (incomingApps > 0) {
       tasks.push({ id: "review-applications", task: "Review new applications", deadline: "5 days", priority: "medium", completed: false });
     }
-    if (user._count.notifications > 0) {
+    if (unreadMessages > 0) {
       tasks.push({ id: "unread-messages", task: "You have unread messages", deadline: "1 day", priority: "medium", completed: false });
     }
     if (!user.onboardingCompleted) {

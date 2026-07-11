@@ -47,7 +47,7 @@ export default function Header({ onToggleSidebar }) {
               </button>
             )}
             <Link to="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", flexShrink: 0 }}>
-              <img src={logo} alt="Franchisia" style={{ height: 32, width: "auto" }} />
+              <img src={logo} alt="Franchisia" style={{ height: 40, width: "auto" }} />
               <span style={{ fontSize: 18, fontWeight: 800, color: "var(--text)" }} className="header-brand-text">Franchisia</span>
             </Link>
           </div>

@@ -30,6 +30,7 @@ router.get("/", async (req, res) => {
       prisma.company.findMany({
         where: {
           status: "active",
+          owner: { role: "franchisor", isActive: true },
           OR: [
             { name: { contains: search, mode: "insensitive" } },
             { industry: { contains: search, mode: "insensitive" } },

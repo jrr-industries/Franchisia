@@ -30,12 +30,16 @@ export type CompanyAvgAggregateOutputType = {
   foundedYear: number | null
   followerCount: number | null
   listingCount: number | null
+  averageRating: number | null
+  reviewCount: number | null
 }
 
 export type CompanySumAggregateOutputType = {
   foundedYear: number | null
   followerCount: number | null
   listingCount: number | null
+  averageRating: number | null
+  reviewCount: number | null
 }
 
 export type CompanyMinAggregateOutputType = {
@@ -59,6 +63,8 @@ export type CompanyMinAggregateOutputType = {
   status: $Enums.ListingStatus | null
   followerCount: number | null
   listingCount: number | null
+  averageRating: number | null
+  reviewCount: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -84,6 +90,8 @@ export type CompanyMaxAggregateOutputType = {
   status: $Enums.ListingStatus | null
   followerCount: number | null
   listingCount: number | null
+  averageRating: number | null
+  reviewCount: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -109,6 +117,8 @@ export type CompanyCountAggregateOutputType = {
   status: number
   followerCount: number
   listingCount: number
+  averageRating: number
+  reviewCount: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -119,12 +129,16 @@ export type CompanyAvgAggregateInputType = {
   foundedYear?: true
   followerCount?: true
   listingCount?: true
+  averageRating?: true
+  reviewCount?: true
 }
 
 export type CompanySumAggregateInputType = {
   foundedYear?: true
   followerCount?: true
   listingCount?: true
+  averageRating?: true
+  reviewCount?: true
 }
 
 export type CompanyMinAggregateInputType = {
@@ -148,6 +162,8 @@ export type CompanyMinAggregateInputType = {
   status?: true
   followerCount?: true
   listingCount?: true
+  averageRating?: true
+  reviewCount?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -173,6 +189,8 @@ export type CompanyMaxAggregateInputType = {
   status?: true
   followerCount?: true
   listingCount?: true
+  averageRating?: true
+  reviewCount?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -198,6 +216,8 @@ export type CompanyCountAggregateInputType = {
   status?: true
   followerCount?: true
   listingCount?: true
+  averageRating?: true
+  reviewCount?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -310,6 +330,8 @@ export type CompanyGroupByOutputType = {
   status: $Enums.ListingStatus
   followerCount: number
   listingCount: number
+  averageRating: number | null
+  reviewCount: number
   createdAt: Date
   updatedAt: Date
   _count: CompanyCountAggregateOutputType | null
@@ -358,6 +380,8 @@ export type CompanyWhereInput = {
   status?: Prisma.EnumListingStatusFilter<"Company"> | $Enums.ListingStatus
   followerCount?: Prisma.IntFilter<"Company"> | number
   listingCount?: Prisma.IntFilter<"Company"> | number
+  averageRating?: Prisma.FloatNullableFilter<"Company"> | number | null
+  reviewCount?: Prisma.IntFilter<"Company"> | number
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -387,6 +411,8 @@ export type CompanyOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   followerCount?: Prisma.SortOrder
   listingCount?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
@@ -419,6 +445,8 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumListingStatusFilter<"Company"> | $Enums.ListingStatus
   followerCount?: Prisma.IntFilter<"Company"> | number
   listingCount?: Prisma.IntFilter<"Company"> | number
+  averageRating?: Prisma.FloatNullableFilter<"Company"> | number | null
+  reviewCount?: Prisma.IntFilter<"Company"> | number
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -448,6 +476,8 @@ export type CompanyOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   followerCount?: Prisma.SortOrder
   listingCount?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CompanyCountOrderByAggregateInput
@@ -481,6 +511,8 @@ export type CompanyScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumListingStatusWithAggregatesFilter<"Company"> | $Enums.ListingStatus
   followerCount?: Prisma.IntWithAggregatesFilter<"Company"> | number
   listingCount?: Prisma.IntWithAggregatesFilter<"Company"> | number
+  averageRating?: Prisma.FloatNullableWithAggregatesFilter<"Company"> | number | null
+  reviewCount?: Prisma.IntWithAggregatesFilter<"Company"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Company"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Company"> | Date | string
 }
@@ -505,6 +537,8 @@ export type CompanyCreateInput = {
   status?: $Enums.ListingStatus
   followerCount?: number
   listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutCompaniesInput
@@ -534,6 +568,8 @@ export type CompanyUncheckedCreateInput = {
   status?: $Enums.ListingStatus
   followerCount?: number
   listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   followers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutCompanyInput
@@ -561,6 +597,8 @@ export type CompanyUpdateInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutCompaniesNestedInput
@@ -590,6 +628,8 @@ export type CompanyUncheckedUpdateInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   followers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutCompanyNestedInput
@@ -618,6 +658,8 @@ export type CompanyCreateManyInput = {
   status?: $Enums.ListingStatus
   followerCount?: number
   listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -642,6 +684,8 @@ export type CompanyUpdateManyMutationInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -667,6 +711,8 @@ export type CompanyUncheckedUpdateManyInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -702,6 +748,8 @@ export type CompanyCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   followerCount?: Prisma.SortOrder
   listingCount?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -710,6 +758,8 @@ export type CompanyAvgOrderByAggregateInput = {
   foundedYear?: Prisma.SortOrder
   followerCount?: Prisma.SortOrder
   listingCount?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
 }
 
 export type CompanyMaxOrderByAggregateInput = {
@@ -733,6 +783,8 @@ export type CompanyMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   followerCount?: Prisma.SortOrder
   listingCount?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -758,6 +810,8 @@ export type CompanyMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   followerCount?: Prisma.SortOrder
   listingCount?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -766,6 +820,8 @@ export type CompanySumOrderByAggregateInput = {
   foundedYear?: Prisma.SortOrder
   followerCount?: Prisma.SortOrder
   listingCount?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
 }
 
 export type CompanyScalarRelationFilter = {
@@ -822,6 +878,14 @@ export type CompanyUncheckedUpdateManyWithoutOwnerNestedInput = {
 
 export type EnumListingStatusFieldUpdateOperationsInput = {
   set?: $Enums.ListingStatus
+}
+
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type CompanyCreateNestedOneWithoutListingsInput = {
@@ -888,6 +952,8 @@ export type CompanyCreateWithoutOwnerInput = {
   status?: $Enums.ListingStatus
   followerCount?: number
   listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   followers?: Prisma.CompanyFollowerCreateNestedManyWithoutCompanyInput
@@ -915,6 +981,8 @@ export type CompanyUncheckedCreateWithoutOwnerInput = {
   status?: $Enums.ListingStatus
   followerCount?: number
   listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   followers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutCompanyInput
@@ -972,6 +1040,8 @@ export type CompanyScalarWhereInput = {
   status?: Prisma.EnumListingStatusFilter<"Company"> | $Enums.ListingStatus
   followerCount?: Prisma.IntFilter<"Company"> | number
   listingCount?: Prisma.IntFilter<"Company"> | number
+  averageRating?: Prisma.FloatNullableFilter<"Company"> | number | null
+  reviewCount?: Prisma.IntFilter<"Company"> | number
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Company"> | Date | string
 }
@@ -996,6 +1066,8 @@ export type CompanyCreateWithoutListingsInput = {
   status?: $Enums.ListingStatus
   followerCount?: number
   listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutCompaniesInput
@@ -1024,6 +1096,8 @@ export type CompanyUncheckedCreateWithoutListingsInput = {
   status?: $Enums.ListingStatus
   followerCount?: number
   listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   followers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutCompanyInput
@@ -1066,6 +1140,8 @@ export type CompanyUpdateWithoutListingsInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutCompaniesNestedInput
@@ -1094,6 +1170,8 @@ export type CompanyUncheckedUpdateWithoutListingsInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   followers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1120,6 +1198,8 @@ export type CompanyCreateWithoutFollowersInput = {
   status?: $Enums.ListingStatus
   followerCount?: number
   listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutCompaniesInput
@@ -1148,6 +1228,8 @@ export type CompanyUncheckedCreateWithoutFollowersInput = {
   status?: $Enums.ListingStatus
   followerCount?: number
   listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCompanyInput
@@ -1190,6 +1272,8 @@ export type CompanyUpdateWithoutFollowersInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutCompaniesNestedInput
@@ -1218,6 +1302,8 @@ export type CompanyUncheckedUpdateWithoutFollowersInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1244,6 +1330,8 @@ export type CompanyCreateWithoutReviewsInput = {
   status?: $Enums.ListingStatus
   followerCount?: number
   listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutCompaniesInput
@@ -1272,6 +1360,8 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   status?: $Enums.ListingStatus
   followerCount?: number
   listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   followers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutCompanyInput
@@ -1314,6 +1404,8 @@ export type CompanyUpdateWithoutReviewsInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutCompaniesNestedInput
@@ -1342,6 +1434,8 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   followers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1368,6 +1462,8 @@ export type CompanyCreateManyOwnerInput = {
   status?: $Enums.ListingStatus
   followerCount?: number
   listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1392,6 +1488,8 @@ export type CompanyUpdateWithoutOwnerInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   followers?: Prisma.CompanyFollowerUpdateManyWithoutCompanyNestedInput
@@ -1419,6 +1517,8 @@ export type CompanyUncheckedUpdateWithoutOwnerInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   followers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1446,6 +1546,8 @@ export type CompanyUncheckedUpdateManyWithoutOwnerInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   followerCount?: Prisma.IntFieldUpdateOperationsInput | number
   listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1520,6 +1622,8 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   status?: boolean
   followerCount?: boolean
   listingCount?: boolean
+  averageRating?: boolean
+  reviewCount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1550,6 +1654,8 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   status?: boolean
   followerCount?: boolean
   listingCount?: boolean
+  averageRating?: boolean
+  reviewCount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1576,6 +1682,8 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   status?: boolean
   followerCount?: boolean
   listingCount?: boolean
+  averageRating?: boolean
+  reviewCount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1602,11 +1710,13 @@ export type CompanySelectScalar = {
   status?: boolean
   followerCount?: boolean
   listingCount?: boolean
+  averageRating?: boolean
+  reviewCount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "slug" | "logoUrl" | "bannerUrl" | "industry" | "description" | "website" | "foundedYear" | "employeeCount" | "email" | "phone" | "address" | "city" | "country" | "isVerified" | "status" | "followerCount" | "listingCount" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "slug" | "logoUrl" | "bannerUrl" | "industry" | "description" | "website" | "foundedYear" | "employeeCount" | "email" | "phone" | "address" | "city" | "country" | "isVerified" | "status" | "followerCount" | "listingCount" | "averageRating" | "reviewCount" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   followers?: boolean | Prisma.Company$followersArgs<ExtArgs>
@@ -1650,6 +1760,8 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     status: $Enums.ListingStatus
     followerCount: number
     listingCount: number
+    averageRating: number | null
+    reviewCount: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["company"]>
@@ -2099,6 +2211,8 @@ export interface CompanyFieldRefs {
   readonly status: Prisma.FieldRef<"Company", 'ListingStatus'>
   readonly followerCount: Prisma.FieldRef<"Company", 'Int'>
   readonly listingCount: Prisma.FieldRef<"Company", 'Int'>
+  readonly averageRating: Prisma.FieldRef<"Company", 'Float'>
+  readonly reviewCount: Prisma.FieldRef<"Company", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Company", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Company", 'DateTime'>
 }
