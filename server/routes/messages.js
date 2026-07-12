@@ -54,6 +54,7 @@ router.get("/unread-count", async (req, res) => {
         WHERE cp."user_id" = $1
           AND m."sender_id" <> $1
           AND m."created_at" > COALESCE(cp."last_read_at", '1970-01-01'::timestamptz)
+          AND cp."archived" = false
         GROUP BY cp."conversation_id"
       ) sub
     `, req.user.id);
@@ -67,12 +68,23 @@ router.get("/unread-count", async (req, res) => {
 
 router.get("/conversations", async (req, res) => {
   try {
-    const conversations = await prisma.conversation.findMany({
-      where: { participants: { some: { userId: req.user.id } } },
+    const { filter, search } = req.query;
+    const userId = req.user.id;
+
+    const whereParticipant = { userId };
+
+    if (filter === "archived") {
+      whereParticipant.archived = true;
+    } else {
+      whereParticipant.archived = false;
+    }
+
+    let conversations = await prisma.conversation.findMany({
+      where: { participants: { some: whereParticipant } },
       include: {
         participants: {
           include: {
-            user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true } },
+            user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true, verified: true } },
           },
         },
         messages: { orderBy: { createdAt: "desc" }, take: 1 },
@@ -81,24 +93,57 @@ router.get("/conversations", async (req, res) => {
     });
 
     const conversationIds = conversations.map((c) => c.id);
+
     const rawCounts = await prisma.$queryRawUnsafe(`
-      SELECT cp."conversation_id" AS id, COUNT(m.*)::int AS unread
+      SELECT cp."conversation_id" AS id, COUNT(m.*)::int AS unread, cp."pinned"::boolean AS pinned, cp."archived"::boolean AS archived, cp."muted"::boolean AS muted
       FROM "conversation_participants" cp
       LEFT JOIN "messages" m ON m."conversation_id" = cp."conversation_id"
         AND m."sender_id" <> $1
         AND m."created_at" > COALESCE(cp."last_read_at", '1970-01-01'::timestamptz)
       WHERE cp."user_id" = $1 AND cp."conversation_id" = ANY($2::text[])
-      GROUP BY cp."conversation_id"
-    `, req.user.id, conversationIds);
+      GROUP BY cp."conversation_id", cp."pinned", cp."archived", cp."muted"
+    `, userId, conversationIds);
 
-    const unreadMap = Object.fromEntries(
-      (rawCounts || []).map((r) => [r.id, Number(r.unread)])
+    const metaMap = Object.fromEntries(
+      (rawCounts || []).map((r) => [r.id, { unreadCount: Number(r.unread), pinned: r.pinned, archived: r.archived, muted: r.muted }])
     );
 
-    const enriched = conversations.map((conv) => ({
-      ...conv,
-      unreadCount: unreadMap[conv.id] || 0,
-    }));
+    const enriched = conversations.map((conv) => {
+      const meta = metaMap[conv.id] || { unreadCount: 0, pinned: false, archived: false, muted: false };
+      return {
+        ...conv,
+        unreadCount: meta.unreadCount,
+        pinned: meta.pinned,
+        archived: meta.archived,
+        muted: meta.muted,
+      };
+    });
+
+    if (filter === "unread") {
+      conversations = enriched.filter((c) => c.unreadCount > 0);
+    } else if (filter === "pinned") {
+      conversations = enriched.filter((c) => c.pinned);
+    }
+
+    if (search) {
+      const q = search.toLowerCase();
+      enriched.forEach((c) => { c._searchScore = 0; });
+      const filtered = enriched.filter((c) => {
+        const participant = c.participants?.find((p) => p.user?.id !== userId)?.user;
+        const nameMatch = participant?.name?.toLowerCase().includes(q);
+        const roleMatch = participant?.role?.toLowerCase().includes(q);
+        const emailMatch = participant?.email?.toLowerCase().includes(q);
+        const msgMatch = c.messages?.[0]?.content?.toLowerCase().includes(q);
+        return nameMatch || roleMatch || emailMatch || msgMatch;
+      });
+      return res.json({ conversations: filtered });
+    }
+
+    conversations.sort((a, b) => {
+      if (a.pinned && !b.pinned) return -1;
+      if (!a.pinned && b.pinned) return 1;
+      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+    });
 
     res.json({ conversations: enriched });
   } catch (error) {
@@ -111,11 +156,14 @@ router.get("/conversations/with/:userId", async (req, res) => {
   try {
     const conversation = await prisma.conversation.findFirst({
       where: {
-        participants: { every: { userId: { in: [req.user.id, req.params.userId] } } },
+        AND: [
+          { participants: { some: { userId: req.user.id } } },
+          { participants: { some: { userId: req.params.userId } } },
+        ],
       },
       include: {
         participants: {
-          include: { user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true } } },
+          include: { user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true, verified: true } } },
         },
       },
       orderBy: { createdAt: "desc" },
@@ -132,7 +180,10 @@ router.post("/conversations", async (req, res) => {
     const { participantId, subject } = req.body;
     const existing = await prisma.conversation.findFirst({
       where: {
-        participants: { every: { userId: { in: [req.user.id, participantId] } } },
+        AND: [
+          { participants: { some: { userId: req.user.id } } },
+          { participants: { some: { userId: participantId } } },
+        ],
       },
       orderBy: { createdAt: "desc" },
     });
@@ -141,7 +192,7 @@ router.post("/conversations", async (req, res) => {
         where: { id: existing.id },
         include: {
           participants: {
-            include: { user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true } } },
+            include: { user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true, verified: true } } },
           },
         },
       });
@@ -154,7 +205,7 @@ router.post("/conversations", async (req, res) => {
       },
       include: {
         participants: {
-          include: { user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true } } },
+          include: { user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true, verified: true } } },
         },
       },
     });
@@ -185,6 +236,9 @@ router.get("/conversations/:id/messages", async (req, res) => {
             id: true, content: true, senderId: true,
             sender: { select: { id: true, name: true } },
           },
+        },
+        reactions: {
+          include: { user: { select: { id: true, name: true } } },
         },
       },
       orderBy: { createdAt: "desc" },
@@ -233,6 +287,7 @@ router.post("/conversations/:id/messages", async (req, res) => {
             sender: { select: { id: true, name: true } },
           },
         },
+        reactions: { include: { user: { select: { id: true, name: true } } } },
       },
     });
     await prisma.conversation.update({ where: { id: req.params.id }, data: { updatedAt: new Date() } });
@@ -274,10 +329,32 @@ router.post("/conversations/:id/messages/upload", upload.single("file"), async (
         content: req.file.originalname,
         messageType: req.file.mimetype.startsWith("image/") ? "image" : "file",
         attachmentUrl,
+        attachmentName: req.file.originalname,
+        attachmentSize: req.file.size,
       },
-      include: { sender: { select: { id: true, name: true, image: true } } },
+      include: {
+        sender: { select: { id: true, name: true, image: true } },
+        reactions: { include: { user: { select: { id: true, name: true } } } },
+      },
     });
     await prisma.conversation.update({ where: { id: req.params.id }, data: { updatedAt: new Date() } });
+
+    const participants = await prisma.conversationParticipant.findMany({
+      where: { conversationId: req.params.id, userId: { not: req.user.id } },
+      select: { userId: true },
+    });
+    if (participants.length > 0) {
+      await prisma.notification.createMany({
+        data: participants.map((p) => ({
+          userId: p.userId,
+          type: "new_message",
+          title: "New Attachment",
+          body: `${req.user.name || "Someone"} sent ${req.file.mimetype.startsWith("image/") ? "an image" : "a file"}`,
+          data: { conversationId: req.params.id, senderId: req.user.id, attachmentUrl },
+        })),
+      });
+    }
+
     res.json({ message });
   } catch (error) {
     console.error("Messages upload error:", error);
@@ -292,7 +369,7 @@ router.delete("/conversations/:convId/messages/:msgId", async (req, res) => {
     if (message.senderId !== req.user.id) return res.status(403).json({ error: "Not authorized" });
     await prisma.message.update({
       where: { id: req.params.msgId },
-      data: { content: "[deleted]", isDeleted: true },
+      data: { content: "[deleted]", isDeleted: true, deletedAt: new Date() },
     });
     res.json({ success: true });
   } catch (error) {
@@ -375,6 +452,100 @@ router.post("/conversations/:convId/messages/:msgId/read", async (req, res) => {
   }
 });
 
+router.patch("/conversations/:id/pin", async (req, res) => {
+  try {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
+    });
+    if (!participant) return res.status(403).json({ error: "Not a participant" });
+    const updated = await prisma.conversationParticipant.update({
+      where: { id: participant.id },
+      data: { pinned: !participant.pinned },
+    });
+    res.json({ pinned: updated.pinned });
+  } catch (error) {
+    console.error("Pin error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.patch("/conversations/:id/archive", async (req, res) => {
+  try {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
+    });
+    if (!participant) return res.status(403).json({ error: "Not a participant" });
+    const updated = await prisma.conversationParticipant.update({
+      where: { id: participant.id },
+      data: { archived: !participant.archived },
+    });
+    res.json({ archived: updated.archived });
+  } catch (error) {
+    console.error("Archive error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.patch("/conversations/:id/mute", async (req, res) => {
+  try {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
+    });
+    if (!participant) return res.status(403).json({ error: "Not a participant" });
+    const updated = await prisma.conversationParticipant.update({
+      where: { id: participant.id },
+      data: { muted: !participant.muted },
+    });
+    res.json({ muted: updated.muted });
+  } catch (error) {
+    console.error("Mute error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/conversations/:id", async (req, res) => {
+  try {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
+    });
+    if (!participant) return res.status(403).json({ error: "Not a participant" });
+    await prisma.conversationParticipant.delete({
+      where: { id: participant.id },
+    });
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Delete conversation error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/conversations/:id/search", async (req, res) => {
+  try {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: { conversationId_userId: { conversationId: req.params.id, userId: req.user.id } },
+    });
+    if (!participant) return res.status(403).json({ error: "Not a participant" });
+    const { q } = req.query;
+    if (!q?.trim()) return res.json({ messages: [] });
+    const messages = await prisma.message.findMany({
+      where: {
+        conversationId: req.params.id,
+        content: { contains: q.trim(), mode: "insensitive" },
+        isDeleted: false,
+      },
+      include: {
+        sender: { select: { id: true, name: true, image: true } },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 50,
+    });
+    res.json({ messages: messages.reverse() });
+  } catch (error) {
+    console.error("Search error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.post("/request", async (req, res) => {
   try {
     const { recipientId, content } = req.body;
@@ -437,7 +608,15 @@ router.post("/accept/:requestId", async (req, res) => {
         data: { recipientId: req.user.id, conversationId: conversation.id },
       },
     });
-    res.json({ conversation });
+    const fullConv = await prisma.conversation.findUnique({
+      where: { id: conversation.id },
+      include: {
+        participants: {
+          include: { user: { select: { id: true, name: true, email: true, image: true, role: true, lastActiveAt: true, verified: true } } },
+        },
+      },
+    });
+    res.json({ conversation: fullConv });
   } catch (error) {
     console.error("Messages route error:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -448,7 +627,7 @@ router.get("/requests/pending", async (req, res) => {
   try {
     const requests = await prisma.messageRequest.findMany({
       where: { recipientId: req.user.id, status: "pending" },
-      include: { sender: { select: { id: true, name: true, image: true, role: true } } },
+      include: { sender: { select: { id: true, name: true, image: true, role: true, verified: true } } },
       orderBy: { createdAt: "desc" },
     });
     res.json({ requests });

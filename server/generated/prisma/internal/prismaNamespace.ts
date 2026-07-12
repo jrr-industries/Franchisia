@@ -3116,7 +3116,10 @@ export const ConversationParticipantScalarFieldEnum = {
   conversationId: 'conversationId',
   userId: 'userId',
   lastReadAt: 'lastReadAt',
-  typingAt: 'typingAt'
+  typingAt: 'typingAt',
+  pinned: 'pinned',
+  archived: 'archived',
+  muted: 'muted'
 } as const
 
 export type ConversationParticipantScalarFieldEnum = (typeof ConversationParticipantScalarFieldEnum)[keyof typeof ConversationParticipantScalarFieldEnum]
