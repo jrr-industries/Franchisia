@@ -8,17 +8,24 @@ export default function DashboardLayout() {
     try { return localStorage.getItem('sidebar_collapsed') === 'true'; } catch { return false; }
   });
   const [sidebarOverlay, setSidebarOverlay] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' && window.innerWidth <= 768
+  );
   const location = useLocation();
 
   useEffect(() => {
     setSidebarOverlay(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleToggle = useCallback(() => {
     setSidebarOverlay(true);
   }, []);
-
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
@@ -33,10 +40,15 @@ export default function DashboardLayout() {
       )}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         <Header onToggleSidebar={handleToggle} />
-        <div style={{ flex: 1, padding: 24, overflow: 'auto' }}>
+        <div className="dashboard-content" style={{ flex: 1, padding: 24, overflow: 'auto' }}>
           <Outlet />
         </div>
       </div>
+      <style>{`
+        @media (max-width: 768px) {
+          .dashboard-content { padding: 16px !important; }
+        }
+      `}</style>
     </div>
   );
 }

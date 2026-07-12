@@ -883,8 +883,8 @@ export default function Messages() {
   };
 
   return (
-    <div style={{ display: 'flex', gap: 0, height: 'calc(100vh - 112px)', margin: -24, padding: 0, overflow: 'hidden' }}>
-      <div style={{
+    <div className="msg-page-root" style={{ display: 'flex', gap: 0, height: 'calc(100vh - 112px)', margin: -24, padding: 0, overflow: 'hidden' }}>
+      <div className="msg-list-panel" style={{
         width: 320, minWidth: 320, borderRight: '1px solid var(--border)',
         display: 'flex', flexDirection: 'column', backgroundColor: 'var(--surface)',
         ...(showMobileList ? {} : { display: 'none' }),
@@ -1189,8 +1189,8 @@ export default function Messages() {
         </div>
       </div>
 
-      <div style={{
-        flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'var(--background)',
+      <div className="msg-chat-panel" style={{
+        flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'var(--background)', minWidth: 0,
         ...(showMobileList ? { display: 'none' } : {}),
       }}>
         {activeConvData ? (
@@ -1201,7 +1201,9 @@ export default function Messages() {
             }}>
               <button
                 onClick={() => setShowMobileList(true)}
-                style={{ background: 'none', border: 'none', color: 'var(--text)', display: 'none', padding: 4 }}
+                className="msg-chat-back-btn"
+                style={{ background: 'none', border: 'none', color: 'var(--text)', display: 'none', padding: 4, cursor: 'pointer', flexShrink: 0 }}
+                aria-label="Back to conversations"
               >
                 <ArrowLeft size={20} />
               </button>
@@ -1220,7 +1222,7 @@ export default function Messages() {
                   <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>{otherParticipant.role}</p>
                 )}
               </div>
-              <div style={{ display: 'flex', gap: 4 }}>
+              <div className="msg-chat-header-actions" style={{ display: 'flex', gap: 4 }}>
                 <button style={iconBtnStyle}><Phone size={18} /></button>
                 <button style={iconBtnStyle}><Video size={18} /></button>
                 <button style={iconBtnStyle}><MoreHorizontal size={18} /></button>
@@ -1567,7 +1569,7 @@ export default function Messages() {
         )}
       </div>
 
-      <div style={{
+      <div className="msg-info-panel" style={{
         width: 300, borderLeft: '1px solid var(--border)', backgroundColor: 'var(--surface)',
         padding: 20, flexShrink: 0, overflowY: 'auto',
         ...(activeConvData ? {} : { display: 'none' }),
@@ -1768,6 +1770,20 @@ export default function Messages() {
           </div>
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 768px) {
+          .msg-page-root { height: calc(100vh - 64px) !important; margin: -16px !important; }
+          .msg-list-panel { width: 100% !important; min-width: 0 !important; border-right: none !important; }
+          .msg-chat-panel { width: 100% !important; }
+          .msg-chat-back-btn { display: flex !important; align-items: center; justify-content: center; }
+          .msg-chat-header-actions { display: none !important; }
+          .msg-info-panel { display: none !important; }
+        }
+        @media (max-width: 480px) {
+          .msg-list-panel .msg-conv-preview { max-width: 140px; }
+        }
+      `}</style>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Moon, Sun, Bell, MessageSquare, LogIn, UserPlus, Menu, LayoutDashboard, User, PanelLeft } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
@@ -24,6 +24,7 @@ export default function Header({ onToggleSidebar }) {
   const { isDark, toggleTheme } = useTheme();
   const { isAuthenticated, user, isVerified, logout } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const isConnected = useSocketStore((s) => s.isConnected);
   const unreadCount = useSocketStore((s) => s.unreadCount);
   const notificationCount = useSocketStore((s) => s.notificationCount);
@@ -91,21 +92,41 @@ export default function Header({ onToggleSidebar }) {
 
             {isAuthenticated ? (
               <>
-                <Link to="/messages" style={{ position: "relative", background: "none", border: "none", color: "var(--text-muted)", padding: 8, display: "flex", borderRadius: 8, textDecoration: "none" }} aria-label="Messages">
+                <button
+                  type="button"
+                  onClick={() => navigate("/messages")}
+                  className="header-icon-btn"
+                  style={{
+                    position: "relative", background: "none", border: "none", color: location.pathname === "/messages" ? "var(--primary)" : "var(--text-muted)",
+                    width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center",
+                    borderRadius: 8, cursor: "pointer", zIndex: 1,
+                  }}
+                  aria-label="Messages"
+                >
                   <MessageSquare size={18} />
                   {unreadCount > 0 ? (
                     <BadgeNumber count={unreadCount} />
                   ) : isConnected && (
                     <BadgeDot />
                   )}
-                </Link>
+                </button>
 
-                <Link to="/notifications" style={{ position: "relative", background: "none", border: "none", color: "var(--text-muted)", padding: 8, display: "flex", borderRadius: 8, textDecoration: "none" }} aria-label="Notifications">
+                <button
+                  type="button"
+                  onClick={() => navigate("/notifications")}
+                  className="header-icon-btn"
+                  style={{
+                    position: "relative", background: "none", border: "none", color: location.pathname === "/notifications" ? "var(--primary)" : "var(--text-muted)",
+                    width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center",
+                    borderRadius: 8, cursor: "pointer", zIndex: 1,
+                  }}
+                  aria-label="Notifications"
+                >
                   <Bell size={18} />
                   {notificationCount > 0 && (
                     <BadgeNumber count={notificationCount} />
                   )}
-                </Link>
+                </button>
 
                 <Dropdown
                   align="right"
@@ -166,6 +187,8 @@ export default function Header({ onToggleSidebar }) {
       <MobileDrawer open={mobileDrawerOpen} onClose={() => setMobileDrawerOpen(false)} />
 
       <style>{`
+        .header-icon-btn { transition: background-color 0.15s, color 0.15s; }
+        .header-icon-btn:hover { background-color: var(--surface-hover); color: var(--text) !important; }
         @media (max-width: 1024px) {
           .header-nav-links { display: none !important; }
           .header-search-container { max-width: 280px !important; }
@@ -175,6 +198,9 @@ export default function Header({ onToggleSidebar }) {
           .header-auth-btn { display: none !important; }
           .header-mobile-btn { display: flex !important; }
           .sidebar-toggle-btn { display: none !important; }
+        }
+        @media (max-width: 380px) {
+          .header-icon-btn { width: 34px !important; height: 34px !important; }
         }
       `}</style>
     </>
