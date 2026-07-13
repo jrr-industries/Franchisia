@@ -84,7 +84,7 @@ router.put("/franchisee", async (req, res) => {
     const session = await getSession(req);
     if (!session) return res.status(401).json({ error: "Authentication required" });
 
-    const { phone, city, country, state: formState, investmentBudget, preferredIndustry, businessExperience, linkedinProfile } = req.body;
+    const { phone, city, country, state: formState, investmentBudget, preferredIndustry, businessExperience } = req.body;
 
     const locationStr = [city, formState, country].filter(Boolean).join(', ');
 
@@ -101,7 +101,6 @@ router.put("/franchisee", async (req, res) => {
         preferredIndustry,
         industries: preferredIndustry ? [preferredIndustry] : [],
         headline: businessExperience,
-        linkedinUrl: linkedinProfile || null,
         accountStatus: "pending_admin_review",
       },
     });
@@ -150,7 +149,7 @@ router.put("/consultant", async (req, res) => {
     const session = await getSession(req);
     if (!session) return res.status(401).json({ error: "Authentication required" });
 
-    const { consultancyName, yearsOfExperience, certifications, linkedinProfile, website } = req.body;
+    const { consultancyName, yearsOfExperience, certifications, website } = req.body;
 
     const user = await prisma.user.update({
       where: { id: session.user.id },
@@ -159,7 +158,6 @@ router.put("/consultant", async (req, res) => {
         consultancyName,
         experienceYears: yearsOfExperience ? parseInt(yearsOfExperience) : null,
         certifications,
-        linkedinUrl: linkedinProfile,
         website,
         accountStatus: "pending_admin_review",
       },
@@ -179,7 +177,7 @@ router.put("/investor", async (req, res) => {
     const session = await getSession(req);
     if (!session) return res.status(401).json({ error: "Authentication required" });
 
-    const { investmentRange, interestedIndustries, company, linkedinProfile } = req.body;
+    const { investmentRange, interestedIndustries, company } = req.body;
 
     const user = await prisma.user.update({
       where: { id: session.user.id },
@@ -189,7 +187,6 @@ router.put("/investor", async (req, res) => {
         preferredIndustry: interestedIndustries,
         industries: interestedIndustries ? [interestedIndustries] : [],
         companyName: company || null,
-        linkedinUrl: linkedinProfile || null,
         accountStatus: "pending_admin_review",
       },
     });

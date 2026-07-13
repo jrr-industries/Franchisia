@@ -68,7 +68,6 @@ export type UserMinAggregateOutputType = {
   investmentCapacity: runtime.Decimal | null
   experienceYears: number | null
   website: string | null
-  linkedinUrl: string | null
   companyName: string | null
   businessEmail: string | null
   businessRegistrationNumber: string | null
@@ -127,7 +126,6 @@ export type UserMaxAggregateOutputType = {
   investmentCapacity: runtime.Decimal | null
   experienceYears: number | null
   website: string | null
-  linkedinUrl: string | null
   companyName: string | null
   businessEmail: string | null
   businessRegistrationNumber: string | null
@@ -187,7 +185,6 @@ export type UserCountAggregateOutputType = {
   industries: number
   experienceYears: number
   website: number
-  linkedinUrl: number
   companyName: number
   businessEmail: number
   businessRegistrationNumber: number
@@ -267,7 +264,6 @@ export type UserMinAggregateInputType = {
   investmentCapacity?: true
   experienceYears?: true
   website?: true
-  linkedinUrl?: true
   companyName?: true
   businessEmail?: true
   businessRegistrationNumber?: true
@@ -326,7 +322,6 @@ export type UserMaxAggregateInputType = {
   investmentCapacity?: true
   experienceYears?: true
   website?: true
-  linkedinUrl?: true
   companyName?: true
   businessEmail?: true
   businessRegistrationNumber?: true
@@ -386,7 +381,6 @@ export type UserCountAggregateInputType = {
   industries?: true
   experienceYears?: true
   website?: true
-  linkedinUrl?: true
   companyName?: true
   businessEmail?: true
   businessRegistrationNumber?: true
@@ -534,7 +528,6 @@ export type UserGroupByOutputType = {
   industries: string[]
   experienceYears: number | null
   website: string | null
-  linkedinUrl: string | null
   companyName: string | null
   businessEmail: string | null
   businessRegistrationNumber: string | null
@@ -618,7 +611,6 @@ export type UserWhereInput = {
   industries?: Prisma.StringNullableListFilter<"User">
   experienceYears?: Prisma.IntNullableFilter<"User"> | number | null
   website?: Prisma.StringNullableFilter<"User"> | string | null
-  linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
   companyName?: Prisma.StringNullableFilter<"User"> | string | null
   businessEmail?: Prisma.StringNullableFilter<"User"> | string | null
   businessRegistrationNumber?: Prisma.StringNullableFilter<"User"> | string | null
@@ -705,7 +697,6 @@ export type UserOrderByWithRelationInput = {
   industries?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrderInput | Prisma.SortOrder
   website?: Prisma.SortOrderInput | Prisma.SortOrder
-  linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   companyName?: Prisma.SortOrderInput | Prisma.SortOrder
   businessEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -795,7 +786,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   industries?: Prisma.StringNullableListFilter<"User">
   experienceYears?: Prisma.IntNullableFilter<"User"> | number | null
   website?: Prisma.StringNullableFilter<"User"> | string | null
-  linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
   companyName?: Prisma.StringNullableFilter<"User"> | string | null
   businessEmail?: Prisma.StringNullableFilter<"User"> | string | null
   businessRegistrationNumber?: Prisma.StringNullableFilter<"User"> | string | null
@@ -882,7 +872,6 @@ export type UserOrderByWithAggregationInput = {
   industries?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrderInput | Prisma.SortOrder
   website?: Prisma.SortOrderInput | Prisma.SortOrder
-  linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   companyName?: Prisma.SortOrderInput | Prisma.SortOrder
   businessEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -951,7 +940,6 @@ export type UserScalarWhereWithAggregatesInput = {
   industries?: Prisma.StringNullableListFilter<"User">
   experienceYears?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
   website?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  linkedinUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   companyName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   businessEmail?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   businessRegistrationNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -1012,7 +1000,6 @@ export type UserCreateInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -1099,7 +1086,6 @@ export type UserUncheckedCreateInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -1186,7 +1172,6 @@ export type UserUpdateInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1273,7 +1258,6 @@ export type UserUncheckedUpdateInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1360,7 +1344,6 @@ export type UserCreateManyInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -1421,7 +1404,6 @@ export type UserUpdateManyMutationInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1482,7 +1464,6 @@ export type UserUncheckedUpdateManyInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1551,7 +1532,6 @@ export type UserCountOrderByAggregateInput = {
   industries?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrder
   website?: Prisma.SortOrder
-  linkedinUrl?: Prisma.SortOrder
   companyName?: Prisma.SortOrder
   businessEmail?: Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrder
@@ -1620,7 +1600,6 @@ export type UserMaxOrderByAggregateInput = {
   investmentCapacity?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrder
   website?: Prisma.SortOrder
-  linkedinUrl?: Prisma.SortOrder
   companyName?: Prisma.SortOrder
   businessEmail?: Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrder
@@ -1679,7 +1658,6 @@ export type UserMinOrderByAggregateInput = {
   investmentCapacity?: Prisma.SortOrder
   experienceYears?: Prisma.SortOrder
   website?: Prisma.SortOrder
-  linkedinUrl?: Prisma.SortOrder
   companyName?: Prisma.SortOrder
   businessEmail?: Prisma.SortOrder
   businessRegistrationNumber?: Prisma.SortOrder
@@ -2194,7 +2172,6 @@ export type UserCreateWithoutSessionsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -2280,7 +2257,6 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -2382,7 +2358,6 @@ export type UserUpdateWithoutSessionsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2468,7 +2443,6 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2554,7 +2528,6 @@ export type UserCreateWithoutAccountsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -2640,7 +2613,6 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -2742,7 +2714,6 @@ export type UserUpdateWithoutAccountsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2828,7 +2799,6 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2914,7 +2884,6 @@ export type UserCreateWithoutSkillsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -3000,7 +2969,6 @@ export type UserUncheckedCreateWithoutSkillsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -3102,7 +3070,6 @@ export type UserUpdateWithoutSkillsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3188,7 +3155,6 @@ export type UserUncheckedUpdateWithoutSkillsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3274,7 +3240,6 @@ export type UserCreateWithoutInterestsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -3360,7 +3325,6 @@ export type UserUncheckedCreateWithoutInterestsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -3462,7 +3426,6 @@ export type UserUpdateWithoutInterestsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3548,7 +3511,6 @@ export type UserUncheckedUpdateWithoutInterestsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3634,7 +3596,6 @@ export type UserCreateWithoutEducationInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -3720,7 +3681,6 @@ export type UserUncheckedCreateWithoutEducationInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -3822,7 +3782,6 @@ export type UserUpdateWithoutEducationInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3908,7 +3867,6 @@ export type UserUncheckedUpdateWithoutEducationInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3994,7 +3952,6 @@ export type UserCreateWithoutExperienceInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -4080,7 +4037,6 @@ export type UserUncheckedCreateWithoutExperienceInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -4182,7 +4138,6 @@ export type UserUpdateWithoutExperienceInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4268,7 +4223,6 @@ export type UserUncheckedUpdateWithoutExperienceInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4354,7 +4308,6 @@ export type UserCreateWithoutCompaniesInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -4440,7 +4393,6 @@ export type UserUncheckedCreateWithoutCompaniesInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -4542,7 +4494,6 @@ export type UserUpdateWithoutCompaniesInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4628,7 +4579,6 @@ export type UserUncheckedUpdateWithoutCompaniesInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4714,7 +4664,6 @@ export type UserCreateWithoutListingsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -4800,7 +4749,6 @@ export type UserUncheckedCreateWithoutListingsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -4902,7 +4850,6 @@ export type UserUpdateWithoutListingsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4988,7 +4935,6 @@ export type UserUncheckedUpdateWithoutListingsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5074,7 +5020,6 @@ export type UserCreateWithoutApplicationsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -5160,7 +5105,6 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -5262,7 +5206,6 @@ export type UserUpdateWithoutApplicationsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5348,7 +5291,6 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5434,7 +5376,6 @@ export type UserCreateWithoutSentConnectionsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -5520,7 +5461,6 @@ export type UserUncheckedCreateWithoutSentConnectionsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -5611,7 +5551,6 @@ export type UserCreateWithoutReceivedConnectionsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -5697,7 +5636,6 @@ export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -5799,7 +5737,6 @@ export type UserUpdateWithoutSentConnectionsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5885,7 +5822,6 @@ export type UserUncheckedUpdateWithoutSentConnectionsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5982,7 +5918,6 @@ export type UserUpdateWithoutReceivedConnectionsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6068,7 +6003,6 @@ export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6154,7 +6088,6 @@ export type UserCreateWithoutCompanyFollowersInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -6240,7 +6173,6 @@ export type UserUncheckedCreateWithoutCompanyFollowersInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -6342,7 +6274,6 @@ export type UserUpdateWithoutCompanyFollowersInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6428,7 +6359,6 @@ export type UserUncheckedUpdateWithoutCompanyFollowersInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6514,7 +6444,6 @@ export type UserCreateWithoutParticipantsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -6600,7 +6529,6 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -6702,7 +6630,6 @@ export type UserUpdateWithoutParticipantsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6788,7 +6715,6 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6874,7 +6800,6 @@ export type UserCreateWithoutMessagesInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -6960,7 +6885,6 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -7062,7 +6986,6 @@ export type UserUpdateWithoutMessagesInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7148,7 +7071,6 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7234,7 +7156,6 @@ export type UserCreateWithoutReactionsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -7320,7 +7241,6 @@ export type UserUncheckedCreateWithoutReactionsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -7422,7 +7342,6 @@ export type UserUpdateWithoutReactionsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7508,7 +7427,6 @@ export type UserUncheckedUpdateWithoutReactionsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7594,7 +7512,6 @@ export type UserCreateWithoutNotificationsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -7680,7 +7597,6 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -7782,7 +7698,6 @@ export type UserUpdateWithoutNotificationsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7868,7 +7783,6 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7954,7 +7868,6 @@ export type UserCreateWithoutReviewsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -8040,7 +7953,6 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -8142,7 +8054,6 @@ export type UserUpdateWithoutReviewsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8228,7 +8139,6 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8314,7 +8224,6 @@ export type UserCreateWithoutOrganizedMeetingsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -8400,7 +8309,6 @@ export type UserUncheckedCreateWithoutOrganizedMeetingsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -8502,7 +8410,6 @@ export type UserUpdateWithoutOrganizedMeetingsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8588,7 +8495,6 @@ export type UserUncheckedUpdateWithoutOrganizedMeetingsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8674,7 +8580,6 @@ export type UserCreateWithoutMeetingParticipantsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -8760,7 +8665,6 @@ export type UserUncheckedCreateWithoutMeetingParticipantsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -8862,7 +8766,6 @@ export type UserUpdateWithoutMeetingParticipantsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8948,7 +8851,6 @@ export type UserUncheckedUpdateWithoutMeetingParticipantsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9034,7 +8936,6 @@ export type UserCreateWithoutSentMessageRequestsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -9120,7 +9021,6 @@ export type UserUncheckedCreateWithoutSentMessageRequestsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -9211,7 +9111,6 @@ export type UserCreateWithoutReceivedMessageRequestsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -9297,7 +9196,6 @@ export type UserUncheckedCreateWithoutReceivedMessageRequestsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -9399,7 +9297,6 @@ export type UserUpdateWithoutSentMessageRequestsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9485,7 +9382,6 @@ export type UserUncheckedUpdateWithoutSentMessageRequestsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9582,7 +9478,6 @@ export type UserUpdateWithoutReceivedMessageRequestsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9668,7 +9563,6 @@ export type UserUncheckedUpdateWithoutReceivedMessageRequestsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9754,7 +9648,6 @@ export type UserCreateWithoutAuditLogsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -9840,7 +9733,6 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -9942,7 +9834,6 @@ export type UserUpdateWithoutAuditLogsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10028,7 +9919,6 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10114,7 +10004,6 @@ export type UserCreateWithoutDocumentsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -10200,7 +10089,6 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -10302,7 +10190,6 @@ export type UserUpdateWithoutDocumentsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10388,7 +10275,6 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10474,7 +10360,6 @@ export type UserCreateWithoutVerificationHistoriesInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -10560,7 +10445,6 @@ export type UserUncheckedCreateWithoutVerificationHistoriesInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -10662,7 +10546,6 @@ export type UserUpdateWithoutVerificationHistoriesInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10748,7 +10631,6 @@ export type UserUncheckedUpdateWithoutVerificationHistoriesInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10834,7 +10716,6 @@ export type UserCreateWithoutBookmarksInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -10920,7 +10801,6 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -11022,7 +10902,6 @@ export type UserUpdateWithoutBookmarksInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11108,7 +10987,6 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11194,7 +11072,6 @@ export type UserCreateWithoutPolicyAcceptancesInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -11280,7 +11157,6 @@ export type UserUncheckedCreateWithoutPolicyAcceptancesInput = {
   industries?: Prisma.UserCreateindustriesInput | string[]
   experienceYears?: number | null
   website?: string | null
-  linkedinUrl?: string | null
   companyName?: string | null
   businessEmail?: string | null
   businessRegistrationNumber?: string | null
@@ -11382,7 +11258,6 @@ export type UserUpdateWithoutPolicyAcceptancesInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11468,7 +11343,6 @@ export type UserUncheckedUpdateWithoutPolicyAcceptancesInput = {
   industries?: Prisma.UserUpdateindustriesInput | string[]
   experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11810,7 +11684,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   industries?: boolean
   experienceYears?: boolean
   website?: boolean
-  linkedinUrl?: boolean
   companyName?: boolean
   businessEmail?: boolean
   businessRegistrationNumber?: boolean
@@ -11898,7 +11771,6 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   industries?: boolean
   experienceYears?: boolean
   website?: boolean
-  linkedinUrl?: boolean
   companyName?: boolean
   businessEmail?: boolean
   businessRegistrationNumber?: boolean
@@ -11959,7 +11831,6 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   industries?: boolean
   experienceYears?: boolean
   website?: boolean
-  linkedinUrl?: boolean
   companyName?: boolean
   businessEmail?: boolean
   businessRegistrationNumber?: boolean
@@ -12020,7 +11891,6 @@ export type UserSelectScalar = {
   industries?: boolean
   experienceYears?: boolean
   website?: boolean
-  linkedinUrl?: boolean
   companyName?: boolean
   businessEmail?: boolean
   businessRegistrationNumber?: boolean
@@ -12056,7 +11926,7 @@ export type UserSelectScalar = {
   completedTasks?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "country" | "state" | "city" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "companyLogo" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "verified" | "verifiedAt" | "verifiedBy" | "isActive" | "followerCount" | "followingCount" | "lastLoginAt" | "lastActiveAt" | "brandName" | "businessLicenseDoc" | "certifications" | "companyBanner" | "companyDescription" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness" | "completedTasks", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "country" | "state" | "city" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "companyName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "companyLogo" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "verified" | "verifiedAt" | "verifiedBy" | "isActive" | "followerCount" | "followingCount" | "lastLoginAt" | "lastActiveAt" | "brandName" | "businessLicenseDoc" | "certifications" | "companyBanner" | "companyDescription" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness" | "completedTasks", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organizedMeetings?: boolean | Prisma.User$organizedMeetingsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -12144,7 +12014,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     industries: string[]
     experienceYears: number | null
     website: string | null
-    linkedinUrl: string | null
     companyName: string | null
     businessEmail: string | null
     businessRegistrationNumber: string | null
@@ -12651,7 +12520,6 @@ export interface UserFieldRefs {
   readonly industries: Prisma.FieldRef<"User", 'String[]'>
   readonly experienceYears: Prisma.FieldRef<"User", 'Int'>
   readonly website: Prisma.FieldRef<"User", 'String'>
-  readonly linkedinUrl: Prisma.FieldRef<"User", 'String'>
   readonly companyName: Prisma.FieldRef<"User", 'String'>
   readonly businessEmail: Prisma.FieldRef<"User", 'String'>
   readonly businessRegistrationNumber: Prisma.FieldRef<"User", 'String'>

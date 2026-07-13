@@ -42,6 +42,9 @@ export type ApplicationMinAggregateOutputType = {
   coverMessage: string | null
   investmentCapacity: runtime.Decimal | null
   internalNotes: string | null
+  acceptedPolicyVersion: string | null
+  acceptedPolicyTerms: string | null
+  acceptedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +57,9 @@ export type ApplicationMaxAggregateOutputType = {
   coverMessage: string | null
   investmentCapacity: runtime.Decimal | null
   internalNotes: string | null
+  acceptedPolicyVersion: string | null
+  acceptedPolicyTerms: string | null
+  acceptedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -66,6 +72,9 @@ export type ApplicationCountAggregateOutputType = {
   coverMessage: number
   investmentCapacity: number
   internalNotes: number
+  acceptedPolicyVersion: number
+  acceptedPolicyTerms: number
+  acceptedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -88,6 +97,9 @@ export type ApplicationMinAggregateInputType = {
   coverMessage?: true
   investmentCapacity?: true
   internalNotes?: true
+  acceptedPolicyVersion?: true
+  acceptedPolicyTerms?: true
+  acceptedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,6 +112,9 @@ export type ApplicationMaxAggregateInputType = {
   coverMessage?: true
   investmentCapacity?: true
   internalNotes?: true
+  acceptedPolicyVersion?: true
+  acceptedPolicyTerms?: true
+  acceptedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -112,6 +127,9 @@ export type ApplicationCountAggregateInputType = {
   coverMessage?: true
   investmentCapacity?: true
   internalNotes?: true
+  acceptedPolicyVersion?: true
+  acceptedPolicyTerms?: true
+  acceptedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -211,6 +229,9 @@ export type ApplicationGroupByOutputType = {
   coverMessage: string | null
   investmentCapacity: runtime.Decimal | null
   internalNotes: string | null
+  acceptedPolicyVersion: string | null
+  acceptedPolicyTerms: string | null
+  acceptedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: ApplicationCountAggregateOutputType | null
@@ -246,6 +267,9 @@ export type ApplicationWhereInput = {
   coverMessage?: Prisma.StringNullableFilter<"Application"> | string | null
   investmentCapacity?: Prisma.DecimalNullableFilter<"Application"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.StringNullableFilter<"Application"> | string | null
+  acceptedPolicyVersion?: Prisma.StringNullableFilter<"Application"> | string | null
+  acceptedPolicyTerms?: Prisma.StringNullableFilter<"Application"> | string | null
+  acceptedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   applicant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -260,6 +284,9 @@ export type ApplicationOrderByWithRelationInput = {
   coverMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   investmentCapacity?: Prisma.SortOrderInput | Prisma.SortOrder
   internalNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  acceptedPolicyVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  acceptedPolicyTerms?: Prisma.SortOrderInput | Prisma.SortOrder
+  acceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   applicant?: Prisma.UserOrderByWithRelationInput
@@ -278,6 +305,9 @@ export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
   coverMessage?: Prisma.StringNullableFilter<"Application"> | string | null
   investmentCapacity?: Prisma.DecimalNullableFilter<"Application"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.StringNullableFilter<"Application"> | string | null
+  acceptedPolicyVersion?: Prisma.StringNullableFilter<"Application"> | string | null
+  acceptedPolicyTerms?: Prisma.StringNullableFilter<"Application"> | string | null
+  acceptedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   applicant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -292,6 +322,9 @@ export type ApplicationOrderByWithAggregationInput = {
   coverMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   investmentCapacity?: Prisma.SortOrderInput | Prisma.SortOrder
   internalNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  acceptedPolicyVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  acceptedPolicyTerms?: Prisma.SortOrderInput | Prisma.SortOrder
+  acceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ApplicationCountOrderByAggregateInput
@@ -312,6 +345,9 @@ export type ApplicationScalarWhereWithAggregatesInput = {
   coverMessage?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
   investmentCapacity?: Prisma.DecimalNullableWithAggregatesFilter<"Application"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
+  acceptedPolicyVersion?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
+  acceptedPolicyTerms?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
+  acceptedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Application"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Application"> | Date | string
 }
@@ -322,6 +358,9 @@ export type ApplicationCreateInput = {
   coverMessage?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: string | null
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   applicant: Prisma.UserCreateNestedOneWithoutApplicationsInput
@@ -336,6 +375,9 @@ export type ApplicationUncheckedCreateInput = {
   coverMessage?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: string | null
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -346,6 +388,9 @@ export type ApplicationUpdateInput = {
   coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
@@ -360,6 +405,9 @@ export type ApplicationUncheckedUpdateInput = {
   coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -372,6 +420,9 @@ export type ApplicationCreateManyInput = {
   coverMessage?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: string | null
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -382,6 +433,9 @@ export type ApplicationUpdateManyMutationInput = {
   coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -394,6 +448,9 @@ export type ApplicationUncheckedUpdateManyInput = {
   coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -421,6 +478,9 @@ export type ApplicationCountOrderByAggregateInput = {
   coverMessage?: Prisma.SortOrder
   investmentCapacity?: Prisma.SortOrder
   internalNotes?: Prisma.SortOrder
+  acceptedPolicyVersion?: Prisma.SortOrder
+  acceptedPolicyTerms?: Prisma.SortOrder
+  acceptedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -437,6 +497,9 @@ export type ApplicationMaxOrderByAggregateInput = {
   coverMessage?: Prisma.SortOrder
   investmentCapacity?: Prisma.SortOrder
   internalNotes?: Prisma.SortOrder
+  acceptedPolicyVersion?: Prisma.SortOrder
+  acceptedPolicyTerms?: Prisma.SortOrder
+  acceptedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -449,6 +512,9 @@ export type ApplicationMinOrderByAggregateInput = {
   coverMessage?: Prisma.SortOrder
   investmentCapacity?: Prisma.SortOrder
   internalNotes?: Prisma.SortOrder
+  acceptedPolicyVersion?: Prisma.SortOrder
+  acceptedPolicyTerms?: Prisma.SortOrder
+  acceptedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -551,6 +617,9 @@ export type ApplicationCreateWithoutApplicantInput = {
   coverMessage?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: string | null
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   listing: Prisma.FranchiseListingCreateNestedOneWithoutApplicationsInput
@@ -563,6 +632,9 @@ export type ApplicationUncheckedCreateWithoutApplicantInput = {
   coverMessage?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: string | null
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -604,6 +676,9 @@ export type ApplicationScalarWhereInput = {
   coverMessage?: Prisma.StringNullableFilter<"Application"> | string | null
   investmentCapacity?: Prisma.DecimalNullableFilter<"Application"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.StringNullableFilter<"Application"> | string | null
+  acceptedPolicyVersion?: Prisma.StringNullableFilter<"Application"> | string | null
+  acceptedPolicyTerms?: Prisma.StringNullableFilter<"Application"> | string | null
+  acceptedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
 }
@@ -614,6 +689,9 @@ export type ApplicationCreateWithoutListingInput = {
   coverMessage?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: string | null
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   applicant: Prisma.UserCreateNestedOneWithoutApplicationsInput
@@ -626,6 +704,9 @@ export type ApplicationUncheckedCreateWithoutListingInput = {
   coverMessage?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: string | null
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -663,6 +744,9 @@ export type ApplicationCreateManyApplicantInput = {
   coverMessage?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: string | null
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -673,6 +757,9 @@ export type ApplicationUpdateWithoutApplicantInput = {
   coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   listing?: Prisma.FranchiseListingUpdateOneRequiredWithoutApplicationsNestedInput
@@ -685,6 +772,9 @@ export type ApplicationUncheckedUpdateWithoutApplicantInput = {
   coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -696,6 +786,9 @@ export type ApplicationUncheckedUpdateManyWithoutApplicantInput = {
   coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -707,6 +800,9 @@ export type ApplicationCreateManyListingInput = {
   coverMessage?: string | null
   investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: string | null
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -717,6 +813,9 @@ export type ApplicationUpdateWithoutListingInput = {
   coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
@@ -729,6 +828,9 @@ export type ApplicationUncheckedUpdateWithoutListingInput = {
   coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -740,6 +842,9 @@ export type ApplicationUncheckedUpdateManyWithoutListingInput = {
   coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -754,6 +859,9 @@ export type ApplicationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   coverMessage?: boolean
   investmentCapacity?: boolean
   internalNotes?: boolean
+  acceptedPolicyVersion?: boolean
+  acceptedPolicyTerms?: boolean
+  acceptedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -768,6 +876,9 @@ export type ApplicationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   coverMessage?: boolean
   investmentCapacity?: boolean
   internalNotes?: boolean
+  acceptedPolicyVersion?: boolean
+  acceptedPolicyTerms?: boolean
+  acceptedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -782,6 +893,9 @@ export type ApplicationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   coverMessage?: boolean
   investmentCapacity?: boolean
   internalNotes?: boolean
+  acceptedPolicyVersion?: boolean
+  acceptedPolicyTerms?: boolean
+  acceptedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -796,11 +910,14 @@ export type ApplicationSelectScalar = {
   coverMessage?: boolean
   investmentCapacity?: boolean
   internalNotes?: boolean
+  acceptedPolicyVersion?: boolean
+  acceptedPolicyTerms?: boolean
+  acceptedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "listingId" | "applicantId" | "status" | "coverMessage" | "investmentCapacity" | "internalNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["application"]>
+export type ApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "listingId" | "applicantId" | "status" | "coverMessage" | "investmentCapacity" | "internalNotes" | "acceptedPolicyVersion" | "acceptedPolicyTerms" | "acceptedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["application"]>
 export type ApplicationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
@@ -828,6 +945,9 @@ export type $ApplicationPayload<ExtArgs extends runtime.Types.Extensions.Interna
     coverMessage: string | null
     investmentCapacity: runtime.Decimal | null
     internalNotes: string | null
+    acceptedPolicyVersion: string | null
+    acceptedPolicyTerms: string | null
+    acceptedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["application"]>
@@ -1262,6 +1382,9 @@ export interface ApplicationFieldRefs {
   readonly coverMessage: Prisma.FieldRef<"Application", 'String'>
   readonly investmentCapacity: Prisma.FieldRef<"Application", 'Decimal'>
   readonly internalNotes: Prisma.FieldRef<"Application", 'String'>
+  readonly acceptedPolicyVersion: Prisma.FieldRef<"Application", 'String'>
+  readonly acceptedPolicyTerms: Prisma.FieldRef<"Application", 'String'>
+  readonly acceptedAt: Prisma.FieldRef<"Application", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Application", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Application", 'DateTime'>
 }

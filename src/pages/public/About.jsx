@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { ArrowRight, Target, Eye, Award, Clock, Users, Globe } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
@@ -17,7 +18,7 @@ export default function About() {
   ];
 
   return (
-    <div>
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       <section style={{ padding: '80px 0', textAlign: 'center' }}>
         <div className="container" style={{ maxWidth: 800 }}>
           <Badge variant="info" style={{ marginBottom: 16 }}>About Us</Badge>
@@ -123,6 +124,6 @@ export default function About() {
           </div>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 }

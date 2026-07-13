@@ -62,6 +62,13 @@ router.get("/stats", async (req, res) => {
       prisma.user.groupBy({ by: ["accountStatus"], _count: true }),
       prisma.user.groupBy({ by: ["role"], _count: true }),
       prisma.company.groupBy({ by: ["industry"], _count: true, orderBy: { _count: { industry: "desc" } }, take: 10 }),
+      prisma.blogPost.count(),
+      prisma.blogPost.count({ where: { status: "published" } }),
+      prisma.blogPost.count({ where: { status: "draft" } }),
+      prisma.event.count(),
+      prisma.partner.count(),
+      prisma.testimonial.count(),
+      prisma.siteFAQ.count(),
     ]);
 
     res.json({
@@ -87,6 +94,13 @@ router.get("/stats", async (req, res) => {
       verificationStats,
       roleStats,
       industryStats,
+      totalBlogPosts,
+      publishedBlogPosts,
+      draftBlogPosts,
+      totalEvents,
+      totalPartners,
+      totalTestimonials,
+      totalFAQs,
     });
   } catch (error) {
     console.error("Admin route error:", error);

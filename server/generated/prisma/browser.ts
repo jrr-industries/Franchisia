@@ -168,6 +168,11 @@ export type UserDocument = Prisma.UserDocumentModel
  */
 export type VerificationHistory = Prisma.VerificationHistoryModel
 /**
+ * Model SalesInquiry
+ * 
+ */
+export type SalesInquiry = Prisma.SalesInquiryModel
+/**
  * Model Bookmark
  * 
  */
@@ -202,3 +207,48 @@ export type CompanyPolicyVersion = Prisma.CompanyPolicyVersionModel
  * 
  */
 export type CompanyPolicyAcceptance = Prisma.CompanyPolicyAcceptanceModel
+/**
+ * Model BlogPost
+ * 
+ */
+export type BlogPost = Prisma.BlogPostModel
+/**
+ * Model Career
+ * 
+ */
+export type Career = Prisma.CareerModel
+/**
+ * Model Event
+ * 
+ */
+export type Event = Prisma.EventModel
+/**
+ * Model Partner
+ * 
+ */
+export type Partner = Prisma.PartnerModel
+/**
+ * Model Testimonial
+ * 
+ */
+export type Testimonial = Prisma.TestimonialModel
+/**
+ * Model SiteFAQ
+ * 
+ */
+export type SiteFAQ = Prisma.SiteFAQModel
+/**
+ * Model Plan
+ * 
+ */
+export type Plan = Prisma.PlanModel
+/**
+ * Model Media
+ * 
+ */
+export type Media = Prisma.MediaModel
+/**
+ * Model SiteSetting
+ * 
+ */
+export type SiteSetting = Prisma.SiteSettingModel

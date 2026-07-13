@@ -81,13 +81,23 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   UserDocument: 'UserDocument',
   VerificationHistory: 'VerificationHistory',
+  SalesInquiry: 'SalesInquiry',
   Bookmark: 'Bookmark',
   Report: 'Report',
   CompanyPolicy: 'CompanyPolicy',
   CompanyFAQ: 'CompanyFAQ',
   CompanyDocument: 'CompanyDocument',
   CompanyPolicyVersion: 'CompanyPolicyVersion',
-  CompanyPolicyAcceptance: 'CompanyPolicyAcceptance'
+  CompanyPolicyAcceptance: 'CompanyPolicyAcceptance',
+  BlogPost: 'BlogPost',
+  Career: 'Career',
+  Event: 'Event',
+  Partner: 'Partner',
+  Testimonial: 'Testimonial',
+  SiteFAQ: 'SiteFAQ',
+  Plan: 'Plan',
+  Media: 'Media',
+  SiteSetting: 'SiteSetting'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -131,7 +141,6 @@ export const UserScalarFieldEnum = {
   industries: 'industries',
   experienceYears: 'experienceYears',
   website: 'website',
-  linkedinUrl: 'linkedinUrl',
   companyName: 'companyName',
   businessEmail: 'businessEmail',
   businessRegistrationNumber: 'businessRegistrationNumber',
@@ -339,6 +348,9 @@ export const ApplicationScalarFieldEnum = {
   coverMessage: 'coverMessage',
   investmentCapacity: 'investmentCapacity',
   internalNotes: 'internalNotes',
+  acceptedPolicyVersion: 'acceptedPolicyVersion',
+  acceptedPolicyTerms: 'acceptedPolicyTerms',
+  acceptedAt: 'acceptedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -580,6 +592,20 @@ export const VerificationHistoryScalarFieldEnum = {
 export type VerificationHistoryScalarFieldEnum = (typeof VerificationHistoryScalarFieldEnum)[keyof typeof VerificationHistoryScalarFieldEnum]
 
 
+export const SalesInquiryScalarFieldEnum = {
+  id: 'id',
+  companyName: 'companyName',
+  fullName: 'fullName',
+  businessEmail: 'businessEmail',
+  phoneNumber: 'phoneNumber',
+  companySize: 'companySize',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type SalesInquiryScalarFieldEnum = (typeof SalesInquiryScalarFieldEnum)[keyof typeof SalesInquiryScalarFieldEnum]
+
+
 export const BookmarkScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -720,6 +746,157 @@ export const CompanyPolicyAcceptanceScalarFieldEnum = {
 } as const
 
 export type CompanyPolicyAcceptanceScalarFieldEnum = (typeof CompanyPolicyAcceptanceScalarFieldEnum)[keyof typeof CompanyPolicyAcceptanceScalarFieldEnum]
+
+
+export const BlogPostScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  featuredImage: 'featuredImage',
+  author: 'author',
+  category: 'category',
+  tags: 'tags',
+  shortDescription: 'shortDescription',
+  content: 'content',
+  seoTitle: 'seoTitle',
+  seoDescription: 'seoDescription',
+  status: 'status',
+  isFeatured: 'isFeatured',
+  publishDate: 'publishDate',
+  readingTime: 'readingTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BlogPostScalarFieldEnum = (typeof BlogPostScalarFieldEnum)[keyof typeof BlogPostScalarFieldEnum]
+
+
+export const CareerScalarFieldEnum = {
+  id: 'id',
+  jobTitle: 'jobTitle',
+  department: 'department',
+  location: 'location',
+  employmentType: 'employmentType',
+  experience: 'experience',
+  salary: 'salary',
+  description: 'description',
+  responsibilities: 'responsibilities',
+  requirements: 'requirements',
+  benefits: 'benefits',
+  applyLink: 'applyLink',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CareerScalarFieldEnum = (typeof CareerScalarFieldEnum)[keyof typeof CareerScalarFieldEnum]
+
+
+export const EventScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  banner: 'banner',
+  description: 'description',
+  venue: 'venue',
+  address: 'address',
+  googleMapLink: 'googleMapLink',
+  date: 'date',
+  time: 'time',
+  organizer: 'organizer',
+  registrationLink: 'registrationLink',
+  maxParticipants: 'maxParticipants',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const PartnerScalarFieldEnum = {
+  id: 'id',
+  logo: 'logo',
+  name: 'name',
+  partnerType: 'partnerType',
+  description: 'description',
+  website: 'website',
+  isFeatured: 'isFeatured',
+  displayOrder: 'displayOrder',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PartnerScalarFieldEnum = (typeof PartnerScalarFieldEnum)[keyof typeof PartnerScalarFieldEnum]
+
+
+export const TestimonialScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  photo: 'photo',
+  role: 'role',
+  company: 'company',
+  rating: 'rating',
+  review: 'review',
+  isFeatured: 'isFeatured',
+  createdAt: 'createdAt'
+} as const
+
+export type TestimonialScalarFieldEnum = (typeof TestimonialScalarFieldEnum)[keyof typeof TestimonialScalarFieldEnum]
+
+
+export const SiteFAQScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  answer: 'answer',
+  category: 'category',
+  displayOrder: 'displayOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SiteFAQScalarFieldEnum = (typeof SiteFAQScalarFieldEnum)[keyof typeof SiteFAQScalarFieldEnum]
+
+
+export const PlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  price: 'price',
+  interval: 'interval',
+  description: 'description',
+  features: 'features',
+  isPopular: 'isPopular',
+  displayOrder: 'displayOrder',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlanScalarFieldEnum = (typeof PlanScalarFieldEnum)[keyof typeof PlanScalarFieldEnum]
+
+
+export const MediaScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  type: 'type',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  alt: 'alt',
+  createdAt: 'createdAt'
+} as const
+
+export type MediaScalarFieldEnum = (typeof MediaScalarFieldEnum)[keyof typeof MediaScalarFieldEnum]
+
+
+export const SiteSettingScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  value: 'value'
+} as const
+
+export type SiteSettingScalarFieldEnum = (typeof SiteSettingScalarFieldEnum)[keyof typeof SiteSettingScalarFieldEnum]
 
 
 export const SortOrder = {

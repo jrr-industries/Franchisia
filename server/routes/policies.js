@@ -19,6 +19,13 @@ const upload = multer({ storage, limits: { fileSize: 20 * 1024 * 1024 } });
 
 const router = Router();
 
+const requireFranchisor = (req, res, next) => {
+  if (req.user?.role !== "franchisor") {
+    return res.status(403).json({ error: "Only franchisors can manage policies" });
+  }
+  next();
+};
+
 function canAccessPolicy(req, policy) {
   return policy.companyId === req.user.companyId || req.user.role === "admin";
 }
@@ -36,6 +43,7 @@ router.get("/my", authenticate, async (req, res) => {
         faqs: { orderBy: { sortOrder: "asc" } },
         documents: true,
         versions: { orderBy: { createdAt: "desc" } },
+        _count: { select: { acceptances: true } },
       },
     });
     res.json({ policy, companyId: company.id });
@@ -45,7 +53,7 @@ router.get("/my", authenticate, async (req, res) => {
   }
 });
 
-router.get("/company/:companyId", async (req, res) => {
+router.get("/company/:companyId", authenticate, async (req, res) => {
   try {
     const policy = await prisma.companyPolicy.findFirst({
       where: { companyId: req.params.companyId, isSuspended: false },
@@ -63,7 +71,31 @@ router.get("/company/:companyId", async (req, res) => {
   }
 });
 
-router.post("/", authenticate, async (req, res) => {
+const POLICY_FIELDS = [
+  "minimumAge", "minimumEducation", "businessExperienceRequired", "netWorthRequired",
+  "preferredIndustries", "commercialSpaceRequired", "businessRegistrationRequired",
+  "gstRequired", "localLicenseRequired", "additionalRequirements",
+  "minimumInvestment", "maximumInvestment", "franchiseFee", "royaltyFee",
+  "marketingFee", "workingCapital", "securityDeposit", "expectedROI", "breakEvenPeriod",
+  "agreementDuration", "renewalAvailable", "terminationConditions", "exitPolicy",
+  "transferPolicy", "renewalCharges",
+  "initialTraining", "onSiteSupport", "marketingSupport", "technologySupport",
+  "operationsManual", "storeSetupSupport", "hiringSupport", "supplyChainSupport",
+  "exclusiveTerritory", "nonExclusiveTerritory", "expansionPlans",
+  "targetCities", "targetStates", "targetCountries",
+  "refundPolicy", "cancellationPolicy", "brandGuidelines", "trademarkRules",
+  "confidentialityAgreement", "codeOfConduct",
+];
+
+function pickPolicyFields(body) {
+  const picked = {};
+  POLICY_FIELDS.forEach((f) => {
+    if (body[f] !== undefined) picked[f] = body[f];
+  });
+  return picked;
+}
+
+router.post("/", authenticate, requireFranchisor, async (req, res) => {
   try {
     const company = await prisma.company.findFirst({
       where: { ownerId: req.user.id },
@@ -78,7 +110,7 @@ router.post("/", authenticate, async (req, res) => {
     const policy = await prisma.companyPolicy.create({
       data: {
         companyId: company.id,
-        ...req.body,
+        ...pickPolicyFields(req.body),
       },
       include: { faqs: true, documents: true, versions: true },
     });
@@ -99,7 +131,7 @@ router.post("/", authenticate, async (req, res) => {
   }
 });
 
-router.put("/:id", authenticate, async (req, res) => {
+router.put("/:id", authenticate, requireFranchisor, async (req, res) => {
   try {
     const policy = await prisma.companyPolicy.findUnique({
       where: { id: req.params.id },
@@ -112,7 +144,7 @@ router.put("/:id", authenticate, async (req, res) => {
 
     const updated = await prisma.companyPolicy.update({
       where: { id: req.params.id },
-      data: req.body,
+      data: pickPolicyFields(req.body),
       include: { faqs: { orderBy: { sortOrder: "asc" } }, documents: true },
     });
     res.json(updated);
@@ -122,7 +154,7 @@ router.put("/:id", authenticate, async (req, res) => {
   }
 });
 
-router.post("/:id/publish", authenticate, async (req, res) => {
+router.post("/:id/publish", authenticate, requireFranchisor, async (req, res) => {
   try {
     const policy = await prisma.companyPolicy.findUnique({
       where: { id: req.params.id },
@@ -170,7 +202,7 @@ router.post("/:id/publish", authenticate, async (req, res) => {
   }
 });
 
-router.post("/:id/archive", authenticate, async (req, res) => {
+router.post("/:id/archive", authenticate, requireFranchisor, async (req, res) => {
   try {
     const policy = await prisma.companyPolicy.findUnique({
       where: { id: req.params.id },
@@ -211,7 +243,7 @@ router.get("/:id/versions", authenticate, async (req, res) => {
   }
 });
 
-router.post("/:id/faqs", authenticate, async (req, res) => {
+router.post("/:id/faqs", authenticate, requireFranchisor, async (req, res) => {
   try {
     const policy = await prisma.companyPolicy.findUnique({
       where: { id: req.params.id },
@@ -243,7 +275,7 @@ router.post("/:id/faqs", authenticate, async (req, res) => {
   }
 });
 
-router.put("/:id/faqs/:faqId", authenticate, async (req, res) => {
+router.put("/:id/faqs/:faqId", authenticate, requireFranchisor, async (req, res) => {
   try {
     const faq = await prisma.companyFAQ.findUnique({
       where: { id: req.params.faqId },
@@ -265,7 +297,7 @@ router.put("/:id/faqs/:faqId", authenticate, async (req, res) => {
   }
 });
 
-router.delete("/:id/faqs/:faqId", authenticate, async (req, res) => {
+router.delete("/:id/faqs/:faqId", authenticate, requireFranchisor, async (req, res) => {
   try {
     const faq = await prisma.companyFAQ.findUnique({
       where: { id: req.params.faqId },
@@ -284,7 +316,7 @@ router.delete("/:id/faqs/:faqId", authenticate, async (req, res) => {
   }
 });
 
-router.post("/:id/documents", authenticate, upload.single("file"), async (req, res) => {
+router.post("/:id/documents", authenticate, requireFranchisor, upload.single("file"), async (req, res) => {
   try {
     const policy = await prisma.companyPolicy.findUnique({
       where: { id: req.params.id },
@@ -316,7 +348,7 @@ router.post("/:id/documents", authenticate, upload.single("file"), async (req, r
   }
 });
 
-router.delete("/:id/documents/:docId", authenticate, async (req, res) => {
+router.delete("/:id/documents/:docId", authenticate, requireFranchisor, async (req, res) => {
   try {
     const doc = await prisma.companyDocument.findUnique({
       where: { id: req.params.docId },

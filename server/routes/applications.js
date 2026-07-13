@@ -7,7 +7,7 @@ const router = Router();
 
 router.post("/", authenticate, async (req, res) => {
   try {
-    const { listingId, coverMessage, investmentCapacity } = req.body;
+    const { listingId, coverMessage, investmentCapacity, acceptedPolicyVersion, acceptedPolicyTerms, acceptedAt } = req.body;
 
     const existing = await prisma.application.findUnique({
       where: { listingId_applicantId: { listingId, applicantId: req.user.id } },
@@ -18,7 +18,15 @@ router.post("/", authenticate, async (req, res) => {
 
     const [application] = await prisma.$transaction(async (tx) => {
       const app = await tx.application.create({
-        data: { listingId, applicantId: req.user.id, coverMessage, investmentCapacity },
+        data: {
+          listingId,
+          applicantId: req.user.id,
+          coverMessage,
+          investmentCapacity,
+          acceptedPolicyVersion: acceptedPolicyVersion || null,
+          acceptedPolicyTerms: acceptedPolicyTerms || null,
+          acceptedAt: acceptedAt ? new Date(acceptedAt) : null,
+        },
       });
       await tx.franchiseListing.update({
         where: { id: listingId },

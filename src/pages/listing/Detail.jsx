@@ -87,7 +87,13 @@ export default function ListingDetail() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ listingId: listing.id, coverMessage: coverMessage.trim() || undefined }),
+        body: JSON.stringify({
+          listingId: listing.id,
+          coverMessage: coverMessage.trim() || undefined,
+          acceptedPolicyVersion: policyAccepted?.policyVersion || null,
+          acceptedPolicyTerms: 'I have read and agree to the company\'s Franchise Terms & Conditions.',
+          acceptedAt: policyAccepted?.acceptedAt || null,
+        }),
       });
       if (res.ok) {
         addToast('Application submitted!', 'success');

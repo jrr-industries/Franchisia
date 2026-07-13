@@ -32,7 +32,6 @@ model User {
   industries                 String[]
   experienceYears            Int?                      @map("experience_years")
   website                    String?
-  linkedinUrl                String?                   @map("linkedin_url")
   companyName                String?                   @map("company_name")
   businessEmail              String?                   @map("business_email")
   businessRegistrationNumber String?                   @map("business_registration_number")
@@ -296,6 +295,9 @@ model Application {
   coverMessage       String?           @map("cover_message")
   investmentCapacity Decimal?          @map("investment_capacity") @db.Decimal(12, 2)
   internalNotes      String?           @map("internal_notes")
+  acceptedPolicyVersion String?        @map("accepted_policy_version")
+  acceptedPolicyTerms  String?         @map("accepted_policy_terms")
+  acceptedAt        DateTime?          @map("accepted_at") @db.Timestamptz(6)
   createdAt          DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt          DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   applicant          User              @relation(fields: [applicantId], references: [id], onDelete: Cascade)
@@ -577,6 +579,19 @@ model VerificationHistory {
   @@map("verification_history")
 }
 
+model SalesInquiry {
+  id           String   @id @default(cuid())
+  companyName  String   @map("company_name")
+  fullName     String   @map("full_name")
+  businessEmail String  @map("business_email")
+  phoneNumber  String?  @map("phone_number")
+  companySize  String?  @map("company_size")
+  message      String?
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("sales_inquiries")
+}
+
 model Bookmark {
   id        String   @id @default(cuid())
   userId    String   @map("user_id")
@@ -798,6 +813,161 @@ model CompanyPolicyAcceptance {
   @@index([policyId])
   @@index([userId])
   @@map("company_policy_acceptances")
+}
+
+// ── CMS Models ──
+
+model BlogPost {
+  id              String    @id @default(cuid())
+  title           String
+  slug            String    @unique
+  featuredImage   String?
+  author          String?
+  category        String?
+  tags            String[]
+  shortDescription String?  @map("short_description")
+  content         String?
+  seoTitle        String?   @map("seo_title")
+  seoDescription  String?   @map("seo_description")
+  status          String    @default("draft")
+  isFeatured      Boolean   @default(false) @map("is_featured")
+  publishDate     DateTime? @map("publish_date")
+  readingTime     Int?      @map("reading_time")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([status, publishDate])
+  @@index([slug])
+  @@index([category])
+  @@map("blog_posts")
+}
+
+model Career {
+  id              String   @id @default(cuid())
+  jobTitle        String   @map("job_title")
+  department      String?
+  location        String?
+  employmentType  String?  @map("employment_type")
+  experience      String?
+  salary          String?
+  description     String?
+  responsibilities String?
+  requirements    String?
+  benefits        String?
+  applyLink       String?  @map("apply_link")
+  status          String   @default("draft")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@index([department])
+  @@map("careers")
+}
+
+model Event {
+  id               String   @id @default(cuid())
+  title            String
+  banner           String?
+  description      String?
+  venue            String?
+  address          String?
+  googleMapLink    String?  @map("google_map_link")
+  date             DateTime?
+  time             String?
+  organizer        String?
+  registrationLink String?  @map("registration_link")
+  maxParticipants  Int?     @map("max_participants")
+  status           String   @default("upcoming")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@index([status, date])
+  @@map("events")
+}
+
+model Partner {
+  id           String  @id @default(cuid())
+  logo         String?
+  name         String
+  partnerType  String? @map("partner_type")
+  description  String?
+  website      String?
+  isFeatured   Boolean @default(false) @map("is_featured")
+  displayOrder Int     @default(0) @map("display_order")
+  status       String  @default("published")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([status, displayOrder])
+  @@map("partners")
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  photo     String?
+  role      String?
+  company   String?
+  rating    Int?
+  review    String
+  isFeatured Boolean @default(false) @map("is_featured")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([isFeatured])
+  @@map("testimonials")
+}
+
+model SiteFAQ {
+  id           String  @id @default(cuid())
+  question     String
+  answer       String
+  category     String?
+  displayOrder Int     @default(0) @map("display_order")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([displayOrder])
+  @@map("site_faqs")
+}
+
+model Plan {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  price       Decimal  @db.Decimal(10, 2)
+  interval    String   @default("month")
+  description String?
+  features    Json?
+  isPopular   Boolean  @default(false) @map("is_popular")
+  displayOrder Int     @default(0) @map("display_order")
+  status      String   @default("draft")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([status, displayOrder])
+  @@map("plans")
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  url       String
+  type      String
+  fileName  String?  @map("file_name")
+  fileSize  Int?     @map("file_size")
+  mimeType  String?  @map("mime_type")
+  alt       String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([type])
+  @@map("media")
+}
+
+model SiteSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value Json
+
+  @@map("site_settings")
 }
 
 enum NotificationType {

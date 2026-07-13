@@ -29,6 +29,7 @@ import dashboardRoutes from "./routes/dashboard.js";
 import bookmarkRoutes from "./routes/bookmarks.js";
 import uploadRoutes from "./routes/uploads.js";
 import policyRoutes from "./routes/policies.js";
+import cmsRoutes from "./routes/cms.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -88,6 +89,7 @@ app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/bookmarks", bookmarkRoutes);
 app.use("/api/uploads", uploadRoutes);
 app.use("/api/policies", policyRoutes);
+app.use("/api/admin/cms", cmsRoutes);
 
 app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
 

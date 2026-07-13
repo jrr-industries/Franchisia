@@ -27,7 +27,7 @@ router.put("/me", authenticate, async (req, res) => {
   try {
     const {
       fullName, name: reqName, headline, bio, phone, location, country, state, city,
-      website, linkedinUrl, investmentCapacity, industries, experienceYears,
+      website, investmentCapacity, industries, experienceYears,
       companyName, brandName, gstNumber, businessEmail, businessRegistrationNumber,
       numberOfOutlets, yearsInBusiness, companyDescription, contactPerson,
       consultancyName, certifications, preferredIndustry, investmentRange,
@@ -44,7 +44,6 @@ router.put("/me", authenticate, async (req, res) => {
     if (state !== undefined) data.state = state;
     if (city !== undefined) data.city = city;
     if (website !== undefined) data.website = website;
-    if (linkedinUrl !== undefined) data.linkedinUrl = linkedinUrl;
     if (investmentCapacity !== undefined) data.investmentCapacity = investmentCapacity;
     if (industries !== undefined) data.industries = industries;
     if (experienceYears !== undefined) data.experienceYears = experienceYears;
@@ -82,7 +81,7 @@ router.get("/:id", async (req, res) => {
       where: { id: req.params.id },
       select: {
         id: true, name: true, image: true, headline: true, bio: true,
-        location: true, country: true, state: true, city: true, website: true, linkedinUrl: true, industries: true,
+        location: true, country: true, state: true, city: true, website: true, industries: true,
         experienceYears: true, role: true, skills: true, education: true,
         experience: true, createdAt: true, followerCount: true, followingCount: true,
         verified: true, accountStatus: true, companyName: true, brandName: true, phone: true,

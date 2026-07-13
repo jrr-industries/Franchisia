@@ -218,6 +218,37 @@ export default function AdminDashboard() {
         )}
       </motion.div>
 
+      {/* ── CMS Analytics ── */}
+      {stats && (
+        <>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, marginTop: 8 }}>
+            <div style={{ width: 4, height: 20, borderRadius: 2, backgroundColor: 'var(--primary)' }} />
+            <h2 style={{ fontSize: 16, fontWeight: 600 }}>Content Management</h2>
+          </div>
+          <motion.div variants={container} initial="hidden" animate="show" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: 12, marginBottom: 28 }}>
+            {[
+              { key: 'totalBlogPosts', label: 'Blog Posts', color: '#3B82F6', bg: '#DBEAFE' },
+              { key: 'publishedBlogPosts', label: 'Published', color: '#10B981', bg: '#D1FAE5' },
+              { key: 'draftBlogPosts', label: 'Drafts', color: '#F59E0B', bg: '#FEF3C7' },
+              { key: 'totalEvents', label: 'Events', color: '#8B5CF6', bg: '#EDE9FE' },
+              { key: 'totalPartners', label: 'Partners', color: '#EC4899', bg: '#FCE7F3' },
+              { key: 'totalTestimonials', label: 'Testimonials', color: '#14B8A6', bg: '#CCFBF1' },
+              { key: 'totalFAQs', label: 'FAQs', color: '#F97316', bg: '#FFEDD5' },
+            ].map((card) => {
+              const value = stats?.[card.key] ?? 0;
+              return (
+                <motion.div key={card.key} variants={item}>
+                  <Card hover={false} padding="14px">
+                    <div style={{ fontSize: 20, fontWeight: 700, lineHeight: 1.2 }}>{typeof value === 'number' ? formatNum(value) : value}</div>
+                    <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{card.label}</div>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </>
+      )}
+
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 20, marginBottom: 24 }}>
         <ChartCard title="User Growth" loading={chartsLoading} isEmpty={!charts.userGrowth?.series?.length}>
           <ResponsiveContainer width="100%" height={260}>

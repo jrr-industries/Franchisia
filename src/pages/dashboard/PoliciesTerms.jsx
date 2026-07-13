@@ -1,16 +1,16 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
-  Save, Check, X, Plus, Trash2, Upload, Eye, FileText,
+  Save, Check, Plus, Trash2, Eye, FileText,
   Monitor, Tablet, Smartphone, Clock, History, Globe,
-  ArrowUp, AlertTriangle, ChevronDown, ChevronRight,
+  AlertTriangle, ChevronDown, ChevronRight,
   HelpCircle, DollarSign, Scale, BookOpen, MapPin,
-  Shield, File, Camera, Play, Loader2, BadgeCheck,
-  DraftingCompass, Lightbulb, GripVertical, Archive,
+  Shield, Camera, Play, Loader2, BadgeCheck,
+  DraftingCompass, Archive,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Card from "../../components/ui/Card";
@@ -26,7 +26,7 @@ const policySchema = z.object({
   minimumEducation: z.string().optional().nullable(),
   businessExperienceRequired: z.string().optional().nullable(),
   netWorthRequired: z.string().optional().nullable(),
-  preferredIndustries: z.array(z.string()).optional().nullable(),
+  preferredIndustries: z.string().optional().nullable(),
   commercialSpaceRequired: z.boolean().optional().nullable(),
   businessRegistrationRequired: z.boolean().optional().nullable(),
   gstRequired: z.boolean().optional().nullable(),
@@ -62,9 +62,9 @@ const policySchema = z.object({
   exclusiveTerritory: z.boolean().optional().nullable(),
   nonExclusiveTerritory: z.boolean().optional().nullable(),
   expansionPlans: z.string().optional().nullable(),
-  targetCities: z.array(z.string()).optional().nullable(),
-  targetStates: z.array(z.string()).optional().nullable(),
-  targetCountries: z.array(z.string()).optional().nullable(),
+  targetCities: z.string().optional().nullable(),
+  targetStates: z.string().optional().nullable(),
+  targetCountries: z.string().optional().nullable(),
 
   refundPolicy: z.string().optional().nullable(),
   cancellationPolicy: z.string().optional().nullable(),
@@ -215,6 +215,19 @@ export default function PoliciesTerms() {
   const { user } = useAuth();
   const { addToast } = useToast();
 
+  if (user?.role !== "franchisor") {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "60vh", padding: 24 }}>
+        <AlertTriangle size={64} color="var(--danger)" style={{ marginBottom: 16 }} />
+        <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8 }}>Access Denied</h2>
+        <p style={{ fontSize: 14, color: "var(--text-secondary)", textAlign: "center", maxWidth: 400, marginBottom: 24 }}>
+          You don't have permission to access this page. Only franchisors can manage franchise policies.
+        </p>
+        <Button variant="primary" onClick={() => navigate("/dashboard")}>Go to Dashboard</Button>
+      </div>
+    );
+  }
+
   const [policy, setPolicy] = useState(null);
   const [companyId, setCompanyId] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -266,13 +279,12 @@ export default function PoliciesTerms() {
     if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
     autoSaveTimer.current = setTimeout(() => {
       if (policy?.id) handleSave();
-      else setHasChanges(false);
     }, 3000);
     return () => { if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current); };
   }, [hasChanges, formValues]);
 
   useEffect(() => {
-    setHasChanges(true);
+    if (policy) setHasChanges(true);
   }, [formValues]);
 
   useEffect(() => {
@@ -286,6 +298,44 @@ export default function PoliciesTerms() {
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [hasChanges]);
 
+  function preparePolicyForForm(policy) {
+    const p = { ...policy };
+    const arrayFields = ["preferredIndustries", "targetCities", "targetStates", "targetCountries"];
+    arrayFields.forEach((f) => {
+      if (Array.isArray(p[f])) p[f] = p[f].join(", ");
+    });
+    return p;
+  }
+
+  function preparePolicyForSave(values) {
+    const vals = {};
+    Object.keys(values).forEach((k) => {
+      if (values[k] !== undefined && values[k] !== null) vals[k] = values[k];
+    });
+
+    const intFields = ["minimumAge"];
+    intFields.forEach((f) => {
+      if (vals[f] === "" || vals[f] === undefined || vals[f] === null) {
+        delete vals[f];
+      } else if (typeof vals[f] === "string") {
+        const parsed = parseInt(vals[f], 10);
+        vals[f] = isNaN(parsed) ? null : parsed;
+      }
+    });
+
+    const arrayFields = ["preferredIndustries", "targetCities", "targetStates", "targetCountries"];
+    arrayFields.forEach((f) => {
+      if (vals[f] && typeof vals[f] === "string") {
+        vals[f] = vals[f].split(",").map((s) => s.trim()).filter(Boolean);
+      }
+    });
+
+    const metaFields = ["id", "companyId", "createdAt", "updatedAt", "faqs", "documents", "versions", "acceptances", "_count"];
+    metaFields.forEach((f) => delete vals[f]);
+
+    return vals;
+  }
+
   const fetchPolicy = useCallback(async () => {
     setLoading(true);
     try {
@@ -294,8 +344,9 @@ export default function PoliciesTerms() {
         const data = await res.json();
         setCompanyId(data.companyId);
         if (data.policy) {
+          const prepared = preparePolicyForForm(data.policy);
           setPolicy(data.policy);
-          reset(data.policy);
+          reset(prepared);
           setFaqs(data.policy.faqs || []);
           setDocuments(data.policy.documents || []);
           setVersions(data.policy.versions || []);
@@ -311,8 +362,7 @@ export default function PoliciesTerms() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const vals = {};
-      Object.keys(formValues).forEach(k => { if (formValues[k] !== undefined) vals[k] = formValues[k]; });
+      const vals = preparePolicyForSave(formValues);
 
       if (policy?.id) {
         const res = await fetch(`${API}/policies/${policy.id}`, {
@@ -868,7 +918,14 @@ export default function PoliciesTerms() {
               </p>
             ) : (
               faqs.map((faq, i) => (
-                <div key={faq.id} style={s.faqCard}>
+                <motion.div
+                  key={faq.id}
+                  style={s.faqCard}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                >
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
                     <div style={{ flex: 1 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
@@ -881,7 +938,7 @@ export default function PoliciesTerms() {
                       <Trash2 size={14} />
                     </button>
                   </div>
-                </div>
+                </motion.div>
               ))
             )}
 
@@ -917,25 +974,33 @@ export default function PoliciesTerms() {
           <Section id="documents" title="Documents" icon={FileText}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 12, marginBottom: 20 }}>
               {[
-                { type: "franchise_agreement", label: "Franchise Agreement", icon: FileText },
-                { type: "investment_brochure", label: "Investment Brochure", icon: FileText },
-                { type: "company_brochure", label: "Company Brochure", icon: FileText },
-                { type: "brand_guidelines", label: "Brand Guidelines", icon: FileText },
-                { type: "fdd", label: "FDD", icon: FileText },
-                { type: "image", label: "Images", icon: Camera },
-                { type: "video", label: "Videos", icon: Play },
-              ].map((docType) => {
+                { type: "franchise_agreement", label: "Franchise Agreement", Icon: FileText },
+                { type: "investment_brochure", label: "Investment Brochure", Icon: FileText },
+                { type: "company_brochure", label: "Company Brochure", Icon: FileText },
+                { type: "brand_guidelines", label: "Brand Guidelines", Icon: FileText },
+                { type: "fdd", label: "FDD", Icon: FileText },
+                { type: "image", label: "Images", Icon: Camera },
+                { type: "video", label: "Videos", Icon: Play },
+              ].map((docType, i) => {
                 const existing = documents.filter(d => d.type === docType.type);
+                const DocIcon = docType.Icon;
                 return (
-                  <div key={docType.type} style={{ padding: 16, borderRadius: 10, border: "1px solid var(--border)", backgroundColor: "var(--background)", textAlign: "center" }}>
-                    <div style={{ marginBottom: 8, color: "var(--primary)" }}>{docType.icon({ size: 24 })}</div>
+                  <motion.div
+                    key={docType.type}
+                    style={{ padding: 16, borderRadius: 10, border: "1px solid var(--border)", backgroundColor: "var(--background)", textAlign: "center" }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.08 }}
+                  >
+                    <div style={{ marginBottom: 8, color: "var(--primary)" }}>{DocIcon ? <DocIcon size={24} /> : null}</div>
                     <p style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>{docType.label}</p>
                     <p style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 8 }}>{existing.length} file{existing.length !== 1 ? "s" : ""}</p>
                     <label style={{ cursor: "pointer" }}>
                       <input type="file" hidden onChange={(e) => handleDocUpload(e, docType.type)} accept={docType.type === "image" ? "image/*" : docType.type === "video" ? "video/*" : ".pdf,.doc,.docx" } />
                       <span style={{ fontSize: 12, color: "var(--primary)", fontWeight: 500 }}>+ Upload</span>
                     </label>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
@@ -943,8 +1008,15 @@ export default function PoliciesTerms() {
             {documents.length === 0 ? (
               <p style={{ fontSize: 14, color: "var(--text-muted)", textAlign: "center", padding: 16 }}>No documents uploaded yet.</p>
             ) : (
-              documents.map((doc) => (
-                <div key={doc.id} style={s.docCard}>
+              documents.map((doc, i) => (
+                <motion.div
+                  key={doc.id}
+                  style={s.docCard}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                >
                   <FileText size={20} color="var(--primary)" />
                   <div style={{ flex: 1 }}>
                     <p style={{ fontSize: 14, fontWeight: 500 }}>{doc.title}</p>
@@ -956,7 +1028,7 @@ export default function PoliciesTerms() {
                   <button onClick={() => handleDeleteDoc(doc.id)} style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", padding: 4, display: "flex" }}>
                     <Trash2 size={14} />
                   </button>
-                </div>
+                </motion.div>
               ))
             )}
             {docUploading && <p style={{ fontSize: 13, color: "var(--text-muted)", textAlign: "center" }}>Uploading...</p>}
@@ -1009,7 +1081,7 @@ export default function PoliciesTerms() {
                       Version {policy.version} · Published {policy.publishedAt ? new Date(policy.publishedAt).toLocaleDateString() : ""}
                     </p>
                     <p style={{ fontSize: 13, color: "var(--text-muted)" }}>
-                      {policy.acceptances?.length || 0} franchisee{policy.acceptances?.length !== 1 ? "s" : ""} have accepted these terms
+                       {policy._count?.acceptances || 0} franchisee{(policy._count?.acceptances || 0) !== 1 ? "s" : ""} have accepted these terms
                     </p>
                   </div>
                 ) : policy?.status === "archived" ? (
@@ -1094,7 +1166,14 @@ export default function PoliciesTerms() {
 
 function Section({ id, title, icon: Icon, children }) {
   return (
-    <div id={`section-${id}`} style={s.section}>
+    <motion.div
+      id={`section-${id}`}
+      style={s.section}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div style={s.sectionCard}>
         <div style={s.sectionHeader}>
           <div style={s.sectionIcon}><Icon size={18} /></div>
@@ -1104,7 +1183,7 @@ function Section({ id, title, icon: Icon, children }) {
           {children}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

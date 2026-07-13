@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import {
   MapPin, Briefcase, MessageSquare, UserPlus, Calendar,
   GraduationCap, Star, ExternalLink, Award, ThumbsUp, Globe,
-  Share2, Flag, Check, CheckCircle, Link as LinkIcon, X,
+  Share2, Flag, Check, CheckCircle, X,
   Send, Settings, Edit3, Save, Camera
 } from 'lucide-react';
 import Button from '../../components/ui/Button';
@@ -154,7 +154,6 @@ function RoleProfileInfo({ u }) {
   const commonFields = [
     { label: 'Phone', value: u.phone },
     { label: 'Website', value: u.website },
-    { label: 'LinkedIn', value: u.linkedinUrl },
   ].filter((f) => f.value);
 
   let roleFields = [];
@@ -241,7 +240,7 @@ export default function Profile() {
   const [reportSending, setReportSending] = useState(false);
 
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editForm, setEditForm] = useState({ name: '', headline: '', bio: '', location: '', country: '', state: '', city: '', website: '', phone: '', industry: '', linkedinUrl: '', companyName: '', brandName: '', businessRegistrationNumber: '', gstNumber: '', businessEmail: '', numberOfOutlets: '', yearsInBusiness: '', companyDescription: '', contactPerson: '', consultancyName: '', certifications: '', preferredIndustry: '', investmentRange: '', investmentCapacity: '', experienceYears: '' });
+  const [editForm, setEditForm] = useState({ name: '', headline: '', bio: '', location: '', country: '', state: '', city: '', website: '', phone: '', industry: '', companyName: '', brandName: '', businessRegistrationNumber: '', gstNumber: '', businessEmail: '', numberOfOutlets: '', yearsInBusiness: '', companyDescription: '', contactPerson: '', consultancyName: '', certifications: '', preferredIndustry: '', investmentRange: '', investmentCapacity: '', experienceYears: '' });
   const [editSaving, setEditSaving] = useState(false);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [uploadingBanner, setUploadingBanner] = useState(false);
@@ -266,7 +265,6 @@ export default function Profile() {
         website: u.website || '',
         phone: u.phone || '',
         industry: (u.industries || [])[0] || '',
-        linkedinUrl: u.linkedinUrl || '',
         companyName: u.companyName || '',
         brandName: u.brandName || '',
         businessRegistrationNumber: u.businessRegistrationNumber || '',
@@ -322,7 +320,6 @@ export default function Profile() {
         city: editForm.city || null,
         website: editForm.website,
         phone: editForm.phone,
-        linkedinUrl: editForm.linkedinUrl || null,
         industries: editForm.industry ? [editForm.industry] : [],
         companyName: editForm.companyName || null,
         brandName: editForm.brandName || null,
@@ -899,11 +896,6 @@ export default function Profile() {
             <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Website</label>
             <input style={s.input} value={editForm.website} onChange={(e) => setEditForm({ ...editForm, website: e.target.value })} placeholder="https://" />
           </div>
-          <div>
-            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>LinkedIn URL</label>
-            <input style={s.input} value={editForm.linkedinUrl} onChange={(e) => setEditForm({ ...editForm, linkedinUrl: e.target.value })} placeholder="https://linkedin.com/in/" />
-          </div>
-
           {profileUser?.role && profileUser?.role !== 'none' && profileUser?.role !== 'admin' && (
             <>
               <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--primary)', borderBottom: '1px solid var(--border)', paddingBottom: 8, marginTop: 8 }}>

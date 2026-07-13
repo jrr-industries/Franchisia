@@ -1,6 +1,0 @@
-import{i as l,j as e}from"./index-Bg7LZZlu.js";import{C as c}from"./chevron-right-DGAxCjZ0.js";/**
- * @license lucide-react v0.400.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */const f=l("ChevronLeft",[["path",{d:"m15 18-6-6 6-6",key:"1wnfg3"}]]);function h({current:n,total:a,onChange:r}){const i=[];for(let t=1;t<=a;t++)i.push(t);const o=t=>({width:40,height:40,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:10,border:t?"none":"1px solid var(--outline-variant)",backgroundColor:t?"var(--primary)":"transparent",color:t?"var(--on-primary)":"var(--on-surface-variant)",fontWeight:t?700:600,fontSize:14,cursor:"pointer",transition:"all 0.15s"});return e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:6,justifyContent:"center"},children:[e.jsx("button",{style:o(!1),onClick:()=>r(Math.max(1,n-1)),children:e.jsx(f,{size:16})}),i.map(t=>e.jsx("button",{style:o(t===n),onClick:()=>r(t),onMouseEnter:s=>{t!==n&&(s.currentTarget.style.backgroundColor="var(--surface-container-low)")},onMouseLeave:s=>{t!==n&&(s.currentTarget.style.backgroundColor="transparent")},children:t},t)),e.jsx("button",{style:o(!1),onClick:()=>r(Math.min(a,n+1)),children:e.jsx(c,{size:16})})]})}export{f as C,h as P};

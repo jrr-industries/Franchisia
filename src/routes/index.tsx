@@ -13,6 +13,11 @@ import Contact from "../pages/public/Contact";
 import FAQ from "../pages/public/FAQ";
 import Privacy from "../pages/public/Privacy";
 import Terms from "../pages/public/Terms";
+import Blog from "../pages/public/Blog";
+import Partners from "../pages/public/Partners";
+import Careers from "../pages/public/Careers";
+import Events from "../pages/public/Events";
+import Payment from "../pages/public/Payment";
 
 import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
@@ -52,6 +57,18 @@ const AdminSystemHealth = lazy(() => import("../pages/admin/AdminSystemHealth"))
 const AdminSettingsPage = lazy(() => import("../pages/admin/AdminSettings"));
 const AdminContent = lazy(() => import("../pages/admin/AdminContent"));
 const AdminPolicies = lazy(() => import("../pages/admin/AdminPolicies"));
+const AdminBlog = lazy(() => import("../pages/admin/AdminBlog"));
+const AdminCareers = lazy(() => import("../pages/admin/AdminCareers"));
+const AdminEvents = lazy(() => import("../pages/admin/AdminEvents"));
+const AdminPartners = lazy(() => import("../pages/admin/AdminPartners"));
+const AdminTestimonials = lazy(() => import("../pages/admin/AdminTestimonials"));
+const AdminSiteFAQ = lazy(() => import("../pages/admin/AdminSiteFAQ"));
+const AdminPlans = lazy(() => import("../pages/admin/AdminPlans"));
+const AdminMedia = lazy(() => import("../pages/admin/AdminMedia"));
+const AdminHero = lazy(() => import("../pages/admin/AdminHero"));
+const AdminStatistics = lazy(() => import("../pages/admin/AdminStatistics"));
+const AdminFooter = lazy(() => import("../pages/admin/AdminFooter"));
+const AdminContact = lazy(() => import("../pages/admin/AdminContact"));
 
 function SuspenseFallback() {
   return (
@@ -85,6 +102,11 @@ export default function AppRoutes() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/partners" element={<Partners />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/discover" element={<Suspense fallback={<PageLoading />}><Discover /></Suspense>} />
           <Route path="/companies" element={<Suspense fallback={<PageLoading />}><Companies /></Suspense>} />
           <Route path="/login" element={<AuthRedirect><Login /></AuthRedirect>} />
@@ -125,6 +147,18 @@ export default function AppRoutes() {
           <Route path="/admin/settings" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminSettingsPage /></Suspense></AdminRoute>} />
           <Route path="/admin/content" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminContent /></Suspense></AdminRoute>} />
           <Route path="/admin/policies" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminPolicies /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/blog" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminBlog /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/careers" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminCareers /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/events" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminEvents /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/partners" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminPartners /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/testimonials" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminTestimonials /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/faq" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminSiteFAQ /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/plans" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminPlans /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/media" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminMedia /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/hero" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminHero /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/statistics" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminStatistics /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/footer" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminFooter /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/contact" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminContact /></Suspense></AdminRoute>} />
         </Route>
       </Routes>
     </Suspense>
