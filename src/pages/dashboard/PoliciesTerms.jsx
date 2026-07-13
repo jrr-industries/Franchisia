@@ -325,9 +325,18 @@ export default function PoliciesTerms() {
 
     const arrayFields = ["preferredIndustries", "targetCities", "targetStates", "targetCountries"];
     arrayFields.forEach((f) => {
-      if (vals[f] && typeof vals[f] === "string") {
-        vals[f] = vals[f].split(",").map((s) => s.trim()).filter(Boolean);
+      if (typeof vals[f] === "string") {
+        const arr = vals[f].split(",").map((s) => s.trim()).filter(Boolean);
+        vals[f] = arr.length ? arr : [];
+      } else if (!Array.isArray(vals[f])) {
+        delete vals[f];
       }
+    });
+
+    ["", null, undefined].forEach((v) => {
+      Object.keys(vals).forEach((k) => {
+        if (vals[k] === v) delete vals[k];
+      });
     });
 
     const metaFields = ["id", "companyId", "createdAt", "updatedAt", "faqs", "documents", "versions", "acceptances", "_count"];
@@ -398,7 +407,7 @@ export default function PoliciesTerms() {
           addToast(err.error || "Create failed", "error");
         }
       }
-    } catch {
+    } catch (e) {
       addToast("Network error", "error");
     } finally {
       setSaving(false);

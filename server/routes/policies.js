@@ -126,8 +126,9 @@ router.post("/", authenticate, requireFranchisor, async (req, res) => {
 
     res.status(201).json(policy);
   } catch (error) {
-    console.error("Policies route error:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error("Policies POST error:", error);
+    console.error("Request body:", JSON.stringify(req.body));
+    res.status(500).json({ error: error.message || "Internal server error" });
   }
 });
 
