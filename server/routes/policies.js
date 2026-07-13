@@ -1,6 +1,8 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authenticate, authorize } from "../middleware/auth.js";
+import { auth } from "../lib/auth.ts";
+import { fromNodeHeaders } from "better-auth/node";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
@@ -53,7 +55,7 @@ router.get("/my", authenticate, async (req, res) => {
   }
 });
 
-router.get("/company/:companyId", authenticate, async (req, res) => {
+router.get("/company/:companyId", async (req, res) => {
   try {
     const policy = await prisma.companyPolicy.findFirst({
       where: { companyId: req.params.companyId, isSuspended: false },
@@ -63,7 +65,26 @@ router.get("/company/:companyId", authenticate, async (req, res) => {
       },
     });
     if (!policy) return res.json({ policy: null });
-    if (policy.status !== "published") return res.json({ policy: null });
+
+    let viewerId = null;
+    try {
+      const session = await auth.api.getSession({
+        headers: fromNodeHeaders(req.headers),
+      });
+      viewerId = session?.user?.id || null;
+    } catch {}
+
+    const company = await prisma.company.findUnique({
+      where: { id: req.params.companyId },
+      select: { ownerId: true },
+    });
+
+    const isOwner = company && viewerId === company.ownerId;
+
+    if (!isOwner && policy.status !== "published") {
+      return res.json({ policy: null });
+    }
+
     res.json({ policy });
   } catch (error) {
     console.error("Policies route error:", error);
@@ -428,6 +449,25 @@ router.get("/admin/policies", authenticate, authorize("admin"), async (req, res)
   }
 });
 
+router.get("/admin/:id", authenticate, authorize("admin"), async (req, res) => {
+  try {
+    const policy = await prisma.companyPolicy.findUnique({
+      where: { id: req.params.id },
+      include: {
+        company: { select: { id: true, name: true, slug: true, ownerId: true } },
+        faqs: { orderBy: { sortOrder: "asc" } },
+        documents: true,
+        _count: { select: { acceptances: true } },
+      },
+    });
+    if (!policy) return res.status(404).json({ error: "Policy not found" });
+    res.json(policy);
+  } catch (error) {
+    console.error("Policies route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.put("/admin/:id/suspend", authenticate, authorize("admin"), async (req, res) => {
   try {
     const updated = await prisma.companyPolicy.update({
@@ -435,6 +475,19 @@ router.put("/admin/:id/suspend", authenticate, authorize("admin"), async (req, r
       data: { isSuspended: req.body.suspended },
     });
     res.json(updated);
+  } catch (error) {
+    console.error("Policies route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/admin/:id/versions", authenticate, authorize("admin"), async (req, res) => {
+  try {
+    const versions = await prisma.companyPolicyVersion.findMany({
+      where: { policyId: req.params.id },
+      orderBy: { createdAt: "desc" },
+    });
+    res.json(versions);
   } catch (error) {
     console.error("Policies route error:", error);
     res.status(500).json({ error: "Internal server error" });
