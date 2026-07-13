@@ -14,11 +14,11 @@ export default function FAQSection() {
   const [open, setOpen] = useState(null);
 
   return (
-    <section style={{ padding: '80px 0' }} id="faq">
+    <section style={{ padding: '80px 0', backgroundColor: 'var(--surface)' }} id="faq">
       <div className="container" style={{ maxWidth: 700 }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 12 }}>Frequently Asked Questions</h2>
-          <p style={{ fontSize: 16, color: 'var(--text-secondary)' }}>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: 'var(--on-surface)' }}>Frequently Asked Questions</h2>
+          <p style={{ fontSize: 16, color: 'var(--on-surface-variant)' }}>
             Got questions? We've got answers.
           </p>
         </div>
@@ -28,10 +28,11 @@ export default function FAQSection() {
             <div
               key={i}
               style={{
-                backgroundColor: 'var(--surface)',
-                border: '1px solid var(--border)',
-                borderRadius: 'var(--radius-sm)',
+                backgroundColor: 'var(--surface-container-low)',
+                border: '1px solid var(--outline-variant)',
+                borderRadius: 12,
                 overflow: 'hidden',
+                transition: 'border-color 0.2s',
               }}
             >
               <button
@@ -43,11 +44,12 @@ export default function FAQSection() {
                   alignItems: 'center',
                   padding: '18px 20px',
                   fontSize: 15,
-                  fontWeight: 500,
-                  color: 'var(--text)',
+                  fontWeight: 600,
+                  color: 'var(--on-surface)',
                   backgroundColor: 'transparent',
                   border: 'none',
                   textAlign: 'left',
+                  cursor: 'pointer',
                 }}
               >
                 {faq.q}
@@ -56,13 +58,13 @@ export default function FAQSection() {
                   style={{
                     transition: 'transform 0.2s',
                     transform: open === i ? 'rotate(180deg)' : 'rotate(0)',
-                    color: 'var(--text-muted)',
+                    color: 'var(--on-surface-variant)',
                     flexShrink: 0,
                   }}
                 />
               </button>
               {open === i && (
-                <div style={{ padding: '0 20px 18px', fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+                <div style={{ padding: '0 20px 18px', fontSize: 14, color: 'var(--on-surface-variant)', lineHeight: 1.7 }}>
                   {faq.a}
                 </div>
               )}

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Franchisia | Investment ROI Calculator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#bdffdb",
+                    "primary": "#004ac6",
+                    "on-background": "#0b1c30",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "outline-variant": "#c3c6d7",
+                    "surface-dim": "#cbdbf5",
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#eeefff",
+                    "inverse-primary": "#b4c5ff",
+                    "tertiary-container": "#007d55",
+                    "on-primary-fixed": "#00174b",
+                    "on-tertiary-fixed": "#002113",
+                    "surface-container-low": "#eff4ff",
+                    "on-error": "#ffffff",
+                    "primary-container": "#2563eb",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "on-secondary-container": "#5c647a",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#d3e4fe",
+                    "tertiary-fixed": "#6ffbbe",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#dce9ff",
+                    "inverse-surface": "#213145",
+                    "surface-tint": "#0053db",
+                    "secondary-fixed": "#dae2fd",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#f8f9ff",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#434655",
+                    "secondary": "#565e74",
+                    "surface-container-highest": "#d3e4fe",
+                    "secondary-container": "#dae2fd",
+                    "surface-container": "#e5eeff",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "surface": "#f8f9ff",
+                    "on-secondary-fixed": "#131b2e",
+                    "inverse-on-surface": "#eaf1ff",
+                    "background": "#f8f9ff",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "on-surface": "#0b1c30",
+                    "tertiary": "#006242",
+                    "outline": "#737686",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#dbe1ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "2xl": "48px",
+                    "xs": "8px",
+                    "xl": "32px",
+                    "sm": "12px",
+                    "3xl": "64px",
+                    "md": "16px",
+                    "gutter": "24px",
+                    "base": "4px",
+                    "container-max": "1440px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Inter"],
+                    "h2": ["Inter"],
+                    "body-md": ["Inter"],
+                    "metric-md": ["JetBrains Mono"],
+                    "metric-lg": ["JetBrains Mono"],
+                    "display-lg-mobile": ["Inter"],
+                    "h3": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "metric-md": ["16px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "metric-lg": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chart-container {
+            background: linear-gradient(to bottom, rgba(255,255,255,0.05) 0%, transparent 100%);
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #004ac6;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- Top Navigation Anchor -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-lg py-md max-w-container-max mx-auto bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-xl">
+<span class="text-h2 font-h2 font-bold text-primary">Franchisia</span>
+<div class="hidden md:flex gap-lg">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-body-md font-body-md" href="#">Discover</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 text-body-md font-body-md" href="#">Resources</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-body-md font-body-md" href="#">Companies</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant px-md py-xs hover:bg-primary-container/10 rounded-lg transition-all font-body-md">Login</button>
+<button class="bg-primary text-on-primary px-lg py-xs rounded-lg font-bold shadow-sm hover:opacity-90 transition-all font-body-md">Get Started</button>
+</div>
+</nav>
+<!-- Main Content Layout -->
+<main class="pt-3xl px-gutter max-w-container-max mx-auto grid grid-cols-12 gap-lg pb-3xl">
+<!-- Page Header -->
+<header class="col-span-12 mb-lg">
+<div class="flex flex-col md:flex-row justify-between items-end gap-md">
+<div>
+<h1 class="font-h1 text-h1 text-on-background mb-base">Investment ROI Calculator</h1>
+<p class="text-on-surface-variant max-w-2xl">Model your financial future with high-precision projections. Adjust variables to see the long-term impact on your portfolio profitability.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs px-md py-xs border border-outline rounded-lg text-body-sm font-bold hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-[20px]">save</span> Save Scenario
+                    </button>
+<button class="flex items-center gap-xs px-md py-xs bg-primary text-on-primary rounded-lg text-body-sm font-bold shadow-md hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span> Export Pro Forma
+                    </button>
+</div>
+</div>
+</header>
+<!-- Sidebar: Model Configuration -->
+<aside class="col-span-12 lg:col-span-4 space-y-md">
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl shadow-sm">
+<h3 class="font-h3 text-h3 mb-lg flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">tune</span> Model Configuration
+                </h3>
+<div class="space-y-xl">
+<!-- Initial Investment -->
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<label class="text-label-caps text-on-surface-variant">Initial Investment</label>
+<span class="font-metric-md text-primary">$450,000</span>
+</div>
+<input class="w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" max="1000000" min="100000" step="10000" type="range" value="450000"/>
+</div>
+<!-- Projected Unit Volume -->
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<label class="text-label-caps text-on-surface-variant">Projected Unit Volume</label>
+<span class="font-metric-md text-primary">1,250 Units</span>
+</div>
+<input class="w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" max="5000" min="500" step="50" type="range" value="1250"/>
+</div>
+<!-- Operational Grid -->
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="text-label-caps text-on-surface-variant">Labor %</label>
+<div class="flex items-center bg-surface-container-low border border-outline-variant rounded px-sm py-xs">
+<input class="w-full bg-transparent border-none focus:ring-0 font-metric-md" type="text" value="22"/>
+<span class="text-on-surface-variant">%</span>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="text-label-caps text-on-surface-variant">COGS %</label>
+<div class="flex items-center bg-surface-container-low border border-outline-variant rounded px-sm py-xs">
+<input class="w-full bg-transparent border-none focus:ring-0 font-metric-md" type="text" value="28"/>
+<span class="text-on-surface-variant">%</span>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="text-label-caps text-on-surface-variant">Royalty Fee</label>
+<div class="flex items-center bg-surface-container-low border border-outline-variant rounded px-sm py-xs">
+<input class="w-full bg-transparent border-none focus:ring-0 font-metric-md" type="text" value="6.5"/>
+<span class="text-on-surface-variant">%</span>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="text-label-caps text-on-surface-variant">Ad Fund</label>
+<div class="flex items-center bg-surface-container-low border border-outline-variant rounded px-sm py-xs">
+<input class="w-full bg-transparent border-none focus:ring-0 font-metric-md" type="text" value="2.0"/>
+<span class="text-on-surface-variant">%</span>
+</div>
+</div>
+</div>
+<!-- Monthly Rent/Opex -->
+<div class="space-y-sm">
+<label class="text-label-caps text-on-surface-variant">Fixed Monthly Expenses</label>
+<div class="relative">
+<span class="absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant font-metric-md">$</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg pl-lg pr-sm py-md font-metric-md focus:ring-2 focus:ring-primary focus:border-primary" type="text" value="12,450"/>
+</div>
+</div>
+</div>
+<div class="mt-2xl pt-lg border-t border-outline-variant/30">
+<button class="w-full py-md bg-secondary-container text-on-secondary-container font-bold rounded-lg hover:bg-secondary-fixed transition-all flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined">analytics</span>
+                        Recalculate Model
+                    </button>
+</div>
+</div>
+<!-- Comparison Tool Card -->
+<div class="bg-inverse-surface text-inverse-on-surface p-lg rounded-xl">
+<h4 class="text-label-caps opacity-70 mb-sm">Sector Benchmark</h4>
+<div class="flex justify-between items-end mb-md">
+<p class="font-h3 text-h3">Logistics/Zenith</p>
+<span class="bg-tertiary text-on-tertiary text-label-caps px-xs py-0.5 rounded">High Performer</span>
+</div>
+<div class="space-y-md">
+<div class="flex justify-between text-body-sm">
+<span class="opacity-80">Avg. 5-Year ROI</span>
+<span class="font-metric-md">142%</span>
+</div>
+<div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim" style="width: 72%"></div>
+</div>
+<p class="text-[12px] leading-relaxed opacity-60">Your current model is performing 14% better than the sector average for Tier 1 territories.</p>
+</div>
+</div>
+</aside>
+<!-- Dashboard Content -->
+<div class="col-span-12 lg:col-span-8 space-y-lg">
+<!-- Dynamic ROI Dashboard: KPI Cards -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl hover:shadow-md transition-shadow">
+<p class="text-label-caps text-on-surface-variant mb-xs">Estimated Annual Profit</p>
+<p class="font-metric-lg text-metric-lg text-primary">$182,400</p>
+<div class="flex items-center gap-xs mt-xs text-[12px] text-tertiary">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +8.2% vs Plan
+                    </div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl hover:shadow-md transition-shadow">
+<p class="text-label-caps text-on-surface-variant mb-xs">Break-Even Timeline</p>
+<p class="font-metric-lg text-metric-lg text-on-background">28.4 <span class="text-body-sm font-body-md text-on-surface-variant">Months</span></p>
+<div class="flex items-center gap-xs mt-xs text-[12px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">event</span> Target: 30 Months
+                    </div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl hover:shadow-md transition-shadow">
+<p class="text-label-caps text-on-surface-variant mb-xs">5-Year ROI</p>
+<p class="font-metric-lg text-metric-lg text-tertiary">156.2%</p>
+<div class="flex items-center gap-xs mt-xs text-[12px] text-tertiary">
+<span class="material-symbols-outlined text-[14px]">verified</span> Alpha Projection
+                    </div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl hover:shadow-md transition-shadow">
+<p class="text-label-caps text-on-surface-variant mb-xs">Cash-on-Cash Return</p>
+<p class="font-metric-lg text-metric-lg text-on-background">24.8%</p>
+<div class="flex items-center gap-xs mt-xs text-[12px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">info</span> Annual Yield
+                    </div>
+</div>
+</section>
+<!-- Interactive Financial Projections Chart Area -->
+<section class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl shadow-sm h-[420px] flex flex-col">
+<div class="flex justify-between items-center mb-xl">
+<div>
+<h3 class="font-h3 text-h3">Cumulative Cash Flow</h3>
+<p class="text-body-sm text-on-surface-variant">5-Year Projection with Recoupment Analysis</p>
+</div>
+<div class="flex gap-md">
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 bg-primary rounded-full"></div>
+<span class="text-label-caps">Cumulative Net</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 bg-secondary rounded-full"></div>
+<span class="text-label-caps">Fixed Cost</span>
+</div>
+</div>
+</div>
+<div class="flex-grow relative border-l border-b border-outline-variant/30 ml-8 mb-4">
+<!-- Simulated Area Chart -->
+<svg class="w-full h-full" viewbox="0 0 800 300">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#004ac6" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#004ac6" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Y-axis lines -->
+<line class="text-outline-variant/10" stroke="currentColor" stroke-dasharray="4" x1="0" x2="800" y1="75" y2="75"></line>
+<line class="text-outline-variant/10" stroke="currentColor" stroke-dasharray="4" x1="0" x2="800" y1="150" y2="150"></line>
+<line class="text-outline-variant/10" stroke="currentColor" stroke-dasharray="4" x1="0" x2="800" y1="225" y2="225"></line>
+<!-- Area Fill -->
+<path d="M0,280 L100,260 L200,220 L300,180 L400,150 L500,100 L600,60 L700,30 L800,10 L800,280 L0,280 Z" fill="url(#chartGradient)"></path>
+<!-- Main Line -->
+<path d="M0,280 L100,260 L200,220 L300,180 L400,150 L500,100 L600,60 L700,30 L800,10" fill="none" stroke="#004ac6" stroke-width="3"></path>
+<!-- Point of Recoupment -->
+<circle cx="400" cy="150" fill="#ffffff" r="6" stroke="#004ac6" stroke-width="2"></circle>
+<text class="font-metric-md text-[12px] fill-primary" x="415" y="145">Recoupment Point (M28)</text>
+</svg>
+<!-- X-axis labels -->
+<div class="absolute -bottom-6 w-full flex justify-between text-label-caps text-on-surface-variant">
+<span>Year 0</span>
+<span>Year 1</span>
+<span>Year 2</span>
+<span>Year 3</span>
+<span>Year 4</span>
+<span>Year 5</span>
+</div>
+</div>
+</section>
+<!-- Sensitivity Analysis Table -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="p-lg border-b border-outline-variant/30">
+<h3 class="font-h3 text-h3">Sensitivity Analysis</h3>
+<p class="text-body-sm text-on-surface-variant">Impact of Unit Volume variance on bottom-line profitability</p>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/30">
+<th class="px-lg py-md text-label-caps text-on-surface-variant font-semibold">Volume Scenario</th>
+<th class="px-lg py-md text-label-caps text-on-surface-variant font-semibold">Total Revenue</th>
+<th class="px-lg py-md text-label-caps text-on-surface-variant font-semibold">Operating Margin</th>
+<th class="px-lg py-md text-label-caps text-on-surface-variant font-semibold">Annual Profit</th>
+<th class="px-lg py-md text-label-caps text-on-surface-variant font-semibold">Impact %</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20 font-metric-md">
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-md text-error">-20% (Bear Case)</td>
+<td class="px-lg py-md text-on-surface">$540,000</td>
+<td class="px-lg py-md text-on-surface">14.2%</td>
+<td class="px-lg py-md text-on-surface">$76,680</td>
+<td class="px-lg py-md text-error">-57.9%</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-md text-on-surface-variant">-10%</td>
+<td class="px-lg py-md text-on-surface">$607,500</td>
+<td class="px-lg py-md text-on-surface">18.4%</td>
+<td class="px-lg py-md text-on-surface">$111,780</td>
+<td class="px-lg py-md text-on-surface-variant">-38.7%</td>
+</tr>
+<tr class="bg-primary/5 hover:bg-primary/10 transition-colors">
+<td class="px-lg py-md text-primary font-bold">Projected (Base)</td>
+<td class="px-lg py-md text-on-surface">$675,000</td>
+<td class="px-lg py-md text-on-surface">27.0%</td>
+<td class="px-lg py-md text-on-surface font-bold text-primary">$182,400</td>
+<td class="px-lg py-md text-on-surface-variant">---</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-md text-on-surface-variant">+10%</td>
+<td class="px-lg py-md text-on-surface">$742,500</td>
+<td class="px-lg py-md text-on-surface">31.2%</td>
+<td class="px-lg py-md text-on-surface">$231,660</td>
+<td class="px-lg py-md text-tertiary">+27.0%</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-md text-tertiary">+20% (Bull Case)</td>
+<td class="px-lg py-md text-on-surface">$810,000</td>
+<td class="px-lg py-md text-on-surface">34.8%</td>
+<td class="px-lg py-md text-on-surface font-bold text-tertiary">$281,880</td>
+<td class="px-lg py-md text-tertiary">+54.5%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-md bg-surface-container-low/50 text-center">
+<button class="text-primary text-body-sm font-bold hover:underline">Download Detailed Sensitivity Matrix (.CSV)</button>
+</div>
+</section>
+</div>
+</main>
+<!-- Advisor Floating Action Section -->
+<div class="fixed bottom-lg right-lg z-40 flex flex-col items-end gap-sm">
+<div class="bg-surface-container-lowest p-md border border-outline-variant shadow-xl rounded-xl max-w-xs animate-bounce-subtle hidden md:block">
+<p class="text-body-sm font-bold text-on-surface mb-xs">Optimization Tip</p>
+<p class="text-[12px] text-on-surface-variant">Reducing your COGS by just 2% could move your Break-Even forward by 4.2 months.</p>
+</div>
+<button class="bg-primary text-on-primary w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform group relative">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">share</span>
+<span class="absolute right-16 bg-inverse-surface text-inverse-on-surface px-md py-xs rounded text-body-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Share with Advisor</span>
+</button>
+</div>
+<!-- Footer Anchor -->
+<footer class="bg-inverse-surface text-inverse-on-surface mt-3xl">
+<div class="max-w-container-max mx-auto w-full py-2xl px-gutter grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-lg">
+<div class="col-span-2">
+<span class="text-h3 font-h3 font-bold text-inverse-on-surface dark:text-primary block mb-md">Franchisia</span>
+<p class="text-on-surface-variant text-body-sm max-w-xs mb-lg">Empowering investors with institutional-grade tools to discover, evaluate, and scale franchise portfolios.</p>
+<div class="flex gap-md">
+<a class="text-on-surface-variant hover:text-inverse-on-surface transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-on-surface-variant hover:text-inverse-on-surface transition-colors" href="#"><span class="material-symbols-outlined">mail</span></a>
+</div>
+</div>
+<div>
+<h4 class="text-label-caps mb-md">Product</h4>
+<ul class="space-y-sm text-body-sm text-on-surface-variant">
+<li><a class="hover:text-inverse-on-surface" href="#">Features</a></li>
+<li><a class="hover:text-inverse-on-surface" href="#">Marketplace</a></li>
+<li><a class="hover:text-inverse-on-surface" href="#">ROI Calculator</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-label-caps mb-md">Companies</h4>
+<ul class="space-y-sm text-body-sm text-on-surface-variant">
+<li><a class="hover:text-inverse-on-surface" href="#">Zenith Cargo</a></li>
+<li><a class="hover:text-inverse-on-surface" href="#">VitalFlow Health</a></li>
+<li><a class="hover:text-inverse-on-surface" href="#">NeoDine Systems</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-label-caps mb-md">Resources</h4>
+<ul class="space-y-sm text-body-sm text-on-surface-variant">
+<li><a class="hover:text-inverse-on-surface" href="#">Help Center</a></li>
+<li><a class="hover:text-inverse-on-surface" href="#">Financial Guides</a></li>
+<li><a class="hover:text-inverse-on-surface" href="#">Success Stories</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-label-caps mb-md">Legal</h4>
+<ul class="space-y-sm text-body-sm text-on-surface-variant">
+<li><a class="hover:text-inverse-on-surface" href="#">Privacy</a></li>
+<li><a class="hover:text-inverse-on-surface" href="#">Terms</a></li>
+<li><a class="hover:text-inverse-on-surface" href="#">Disclosure</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter py-lg border-t border-outline-variant/20 flex justify-between items-center text-[12px] text-on-surface-variant">
+<span>© 2024 Franchisia Ecosystem. All rights reserved.</span>
+<div class="flex gap-lg">
+<a class="hover:text-inverse-on-surface transition-colors" href="#">Cookie Settings</a>
+<a class="hover:text-inverse-on-surface transition-colors" href="#">System Status</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple interactive demo logic
+        document.querySelectorAll('input[type="range"]').forEach(input => {
+            input.addEventListener('input', (e) => {
+                const val = e.target.value;
+                const span = e.target.parentElement.querySelector('span.font-metric-md');
+                if (span) {
+                    if (e.target.min == "100000") {
+                        span.textContent = `$${parseInt(val).toLocaleString()}`;
+                    } else {
+                        span.textContent = `${parseInt(val).toLocaleString()} Units`;
+                    }
+                }
+            });
+        });
+    </script>
+</body></html>

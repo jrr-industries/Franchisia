@@ -50,14 +50,14 @@ export default function Header({ onToggleSidebar }) {
         style={{
           position: "sticky", top: 0, zIndex: 100,
           backgroundColor: "var(--surface)",
-          borderBottom: "1px solid var(--border)",
+          borderBottom: "1px solid var(--outline-variant)",
           backdropFilter: "blur(8px)",
         }}
       >
         <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 64, gap: 16 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             {isDashboard && onToggleSidebar && (
-              <button onClick={onToggleSidebar} style={{ background: "none", border: "none", color: "var(--text-muted)", padding: 8, display: "flex", borderRadius: 8, cursor: "pointer" }} className="sidebar-toggle-btn" aria-label="Toggle sidebar">
+              <button onClick={onToggleSidebar} className="sidebar-toggle-btn header-icon-btn" aria-label="Toggle sidebar">
                 <PanelLeft size={18} />
               </button>
             )}
@@ -70,11 +70,14 @@ export default function Header({ onToggleSidebar }) {
                 key={link.path}
                 to={link.path}
                 style={{
-                  fontSize: 14, fontWeight: 500,
-                  color: location.pathname === link.path ? "var(--primary)" : "var(--text-secondary)",
+                  fontSize: 14, fontWeight: 600,
+                  color: location.pathname === link.path ? "var(--primary)" : "var(--on-surface-variant)",
                   transition: "color 0.2s",
                   whiteSpace: "nowrap",
+                  textDecoration: "none",
                 }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = location.pathname === link.path ? "var(--primary)" : "var(--on-surface)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = location.pathname === link.path ? "var(--primary)" : "var(--on-surface-variant)"; }}
               >
                 {link.label}
               </Link>
@@ -85,8 +88,8 @@ export default function Header({ onToggleSidebar }) {
             <SearchBar />
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <button onClick={toggleTheme} style={{ background: "none", border: "none", color: "var(--text-muted)", padding: 8, display: "flex", borderRadius: 8, cursor: "pointer" }} aria-label="Toggle theme">
+          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+            <button onClick={toggleTheme} className="header-icon-btn" aria-label="Toggle theme">
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
@@ -97,9 +100,7 @@ export default function Header({ onToggleSidebar }) {
                   onClick={() => navigate("/messages")}
                   className="header-icon-btn"
                   style={{
-                    position: "relative", background: "none", border: "none", color: location.pathname === "/messages" ? "var(--primary)" : "var(--text-muted)",
-                    width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center",
-                    borderRadius: 8, cursor: "pointer", zIndex: 1,
+                    position: "relative",
                   }}
                   aria-label="Messages"
                 >
@@ -116,9 +117,7 @@ export default function Header({ onToggleSidebar }) {
                   onClick={() => navigate("/notifications")}
                   className="header-icon-btn"
                   style={{
-                    position: "relative", background: "none", border: "none", color: location.pathname === "/notifications" ? "var(--primary)" : "var(--text-muted)",
-                    width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center",
-                    borderRadius: 8, cursor: "pointer", zIndex: 1,
+                    position: "relative",
                   }}
                   aria-label="Notifications"
                 >
@@ -131,7 +130,7 @@ export default function Header({ onToggleSidebar }) {
                 <Dropdown
                   align="right"
                   trigger={
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", padding: 2 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", padding: 2, marginLeft: 4 }}>
                       <Avatar name={user?.name || "User"} size={32} />
                     </div>
                   }
@@ -160,12 +159,12 @@ export default function Header({ onToggleSidebar }) {
             ) : (
               <>
                 <Link to="/login" style={{ textDecoration: "none" }}>
-                  <button style={{ padding: "6px 14px", fontSize: 13, fontWeight: 600, backgroundColor: "transparent", color: "var(--primary)", border: "1px solid var(--primary)", borderRadius: "var(--radius-sm)", cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }} className="header-auth-btn">
+                  <button className="header-auth-btn" style={{ padding: "8px 16px", fontSize: 13, fontWeight: 700, backgroundColor: "transparent", color: "var(--primary)", border: "1px solid var(--primary)", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, transition: "all 0.2s" }}>
                     <LogIn size={14} /> Log In
                   </button>
                 </Link>
                 <Link to="/signup" style={{ textDecoration: "none" }}>
-                  <button style={{ padding: "6px 14px", fontSize: 13, fontWeight: 600, backgroundColor: "var(--primary)", color: "white", border: "none", borderRadius: "var(--radius-sm)", cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }} className="header-auth-btn">
+                  <button className="header-auth-btn" style={{ padding: "8px 16px", fontSize: 13, fontWeight: 700, backgroundColor: "var(--primary)", color: "white", border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, transition: "all 0.2s" }}>
                     <UserPlus size={14} /> Sign Up
                   </button>
                 </Link>
@@ -174,8 +173,8 @@ export default function Header({ onToggleSidebar }) {
 
             <button
               onClick={() => { isDashboard && onToggleSidebar ? onToggleSidebar() : setMobileDrawerOpen(true); }}
-              style={{ background: "none", border: "none", color: "var(--text)", padding: 8, display: "none", cursor: "pointer" }}
               className="header-mobile-btn"
+              style={{ background: "none", border: "none", color: "var(--on-surface)", padding: 8, display: "none", cursor: "pointer", borderRadius: 8 }}
               aria-label="Open menu"
             >
               <Menu size={22} />
@@ -187,8 +186,13 @@ export default function Header({ onToggleSidebar }) {
       <MobileDrawer open={mobileDrawerOpen} onClose={() => setMobileDrawerOpen(false)} />
 
       <style>{`
-        .header-icon-btn { transition: background-color 0.15s, color 0.15s; }
-        .header-icon-btn:hover { background-color: var(--surface-hover); color: var(--text) !important; }
+        .header-icon-btn {
+          background: none; border: none; color: var(--on-surface-variant);
+          width: 40; height: 40; display: flex; align-items: center; justify-content: center;
+          border-radius: 10px; cursor: pointer;
+          transition: background-color 0.15s, color 0.15s;
+        }
+        .header-icon-btn:hover { background-color: var(--surface-hover); color: var(--on-surface) !important; }
         @media (max-width: 1200px) {
           .header-nav-links { gap: 16px !important; }
           .header-search-container { max-width: 300px !important; }

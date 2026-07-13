@@ -4,7 +4,7 @@ export default function Statistics() {
   const { stats } = useSite();
 
   return (
-    <section style={{ padding: '80px 0', backgroundColor: 'var(--surface)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
+    <section style={{ padding: '80px 0', backgroundColor: 'var(--inverse-surface)', color: 'var(--inverse-on-surface)' }}>
       <div className="container">
         <div style={{
           display: 'flex',
@@ -26,9 +26,9 @@ export default function Statistics() {
               }}
             >
               <div className="stat-value" style={{
-                fontSize: 36,
-                fontWeight: 800,
-                color: 'var(--primary)',
+                fontSize: 48,
+                fontWeight: 700,
+                color: 'var(--primary-fixed)',
                 fontFamily: "'JetBrains Mono', monospace",
                 lineHeight: 1.2,
                 marginBottom: 4,
@@ -37,7 +37,7 @@ export default function Statistics() {
               </div>
               <div style={{
                 fontSize: 13,
-                color: 'var(--text-muted)',
+                color: 'var(--on-surface-variant)',
                 fontWeight: 500,
                 letterSpacing: '0.01em',
               }}>
@@ -51,7 +51,7 @@ export default function Statistics() {
                   transform: 'translateY(-50%)',
                   width: 1,
                   height: 40,
-                  backgroundColor: 'var(--border)',
+                  backgroundColor: 'rgba(255,255,255,0.15)',
                 }} />
               )}
             </div>
@@ -60,7 +60,7 @@ export default function Statistics() {
         <style>{`
           @media (max-width: 768px) {
             .stat-item { min-width: 140px !important; padding: 16px 20px !important; }
-            .stat-value { font-size: 28px !important; }
+            .stat-value { font-size: 36px !important; }
             .stat-divider { display: none !important; }
           }
           @media (max-width: 480px) {

@@ -8,7 +8,7 @@ export default function Tabs({ tabs, defaultTab }) {
       <div
         style={{
           display: 'flex',
-          borderBottom: '2px solid var(--border)',
+          borderBottom: '2px solid var(--outline-variant)',
           gap: 0,
           overflowX: 'auto',
         }}
@@ -20,15 +20,18 @@ export default function Tabs({ tabs, defaultTab }) {
             style={{
               padding: '12px 24px',
               fontSize: 14,
-              fontWeight: 500,
+              fontWeight: 600,
               background: 'none',
               border: 'none',
               borderBottom: active === tab.id ? '2px solid var(--primary)' : '2px solid transparent',
-              color: active === tab.id ? 'var(--primary)' : 'var(--text-secondary)',
+              color: active === tab.id ? 'var(--primary)' : 'var(--on-surface-variant)',
               marginBottom: -2,
               transition: 'all 0.2s',
               whiteSpace: 'nowrap',
+              cursor: 'pointer',
             }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = active === tab.id ? 'var(--primary)' : 'var(--on-surface)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = active === tab.id ? 'var(--primary)' : 'var(--on-surface-variant)'; }}
           >
             {tab.label}
           </button>

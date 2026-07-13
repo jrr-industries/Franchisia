@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Zenith Cargo Solutions | Franchisia</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#e5eeff",
+                    "primary-container": "#2563eb",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-background": "#0b1c30",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#dae2fd",
+                    "on-tertiary-fixed": "#002113",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "outline": "#737686",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "primary": "#004ac6",
+                    "tertiary-fixed": "#6ffbbe",
+                    "on-secondary-fixed": "#131b2e",
+                    "surface-container-highest": "#d3e4fe",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "secondary": "#565e74",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "on-secondary-container": "#5c647a",
+                    "primary-fixed": "#dbe1ff",
+                    "on-tertiary-container": "#bdffdb",
+                    "tertiary": "#006242",
+                    "surface-dim": "#cbdbf5",
+                    "surface-tint": "#0053db",
+                    "surface-container-high": "#dce9ff",
+                    "error-container": "#ffdad6",
+                    "background": "#f8f9ff",
+                    "outline-variant": "#c3c6d7",
+                    "on-primary-fixed": "#00174b",
+                    "inverse-on-surface": "#eaf1ff",
+                    "secondary-fixed": "#dae2fd",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#007d55",
+                    "surface-bright": "#f8f9ff",
+                    "on-primary-container": "#eeefff",
+                    "on-surface": "#0b1c30",
+                    "inverse-primary": "#b4c5ff",
+                    "on-surface-variant": "#434655",
+                    "inverse-surface": "#213145",
+                    "surface-container-low": "#eff4ff",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "on-secondary": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "surface-variant": "#d3e4fe"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1440px",
+                    "md": "16px",
+                    "3xl": "64px",
+                    "sm": "12px",
+                    "2xl": "48px",
+                    "base": "4px",
+                    "lg": "24px",
+                    "gutter": "24px",
+                    "xs": "8px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "metric-md": ["JetBrains Mono"],
+                    "label-caps": ["Inter"],
+                    "h3": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "h1": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "h2": ["Inter"],
+                    "metric-lg": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "metric-md": ["16px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "metric-lg": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant shadow-sm">
+<div class="flex justify-between items-center h-16 px-gutter max-w-container-max mx-auto">
+<div class="flex items-center gap-xl">
+<span class="font-h2 text-h2 font-bold text-primary">Franchisia</span>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Discover</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Marketplace</a>
+<a class="text-primary border-b-2 border-primary font-bold pb-1 font-body-md text-body-md" href="#">Companies</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Resources</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="px-md py-xs text-primary font-bold hover:bg-surface-container-low transition-colors duration-200 cursor-pointer active:scale-95">Sign In</button>
+<button class="px-lg py-xs bg-primary text-on-primary rounded-lg font-bold hover:opacity-90 transition-all duration-200 cursor-pointer active:scale-95">Get Started</button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-gutter py-xl">
+<!-- Brand Header Section -->
+<section class="mb-xl">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-lg">
+<div class="flex items-center gap-lg">
+<div class="w-24 h-24 rounded-xl bg-surface-container-highest flex items-center justify-center p-md border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-contain" data-alt="A clean, minimalist vector logo for Zenith Cargo Solutions featuring a stylized blue upward arrow merged with a sleek cargo container shape. The background is a crisp white, and the logo uses professional navy and emerald green accents to suggest growth and reliability in the logistics sector." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4SwsMgKAkBAxQOj-Gefqvj-Ys_E8050Hrhkix97dk9CLneUv0xv12r50LmdMqu8aA6qdi0-s3fqRZywECHABihiip9a1zjLe-aS7bm8TUNkKPF1ckJ3HUHO74L6F_4OZXiKi-LPD0_2oLDtzSivZ9J_EOBwyt1KVtabDxx_-Y5-In1QqopLYcRmbASUKsnDoqQ5jclERmfwDIpbExyJsnkvBEs6UAz9hjXJpSicHHyQ4kF49leMsJ"/>
+</div>
+<div>
+<div class="flex items-center gap-xs">
+<h1 class="font-h1 text-h1">Zenith Cargo Solutions</h1>
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="text-on-surface-variant font-body-lg text-body-lg">Specialized Logistics &amp; Last-Mile Delivery Excellence</p>
+<div class="flex items-center gap-sm mt-xs">
+<span class="px-xs py-[2px] bg-emerald-100 text-emerald-800 text-label-caps font-label-caps rounded-full">ACTIVE</span>
+<span class="px-xs py-[2px] bg-surface-container text-on-surface-variant text-label-caps font-label-caps rounded-full">Logistics</span>
+<span class="px-xs py-[2px] bg-surface-container text-on-surface-variant text-label-caps font-label-caps rounded-full">Established 2012</span>
+</div>
+</div>
+</div>
+<div class="flex gap-md w-full md:w-auto">
+<button class="flex-1 md:flex-none px-lg py-md border border-outline text-on-surface font-bold rounded-lg hover:bg-surface-container-low transition-all">Request FDD</button>
+<button class="flex-1 md:flex-none px-lg py-md bg-primary text-on-primary font-bold rounded-lg shadow-lg hover:shadow-xl transition-all active:scale-95">Apply to Franchise</button>
+</div>
+</div>
+</section>
+<!-- Investment Snapshot -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-md mb-xl">
+<div class="bg-surface-container-low border border-outline-variant p-lg rounded-xl">
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-xs">INVESTMENT REQUIRED</p>
+<p class="font-metric-lg text-metric-lg text-primary">$250,000 - $450,000</p>
+</div>
+<div class="bg-surface-container-low border border-outline-variant p-lg rounded-xl">
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-xs">FRANCHISE FEE</p>
+<p class="font-metric-lg text-metric-lg text-primary">$45,000</p>
+</div>
+<div class="bg-surface-container-low border border-outline-variant p-lg rounded-xl">
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-xs">ROYALTY FEE</p>
+<p class="font-metric-lg text-metric-lg text-primary">6.5%</p>
+</div>
+<div class="bg-surface-container-low border border-outline-variant p-lg rounded-xl">
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-xs">EST. ROI</p>
+<p class="font-metric-lg text-metric-lg text-tertiary">22-28%</p>
+</div>
+</div>
+<!-- Bento Grid Layout for Main Content -->
+<div class="bento-grid">
+<!-- About Section (Large) -->
+<div class="col-span-12 lg:col-span-8 glass-card rounded-xl p-xl shadow-sm">
+<h2 class="font-h2 text-h2 mb-lg">About the Brand</h2>
+<div class="space-y-md text-on-surface-variant font-body-md text-body-md">
+<p>Zenith Cargo Solutions is at the forefront of the logistics revolution, providing highly efficient, technology-driven last-mile delivery services for high-value enterprise clients. Our business model bridges the gap between massive global carriers and the nuanced needs of local distribution hubs.</p>
+<p>With a proprietary AI-routing engine and a sustainable fleet strategy, we empower our franchisees to capture the surging demand in e-commerce fulfillment while maintaining the leanest possible operational overhead. We aren't just moving boxes; we are engineering the future of the supply chain.</p>
+</div>
+<div class="mt-xl grid grid-cols-1 md:grid-cols-3 gap-lg pt-xl border-t border-outline-variant">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary p-xs bg-primary-fixed rounded-lg">speed</span>
+<div>
+<p class="font-bold">Fast Deployment</p>
+<p class="text-body-sm text-on-surface-variant">90-day launch cycle</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary p-xs bg-primary-fixed rounded-lg">shield</span>
+<div>
+<p class="font-bold">Exclusive Tech</p>
+<p class="text-body-sm text-on-surface-variant">Zenith-Cloud access</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary p-xs bg-primary-fixed rounded-lg">group</span>
+<div>
+<p class="font-bold">Staff Support</p>
+<p class="text-body-sm text-on-surface-variant">Centralized HR tools</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Territory Map (Sidebar High) -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-highest rounded-xl p-xl border border-outline-variant flex flex-col">
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-h2 text-h2">Territories</h2>
+<span class="text-primary font-bold cursor-pointer hover:underline text-body-sm">View Full Map</span>
+</div>
+<div class="relative flex-grow rounded-lg overflow-hidden min-h-[300px] border border-outline">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A clean, minimalist vector map of the United States with specific regions highlighted in shades of professional navy and emerald green. Dark blue areas indicate established Zenith Cargo territories, while bright emerald green regions signify currently available high-demand franchise opportunities. The map is designed with high-contrast, professional cartography styling fitting an executive logistics brand." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCku6En16KjKLTp1Jm8Bgzb0H8u4toaaE4bkdgbqF5-8Hx4Bfuf9q9bpVsLXQF2bmUPQrMDtxJnQ5a8KYTOe1sWFVp41YwZdGahPMC1GEvqWHOfsYkhVg6bxgdTSkiKqCPaGqrElrw51k-S4Ho5Xx1WEOgVgh0vUoE0QoUtr3mpPmyvRKXXTvx09gUO8qngBlN0u7Mc65tcmVn9FBP3KqvlVpTWwdnaxbWwr7UDU8rhI3FLrAUUyDpl')"></div>
+<div class="absolute bottom-md left-md right-md flex gap-xs">
+<div class="flex items-center gap-xs bg-white/90 backdrop-blur px-sm py-xs rounded-full border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="text-xs font-bold">Taken</span>
+</div>
+<div class="flex items-center gap-xs bg-white/90 backdrop-blur px-sm py-xs rounded-full border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="text-xs font-bold">Available</span>
+</div>
+</div>
+</div>
+<div class="mt-md">
+<p class="text-body-sm text-on-surface-variant">Immediate availability in: <span class="font-bold text-on-surface">Atlanta, Phoenix, Chicago</span></p>
+</div>
+</div>
+<!-- Performance Data (Full Width Charts Style) -->
+<div class="col-span-12 glass-card rounded-xl p-xl shadow-sm border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-xl gap-md">
+<div>
+<h2 class="font-h2 text-h2">Performance Data</h2>
+<p class="text-on-surface-variant text-body-sm">Audited unit financials from fiscal year 2023.</p>
+</div>
+<div class="flex gap-xs">
+<span class="px-md py-xs bg-surface-container rounded border border-outline-variant font-bold text-body-sm">Last 12 Months</span>
+<span class="px-md py-xs text-on-surface-variant font-bold text-body-sm cursor-pointer hover:bg-surface-container-low transition-colors">Historical</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-xl">
+<div class="p-lg bg-background rounded-lg border border-outline-variant">
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-md">AVG UNIT VOLUME (AUV)</p>
+<p class="font-metric-lg text-metric-lg text-primary mb-xs">$1.84M</p>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[85%]"></div>
+</div>
+<p class="text-[12px] text-on-surface-variant mt-sm">Top 25% of performers average $2.9M+</p>
+</div>
+<div class="p-lg bg-background rounded-lg border border-outline-variant">
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-md">HISTORICAL GROWTH</p>
+<p class="font-metric-lg text-metric-lg text-tertiary mb-xs">+14.2%</p>
+<div class="flex items-end gap-[2px] h-12">
+<div class="bg-tertiary/20 w-full h-1/4 rounded-t-sm"></div>
+<div class="bg-tertiary/40 w-full h-2/5 rounded-t-sm"></div>
+<div class="bg-tertiary/60 w-full h-3/5 rounded-t-sm"></div>
+<div class="bg-tertiary/80 w-full h-4/5 rounded-t-sm"></div>
+<div class="bg-tertiary w-full h-full rounded-t-sm"></div>
+</div>
+<p class="text-[12px] text-on-surface-variant mt-sm">Compounded annual growth (3 year)</p>
+</div>
+<div class="p-lg bg-background rounded-lg border border-outline-variant">
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-md">NETWORK SCALE</p>
+<p class="font-metric-lg text-metric-lg text-on-surface mb-xs">84 Units</p>
+<div class="flex -space-x-2 mt-sm">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up professional headshot of a diverse male franchise owner in business casual attire, smiling confidently against a soft-focus office background. The lighting is bright and high-key, reflecting a professional and successful executive aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxW6DrEk8qf3Hgo5qGBdgkVpE8tAjw3350zdAZnIFH1SnTvAXATOuSnpaw3NQGWlzHgX-EWPZjJZGOjdbPiBTilR67wWJiz_DtvXxaPmREjllXYOj-WrN-QprwnsoSJASP1tXlAdbcTv81QlZ2PZSFdfllr3VXZiF9QG9HlcnSDuh3KAQjFc9zXilAl8JqyRBaOQeqxu-__maRrACGgymIcR-AIxEQTsIR8L3t4a6yyeiVJabVY-qz"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-300 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up professional headshot of a successful female franchise owner with an approachable yet authoritative demeanor, wearing a navy blazer. The setting is a modern, minimalist workspace with clean white walls and natural light, embodying a high-trust corporate vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl_oOpWKTZM8aG0mZjWmj6IG-c1ANZx-az3T4aUIFhXIQE9bUh6EBNOrBmflIETqKVQl9w48Q3ZxEB-MaTw2bp7OaLhOqxDQ02gq8gAXK5u4qZbVZ46_wkqetvU0cw7xDIp3eH80ugrT3apYOWwZP_HF_qUYO4l-wrKPhfPKk6d7OICDQ99beZ9Voanztm7WmEexJZDc9A7oyYylIjIne1MUHiiV5wQuDyLw_58D0o5-jwYhUX0Lhr"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-400 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up professional headshot of a mature male franchise partner with silver hair, looking optimistic and experienced. The visual style is premium and corporate, with sharp focus and a clean, light-mode color palette that emphasizes professional maturity and stability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBacNCnopN_W9sJcBXo8fYWXs4mzK0I_w6H3NUPuOahxYxaJ5itX-F-AEmO6X-hHvhx6zqVGbN4FsyE0SICQch5ewks091k14SF0y1iVg2amx2nHnUZ5R83Y0h9MezcFdcGTHWWUBJABO60rGW5Lpx1XDZF2X1uL_0yREh-SradBglL4XTazXicTidHrmiWj3Pxij5Xnt-aeRljgscpopqi_Y3EPZr9x3pPYq9Jg9b-Q8fVKWcJQ1AX"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-primary flex items-center justify-center text-[10px] text-white font-bold">+81</div>
+</div>
+<p class="text-[12px] text-on-surface-variant mt-sm">Active owners across 22 states</p>
+</div>
+</div>
+</div>
+<!-- Franchisor Support (Left) -->
+<div class="col-span-12 md:col-span-6 bg-surface p-xl rounded-xl border border-outline-variant shadow-sm">
+<h3 class="font-h3 text-h3 mb-lg">Franchisor Support</h3>
+<ul class="space-y-lg">
+<li class="flex gap-md">
+<span class="material-symbols-outlined text-primary">school</span>
+<div>
+<p class="font-bold">Foundations Training</p>
+<p class="text-body-sm text-on-surface-variant">2-week intensive at our Dallas HQ covering logistics management and AI optimization.</p>
+</div>
+</li>
+<li class="flex gap-md">
+<span class="material-symbols-outlined text-primary">hub</span>
+<div>
+<p class="font-bold">National Marketing Engine</p>
+<p class="text-body-sm text-on-surface-variant">We provide corporate-level lead generation for major B2B shipping accounts in your area.</p>
+</div>
+</li>
+<li class="flex gap-md">
+<span class="material-symbols-outlined text-primary">terminal</span>
+<div>
+<p class="font-bold">Proprietary Tech Stack</p>
+<p class="text-body-sm text-on-surface-variant">Full access to the Zenith-Flow ERP and real-time fleet telematics dashboard.</p>
+</div>
+</li>
+</ul>
+</div>
+<!-- Requirements (Right) -->
+<div class="col-span-12 md:col-span-6 bg-surface-container-low p-xl rounded-xl border border-outline-variant shadow-sm">
+<h3 class="font-h3 text-h3 mb-lg">Ideal Candidate</h3>
+<div class="grid grid-cols-1 gap-md">
+<div class="flex justify-between items-center p-md bg-white rounded-lg border border-outline-variant">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">payments</span>
+<span class="font-bold">Min. Liquid Capital</span>
+</div>
+<span class="font-metric-md text-metric-md text-primary">$150,000</span>
+</div>
+<div class="flex justify-between items-center p-md bg-white rounded-lg border border-outline-variant">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">account_balance</span>
+<span class="font-bold">Net Worth Required</span>
+</div>
+<span class="font-metric-md text-metric-md text-primary">$500,000</span>
+</div>
+<div class="flex justify-between items-center p-md bg-white rounded-lg border border-outline-variant">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">work</span>
+<span class="font-bold">Experience</span>
+</div>
+<span class="text-body-sm text-on-surface-variant">Management / Ops</span>
+</div>
+<div class="flex justify-between items-center p-md bg-white rounded-lg border border-outline-variant">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">location_on</span>
+<span class="font-bold">Preference</span>
+</div>
+<span class="text-body-sm text-on-surface-variant">Owner-Operator</span>
+</div>
+</div>
+</div>
+<!-- Social Proof / Testimonials -->
+<div class="col-span-12 lg:col-span-9 glass-card rounded-xl p-xl shadow-sm">
+<h3 class="font-h3 text-h3 mb-xl">Owner Testimonials</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+<div class="flex flex-col gap-md">
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="italic text-on-surface font-body-md text-body-md">"The technological edge Zenith provides is what sealed the deal for me. In logistics, margins are won in the routing, and their AI tools are lightyears ahead of the local competitors."</p>
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up professional portrait of a male franchise owner in his late 40s, looking into the camera with a friendly and capable expression. He is wearing a crisp light blue shirt in a bright, airy corporate office environment. The style is professional and high-fidelity, typical of high-end business photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEqt60g1Kulh5bLIp6xmyyrSsg2CY9pDp9TGg_sGSCf3dpPfokTqFf4FJ3d5BY3zvmdhT2mQCZwoMk2jkaDsmClaD1S2dvxZciRjyYojgQ72hvWGC2Jt2WJIVgvhtsOEqCixXpgc0ti6JGX_Vmli60tIzp81MQCWq2AMQtaqyWWWRppQjlSe3zMOGAoVVM3A2JEt2_7CFWm0lzY9mJ7JKPH_J4u1sf8N8q2cyAyng1Np5StZHaB-SE"/>
+</div>
+<div>
+<p class="font-bold text-body-sm">Michael Hendersen</p>
+<p class="text-[12px] text-on-surface-variant">Franchisee since 2018 | Phoenix Region</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-md">
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="italic text-on-surface font-body-md text-body-md">"Coming from a corporate finance background, I was impressed by the transparency of the AUV data. This is a business built on hard metrics and scalable processes."</p>
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up professional headshot of a female franchise owner with a focused and intelligent gaze, wearing glasses and a formal white shirt. The background is a modern office with glass walls and soft greenery, creating a clean, high-trust, and executive visual environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC0HIBHq518UCDSwIHY-s4Q9WHNleZLnJ4u8Txi6c5WjeV3kaZ4icObadn71XImimhLsXu-_Seq6MXGYHAR5LbUi1DMqwW6e9lq9Xy-ibo5CJdwJYdE-38fGIRJE1NIbKCYo2-9HMqrcS5clFDgzodbcxMpdfl6pFcPQYJBZ62mX_Mu_Iv2994jic7v1_8u7MIEewM-TFN-ELVoVK-AQmDPgvl9Rh16sG2smjGvLIadwEDIe8Dmv-Q"/>
+</div>
+<div>
+<p class="font-bold text-body-sm">Sarah Jenkins</p>
+<p class="text-[12px] text-on-surface-variant">Franchisee since 2021 | Atlanta North</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mutual Connections / Trust Sidebar -->
+<div class="col-span-12 lg:col-span-3 bg-white p-xl rounded-xl border border-outline shadow-sm">
+<h3 class="font-h3 text-h3 mb-md">Your Network</h3>
+<p class="text-body-sm text-on-surface-variant mb-lg">You have mutual connections at Zenith Cargo.</p>
+<div class="space-y-lg">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">person</span>
+</div>
+<div>
+<p class="font-bold text-body-sm">David Chen</p>
+<p class="text-[10px] text-on-surface-variant">Managing Director at Peak Logistics</p>
+<p class="text-[10px] text-primary font-bold">In your LinkedIn Network</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-sm">person</span>
+</div>
+<div>
+<p class="font-bold text-body-sm">Elena Rodriguez</p>
+<p class="text-[10px] text-on-surface-variant">Owner, Zenith SE Florida</p>
+<p class="text-[10px] text-primary font-bold">Went to your University</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-xl py-xs text-primary font-bold border border-primary rounded hover:bg-primary-container/10 transition-colors text-body-sm">Introduction Request</button>
+</div>
+<!-- Resources / Downloads -->
+<div class="col-span-12 mt-lg">
+<h3 class="font-h3 text-h3 mb-lg">Resources &amp; Assets</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+<div class="p-lg bg-white border border-outline-variant rounded-xl group hover:border-primary transition-all cursor-pointer">
+<div class="w-full h-32 bg-surface-container rounded-lg mb-md flex items-center justify-center relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional preview image of a Franchise Disclosure Document (FDD) cover page. It features the Zenith Cargo Solutions logo, a sophisticated blue and gray color scheme, and clear, bold typography indicating 'Franchise Disclosure Document 2024'. The image is styled as a clean digital PDF preview with soft drop shadows on a white surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBlrqSGYmCeTTy5BVuG1AcpGBfJV9zl24KFv1aqO-twGvZhFFEK1Fg4h2u5p6OKG8rKzIUJvTvT6ERdJIJOxUEqPdhTiHQP77KAtTfxLbDCvo29IfR5GGvci4QQgbpEV868BXeNs8ph_LWxkoS2zbn3uS1Zq5kDlHODY-9sUG-rFCoxi2k6BnEFJJaza9qP_S38YgjvhE7v7DqajnMQD5iTfQzqZ1GiGtYLi9zyNEwovoyucAnNKOh"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-4xl">download</span>
+</div>
+</div>
+<p class="font-bold text-body-sm">Full FDD (2024)</p>
+<p class="text-[12px] text-on-surface-variant">PDF • 12.4 MB</p>
+</div>
+<div class="p-lg bg-white border border-outline-variant rounded-xl group hover:border-primary transition-all cursor-pointer">
+<div class="w-full h-32 bg-surface-container rounded-lg mb-md flex items-center justify-center relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A premium marketing deck preview showing a slide with a modern cargo truck and the headline 'Market Opportunity'. The slide uses clean lines, professional photography of a logistics hub at sunset, and an elegant blue-and-emerald color palette. It is framed as a high-quality presentation preview in a light-mode UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBneIvjDxAtUw_5z6Ui725XfVvVbpIFJcS4OKMSAHkg7BbhE1Qh_E3rLof93V_hZ-Md2eywcOro0-FNCHjy7EekDIMjKt8I46gPuiS1iqwhU-9iQq7c5LiL6ZVvfECmCKiA1xbkQaQbgI9axYycdwJ3J_5lr9aFXDbJUYlkW-ceg16RiUimie6lMsn7hW2cV9ZKbdayHU1NN3DGEIlm06c_lWKWga1qor5FMX_HgZ8w_IfNG4VhtK2O"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-4xl">download</span>
+</div>
+</div>
+<p class="font-bold text-body-sm">Brand &amp; Opportunity Deck</p>
+<p class="text-[12px] text-on-surface-variant">PDF • 8.1 MB</p>
+</div>
+<div class="p-lg bg-white border border-outline-variant rounded-xl group hover:border-primary transition-all cursor-pointer">
+<div class="w-full h-32 bg-surface-container rounded-lg mb-md flex items-center justify-center relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A infographic preview showing a breakdown of unit economics for a logistics franchise. The visual features clear charts, emerald green success indicators, and professional typography on a white background, suggesting a high-level financial summary document for prospective investors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxftusvz_EueIxy7ZjJa7YgWPzT0xMZPwA6SLBe643pCqJVDMZliAuWi49oXspkPUfGYb6XaUVT8p8JNPGPOSzZjOgy-NmBJnkA0itaFpWtveNkwhS49Kv_v3EEWKcEfTaNy_6EtuBBtgVICD1Tto3V5sGOUuUTkSio3FZZ7ds6LAm4wbKwc_Tc_Wi2-TTylcgP2LnyY9IwyjiWY13Sj8TJwZB4maPsZFrtAG8U5odxfKbU4VQx6C6"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-4xl">download</span>
+</div>
+</div>
+<p class="font-bold text-body-sm">Unit Economics Summary</p>
+<p class="text-[12px] text-on-surface-variant">PDF • 3.2 MB</p>
+</div>
+<div class="p-lg bg-white border border-outline-variant rounded-xl group hover:border-primary transition-all cursor-pointer">
+<div class="w-full h-32 bg-surface-container rounded-lg mb-md flex items-center justify-center relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean, professional training curriculum outline with the Zenith logo. The document features icon-driven sections for 'Technology', 'Operations', and 'Fleet Management' in a modern, easy-to-read layout. It uses a high-trust color palette of navy, gray, and white." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB82SxuBhE4n79hfL6Z2yuCnXhfhSuYhD7mlZjAtTUOy7k4BUQY7z23rQUgSSUtX2K2E9kqF1Pau1UGMuoxOohxYYGoScixpzbrcoFhwyt-l4Up3ji-x_-Y_YO0zQjICV0xgCdE2ue0-7U1hm4iUc2CQqUWNTFDimN-z54WeY5ViuUDmlaiMqU3v7lMk9DWujpffjVL47enWPD1h4j_dHz5cQgtSM8zkr5x7KBXgdfQwJfEf9htxCsP"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-4xl">download</span>
+</div>
+</div>
+<p class="font-bold text-body-sm">Training Curriculum Outline</p>
+<p class="text-[12px] text-on-surface-variant">PDF • 4.5 MB</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl bg-surface-container border-t border-outline-variant mt-3xl">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg px-gutter max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1">
+<span class="font-h3 text-h3 font-bold text-on-surface">Franchisia</span>
+<p class="text-on-surface-variant font-body-sm text-body-sm mt-md">The premium marketplace for verified high-scale franchise investment opportunities.</p>
+</div>
+<div>
+<h4 class="font-bold mb-md">Explore</h4>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:underline hover:text-primary transition-all text-body-sm font-body-sm" href="#">Marketplace</a></li>
+<li><a class="text-on-surface-variant hover:underline hover:text-primary transition-all text-body-sm font-body-sm" href="#">Featured Brands</a></li>
+<li><a class="text-on-surface-variant hover:underline hover:text-primary transition-all text-body-sm font-body-sm" href="#">Top Performers</a></li>
+<li><a class="text-on-surface-variant hover:underline hover:text-primary transition-all text-body-sm font-body-sm" href="#">Recent Deals</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-md">Company</h4>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:underline hover:text-primary transition-all text-body-sm font-body-sm" href="#">About Us</a></li>
+<li><a class="text-on-surface-variant hover:underline hover:text-primary transition-all text-body-sm font-body-sm" href="#">Contact</a></li>
+<li><a class="text-on-surface-variant hover:underline hover:text-primary transition-all text-body-sm font-body-sm" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:underline hover:text-primary transition-all text-body-sm font-body-sm" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-md">Support</h4>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:underline hover:text-primary transition-all text-body-sm font-body-sm" href="#">Help Center</a></li>
+<li><a class="text-on-surface-variant hover:underline hover:text-primary transition-all text-body-sm font-body-sm" href="#">Cookies</a></li>
+<li><a class="text-on-surface-variant hover:underline hover:text-primary transition-all text-body-sm font-body-sm" href="#">FDD Assistance</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-xl pt-lg border-t border-outline-variant max-w-container-max mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-md">
+<p class="text-on-surface-variant font-body-sm text-body-sm">© 2024 Franchisia Inc. All rights reserved.</p>
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">language</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">share</span>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for hover states and button animations
+        document.querySelectorAll('button, .group').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'scale(0.98)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple scroll reveal effect for cards
+        const observerOptions = {
+            threshold: 0.1
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.glass-card, .bento-grid > div').forEach(card => {
+            card.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(card);
+        });
+    </script>
+</body></html>

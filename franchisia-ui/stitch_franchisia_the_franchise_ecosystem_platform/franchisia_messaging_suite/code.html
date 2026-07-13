@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Franchisia | Executive Communications</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .chat-bubble-shadow { shadow: 0 2px 4px rgba(15, 23, 42, 0.04); }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "inverse-primary": "#b4c5ff",
+                "secondary": "#565e74",
+                "tertiary-container": "#007d55",
+                "surface-container": "#e5eeff",
+                "primary-fixed": "#dbe1ff",
+                "surface-tint": "#0053db",
+                "on-tertiary-container": "#bdffdb",
+                "surface-container-lowest": "#ffffff",
+                "on-primary": "#ffffff",
+                "surface": "#f8f9ff",
+                "on-background": "#0b1c30",
+                "inverse-surface": "#213145",
+                "secondary-container": "#dae2fd",
+                "surface-variant": "#d3e4fe",
+                "surface-container-low": "#eff4ff",
+                "surface-container-high": "#dce9ff",
+                "on-primary-container": "#eeefff",
+                "outline": "#737686",
+                "background": "#f8f9ff",
+                "surface-dim": "#cbdbf5",
+                "error-container": "#ffdad6",
+                "secondary-fixed": "#dae2fd",
+                "on-secondary-fixed-variant": "#3f465c",
+                "on-primary-fixed-variant": "#003ea8",
+                "tertiary-fixed": "#6ffbbe",
+                "primary": "#004ac6",
+                "on-secondary-fixed": "#131b2e",
+                "inverse-on-surface": "#eaf1ff",
+                "on-tertiary-fixed-variant": "#005236",
+                "on-primary-fixed": "#00174b",
+                "surface-container-highest": "#d3e4fe",
+                "on-surface": "#0b1c30",
+                "on-tertiary": "#ffffff",
+                "on-tertiary-fixed": "#002113",
+                "tertiary-fixed-dim": "#4edea3",
+                "secondary-fixed-dim": "#bec6e0",
+                "on-error": "#ffffff",
+                "outline-variant": "#c3c6d7",
+                "error": "#ba1a1a",
+                "on-surface-variant": "#434655",
+                "primary-fixed-dim": "#b4c5ff",
+                "on-error-container": "#93000a",
+                "on-secondary-container": "#5c647a",
+                "on-secondary": "#ffffff",
+                "primary-container": "#2563eb",
+                "tertiary": "#006242",
+                "surface-bright": "#f8f9ff"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+              "spacing": {
+                "sm": "12px",
+                "gutter": "24px",
+                "2xl": "48px",
+                "container-max": "1440px",
+                "base": "4px",
+                "3xl": "64px",
+                "xs": "8px",
+                "md": "16px",
+                "xl": "32px",
+                "lg": "24px"
+              },
+              "fontFamily": {
+                "h3": ["Inter"], "h1": ["Inter"], "display-lg": ["Inter"], "metric-lg": ["JetBrains Mono"],
+                "body-sm": ["Inter"], "display-lg-mobile": ["Inter"], "body-lg": ["Inter"],
+                "metric-md": ["JetBrains Mono"], "h2": ["Inter"], "label-caps": ["Inter"], "body-md": ["Inter"]
+              },
+              "fontSize": {
+                "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                "metric-lg": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "metric-md": ["16px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface w-full h-16 sticky top-0 z-50 border-b border-outline-variant shadow-sm">
+<div class="flex items-center justify-between px-gutter max-w-container-max mx-auto h-full">
+<div class="flex items-center gap-xl">
+<span class="font-h2 text-h2 font-bold text-primary cursor-pointer active:opacity-80 transition-all">Franchisia</span>
+<!-- Search Bar -->
+<div class="hidden md:flex items-center bg-surface-container-low rounded-lg px-md py-xs border border-outline-variant w-80 group focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-secondary mr-sm">search</span>
+<input class="bg-transparent border-none outline-none text-body-md w-full placeholder:text-secondary" placeholder="Search conversations..." type="text"/>
+</div>
+</div>
+<nav class="hidden lg:flex items-center gap-lg">
+<a class="font-body-md text-secondary hover:text-primary transition-colors cursor-pointer" href="#">Dashboard</a>
+<a class="font-body-md text-primary border-b-2 border-primary pb-1 transition-colors cursor-pointer" href="#">Messages</a>
+<a class="font-body-md text-secondary hover:text-primary transition-colors cursor-pointer" href="#">Network</a>
+<a class="font-body-md text-secondary hover:text-primary transition-colors cursor-pointer" href="#">Investments</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined p-xs text-secondary hover:bg-surface-container-high rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined p-xs text-secondary hover:bg-surface-container-high rounded-full transition-colors">settings</button>
+<div class="h-8 w-px bg-outline-variant mx-xs"></div>
+<div class="flex items-center gap-sm cursor-pointer hover:opacity-80 transition-opacity">
+<img class="w-10 h-10 rounded-full border border-outline-variant object-cover" data-alt="A professional high-resolution headshot of a corporate executive in a sharp navy suit, looking confident and approachable. The background is a blurred high-end office interior with warm wooden textures and soft ambient lighting. The overall style is clean, sharp, and reflects a light-mode executive aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ998Lkr3oF6SwkTaQ7fIr8eC9qYdHgGlhVCCiff3YQ96c2yFo4RoM4wSiTeuJwyqHHAFQGeIqyou8OBC5UBlwlTKVGj8cC2r8z2VLXhE9pTwbc9mJQVGxOLpvEZfWkdWiylK5dTAjZ8ov6-igTZxM3A-hVWHQm4_SFbdeHR1l2DgEz6waPKrsz6vQZ3mLEbaion3fhvWh5jfKgwJLsMuxBl-KXxAnXgcYtVKq_W3fkTcTlylryCs0"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Shell -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Conversation Sidebar (Left) -->
+<aside class="w-[360px] bg-surface-container-lowest border-r border-outline-variant flex flex-col h-full shrink-0">
+<!-- Sidebar Header -->
+<div class="p-lg border-b border-outline-variant">
+<div class="flex items-center justify-between mb-md">
+<h2 class="font-h3 text-h3 text-on-surface">Messages</h2>
+<button class="p-xs bg-primary text-on-primary rounded-lg flex items-center justify-center hover:opacity-90 transition-all">
+<span class="material-symbols-outlined">edit_square</span>
+</button>
+</div>
+<!-- Categories -->
+<div class="flex gap-xs overflow-x-auto scrollbar-hide">
+<button class="px-md py-xs bg-secondary-container text-on-secondary-container rounded-lg font-body-sm whitespace-nowrap">All Chats</button>
+<button class="px-md py-xs text-secondary hover:bg-surface-container-high rounded-lg font-body-sm whitespace-nowrap">Direct</button>
+<button class="px-md py-xs text-secondary hover:bg-surface-container-high rounded-lg font-body-sm whitespace-nowrap">Deals</button>
+<button class="px-md py-xs text-secondary hover:bg-surface-container-high rounded-lg font-body-sm whitespace-nowrap">Support</button>
+</div>
+</div>
+<!-- Chat List -->
+<div class="flex-1 overflow-y-auto scrollbar-hide">
+<!-- Active Item -->
+<div class="p-lg flex items-center gap-md bg-surface-container hover:bg-surface-container-high cursor-pointer transition-colors border-l-4 border-primary">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Close-up portrait of a female venture capitalist in her early 30s, wearing elegant professional attire. She has a warm but authoritative expression. The image is bright with high-key lighting, emphasizing a clean and professional corporate environment. Natural soft bokeh background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGdtzCiOMKbZCO6Jkiee5FBmlBUF59jF5hfO7s9gvWJfNInqEJnKEmQWjROY65zFxpBATiiQfr0UohSp9YGGGROg6Ix3aEFNV_EFVaosBFogb-3co_guuVrYHc5ZV92MV92BuFsDEiM6fhHbI-7HDHP9swe3X3bKbBD-WDUtA9gkiFWe88Y6VaiDiXIigUs1KZD-e8r298C_6sc95LSiscpjSURhTg3-KYEKCU0lzFjtoxr44xbIuz"/>
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-tertiary-fixed-dim border-2 border-surface rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-1">
+<span class="font-body-md font-semibold text-on-surface truncate">Sarah Chen</span>
+<span class="font-metric-md text-xs text-secondary">10:42 AM</span>
+</div>
+<div class="flex justify-between items-center">
+<p class="font-body-sm text-secondary truncate">The Disclosure Document is ready for review. Can we discuss?</p>
+<span class="bg-primary text-on-primary text-[10px] font-bold px-1.5 py-0.5 rounded-full">2</span>
+</div>
+</div>
+</div>
+<!-- List Item -->
+<div class="p-lg flex items-center gap-md hover:bg-surface-container transition-colors cursor-pointer border-l-4 border-transparent">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="A portrait of a male investment banker in a light gray tailored suit. Professional and focused look. Background features a minimalist architectural interior with clean lines and soft lighting, perfectly aligning with the executive precision design theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw68nsVLgoO1m7M7sZWhn38xTST6nzSEJRqp80FstfqrdSOAW7dcBuzIhG5StTYsI_uBMeGZFwClhugqZYV62ao0lyhQVUCnE5qGsUzPKqGqNWb4Ntv_D7KbZFG46sTXWBOrBFm_YrJS_Nfl5Ztso1VUuont7JhYSOOyN-ksbFLiBie68F0Wb5kfRMaKBInC1sDc4AykwUV8VUm3s-pMvhHVRbpATVza1EHi37oLgQarGao1ozkmts"/>
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-outline-variant border-2 border-surface rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-1">
+<span class="font-body-md font-semibold text-on-surface truncate">Marcus Wright</span>
+<span class="font-metric-md text-xs text-secondary">Yesterday</span>
+</div>
+<div class="flex justify-between items-center">
+<p class="font-body-sm text-secondary truncate">Approved the terms for the Austin branch...</p>
+</div>
+</div>
+</div>
+<!-- List Item -->
+<div class="p-lg flex items-center gap-md hover:bg-surface-container transition-colors cursor-pointer border-l-4 border-transparent">
+<div class="w-12 h-12 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-1">
+<span class="font-body-md font-semibold text-on-surface truncate">VentureCore Board</span>
+<span class="font-metric-md text-xs text-secondary">Aug 24</span>
+</div>
+<div class="flex justify-between items-center">
+<p class="font-body-sm text-on-surface-variant truncate font-semibold italic">Elena: Let's sync on the Q4 roadmap.</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Chat Window (Center) -->
+<section class="flex-1 flex flex-col bg-surface relative min-w-0">
+<!-- Chat Header -->
+<header class="h-16 px-lg flex items-center justify-between border-b border-outline-variant bg-surface/80 backdrop-blur-md sticky top-0 z-10">
+<div class="flex items-center gap-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-xs">
+<h3 class="font-h3 text-h3 text-on-surface">Sarah Chen</h3>
+<span class="text-secondary font-body-sm">| VentureCore Capital</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 bg-tertiary-fixed-dim rounded-full animate-pulse"></div>
+<span class="text-[12px] text-secondary font-medium uppercase tracking-wider">Online</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-xs text-secondary hover:bg-surface-container-high rounded-lg transition-all border border-outline-variant">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="p-xs text-secondary hover:bg-surface-container-high rounded-lg transition-all border border-outline-variant">
+<span class="material-symbols-outlined">video_call</span>
+</button>
+<button class="p-xs text-secondary hover:bg-surface-container-high rounded-lg transition-all border border-outline-variant">
+<span class="material-symbols-outlined">folder_open</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-xs"></div>
+<button class="p-xs text-secondary hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Message Area -->
+<div class="flex-1 overflow-y-auto p-lg flex flex-col gap-lg scrollbar-hide">
+<!-- Date Divider -->
+<div class="flex items-center justify-center my-md">
+<div class="h-px bg-outline-variant flex-1"></div>
+<span class="mx-md text-xs font-label-caps text-secondary bg-surface px-sm">Today, August 25</span>
+<div class="h-px bg-outline-variant flex-1"></div>
+</div>
+<!-- Recipient Message -->
+<div class="flex items-end gap-md max-w-[80%]">
+<img class="w-8 h-8 rounded-full shrink-0 object-cover" data-alt="A portrait of a professional woman, early 30s, sharp features, approachable, high-end studio lighting, minimalist corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYSeFYrMeq8cj3pYV_smn7LaK6Cliw-MRwNe3B3Mv-6e7h2FVcrxmwy9N4xeL_o_gRvb3vBhLEznQGTAbgSHYZaHYuzNz7WYl2nXGdJLxbTs4e8KaMXHWrhVEm-C46Pf4cBaEX115J_UNjusANcNYmdmD-OxAMGPsZHeTlAtG2Gyd7lZFdHvqy3eiYCdo5yDYmovwwTT3-QDsunL-0u3EViQfeKIWStX-gPVHx53iZaVIl4TEEMjO0"/>
+<div class="flex flex-col gap-xs">
+<div class="bg-surface-container-high p-md rounded-2xl rounded-bl-none text-on-surface shadow-sm border border-outline-variant">
+<p class="font-body-md">Good morning. I've finished the initial due diligence for the new franchise territory in Denver. The market density looks promising.</p>
+</div>
+<span class="font-metric-md text-[10px] text-secondary ml-xs uppercase">09:15 AM</span>
+</div>
+</div>
+<!-- Sender Message -->
+<div class="flex items-end gap-md max-w-[80%] self-end flex-row-reverse">
+<div class="flex flex-col gap-xs items-end">
+<div class="bg-primary p-md rounded-2xl rounded-br-none text-on-primary shadow-lg">
+<p class="font-body-md">Excellent work, Sarah. I’m particularly interested in the proximity to the new transit hub. Did you include the footprint analysis?</p>
+</div>
+<div class="flex items-center gap-xs">
+<span class="font-metric-md text-[10px] text-secondary uppercase">09:42 AM</span>
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Recipient Message with File -->
+<div class="flex items-end gap-md max-w-[80%]">
+<img class="w-8 h-8 rounded-full shrink-0 object-cover" data-alt="A portrait of Sarah Chen, executive professional, high-end office lighting, soft-focus background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXi6T1vo_Zoq8BoEPLEhSjTW_DPGHcrqpDs-hDQ2OzF-aPKWOOU2M5MBEQ65nf95Uxl5CeO9ohkapHI8NocrkOYNFEhcpU55grh_3IziNHjjUJYBBHvHeNrvkeK6sX0VvnQ6MXash_1GKBvZ7KUTi7-umD4NDvFnyEGedL330XI3qeJXZqCpzE423bp9-v5iazgvyYSFdqRDtTvWaCUcq9sJjH6E_SiczPWiQYrwwotIENQ60R1uhK"/>
+<div class="flex flex-col gap-xs">
+<div class="bg-surface-container-high p-md rounded-2xl rounded-bl-none text-on-surface shadow-sm border border-outline-variant">
+<p class="font-body-md mb-sm">Yes, it's all in the FDD file here. Page 12 covers the transit hub impact specifically.</p>
+<div class="bg-surface border border-outline-variant rounded-xl p-sm flex items-center gap-md cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 bg-error-container text-error flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex-1">
+<p class="font-body-sm font-semibold">Franchise_Disclosure_v2.pdf</p>
+<p class="text-[10px] text-secondary uppercase font-metric-md">4.2 MB • PDF</p>
+</div>
+<span class="material-symbols-outlined text-secondary">download</span>
+</div>
+</div>
+<span class="font-metric-md text-[10px] text-secondary ml-xs uppercase">10:42 AM</span>
+</div>
+</div>
+</div>
+<!-- Input Bar -->
+<footer class="p-lg bg-surface border-t border-outline-variant">
+<div class="bg-surface-container-low border border-outline-variant rounded-2xl p-sm focus-within:ring-2 ring-primary ring-offset-2 transition-all">
+<textarea class="w-full bg-transparent border-none outline-none text-body-md resize-none min-h-[44px] max-h-32 mb-sm placeholder:text-secondary px-sm scrollbar-hide" placeholder="Write a message..."></textarea>
+<div class="flex items-center justify-between border-t border-outline-variant/30 pt-sm">
+<div class="flex items-center gap-xs">
+<button class="p-xs text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<button class="p-xs text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">add_reaction</span>
+</button>
+<button class="p-xs text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">format_bold</span>
+</button>
+<button class="p-xs text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">text_fields</span>
+</button>
+</div>
+<button class="bg-primary text-on-primary px-lg py-xs rounded-lg font-body-md font-semibold flex items-center gap-sm hover:opacity-90 active:scale-95 transition-all">
+                            Send <span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</div>
+</footer>
+</section>
+<!-- Details Sidebar (Right) -->
+<aside class="hidden xl:flex w-[320px] bg-surface-container-low border-l border-outline-variant flex-col overflow-y-auto scrollbar-hide">
+<!-- Profile Info -->
+<div class="p-lg flex flex-col items-center text-center border-b border-outline-variant">
+<img class="w-24 h-24 rounded-full border-4 border-surface shadow-md object-cover mb-md" data-alt="A sophisticated business profile photo of Sarah Chen, professional venture capital consultant. The style is sharp, using high-end photography techniques with a focus on professional clarity and modern minimalist background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByeICnfZQSJiugswi2_RmW08ZOB_VUmQR2IhkhMD4d5ZsiVD0FbNcN_esTCQrtdagbLLiACLc4jDvp78QfzZPmW7KYSSgvFj6SFWCtXxz13JuH-AQKuCRo4CvvkG1eM5Fy8ZbWd199oIwnUMDnuy9lq48_rVDqrM2ybNal9z51hTufPWPBVwGtc5huyLV9N-Wdeus19_KtIkP3nBNBU3VwYtomd6h-26YPfhrcb3mafKBOo_CXalSE"/>
+<h4 class="font-h3 text-h3 text-on-surface">Sarah Chen</h4>
+<p class="font-body-md text-primary font-medium mb-xs">Managing Director</p>
+<p class="font-body-sm text-secondary px-md">VentureCore Capital • Specializing in Multi-Unit Franchise Scaling</p>
+<div class="mt-lg flex gap-sm w-full">
+<button class="flex-1 py-xs border border-outline-variant rounded-lg font-body-sm text-secondary hover:bg-surface transition-colors">Profile</button>
+<button class="flex-1 py-xs border border-outline-variant rounded-lg font-body-sm text-secondary hover:bg-surface transition-colors">Call</button>
+</div>
+</div>
+<!-- Shared Files -->
+<div class="p-lg border-b border-outline-variant">
+<div class="flex items-center justify-between mb-lg">
+<h5 class="font-label-caps text-on-surface-variant">Shared Assets</h5>
+<button class="text-primary font-body-sm">View All</button>
+</div>
+<div class="flex flex-col gap-md">
+<div class="flex items-center gap-md p-xs hover:bg-surface transition-colors rounded-lg cursor-pointer">
+<div class="w-10 h-10 bg-surface-container-highest rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-sm font-medium truncate">Denver_Territory_Map.jpg</p>
+<p class="text-[10px] text-secondary font-metric-md">Aug 22 • 1.1 MB</p>
+</div>
+</div>
+<div class="flex items-center gap-md p-xs hover:bg-surface transition-colors rounded-lg cursor-pointer">
+<div class="w-10 h-10 bg-surface-container-highest rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">table_chart</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-sm font-medium truncate">ROI_Projections_Q4.xlsx</p>
+<p class="text-[10px] text-secondary font-metric-md">Aug 20 • 854 KB</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Mutual Connections -->
+<div class="p-lg">
+<h5 class="font-label-caps text-on-surface-variant mb-lg">Mutual Connections (8)</h5>
+<div class="flex -space-x-3 mb-md overflow-hidden">
+<img class="w-10 h-10 rounded-full border-2 border-surface bg-gray-200" data-alt="Corporate headshot of a business professional, male, mid-40s, light-mode office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmy1gERDaFXQAbtx7xAAGG4ktf4nqz4bdEXivVuSG7j4wDqxqv6kZn3yBslCGLf-2gvmQhVd8T-mivksewwosejxSWjIY08zOD44AmI16EHt--wW2J3mwMzTzSp7fqNBUWhzszpBYDWlO-W0mfwlujyeAFNPsBENzeCU5LWtPE_Hw0mdDAixOgBNETaGigxMd9O2bRZnEHlGJYu-xaHlw6J1kpWMHV5c7yVosOUQbCh8vnKevJXqYN"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface bg-gray-200" data-alt="Professional woman in a creative agency setting, vibrant yet clean lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7EIZ9umvzkIoq1ZD-BEUr7oniYLGmSloufBIxqrVimqQeMwT4eCLLm4oSEm7CfAuMMN0WJfKje83jLJDlUPbjA0faDa4uAViNsgn8MNDVXMiWAF8pfPEdLnoeYwjWHRlJZ_h3F0-6WcT7azLi7FU25DBaARKl0Nfl2l7A7XD17ixDO3HeB1kKjtWwTGGCu1ffdzuiVmSuQl6-JC_rrl0X0v6qBKYZhoo9GQGfq3i_QCyHV1PEaCPO"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface bg-gray-200" data-alt="Experienced financial advisor headshot, modern studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvN4kHaNuMbqHQkuSEUX8rikxQouMNeFd3C3hJ07OMY8mCOr6pac_d8K6uXOUOcemAG7vuOc4R2TcSiIekOUpIke8VvrQjcpEjEtOLflSTxr0F6-0E0gktLcxW_2Dfpm8AaDnjedMjgcHeZ54bgPo2EKHoak_Qn9LTH0Up5oBEVnyHpe5jyaQZOYZ63opRF-gJYpLz3q2l0ukDeUW1mrHzoqu8PEBuLUeZD-Bx3mhrdmeoguvRZDfF"/>
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-primary-fixed flex items-center justify-center text-[10px] font-bold text-on-primary-fixed-variant">+5</div>
+</div>
+<p class="font-body-sm text-secondary">You both know Marcus Wright, Julian Peters, and 6 others.</p>
+</div>
+</aside>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant w-full py-xl z-20">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter max-w-container-max mx-auto gap-md">
+<span class="font-label-caps text-on-surface-variant">© 2024 Franchisia Executive Ecosystem. All rights reserved.</span>
+<div class="flex gap-lg">
+<a class="font-body-sm text-secondary hover:text-on-surface transition-opacity" href="#">Privacy Policy</a>
+<a class="font-body-sm text-secondary hover:text-on-surface transition-opacity" href="#">Terms of Service</a>
+<a class="font-body-sm text-secondary hover:text-on-surface transition-opacity" href="#">Compliance</a>
+<a class="font-body-sm text-secondary hover:text-on-surface transition-opacity" href="#">Investor Relations</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple micro-interactions
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.classList.add('scale-95');
+                setTimeout(() => el.classList.remove('scale-95'), 100);
+            });
+        });
+
+        // Search bar focus behavior
+        const searchInput = document.querySelector('input[type="text"]');
+        if (searchInput) {
+            searchInput.addEventListener('focus', () => {
+                searchInput.parentElement.classList.add('ring-1', 'ring-primary');
+            });
+            searchInput.addEventListener('blur', () => {
+                searchInput.parentElement.classList.remove('ring-1', 'ring-primary');
+            });
+        }
+    </script>
+</body></html>

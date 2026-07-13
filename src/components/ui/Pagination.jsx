@@ -7,27 +7,34 @@ export default function Pagination({ current, total, onChange }) {
   }
 
   const btnStyle = (active) => ({
-    width: 36,
-    height: 36,
+    width: 40,
+    height: 40,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 'var(--radius-sm)',
-    border: active ? 'none' : '1px solid var(--border)',
+    borderRadius: 10,
+    border: active ? 'none' : '1px solid var(--outline-variant)',
     backgroundColor: active ? 'var(--primary)' : 'transparent',
-    color: active ? '#fff' : 'var(--text)',
-    fontWeight: active ? 600 : 400,
+    color: active ? 'var(--on-primary)' : 'var(--on-surface-variant)',
+    fontWeight: active ? 700 : 600,
     fontSize: 14,
     cursor: 'pointer',
+    transition: 'all 0.15s',
   });
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 4, justifyContent: 'center' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center' }}>
       <button style={btnStyle(false)} onClick={() => onChange(Math.max(1, current - 1))}>
         <ChevronLeft size={16} />
       </button>
       {pages.map((p) => (
-        <button key={p} style={btnStyle(p === current)} onClick={() => onChange(p)}>
+        <button
+          key={p}
+          style={btnStyle(p === current)}
+          onClick={() => onChange(p)}
+          onMouseEnter={(e) => { if (p !== current) { e.currentTarget.style.backgroundColor = 'var(--surface-container-low)'; }}}
+          onMouseLeave={(e) => { if (p !== current) { e.currentTarget.style.backgroundColor = 'transparent'; }}}
+        >
           {p}
         </button>
       ))}

@@ -1,7 +1,7 @@
 import { memo } from "react";
 
 const shimmer = { animation: "shimmer 1.5s infinite" };
-const base = { backgroundColor: "var(--border)", borderRadius: 6, ...shimmer };
+const base = { backgroundColor: "var(--surface-container-high)", borderRadius: 8, ...shimmer };
 
 export const SkeletonBar = memo(({ width = "60%", height = 14, style }) => (
   <div style={{ ...base, width, height, ...style }} />
@@ -17,7 +17,7 @@ export const SkeletonBlock = memo(({ width = "100%", height = 80, style }) => (
 
 export function SkeletonCard({ children, count = 1 }) {
   return Array.from({ length: count }, (_, i) => (
-    <div key={i} style={{ padding: 24, borderRadius: "var(--radius-md)", border: "1px solid var(--border)", backgroundColor: "var(--surface)" }}>
+    <div key={i} style={{ padding: 24, borderRadius: 12, border: "1px solid var(--outline-variant)", backgroundColor: "var(--surface-container-low)" }}>
       {children}
     </div>
   ));
@@ -25,7 +25,7 @@ export function SkeletonCard({ children, count = 1 }) {
 
 export function SkeletonRow({ avatar = true, lines = 2 }) {
   return (
-    <div style={{ display: "flex", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
+    <div style={{ display: "flex", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--outline-variant)" }}>
       {avatar && <SkeletonCircle size={36} />}
       <div style={{ flex: 1 }}>
         <SkeletonBar width="50%" height={13} style={{ marginBottom: 6 }} />

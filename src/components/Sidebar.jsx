@@ -48,11 +48,11 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
     alignItems: 'center',
     gap: 12,
     padding: '10px 16px',
-    borderRadius: 'var(--radius-sm)',
+    borderRadius: 10,
     fontSize: 14,
-    fontWeight: 500,
-    color: isActive(path) ? 'var(--primary)' : 'var(--text-secondary)',
-    backgroundColor: isActive(path) ? 'var(--primary-light)' : 'transparent',
+    fontWeight: 600,
+    color: isActive(path) ? 'var(--on-secondary-container)' : 'var(--on-surface-variant)',
+    backgroundColor: isActive(path) ? 'var(--secondary-container)' : 'transparent',
     transition: 'all 0.15s',
     border: 'none',
     cursor: 'pointer',
@@ -63,17 +63,17 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
 
   const sidebarContent = (
     <>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: collapsed ? 16 : '20px 20px', borderBottom: '1px solid var(--border)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: collapsed ? 16 : '20px 20px', borderBottom: '1px solid var(--outline-variant)' }}>
         <Logo size={collapsed ? 36 : 40} collapsed={collapsed} onClick={handleClose} />
         {overlayOpen && (
-          <button onClick={handleClose} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: 4, display: 'flex' }} aria-label="Close sidebar">
+          <button onClick={handleClose} style={{ background: 'none', border: 'none', color: 'var(--on-surface-variant)', cursor: 'pointer', padding: 4, display: 'flex', borderRadius: 8 }} aria-label="Close sidebar">
             <X size={20} />
           </button>
         )}
       </div>
 
       <div style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 4, flex: 1, overflow: 'auto' }}>
-        <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', display: collapsed ? 'none' : 'block' }}>Main</p>
+        <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', display: collapsed ? 'none' : 'block' }}>Main</p>
         {mainLinks.map((l) => (
           <Link key={l.path} to={l.path} style={linkStyle(l.path)} title={l.label}>
             <l.icon size={20} style={{ flexShrink: 0 }} />
@@ -81,7 +81,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
           </Link>
         ))}
 
-        <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>Account</p>
+        <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>Account</p>
         {accountLinks.map((l) => (
           <Link key={l.path} to={l.path} onClick={handleClose} style={linkStyle(l.path)} title={l.label}>
             <l.icon size={20} style={{ flexShrink: 0 }} />
@@ -91,7 +91,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
 
         {isAdmin && (
           <>
-            <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>Admin</p>
+            <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>Admin</p>
             {[
               { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
               { label: 'Users', path: '/admin/users', icon: Users },
@@ -118,7 +118,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
         )}
       </div>
 
-      <div style={{ padding: 12, borderTop: '1px solid var(--border)' }}>
+      <div style={{ padding: 12, borderTop: '1px solid var(--outline-variant)' }}>
         <button onClick={() => { logout(); handleClose(); }} style={linkStyle('#')} title="Logout">
           <LogOut size={20} style={{ flexShrink: 0 }} />
           {!collapsed && 'Logout'}
@@ -131,7 +131,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
     return (
       <>
         <div onClick={handleClose} style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 300, opacity: 1, transition: 'opacity 0.25s ease' }} />
-        <aside style={{ position: 'fixed', top: 0, left: 0, bottom: 0, width: 'var(--sidebar-width)', backgroundColor: 'var(--surface)', zIndex: 301, display: 'flex', flexDirection: 'column', boxShadow: 'var(--shadow-xl)', transform: 'translateX(0)', transition: 'transform 0.3s ease' }}>
+        <aside style={{ position: 'fixed', top: 0, left: 0, bottom: 0, width: 'var(--sidebar-width)', backgroundColor: 'var(--surface)', zIndex: 301, display: 'flex', flexDirection: 'column', boxShadow: '0 4px 24px rgba(0,0,0,0.15)', transform: 'translateX(0)', transition: 'transform 0.3s ease' }}>
           {sidebarContent}
         </aside>
       </>
@@ -139,7 +139,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
   }
 
   return (
-    <aside style={{ width: collapsed ? 64 : 'var(--sidebar-width)', height: '100vh', position: 'sticky', top: 0, backgroundColor: 'var(--surface)', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', transition: 'width 0.3s', overflow: 'hidden', flexShrink: 0 }}>
+    <aside style={{ width: collapsed ? 64 : 'var(--sidebar-width)', height: '100vh', position: 'sticky', top: 0, backgroundColor: 'var(--surface)', borderRight: '1px solid var(--outline-variant)', display: 'flex', flexDirection: 'column', transition: 'width 0.3s', overflow: 'hidden', flexShrink: 0 }}>
       {sidebarContent}
     </aside>
   );

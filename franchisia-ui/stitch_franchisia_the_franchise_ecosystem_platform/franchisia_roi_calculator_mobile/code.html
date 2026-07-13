@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Investment ROI Calculator | Franchisia</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Custom slider styling to match brand colors */
+        input[type=range] { -webkit-appearance: none; background: transparent; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: #e5eeff; border-radius: 999px; }
+        input[type=range]::-webkit-slider-thumb { height: 20px; width: 20px; border-radius: 50%; background: #004ac6; cursor: pointer; -webkit-appearance: none; margin-top: -7px; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    </style>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#002113",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "primary": "#004ac6",
+                    "tertiary-container": "#007d55",
+                    "primary-container": "#2563eb",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "surface-tint": "#0053db",
+                    "surface-container-high": "#dce9ff",
+                    "inverse-primary": "#b4c5ff",
+                    "primary-fixed": "#dbe1ff",
+                    "tertiary": "#006242",
+                    "on-secondary-container": "#5c647a",
+                    "surface-bright": "#f8f9ff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "outline": "#737686",
+                    "outline-variant": "#c3c6d7",
+                    "tertiary-fixed": "#6ffbbe",
+                    "surface": "#f8f9ff",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "surface-container": "#e5eeff",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#eeefff",
+                    "on-surface-variant": "#434655",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#eff4ff",
+                    "inverse-surface": "#213145",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-background": "#0b1c30",
+                    "background": "#f8f9ff",
+                    "on-tertiary-container": "#bdffdb",
+                    "surface-variant": "#d3e4fe",
+                    "surface-dim": "#cbdbf5",
+                    "surface-container-highest": "#d3e4fe",
+                    "secondary": "#565e74",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-primary-fixed": "#00174b",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#dae2fd",
+                    "secondary-container": "#dae2fd",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "gutter": "24px",
+                    "sm": "12px",
+                    "3xl": "64px",
+                    "lg": "24px",
+                    "2xl": "48px",
+                    "container-max": "1440px",
+                    "xs": "8px"
+            },
+            "fontFamily": {
+                    "h2": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "metric-lg": ["JetBrains Mono"],
+                    "display-lg": ["Inter"],
+                    "h1": ["Inter"],
+                    "metric-md": ["JetBrains Mono"],
+                    "h3": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "metric-lg": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "metric-md": ["16px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-white">
+<!-- TopAppBar -->
+<header class="bg-surface w-full h-16 sticky top-0 z-50 border-b border-outline-variant shadow-sm transition-all duration-300" id="navbar">
+<div class="flex items-center justify-between px-gutter max-w-container-max mx-auto h-full">
+<div class="flex items-center gap-xs">
+<span class="font-h2 text-h2 font-bold text-primary">Franchisia</span>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-secondary cursor-pointer" title="notifications">notifications</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional corporate headshot of a female executive in a navy blue suit, set against a clean, blurred office background with warm lighting. The aesthetic is high-end and secure, utilizing soft daylight to emphasize clarity and trustworthiness, perfectly fitting the Franchisia executive suite style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWxFB9Ws9oYWKagKuDCjZo-c5axjo6M_q8AxYGdCc5G-6MWFH5YXaqwr5CHDGzPHPjX7N3We81tTAabm4OcVEQp73yP-hkDrBcTIb66x7TomNPjm_KT9BlOELwFpjQsnGPjVl5473A9Q2x6gfPTO_C-dJFyuzeiOHuFGFCGksLFTHqJfuSZupMHt9Gy-CSSMcSbC1zOGE3ohzB9sjCrXhL0ISOTowxp59ab6pwlwRdGdc1n5Lu589m"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto pb-32">
+<!-- Executive Summary Section -->
+<section class="px-md pt-lg pb-xl">
+<div class="flex flex-col gap-sm mb-lg">
+<h1 class="font-h1 text-h1 text-on-surface">ROI Projection</h1>
+<p class="font-body-sm text-secondary">Asset: North American Logistics Cluster v2.4</p>
+</div>
+<!-- Bento Summary Cards -->
+<div class="grid grid-cols-2 gap-md">
+<div class="col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-xs block">ESTIMATED 5-YEAR ROI</span>
+<div class="flex items-baseline gap-xs">
+<span class="font-metric-lg text-[42px] leading-none text-primary" id="roi-display">248.5%</span>
+<span class="material-symbols-outlined text-tertiary text-h2 font-bold" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</div>
+<div class="mt-md w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary h-full rounded-full w-3/4"></div>
+</div>
+</div>
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-md">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-xs block">BREAK-EVEN</span>
+<span class="font-metric-lg text-metric-lg text-on-surface" id="breakeven-display">22 Mos</span>
+</div>
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-md">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-xs block">NET MARGIN</span>
+<span class="font-metric-lg text-metric-lg text-on-surface" id="margin-display">18.2%</span>
+</div>
+</div>
+</section>
+<!-- Interactive Chart Section -->
+<section class="px-md mb-xl">
+<div class="bg-on-background p-lg rounded-3xl shadow-lg relative overflow-hidden">
+<!-- Abstract BG Glow -->
+<div class="absolute -top-12 -right-12 w-32 h-32 bg-primary blur-3xl opacity-20"></div>
+<div class="flex justify-between items-center mb-lg relative z-10">
+<h3 class="font-h3 text-h3 text-white">Cash Flow Trajectory</h3>
+<div class="flex gap-xs">
+<span class="px-xs py-1 rounded bg-white/10 text-white font-label-caps">YEAR 1-5</span>
+</div>
+</div>
+<!-- Visual Chart Representation (Simulated for high impact) -->
+<div class="h-48 w-full flex items-end gap-1 mb-md relative z-10">
+<div class="flex-1 bg-white/10 h-[20%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/10 h-[25%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/20 h-[40%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/30 h-[55%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary h-[75%] rounded-t-sm shadow-[0_0_15px_rgba(37,99,235,0.4)]"></div>
+<div class="flex-1 bg-primary h-[90%] rounded-t-sm shadow-[0_0_15px_rgba(37,99,235,0.4)]"></div>
+<div class="flex-1 bg-white/60 h-[100%] rounded-t-sm"></div>
+</div>
+<div class="flex justify-between text-white/40 font-metric-md text-[10px] uppercase tracking-widest relative z-10">
+<span>Initial</span>
+<span>Yr 1</span>
+<span>Yr 2</span>
+<span>Yr 3</span>
+<span>Yr 4</span>
+<span>Yr 5</span>
+</div>
+</div>
+</section>
+<!-- Configuration Section -->
+<section class="px-md mb-xl">
+<div class="bg-surface border border-outline-variant rounded-2xl overflow-hidden">
+<div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-h3 text-h3 text-on-surface">Financial Variables</h3>
+<span class="material-symbols-outlined text-secondary">tune</span>
+</div>
+<!-- Step-based Config -->
+<div class="p-lg flex flex-col gap-lg">
+<!-- Variable 1 -->
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-center">
+<label class="font-body-sm font-semibold text-on-surface">Initial Investment</label>
+<span class="font-metric-md text-primary">$450,000</span>
+</div>
+<input class="w-full" max="1000000" min="100000" step="10000" type="range" value="450000"/>
+</div>
+<!-- Variable 2 -->
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-center">
+<label class="font-body-sm font-semibold text-on-surface">Monthly Revenue</label>
+<span class="font-metric-md text-primary">$85,000</span>
+</div>
+<input class="w-full" max="250000" min="10000" step="5000" type="range" value="85000"/>
+</div>
+<!-- Collapsible Variables -->
+<details class="group">
+<summary class="flex items-center justify-between font-body-sm font-semibold text-secondary cursor-pointer py-2">
+                            Advanced Metrics (Labor, COGS)
+                            <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="pt-md flex flex-col gap-lg border-t border-outline-variant mt-sm">
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-center">
+<label class="font-body-sm font-semibold text-on-surface">Labor %</label>
+<span class="font-metric-md text-primary">22%</span>
+</div>
+<input class="w-full" max="40" min="10" step="1" type="range" value="22"/>
+</div>
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-center">
+<label class="font-body-sm font-semibold text-on-surface">COGS %</label>
+<span class="font-metric-md text-primary">31%</span>
+</div>
+<input class="w-full" max="50" min="15" step="1" type="range" value="31"/>
+</div>
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-center">
+<label class="font-body-sm font-semibold text-on-surface">Royalty Fee</label>
+<span class="font-metric-md text-primary">6.5%</span>
+</div>
+<input class="w-full" max="10" min="2" step="0.5" type="range" value="6.5"/>
+</div>
+</div>
+</details>
+</div>
+</div>
+</section>
+<!-- Sensitivity Analysis -->
+<section class="px-md mb-xl">
+<h3 class="font-h3 text-h3 mb-md">Market Sensitivity</h3>
+<div class="flex bg-surface-container-low p-1 rounded-xl mb-md">
+<button class="flex-1 py-md text-center rounded-lg font-body-sm font-semibold transition-all text-secondary" id="bear-btn">Bear Case</button>
+<button class="flex-1 py-md text-center rounded-lg font-body-sm font-semibold transition-all bg-white text-primary shadow-sm" id="base-btn">Base Case</button>
+<button class="flex-1 py-md text-center rounded-lg font-body-sm font-semibold transition-all text-secondary" id="bull-btn">Bull Case</button>
+</div>
+<div class="bg-surface border border-outline-variant rounded-2xl overflow-hidden divide-y divide-outline-variant">
+<div class="p-md flex justify-between items-center">
+<span class="font-body-sm text-secondary">Operating Profit (Annual)</span>
+<span class="font-metric-md text-on-surface" id="annual-profit">$185,640</span>
+</div>
+<div class="p-md flex justify-between items-center">
+<span class="font-body-sm text-secondary">EBITDA Multiplier</span>
+<span class="font-metric-md text-on-surface">4.2x</span>
+</div>
+<div class="p-md flex justify-between items-center bg-surface-container-lowest">
+<span class="font-body-sm font-bold text-on-surface">Projected Terminal Value</span>
+<span class="font-metric-md text-primary">$779,688</span>
+</div>
+</div>
+</section>
+<!-- CTA for Full Report -->
+<section class="px-md mb-32">
+<button class="w-full h-[52px] bg-primary text-white rounded-xl font-h3 flex items-center justify-center gap-sm active:scale-95 transition-transform">
+                Generate Pro Forma PDF
+                <span class="material-symbols-outlined">description</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Shell Overlay) -->
+<nav class="fixed bottom-0 left-0 right-0 bg-surface border-t border-outline-variant z-50 md:hidden h-20 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+<div class="flex items-center justify-around h-full max-w-container-max mx-auto px-md">
+<div class="flex flex-col items-center justify-center gap-1 group text-secondary">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="text-[10px] font-semibold uppercase tracking-wider">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 group text-primary border-t-2 border-primary pt-1">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="text-[10px] font-semibold uppercase tracking-wider">Investments</span>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 group text-secondary">
+<span class="material-symbols-outlined text-[24px]">hub</span>
+<span class="text-[10px] font-semibold uppercase tracking-wider">Network</span>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 group text-secondary">
+<span class="material-symbols-outlined text-[24px]">chat_bubble</span>
+<span class="text-[10px] font-semibold uppercase tracking-wider">Messages</span>
+</div>
+</div>
+</nav>
+<!-- Floating Action Button Contextual -->
+<!-- FAB Hidden on Details/Calculators per requirement -->
+<script>
+        // Interactive Toggle Logic for Case Analysis
+        const bearBtn = document.getElementById('bear-btn');
+        const baseBtn = document.getElementById('base-btn');
+        const bullBtn = document.getElementById('bull-btn');
+        
+        const roiDisplay = document.getElementById('roi-display');
+        const breakevenDisplay = document.getElementById('breakeven-display');
+        const annualProfit = document.getElementById('annual-profit');
+
+        const updateCases = (activeBtn, data) => {
+            [bearBtn, baseBtn, bullBtn].forEach(btn => {
+                btn.classList.remove('bg-white', 'text-primary', 'shadow-sm');
+                btn.classList.add('text-secondary');
+            });
+            activeBtn.classList.add('bg-white', 'text-primary', 'shadow-sm');
+            activeBtn.classList.remove('text-secondary');
+            
+            roiDisplay.innerText = data.roi;
+            breakevenDisplay.innerText = data.be;
+            annualProfit.innerText = data.profit;
+            
+            // Add a small bounce animation to the metrics
+            roiDisplay.animate([
+                { opacity: 0.5, transform: 'translateY(5px)' },
+                { opacity: 1, transform: 'translateY(0)' }
+            ], { duration: 300 });
+        };
+
+        bearBtn.addEventListener('click', () => {
+            updateCases(bearBtn, { roi: '112.4%', be: '38 Mos', profit: '$94,200' });
+        });
+
+        baseBtn.addEventListener('click', () => {
+            updateCases(baseBtn, { roi: '248.5%', be: '22 Mos', profit: '$185,640' });
+        });
+
+        bullBtn.addEventListener('click', () => {
+            updateCases(bullBtn, { roi: '392.1%', be: '14 Mos', profit: '$278,900' });
+        });
+
+        // Simple scroll behavior for top bar
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md', 'h-14');
+                nav.classList.remove('h-16');
+            } else {
+                nav.classList.remove('shadow-md', 'h-14');
+                nav.classList.add('h-16');
+            }
+        });
+    </script>
+</body></html>

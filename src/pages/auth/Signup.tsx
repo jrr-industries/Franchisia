@@ -26,6 +26,52 @@ const signupSchema = z.object({
   path: ["confirmPassword"],
 });
 
+const inputStyle = {
+  width: "100%",
+  padding: "10px 16px",
+  fontSize: 14,
+  color: "var(--on-surface)",
+  backgroundColor: "var(--surface-container-low)",
+  border: "1px solid var(--outline-variant)",
+  borderRadius: 10,
+  outline: "none",
+  transition: "border-color 0.2s",
+};
+
+const socialBtnStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 10,
+  width: "100%",
+  padding: "12px 16px",
+  borderRadius: 10,
+  border: "1px solid var(--outline-variant)",
+  backgroundColor: "var(--surface)",
+  color: "var(--on-surface)",
+  fontSize: 14,
+  fontWeight: 600,
+  cursor: "pointer",
+  transition: "all 0.2s",
+};
+
+const primaryBtnStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 8,
+  width: "100%",
+  padding: "12px 24px",
+  borderRadius: 10,
+  border: "none",
+  backgroundColor: "var(--primary)",
+  color: "#fff",
+  fontSize: 15,
+  fontWeight: 700,
+  cursor: "pointer",
+  transition: "all 0.2s",
+};
+
 export default function Signup() {
   const navigate = useNavigate();
   const { signup, loginSocial, socialLoading } = useAuth();
@@ -70,15 +116,15 @@ export default function Signup() {
 
   return (
     <div data-page="signup" style={{ minHeight: "100vh", display: "flex" }}>
-      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
-        <div style={{ maxWidth: 440, width: "100%" }}>
-          <div style={{ marginBottom: 32 }}>
-            <Link to="/" style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 800, fontSize: 22, color: "var(--primary)", marginBottom: 24 }}>
+      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: 24, backgroundColor: "var(--surface)" }}>
+        <div style={{ maxWidth: 420, width: "100%" }}>
+          <div style={{ marginBottom: 40 }}>
+            <Link to="/" style={{ display: "inline-flex", alignItems: "center", gap: 10, fontWeight: 800, fontSize: 22, color: "var(--primary)", marginBottom: 32, textDecoration: "none" }}>
               <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: "var(--primary)", display: "inline-block" }} />
               Franchisia
             </Link>
-            <h1 className="auth-title" style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>Create your account</h1>
-            <p style={{ color: "var(--text-secondary)", fontSize: 15 }}>Join the professional franchise network.</p>
+            <h1 className="auth-title" style={{ fontSize: 28, fontWeight: 700, marginBottom: 8, color: "var(--on-surface)" }}>Create your account</h1>
+            <p style={{ color: "var(--on-surface-variant)", fontSize: 15 }}>Join the professional franchise network.</p>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
@@ -97,79 +143,87 @@ export default function Signup() {
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
-            <div style={{ flex: 1, height: 1, backgroundColor: "var(--border)" }} />
-            <span style={{ color: "var(--text-muted)", fontSize: 13, fontWeight: 500 }}>OR</span>
-            <div style={{ flex: 1, height: 1, backgroundColor: "var(--border)" }} />
+            <div style={{ flex: 1, height: 1, backgroundColor: "var(--outline-variant)" }} />
+            <span style={{ color: "var(--on-surface-variant)", fontSize: 13, fontWeight: 500 }}>OR</span>
+            <div style={{ flex: 1, height: 1, backgroundColor: "var(--outline-variant)" }} />
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             <div>
-              <label style={{ display: "block", fontSize: 14, fontWeight: 500, marginBottom: 6, color: "var(--text)" }}>Full Name</label>
+              <label style={{ display: "block", fontSize: 14, fontWeight: 600, marginBottom: 6, color: "var(--on-surface)" }}>Full Name</label>
               <div style={{ position: "relative" }}>
-                <User size={16} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", pointerEvents: "none" }} />
+                <User size={16} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--on-surface-variant)", pointerEvents: "none" }} />
                 <input
                   {...register("name")}
                   placeholder="John Doe"
                   style={{ ...inputStyle, paddingLeft: 36 }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = "var(--primary)"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(0,74,198,0.15)"; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = "var(--outline-variant)"; e.currentTarget.style.boxShadow = "none"; }}
                 />
               </div>
-              {errors.name && <p style={{ fontSize: 12, color: "var(--danger)", marginTop: 4 }}>{errors.name.message}</p>}
+              {errors.name && <p style={{ fontSize: 12, color: "var(--error)", marginTop: 4 }}>{errors.name.message}</p>}
             </div>
 
             <div>
-              <label style={{ display: "block", fontSize: 14, fontWeight: 500, marginBottom: 6, color: "var(--text)" }}>Email Address</label>
+              <label style={{ display: "block", fontSize: 14, fontWeight: 600, marginBottom: 6, color: "var(--on-surface)" }}>Email Address</label>
               <div style={{ position: "relative" }}>
-                <Mail size={16} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", pointerEvents: "none" }} />
+                <Mail size={16} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--on-surface-variant)", pointerEvents: "none" }} />
                 <input
                   {...register("email")}
                   type="email"
                   placeholder="john@example.com"
                   style={{ ...inputStyle, paddingLeft: 36 }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = "var(--primary)"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(0,74,198,0.15)"; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = "var(--outline-variant)"; e.currentTarget.style.boxShadow = "none"; }}
                 />
               </div>
-              {errors.email && <p style={{ fontSize: 12, color: "var(--danger)", marginTop: 4 }}>{errors.email.message}</p>}
+              {errors.email && <p style={{ fontSize: 12, color: "var(--error)", marginTop: 4 }}>{errors.email.message}</p>}
             </div>
 
             <div>
-              <label style={{ display: "block", fontSize: 14, fontWeight: 500, marginBottom: 6, color: "var(--text)" }}>Password</label>
+              <label style={{ display: "block", fontSize: 14, fontWeight: 600, marginBottom: 6, color: "var(--on-surface)" }}>Password</label>
               <div style={{ position: "relative" }}>
-                <Lock size={16} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", pointerEvents: "none" }} />
+                <Lock size={16} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--on-surface-variant)", pointerEvents: "none" }} />
                 <input
                   {...register("password")}
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a strong password"
                   style={{ ...inputStyle, paddingLeft: 36, paddingRight: 36 }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = "var(--primary)"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(0,74,198,0.15)"; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = "var(--outline-variant)"; e.currentTarget.style.boxShadow = "none"; }}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", display: "flex" }}
+                  style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "var(--on-surface-variant)", cursor: "pointer", display: "flex" }}
                 >
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
-              {errors.password && <p style={{ fontSize: 12, color: "var(--danger)", marginTop: 4 }}>{errors.password.message}</p>}
+              {errors.password && <p style={{ fontSize: 12, color: "var(--error)", marginTop: 4 }}>{errors.password.message}</p>}
             </div>
 
             <div>
-              <label style={{ display: "block", fontSize: 14, fontWeight: 500, marginBottom: 6, color: "var(--text)" }}>Confirm Password</label>
+              <label style={{ display: "block", fontSize: 14, fontWeight: 600, marginBottom: 6, color: "var(--on-surface)" }}>Confirm Password</label>
               <div style={{ position: "relative" }}>
-                <Lock size={16} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", pointerEvents: "none" }} />
+                <Lock size={16} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--on-surface-variant)", pointerEvents: "none" }} />
                 <input
                   {...register("confirmPassword")}
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm your password"
                   style={{ ...inputStyle, paddingLeft: 36, paddingRight: 36 }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = "var(--primary)"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(0,74,198,0.15)"; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = "var(--outline-variant)"; e.currentTarget.style.boxShadow = "none"; }}
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", display: "flex" }}
+                  style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "var(--on-surface-variant)", cursor: "pointer", display: "flex" }}
                 >
                   {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
-              {errors.confirmPassword && <p style={{ fontSize: 12, color: "var(--danger)", marginTop: 4 }}>{errors.confirmPassword.message}</p>}
+              {errors.confirmPassword && <p style={{ fontSize: 12, color: "var(--error)", marginTop: 4 }}>{errors.confirmPassword.message}</p>}
             </div>
 
             <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
@@ -179,11 +233,11 @@ export default function Signup() {
                 id="agreeTerms"
                 style={{ marginTop: 3, width: 16, height: 16, accentColor: "var(--primary)" }}
               />
-              <label htmlFor="agreeTerms" style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                I agree to the <Link to="/terms" style={{ color: "var(--primary)", fontWeight: 500 }}>Terms of Service</Link> and <Link to="/privacy" style={{ color: "var(--primary)", fontWeight: 500 }}>Privacy Policy</Link>.
+              <label htmlFor="agreeTerms" style={{ fontSize: 13, color: "var(--on-surface-variant)", lineHeight: 1.5 }}>
+                I agree to the <Link to="/terms" style={{ color: "var(--primary)", fontWeight: 600, textDecoration: "none" }}>Terms of Service</Link> and <Link to="/privacy" style={{ color: "var(--primary)", fontWeight: 600, textDecoration: "none" }}>Privacy Policy</Link>.
               </label>
             </div>
-            {errors.agreeTerms && <p style={{ fontSize: 12, color: "var(--danger)", marginTop: -8 }}>{errors.agreeTerms.message}</p>}
+            {errors.agreeTerms && <p style={{ fontSize: 12, color: "var(--error)", marginTop: -8 }}>{errors.agreeTerms.message}</p>}
 
             <button
               type="submit"
@@ -192,15 +246,17 @@ export default function Signup() {
                 ...primaryBtnStyle,
                 opacity: isSubmitting ? 0.7 : 1,
               }}
+              onMouseEnter={(e) => { if (!isSubmitting) e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,74,198,0.3)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}
             >
               {isSubmitting ? <Loader2 size={18} style={{ animation: "spin 1s linear infinite" }} /> : null}
               {isSubmitting ? "Creating Account..." : "Create Account"}
             </button>
           </form>
 
-          <p style={{ textAlign: "center", marginTop: 24, fontSize: 14, color: "var(--text-secondary)" }}>
+          <p style={{ textAlign: "center", marginTop: 24, fontSize: 14, color: "var(--on-surface-variant)" }}>
             Already have an account?{" "}
-            <Link to="/login" style={{ color: "var(--primary)", fontWeight: 600 }}>Sign in</Link>
+            <Link to="/login" style={{ color: "var(--primary)", fontWeight: 600, textDecoration: "none" }}>Sign in</Link>
           </p>
         </div>
       </div>
@@ -209,53 +265,11 @@ export default function Signup() {
           [data-page="signup"] > div:first-child { padding: 16px !important; }
           [data-page="signup"] .auth-title { font-size: 24px !important; }
         }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
       `}</style>
     </div>
   );
 }
-
-const socialBtnStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: 10,
-  width: "100%",
-  padding: "12px 16px",
-  borderRadius: "var(--radius-sm)",
-  border: "2px solid var(--border)",
-  backgroundColor: "var(--surface)",
-  color: "var(--text)",
-  fontSize: 14,
-  fontWeight: 600,
-  cursor: "pointer",
-  transition: "all 0.2s",
-};
-
-const inputStyle = {
-  width: "100%",
-  padding: "10px 16px",
-  fontSize: 14,
-  color: "var(--text)",
-  backgroundColor: "var(--surface)",
-  border: "2px solid var(--border)",
-  borderRadius: "var(--radius-sm)",
-  outline: "none",
-  transition: "border-color 0.2s",
-};
-
-const primaryBtnStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: 8,
-  width: "100%",
-  padding: "12px 24px",
-  borderRadius: "var(--radius-sm)",
-  border: "2px solid var(--primary)",
-  backgroundColor: "var(--primary)",
-  color: "#fff",
-  fontSize: 15,
-  fontWeight: 600,
-  cursor: "pointer",
-  transition: "all 0.2s",
-};

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Franchisee Profile Dossier - Alex Sterling</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-error-container": "#93000a",
+                "surface-container": "#e5eeff",
+                "surface-container-low": "#eff4ff",
+                "secondary-fixed-dim": "#bec6e0",
+                "on-tertiary-container": "#bdffdb",
+                "on-secondary-container": "#5c647a",
+                "on-error": "#ffffff",
+                "surface-container-highest": "#d3e4fe",
+                "on-tertiary-fixed-variant": "#005236",
+                "on-surface": "#0b1c30",
+                "on-secondary-fixed": "#131b2e",
+                "surface-dim": "#cbdbf5",
+                "surface-container-high": "#dce9ff",
+                "primary-fixed": "#dbe1ff",
+                "background": "#f8f9ff",
+                "surface-tint": "#0053db",
+                "secondary-container": "#dae2fd",
+                "outline": "#737686",
+                "on-primary": "#ffffff",
+                "error": "#ba1a1a",
+                "error-container": "#ffdad6",
+                "tertiary-fixed": "#6ffbbe",
+                "surface": "#f8f9ff",
+                "on-tertiary": "#ffffff",
+                "secondary": "#565e74",
+                "tertiary": "#006242",
+                "on-secondary": "#ffffff",
+                "inverse-on-surface": "#eaf1ff",
+                "primary-container": "#2563eb",
+                "on-tertiary-fixed": "#002113",
+                "on-surface-variant": "#434655",
+                "on-primary-fixed": "#00174b",
+                "secondary-fixed": "#dae2fd",
+                "primary": "#004ac6",
+                "on-background": "#0b1c30",
+                "tertiary-container": "#007d55",
+                "primary-fixed-dim": "#b4c5ff",
+                "inverse-primary": "#b4c5ff",
+                "outline-variant": "#c3c6d7",
+                "on-primary-container": "#eeefff",
+                "tertiary-fixed-dim": "#4edea3",
+                "surface-bright": "#f8f9ff",
+                "surface-container-lowest": "#ffffff",
+                "inverse-surface": "#213145",
+                "on-secondary-fixed-variant": "#3f465c",
+                "on-primary-fixed-variant": "#003ea8",
+                "surface-variant": "#d3e4fe"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "xs": "8px",
+                "lg": "24px",
+                "2xl": "48px",
+                "sm": "12px",
+                "container-max": "1440px",
+                "xl": "32px",
+                "gutter": "24px",
+                "md": "16px",
+                "base": "4px",
+                "3xl": "64px"
+            },
+            "fontFamily": {
+                "h1": ["Inter"],
+                "display-lg-mobile": ["Inter"],
+                "h3": ["Inter"],
+                "metric-md": ["JetBrains Mono"],
+                "h2": ["Inter"],
+                "metric-lg": ["JetBrains Mono"],
+                "body-lg": ["Inter"],
+                "body-md": ["Inter"],
+                "label-caps": ["Inter"],
+                "display-lg": ["Inter"],
+                "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                "display-lg-mobile": ["36px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                "metric-md": ["16px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                "metric-lg": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f8f9ff;
+            color: #0b1c30;
+            -webkit-font-smoothing: antialiased;
+        }
+        .bento-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 16px;
+            transition: border-color 0.2s ease;
+        }
+        .bento-card:hover {
+            border-color: #004ac6;
+        }
+        .progress-bar-track {
+            background: #f1f5f9;
+            height: 8px;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            background: #004ac6;
+            height: 100%;
+            border-radius: 9999px;
+        }
+        .safe-bottom {
+            padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky bg-surface-container-lowest border-b border-outline-variant shadow-sm z-50 flex justify-between items-center px-gutter py-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+<h2 class="font-h2 text-h2-mobile font-bold text-primary">Franchise Hub</h2>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged man with short groomed hair and a confident expression, wearing a tailored navy blazer and a crisp white shirt. The background is a blurred high-end corporate office in London, featuring soft natural light and modern architectural lines. The visual style is premium and clean." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQsdqgTTyGV5faZ3zow2LtMjJle_cW3ALl6lUUn3r_aPHiQUIfZbOZtCkVRtEqK4ZvJPdXkW773GLEhNReyaFccHo3pRNeKLFOnnesJekSM3MFubd0M2jNTrUHZKSiwiVBBMhPL8s6qhPGATHV7zpnjIwlw4Hj0kZEgu7Jq34gBBkqpY1jUevbQxRriQF_bjmxJeBawp5XjgoylO2rDOV3cC6LohoNMZKo210w9B-Vx29aHysC-J2C"/>
+</div>
+</div>
+</header>
+<main class="px-md py-lg safe-bottom">
+<!-- Header Section -->
+<section class="flex flex-col items-center mb-xl">
+<div class="relative mb-md">
+<div class="w-24 h-24 rounded-full border-2 border-primary p-1">
+<img class="w-full h-full rounded-full object-cover" data-alt="A high-resolution professional portrait of Alex Sterling, a clean-cut executive in his early 40s with a warm but authoritative smile. He is set against a minimalist light gray studio background with soft side lighting that emphasizes professional approachability. The aesthetic is modern SaaS corporate portraiture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5xTCghfVO_FIa96YOgH6Nz-r5eAa-KMpzSS3YfzW340cSn3v8EAUrJ7xOHxfW9tiGfcQwWeBH2PaKDuLQZmk4Emzk1keoBKD0puqa0v-VkKWKO6d35nPKV-IOa3IOmHHuRZHemuNTh8IX6TkP1dZ-xwDpGaSSuVsNXxTPunkUHhLiqVmWhW9AT1p4Y0IVdsPECCdEVVjLHxz3daj-eEWQpL-meKKk7TMpqNulR-MbgTq4lZCuBkfe"/>
+</div>
+<div class="absolute bottom-0 right-0 bg-tertiary text-white rounded-full p-0.5 border-2 border-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<h1 class="font-h1 text-h1 text-center mb-xs">Alex Sterling</h1>
+<div class="flex items-center gap-xs text-secondary mb-base">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="font-body-sm text-body-sm">London, UK</span>
+<span class="text-outline-variant">•</span>
+<span class="font-body-sm text-body-sm">Member since 2021</span>
+</div>
+<div class="bg-surface-container-high px-sm py-xs rounded-full flex items-center gap-xs mb-lg">
+<span class="material-symbols-outlined text-tertiary text-[18px]">verified_user</span>
+<span class="font-label-caps text-label-caps text-tertiary">VERIFIED CANDIDATE</span>
+</div>
+<div class="grid grid-cols-2 gap-md w-full">
+<button class="bg-primary-container text-on-primary-container font-h3 text-body-md py-sm rounded-xl flex items-center justify-center gap-xs transition-transform active:scale-95 shadow-sm">
+<span class="material-symbols-outlined">mail</span>
+                    Message Alex
+                </button>
+<button class="border border-outline text-on-surface font-h3 text-body-md py-sm rounded-xl flex items-center justify-center gap-xs transition-transform active:scale-95">
+<span class="material-symbols-outlined">download</span>
+                    Dossier
+                </button>
+</div>
+</section>
+<!-- Financial Readiness -->
+<section class="mb-xl">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-h3 text-h3">Financial Readiness</h3>
+<span class="text-tertiary flex items-center gap-xs font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                    FULLY VETTED
+                </span>
+</div>
+<div class="grid grid-cols-1 gap-md">
+<div class="bento-card flex justify-between items-center">
+<div>
+<p class="text-secondary font-label-caps text-label-caps mb-xs">LIQUID CAPITAL</p>
+<p class="font-metric-lg text-metric-lg text-primary">$250,000</p>
+</div>
+<span class="material-symbols-outlined text-surface-container-highest text-3xl">payments</span>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="bento-card">
+<p class="text-secondary font-label-caps text-label-caps mb-xs">NET WORTH</p>
+<p class="font-metric-md text-metric-md text-on-surface">$1.2M</p>
+</div>
+<div class="bento-card">
+<p class="text-secondary font-label-caps text-label-caps mb-xs">CREDIT SCORE</p>
+<p class="font-metric-md text-metric-md text-on-surface">780+</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Trust Status -->
+<section class="mb-xl">
+<div class="bento-card bg-primary-container !border-none text-on-primary-container overflow-hidden relative">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-lg">
+<div>
+<h3 class="font-h3 text-h3 text-white mb-base">Trust Status</h3>
+<p class="text-primary-fixed text-body-sm">Consolidated Verification Report</p>
+</div>
+<div class="text-right">
+<p class="font-metric-lg text-metric-lg text-white">98/100</p>
+<p class="font-label-caps text-label-caps text-primary-fixed">V-SCORE</p>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-tertiary-fixed-dim">check_circle</span>
+<span class="text-body-sm font-medium">Identity Verification Complete</span>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-tertiary-fixed-dim">check_circle</span>
+<span class="text-body-sm font-medium">Criminal Background Check Passed</span>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-tertiary-fixed-dim">check_circle</span>
+<span class="text-body-sm font-medium">Financial Assets Verified (Escrow)</span>
+</div>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]">shield</span>
+</div>
+</div>
+</section>
+<!-- Investment Interests -->
+<section class="mb-xl">
+<h3 class="font-h3 text-h3 mb-md">Investment Interests</h3>
+<div class="bento-card">
+<div class="mb-lg">
+<p class="text-secondary font-label-caps text-label-caps mb-sm">TARGET BUDGET</p>
+<div class="flex items-center justify-between">
+<p class="font-metric-md text-metric-md">$100k — $500k</p>
+<div class="w-1/2 h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-2/3 ml-[15%]"></div>
+</div>
+</div>
+</div>
+<div class="mb-lg">
+<p class="text-secondary font-label-caps text-label-caps mb-sm">INDUSTRIES</p>
+<div class="flex flex-wrap gap-xs">
+<span class="px-sm py-base bg-surface-container text-primary font-body-sm rounded-lg">Quick Service Restaurants</span>
+<span class="px-sm py-base bg-surface-container text-primary font-body-sm rounded-lg">Health & Wellness</span>
+<span class="px-sm py-base bg-surface-container text-primary font-body-sm rounded-lg">Logistics</span>
+</div>
+</div>
+<div>
+<p class="text-secondary font-label-caps text-label-caps mb-sm">TARGET LOCATIONS</p>
+<div class="flex flex-wrap gap-xs">
+<span class="px-sm py-base border border-outline-variant text-on-surface-variant font-body-sm rounded-lg flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">map</span> London, UK
+                        </span>
+<span class="px-sm py-base border border-outline-variant text-on-surface-variant font-body-sm rounded-lg flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">map</span> Amsterdam, NL
+                        </span>
+<span class="px-sm py-base border border-outline-variant text-on-surface-variant font-body-sm rounded-lg flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">map</span> Berlin, DE
+                        </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Professional Experience -->
+<section class="mb-xl">
+<h3 class="font-h3 text-h3 mb-md">Professional Experience</h3>
+<div class="space-y-lg border-l-2 border-surface-container-high ml-xs pl-lg">
+<div class="relative">
+<div class="absolute -left-[33px] top-0 w-4 h-4 rounded-full bg-primary ring-4 ring-white"></div>
+<p class="font-h3 text-body-md text-on-surface leading-none mb-base">Senior Operations Manager</p>
+<p class="text-secondary font-body-sm mb-xs">Enterprise Logistics Corp • 2018 - Present</p>
+<p class="text-on-surface-variant text-body-sm">Overseeing high-scale fleet operations and supply chain optimization for multi-national distribution.</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[33px] top-0 w-4 h-4 rounded-full bg-outline-variant ring-4 ring-white"></div>
+<p class="font-h3 text-body-md text-on-surface leading-none mb-base">Small Business Owner</p>
+<p class="text-secondary font-body-sm mb-xs">Sterling Coffee & Roastery • 2014 - 2018</p>
+<p class="text-on-surface-variant text-body-sm">Successfully launched, scaled, and exited a boutique coffee chain across three locations in London.</p>
+</div>
+</div>
+</section>
+<!-- Core Competencies -->
+<section class="mb-xl">
+<h3 class="font-h3 text-h3 mb-md">Core Competencies</h3>
+<div class="bento-card space-y-lg">
+<div>
+<div class="flex justify-between items-center mb-base">
+<span class="font-body-sm font-medium">Operations</span>
+<span class="font-metric-md text-primary">95%</span>
+</div>
+<div class="progress-bar-track">
+<div class="progress-bar-fill" style="width: 95%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-base">
+<span class="font-body-sm font-medium">Team Leadership</span>
+<span class="font-metric-md text-primary">92%</span>
+</div>
+<div class="progress-bar-track">
+<div class="progress-bar-fill" style="width: 92%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-base">
+<span class="font-body-sm font-medium">Supply Chain</span>
+<span class="font-metric-md text-primary">88%</span>
+</div>
+<div class="progress-bar-track">
+<div class="progress-bar-fill" style="width: 88%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-base">
+<span class="font-body-sm font-medium">Financial Modeling</span>
+<span class="font-metric-md text-primary">85%</span>
+</div>
+<div class="progress-bar-track">
+<div class="progress-bar-fill" style="width: 85%"></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container-lowest border-t border-outline-variant shadow-lg flex justify-around items-center h-16 px-sm pb-safe">
+<div class="flex flex-col items-center justify-center text-secondary px-xs py-base active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-caps text-label-caps mt-base">Marketplace</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary px-xs py-base active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-caps text-label-caps mt-base">Portfolio</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary px-xs py-base active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-caps text-label-caps mt-base">Network</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-xs py-base active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-caps text-label-caps mt-base">Profile</span>
+</div>
+</nav>
+</body></html>

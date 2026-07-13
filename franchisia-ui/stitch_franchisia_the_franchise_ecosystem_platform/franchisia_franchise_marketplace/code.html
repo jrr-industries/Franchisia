@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Franchisia Marketplace | Premium Investment Opportunities</title>
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#002113",
+                    "error": "#ba1a1a",
+                    "primary-container": "#2563eb",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#e5eeff",
+                    "tertiary-container": "#007d55",
+                    "surface-bright": "#f8f9ff",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#006242",
+                    "on-primary-container": "#eeefff",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "surface": "#f8f9ff",
+                    "primary": "#004ac6",
+                    "tertiary-fixed": "#6ffbbe",
+                    "on-primary-fixed": "#00174b",
+                    "surface-container-low": "#eff4ff",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "on-surface-variant": "#434655",
+                    "outline": "#737686",
+                    "surface-container-lowest": "#ffffff",
+                    "on-background": "#0b1c30",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "on-tertiary-container": "#bdffdb",
+                    "surface-container-highest": "#d3e4fe",
+                    "secondary": "#565e74",
+                    "outline-variant": "#c3c6d7",
+                    "on-secondary-container": "#5c647a",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed": "#131b2e",
+                    "background": "#f8f9ff",
+                    "primary-fixed": "#dbe1ff",
+                    "surface-tint": "#0053db",
+                    "inverse-surface": "#213145",
+                    "surface-variant": "#d3e4fe",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "inverse-primary": "#b4c5ff",
+                    "surface-dim": "#cbdbf5",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "secondary-container": "#dae2fd",
+                    "surface-container-high": "#dce9ff",
+                    "secondary-fixed": "#dae2fd",
+                    "inverse-on-surface": "#eaf1ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1440px",
+                    "sm": "12px",
+                    "lg": "24px",
+                    "xs": "8px",
+                    "xl": "32px",
+                    "3xl": "64px",
+                    "gutter": "24px",
+                    "md": "16px",
+                    "base": "4px",
+                    "2xl": "48px"
+            },
+            "fontFamily": {
+                    "h1": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "h3": ["Inter"],
+                    "metric-md": ["JetBrains Mono"],
+                    "body-sm": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "h2": ["Inter"],
+                    "metric-lg": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "metric-md": ["16px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "metric-lg": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+            border-color: #004ac6;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d3e4fe; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface w-full top-0 sticky z-50 border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center h-16 px-gutter max-w-container-max mx-auto">
+<div class="flex items-center gap-xl">
+<span class="font-h2 text-h2 font-bold text-primary dark:text-inverse-primary cursor-pointer active:scale-95 duration-200">Franchisia</span>
+<nav class="hidden md:flex gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">Discover</a>
+<a class="font-body-md text-body-md text-primary dark:text-inverse-primary border-b-2 border-primary font-bold pb-1 cursor-pointer" href="#">Marketplace</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">Companies</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">Resources</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden lg:flex items-center bg-surface-container-low px-md py-xs rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-outline mr-xs">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" placeholder="Search opportunities..." type="text"/>
+</div>
+<button class="font-body-sm text-body-sm text-primary font-semibold hover:bg-surface-container-low px-md py-xs rounded-lg transition-all active:scale-95 duration-200">Sign In</button>
+<button class="font-body-sm text-body-sm bg-primary text-on-primary font-bold px-lg py-xs rounded-lg shadow-sm hover:brightness-110 active:scale-95 duration-200">Get Started</button>
+</div>
+</div>
+</header>
+<main class="flex-grow max-w-container-max mx-auto w-full px-gutter py-2xl">
+<!-- Page Header -->
+<div class="mb-2xl">
+<h1 class="font-h1 text-h1 text-on-surface mb-xs">Marketplace</h1>
+<p class="text-on-surface-variant font-body-lg">Showing <span class="font-semibold text-primary">1,248 active opportunities</span> across verified global industries.</p>
+</div>
+<!-- Filter Bar -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm mb-2xl grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-md items-end">
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Industry</label>
+<select class="bg-surface-container-low border-outline-variant rounded-lg font-body-md py-sm focus:border-primary focus:ring-1 focus:ring-primary">
+<option>All Industries</option>
+<option>Technology &amp; SaaS</option>
+<option>Health &amp; Wellness</option>
+<option>Food &amp; Beverage</option>
+<option>Real Estate</option>
+</select>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Location</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-[20px]">location_on</span>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-lg font-body-md py-sm pl-10 focus:border-primary focus:ring-1 focus:ring-primary" placeholder="City or Region" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Investment Range</label>
+<select class="bg-surface-container-low border-outline-variant rounded-lg font-body-md py-sm focus:border-primary focus:ring-1 focus:ring-primary">
+<option>$50k - $250k</option>
+<option>$250k - $1M</option>
+<option>$1M - $5M</option>
+<option>$5M+</option>
+</select>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Business Type</label>
+<select class="bg-surface-container-low border-outline-variant rounded-lg font-body-md py-sm focus:border-primary focus:ring-1 focus:ring-primary">
+<option>Established Franchise</option>
+<option>Emerging Startup</option>
+<option>Turnkey Business</option>
+</select>
+</div>
+<div class="md:col-span-4 lg:col-span-1">
+<button class="w-full h-[44px] bg-primary text-on-primary font-bold rounded-lg flex items-center justify-center gap-xs hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined">filter_list</span>
+                    Apply Filters
+                </button>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-2xl">
+<!-- Main Grid -->
+<div class="flex-grow">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-lg">
+<!-- Card 1 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-lg flex flex-col gap-md transition-all duration-300 card-hover group">
+<div class="flex justify-between items-start">
+<div class="w-16 h-16 rounded-xl bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist logo for a tech-focused logistics franchise called 'Zenith Cargo'. The logo features sharp, architectural blue lines against a crisp white background, evoking feelings of efficiency and high-end professional service in a modern corporate setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqKfNh66EV3gbOGEtqFYfFyiHT1cKLvIau9I4mX3Cw9D3TWTu2ts-Q_zcDjJ-jTj6VA9bRqR_Q3GYILMFDYBZlgpuLYag4D73Fb7ZHJopgLYXJRheeKPMcMQnlMP8lfM2FzmT4zrwCZRmkA8qPaG-m4_oG3EhLusDQRo0Kmu4dgKXyxjj713OL9TigR83KX-dQ3fJ5lzMCCbBorQ6JzoKAjKN7brIOiuDm4PYN5ynR9GdudvGU10b_"/>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="bg-emerald-100 text-tertiary px-xs py-0.5 rounded font-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span> Verified
+                                </span>
+<span class="bg-secondary-container text-on-secondary-container px-xs py-0.5 rounded font-label-caps">Logistics</span>
+</div>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface group-hover:text-primary transition-colors">Zenith Cargo Solutions</h3>
+<div class="flex items-center gap-xs text-on-surface-variant font-body-sm mt-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                Chicago, IL • North America
+                            </div>
+</div>
+<div class="grid grid-cols-2 gap-md py-md border-y border-outline-variant/50">
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Required</p>
+<p class="font-metric-md text-metric-md text-on-surface">$185,000</p>
+</div>
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">ROI / Growth</p>
+<p class="font-metric-md text-metric-md text-tertiary">+22.4% YoY</p>
+</div>
+</div>
+<button class="mt-auto w-full py-sm rounded-lg border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all duration-200">View Details</button>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-lg flex flex-col gap-md transition-all duration-300 card-hover group">
+<div class="flex justify-between items-start">
+<div class="w-16 h-16 rounded-xl bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A modern, organic logo for 'Flora Health Hub', a wellness and boutique gym franchise. The branding uses soft sage greens and white space with a stylized leaf icon that looks premium and high-end, set in a bright, airy fitness studio atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaqsGwrQRL0RNOVKqXSXb6Ms69OJZpRMikDwKvCh_Y0cyxBQYdCOTvpZnUuJcP4r4P7QayvJW5R957Q4gWXwyPVUNHBiq_h64aMqCXwNSlV0BxEZqQNLnwpY4D52Nu1F7gGhQqdQwQ1oIcxYxrkktooyZnytCNzfu4I2gi7lJP1GnDtjNRHLupNpfvl3d3IOKVPwzzUM8WcEKD2ZRgzYpeOAQC3aPxrzepaVK4OFv-blI8ZX8mcIap"/>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="bg-secondary-container text-on-secondary-container px-xs py-0.5 rounded font-label-caps">Health</span>
+</div>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface group-hover:text-primary transition-colors">Flora Health Hub</h3>
+<div class="flex items-center gap-xs text-on-surface-variant font-body-sm mt-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                Austin, TX • United States
+                            </div>
+</div>
+<div class="grid grid-cols-2 gap-md py-md border-y border-outline-variant/50">
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Required</p>
+<p class="font-metric-md text-metric-md text-on-surface">$310,000</p>
+</div>
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">ROI / Growth</p>
+<p class="font-metric-md text-metric-md text-tertiary">+18.2% YoY</p>
+</div>
+</div>
+<button class="mt-auto w-full py-sm rounded-lg border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all duration-200">View Details</button>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-lg flex flex-col gap-md transition-all duration-300 card-hover group">
+<div class="flex justify-between items-start">
+<div class="w-16 h-16 rounded-xl bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Corporate branding for 'ByteBridge AI Centers', a tech education and data center franchise. The logo is a futuristic bridge composed of digital data bits in deep navy and electric blue colors, representing high-tech investment stability in a sleek dark-themed office environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcmzcPORco7zyK3xkk71axWDkkQacVutmzXkpWLparL3xIR-Od8rAbL8pc8zE5QVgmTTNpFyQRnlUaLrhyNO149IaDxbYVpOC9aHqWfU5Zh_vBX-a_qN6LkXQoCAxTi1QnX30VxBojk6_fsGLxVfDZDCCRu6cGZmHRyjoS9lvl6qJmXFPXD7HmRyRSEI9rir4exiWt1XS6vUpL8yVonZAxMRK9EtkYACMGGv4QX1bXd2BmcLvG1eUK"/>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="bg-emerald-100 text-tertiary px-xs py-0.5 rounded font-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span> Verified
+                                </span>
+<span class="bg-secondary-container text-on-secondary-container px-xs py-0.5 rounded font-label-caps">Tech</span>
+</div>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface group-hover:text-primary transition-colors">ByteBridge AI Hubs</h3>
+<div class="flex items-center gap-xs text-on-surface-variant font-body-sm mt-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                London, UK • Europe
+                            </div>
+</div>
+<div class="grid grid-cols-2 gap-md py-md border-y border-outline-variant/50">
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Required</p>
+<p class="font-metric-md text-metric-md text-on-surface">$1,250,000</p>
+</div>
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">ROI / Growth</p>
+<p class="font-metric-md text-metric-md text-tertiary">+34.8% YoY</p>
+</div>
+</div>
+<button class="mt-auto w-full py-sm rounded-lg border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all duration-200">View Details</button>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-lg flex flex-col gap-md transition-all duration-300 card-hover group">
+<div class="flex justify-between items-start">
+<div class="w-16 h-16 rounded-xl bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A warm and inviting brand identity for 'Artisan Crust', a high-end bakery and coffee shop franchise. The logo uses artisanal typography and a rustic wheat symbol in gold and charcoal tones, suggesting a premium, community-focused business with a cozy, sunlit interior feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrXbwhEU1vVi0s4pPgXkTUTOMY4dyL1gheu4e-TwTSa0kRcmuCtRZkIrAIGvbzG1nFHttGk7e0SEAo1BvFoEkabn_BVb44eoB5rqYERWuyIjMKO3sTtQapkHhE9qJ3j9kMnLjSL25qymAPuW7UXSMpA4c-E8X3vQNNPEYEE0onLmX3SiNkDtsoC7mIDu8Xo5CTM-tp5t1gCgxF6byT6UPzvXdz4UmSmKIPl-2qwph456e8LbD2Dt0q"/>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="bg-secondary-container text-on-secondary-container px-xs py-0.5 rounded font-label-caps">Food</span>
+</div>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface group-hover:text-primary transition-colors">Artisan Crust Bakery</h3>
+<div class="flex items-center gap-xs text-on-surface-variant font-body-sm mt-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                Vancouver, BC • Canada
+                            </div>
+</div>
+<div class="grid grid-cols-2 gap-md py-md border-y border-outline-variant/50">
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Required</p>
+<p class="font-metric-md text-metric-md text-on-surface">$75,000</p>
+</div>
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">ROI / Growth</p>
+<p class="font-metric-md text-metric-md text-tertiary">+12.5% YoY</p>
+</div>
+</div>
+<button class="mt-auto w-full py-sm rounded-lg border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all duration-200">View Details</button>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-lg flex flex-col gap-md transition-all duration-300 card-hover group">
+<div class="flex justify-between items-start">
+<div class="w-16 h-16 rounded-xl bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Professional branding for 'Prime Property Management', a real estate services franchise. The logo is a structured building silhouette in slate grey and navy, conveying trust, reliability, and corporate stability. The aesthetic is clean and corporate, perfect for financial sector growth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqmHmqh6r1z8kRoyVJNSqJhdEA3W_1a28YxBgH0UnnXpXiS7HAm-PK-wwV2r9nhaqThfwu1sYuC4ewkiwsZkZv1Fuag_GYfHiCMAqxDQgeMTaVIA37b8ZZf0T2Cpf5RVA2NfUyZ_iXfTyLZHqx0BSTUAadzz650pjT9z_Z7GZyKCMgx3r06aW8ysIpDPnhkBYq2IG16kTI0F_lPVu1a5LCAYzNYAo77l9mrkgGH0oQKq-NmNCt5LLU"/>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="bg-emerald-100 text-tertiary px-xs py-0.5 rounded font-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span> Verified
+                                </span>
+<span class="bg-secondary-container text-on-secondary-container px-xs py-0.5 rounded font-label-caps">Real Estate</span>
+</div>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface group-hover:text-primary transition-colors">Prime Property Mgmt</h3>
+<div class="flex items-center gap-xs text-on-surface-variant font-body-sm mt-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                Sydney, AU • Australia
+                            </div>
+</div>
+<div class="grid grid-cols-2 gap-md py-md border-y border-outline-variant/50">
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Required</p>
+<p class="font-metric-md text-metric-md text-on-surface">$450,000</p>
+</div>
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">ROI / Growth</p>
+<p class="font-metric-md text-metric-md text-tertiary">+15.9% YoY</p>
+</div>
+</div>
+<button class="mt-auto w-full py-sm rounded-lg border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all duration-200">View Details</button>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-lg flex flex-col gap-md transition-all duration-300 card-hover group">
+<div class="flex justify-between items-start">
+<div class="w-16 h-16 rounded-xl bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A creative logo for 'Velocity E-Bikes', a sustainable urban transport franchise. The logo is dynamic, with electric yellow and dark charcoal colors, showing a stylized lightning bolt integrated with a wheel, suggesting high energy, eco-friendliness, and rapid market expansion." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeYaN-vfnJNoSEuHm1F3QQN08iBtAjdyrZQE8hyeOEtM3OWw6pPNgSgjjkbuj7vImXqZexePlyR-rJdwvFh9liQkTamZDGR7-D92Vn84tKv3hKFeyNLiQ529hDitOx0oRY3ZlYOBdNHtv6W11wcodbLa-Nc36i07dkyMMgPhNAfgN9EETkCJrhYv3cUY82tqlR0hb2yUILQf1zdHQmFnYl4C9y94gwjTkHJGKvFR-_s4U8VmQcgmfv"/>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="bg-secondary-container text-on-secondary-container px-xs py-0.5 rounded font-label-caps">Transport</span>
+</div>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface group-hover:text-primary transition-colors">Velocity E-Bikes</h3>
+<div class="flex items-center gap-xs text-on-surface-variant font-body-sm mt-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                Berlin, DE • Europe
+                            </div>
+</div>
+<div class="grid grid-cols-2 gap-md py-md border-y border-outline-variant/50">
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Required</p>
+<p class="font-metric-md text-metric-md text-on-surface">$120,000</p>
+</div>
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">ROI / Growth</p>
+<p class="font-metric-md text-metric-md text-tertiary">+28.1% YoY</p>
+</div>
+</div>
+<button class="mt-auto w-full py-sm rounded-lg border border-primary text-primary font-bold hover:bg-primary hover:text-on-primary transition-all duration-200">View Details</button>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-3xl flex justify-center items-center gap-md">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors font-semibold">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors font-semibold">3</button>
+<span class="text-on-surface-variant">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors font-semibold">42</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Sidebar -->
+<aside class="w-full lg:w-80 flex flex-col gap-lg">
+<!-- Trending Industries -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant">
+<h4 class="font-h3 text-h3 text-on-surface mb-md">Trending Industries</h4>
+<div class="flex flex-col gap-sm">
+<div class="flex items-center justify-between p-sm rounded-lg hover:bg-surface-container-low cursor-pointer transition-colors border border-transparent hover:border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-body-md text-on-surface">Renewable Energy</span>
+</div>
+<span class="font-metric-md text-tertiary">+14%</span>
+</div>
+<div class="flex items-center justify-between p-sm rounded-lg hover:bg-surface-container-low cursor-pointer transition-colors border border-transparent hover:border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-body-md text-on-surface">Digital Health</span>
+</div>
+<span class="font-metric-md text-tertiary">+9%</span>
+</div>
+<div class="flex items-center justify-between p-sm rounded-lg hover:bg-surface-container-low cursor-pointer transition-colors border border-transparent hover:border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-body-md text-on-surface">Cloud Kitchens</span>
+</div>
+<span class="font-metric-md text-tertiary">+6%</span>
+</div>
+</div>
+</div>
+<!-- Saved Searches -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant">
+<div class="flex justify-between items-center mb-md">
+<h4 class="font-h3 text-h3 text-on-surface">Saved Searches</h4>
+<button class="text-primary text-body-sm font-semibold hover:underline">Edit</button>
+</div>
+<div class="flex flex-col gap-md">
+<div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
+<p class="font-body-md font-bold text-on-surface">Logistics, Europe</p>
+<p class="text-body-sm text-on-surface-variant">$250k - $1M • 12 new</p>
+</div>
+<div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
+<p class="font-body-md font-bold text-on-surface">Wellness Tech, USA</p>
+<p class="text-body-sm text-on-surface-variant">$50k - $250k • 4 new</p>
+</div>
+<button class="w-full py-sm rounded-lg border border-dashed border-outline text-on-surface-variant font-semibold hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined">add</span> Create New Alert
+                        </button>
+</div>
+</div>
+<!-- Ad/Promo Card -->
+<div class="relative rounded-xl overflow-hidden h-48 bg-primary-container p-lg flex flex-col justify-end text-on-primary">
+
+<div class="relative z-10">
+<h5 class="font-h3 text-h3 mb-xs">Franchise Pro+</h5>
+<p class="font-body-sm mb-md text-blue-100">Unlock early access and deep financial audits.</p>
+<button class="bg-white text-primary font-bold px-md py-xs rounded-lg text-body-sm hover:bg-blue-50 transition-colors">Upgrade Now</button>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-surface-container-lowest w-full py-xl border-t border-outline-variant dark:border-outline">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg px-gutter max-w-container-max mx-auto">
+<div class="flex flex-col gap-md">
+<span class="font-h3 text-h3 font-bold text-on-surface dark:text-on-surface">Franchisia</span>
+<p class="text-on-surface-variant font-body-sm">Global franchise marketplace for high-stakes professional networking and investment growth.</p>
+</div>
+<div>
+<h5 class="font-label-caps text-label-caps text-on-surface mb-md uppercase tracking-wider">Marketplace</h5>
+<ul class="flex flex-col gap-sm">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary transition-all cursor-pointer" href="#">Browse All</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary transition-all cursor-pointer" href="#">Verification Process</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary transition-all cursor-pointer" href="#">For Sellers</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-caps text-label-caps text-on-surface mb-md uppercase tracking-wider">Company</h5>
+<ul class="flex flex-col gap-sm">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary transition-all cursor-pointer" href="#">About Us</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary transition-all cursor-pointer" href="#">Contact</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary transition-all cursor-pointer" href="#">Help Center</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-caps text-label-caps text-on-surface mb-md uppercase tracking-wider">Legal</h5>
+<ul class="flex flex-col gap-sm">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary transition-all cursor-pointer" href="#">Privacy Policy</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary transition-all cursor-pointer" href="#">Terms of Service</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary transition-all cursor-pointer" href="#">Cookies</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-xl pt-lg border-t border-outline-variant max-w-container-max mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-md">
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Franchisia Inc. All rights reserved.</p>
+<div class="flex gap-lg">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">public</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">share</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">shield_person</span>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.borderColor = 'rgba(0, 74, 198, 0.4)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.borderColor = '';
+            });
+        });
+    </script>
+</body></html>

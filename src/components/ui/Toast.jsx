@@ -9,10 +9,10 @@ const icons = {
 };
 
 const colors = {
-  success: { bg: 'var(--accent-light)', border: 'var(--accent)', icon: 'var(--accent)' },
-  error: { bg: '#FEE2E2', border: '#EF4444', icon: '#EF4444' },
-  info: { bg: '#DBEAFE', border: '#3B82F6', icon: '#3B82F6' },
-  warning: { bg: '#FEF3C7', border: '#F59E0B', icon: '#F59E0B' },
+  success: { bg: '#daf3e5', border: '#10633a', icon: '#10633a' },
+  error: { bg: '#fde8e8', border: '#b91c1c', icon: '#b91c1c' },
+  info: { bg: '#e8eeff', border: '#004ac6', icon: '#004ac6' },
+  warning: { bg: '#fef3c7', border: '#b45309', icon: '#b45309' },
 };
 
 const ToastContext = createContext();

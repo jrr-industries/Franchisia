@@ -1,12 +1,12 @@
+import { memo } from "react";
+
 const variants = {
-  default: { backgroundColor: 'var(--primary-light)', color: 'var(--primary)' },
-  success: { backgroundColor: 'var(--accent-light)', color: 'var(--accent)' },
+  default: { backgroundColor: 'var(--primary-container)', color: 'var(--on-primary-container)' },
+  success: { backgroundColor: 'var(--tertiary-container)', color: 'var(--on-tertiary-container)' },
   warning: { backgroundColor: '#FEF3C7', color: '#D97706' },
-  danger: { backgroundColor: '#FEE2E2', color: '#DC2626' },
+  danger: { backgroundColor: 'var(--error-container)', color: 'var(--on-error-container)' },
   info: { backgroundColor: '#DBEAFE', color: '#2563EB' },
 };
-
-import { memo } from "react";
 
 const Badge = memo(function Badge({ variant = 'default', children, style, ...props }) {
   return (
@@ -15,11 +15,12 @@ const Badge = memo(function Badge({ variant = 'default', children, style, ...pro
         display: 'inline-flex',
         alignItems: 'center',
         gap: 4,
-        padding: '4px 12px',
+        padding: '2px 8px',
         borderRadius: 100,
-        fontSize: 12,
-        fontWeight: 600,
+        fontSize: 11,
+        fontWeight: 700,
         whiteSpace: 'nowrap',
+        letterSpacing: '0.02em',
         ...variants[variant] || variants.default,
         ...style,
       }}

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Franchisee Profile | Alex Sterling</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#737686",
+                        "surface": "#f8f9ff",
+                        "tertiary-fixed": "#6ffbbe",
+                        "surface-bright": "#f8f9ff",
+                        "secondary": "#565e74",
+                        "surface-container": "#e5eeff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-tertiary-fixed": "#002113",
+                        "surface-dim": "#cbdbf5",
+                        "inverse-surface": "#213145",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-container": "#5c647a",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#dae2fd",
+                        "on-primary-container": "#eeefff",
+                        "surface-container-high": "#dce9ff",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#00174b",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "primary-container": "#2563eb",
+                        "secondary-container": "#dae2fd",
+                        "on-surface-variant": "#434655",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#bdffdb",
+                        "surface-tint": "#0053db",
+                        "outline-variant": "#c3c6d7",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-background": "#0b1c30",
+                        "primary": "#004ac6",
+                        "background": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-surface": "#0b1c30",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#006242",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "tertiary-container": "#007d55",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "base": "4px",
+                        "sm": "12px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "3xl": "64px",
+                        "2xl": "48px",
+                        "xs": "8px",
+                        "lg": "24px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "metric-lg": ["JetBrains Mono"],
+                        "h2": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "h1": ["Inter"],
+                        "metric-md": ["JetBrains Mono"],
+                        "display-lg": ["Inter"],
+                        "h3": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "metric-lg": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "metric-md": ["16px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            background-color: #f8f9ff;
+            color: #0b1c30;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm h-16 flex justify-between items-center px-lg">
+<div class="flex items-center gap-xl">
+<span class="font-h2 text-h2 font-bold text-primary dark:text-inverse-primary">Franchisia</span>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="text-secondary dark:text-secondary-fixed font-medium hover:text-primary transition-colors cursor-pointer active:opacity-80" href="#">Marketplace</a>
+<a class="text-secondary dark:text-secondary-fixed font-medium hover:text-primary transition-colors cursor-pointer active:opacity-80" href="#">Portfolio</a>
+<a class="text-secondary dark:text-secondary-fixed font-medium hover:text-primary transition-colors cursor-pointer active:opacity-80" href="#">Network</a>
+<a class="text-secondary dark:text-secondary-fixed font-medium hover:text-primary transition-colors cursor-pointer active:opacity-80" href="#">Insights</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden sm:flex items-center bg-surface-container px-sm py-xs rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-secondary mr-xs">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" placeholder="Search opportunities..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary transition-colors">settings</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-primary">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a confident entrepreneur in business casual attire against a clean, neutral background. The lighting is soft and high-key, emphasizing a reliable and approachable persona. The image follows a modern corporate aesthetic with subtle blue undertones to match the primary brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvfc7ywQa62jY84baqYTzoQXbdwMxfzbC53y-qib5aaf0_Ce2ETHQWkxeMqn10vY8V2RDfV_sZ0gAqJXMq-x3NY41WzRZaPXbx0cjQBJI2AeKinnvnZvl65TmQIxqBLs5SnzYi5Jj5TMbSC-HyEPbt5k4IPCk-sVfCL1LUuZuRXfMYN0Lzg8XIgEkGSnPHTZJBpIvXL1oXIPk_gjBfLMasaaWCMMFGNl4mSynug4RQM2M2asGBsyTt"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 bottom-0 w-[280px] bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant dark:border-outline flex flex-col p-md hidden lg:flex">
+<div class="mb-xl px-sm py-md">
+<div class="flex items-center gap-md mb-xs">
+<div class="w-12 h-12 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold text-h3">AS</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface dark:text-inverse-on-surface">Alex Sterling</h3>
+<p class="font-body-sm text-body-sm text-secondary">Verified Candidate</p>
+</div>
+</div>
+<button class="w-full mt-lg bg-primary-container text-on-primary-container font-semibold py-sm rounded-lg hover:bg-primary hover:text-on-primary transition-all flex items-center justify-center gap-xs shadow-sm">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+                Apply for Funding
+            </button>
+</div>
+<nav class="flex-1 space-y-xs">
+<div class="bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary font-semibold rounded-lg flex items-center gap-md px-md py-sm mb-xs cursor-pointer">
+<span class="material-symbols-outlined filled-icon">account_circle</span>
+<span class="font-body-sm text-body-sm">Dossier</span>
+</div>
+<div class="text-secondary dark:text-secondary-fixed hover:bg-surface-container-high dark:hover:bg-secondary-container rounded-lg flex items-center gap-md px-md py-sm mb-xs cursor-pointer transition-all">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body-sm text-body-sm">Financials</span>
+</div>
+<div class="text-secondary dark:text-secondary-fixed hover:bg-surface-container-high dark:hover:bg-secondary-container rounded-lg flex items-center gap-md px-md py-sm mb-xs cursor-pointer transition-all">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-body-sm text-body-sm">Interests</span>
+</div>
+<div class="text-secondary dark:text-secondary-fixed hover:bg-surface-container-high dark:hover:bg-secondary-container rounded-lg flex items-center gap-md px-md py-sm mb-xs cursor-pointer transition-all">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-body-sm text-body-sm">Applications</span>
+</div>
+<div class="text-secondary dark:text-secondary-fixed hover:bg-surface-container-high dark:hover:bg-secondary-container rounded-lg flex items-center gap-md px-md py-sm mb-xs cursor-pointer transition-all">
+<span class="material-symbols-outlined">folder_shared</span>
+<span class="font-body-sm text-body-sm">Documents</span>
+</div>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-md">
+<div class="text-secondary dark:text-secondary-fixed hover:bg-surface-container-high dark:hover:bg-secondary-container rounded-lg flex items-center gap-md px-md py-sm mb-xs cursor-pointer transition-all">
+<span class="material-symbols-outlined">help</span>
+<span class="font-body-sm text-body-sm">Support</span>
+</div>
+<div class="text-secondary dark:text-secondary-fixed hover:bg-surface-container-high dark:hover:bg-secondary-container rounded-lg flex items-center gap-md px-md py-sm mb-xs cursor-pointer transition-all">
+<span class="material-symbols-outlined text-error">logout</span>
+<span class="font-body-sm text-body-sm">Sign Out</span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="lg:ml-[280px] pt-16 min-h-screen">
+<div class="max-w-container-max mx-auto px-lg py-xl">
+<!-- Profile Header Section -->
+<section class="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-lg">
+<div class="flex items-start gap-lg">
+<div class="relative">
+<div class="w-24 h-24 md:w-32 md:h-32 rounded-2xl overflow-hidden border-4 border-surface shadow-lg">
+<img class="w-full h-full object-cover" data-alt="A close-up high-resolution portrait of Alex Sterling, a male entrepreneur in his late 30s. He has a composed, professional expression. The background is a blurred high-end modern office with glass and steel elements. The lighting is crisp and cool, reflecting a high-stakes corporate environment with professional polish and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFN_0h4CqMRQCDKMFhCOOVt58PyZ_tyR7-04MztewGYuU2MzBgrDM_Ep5bp9iJOZqt2qyWb8WWRqH2g-uxitwzi5wi-_SS1oVAu3J3eBVDqmU6eokjz4CMiSEUlhy264F9U6kEDQPMVt1Tll409MHAOryppsPkc82KK4gcwsqi1RtiZehsYfHhHe7XEEW8SoWtLtt9yjSsJN-B6QBOZqhaN3UBaIOR5frjPEmKqb5EE_O7nfmgnoNu"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-tertiary-fixed text-on-tertiary-fixed rounded-full p-xs shadow-md flex items-center border-2 border-surface">
+<span class="material-symbols-outlined text-[20px] filled-icon">verified</span>
+</div>
+</div>
+<div class="pt-sm">
+<div class="flex items-center gap-sm mb-xs">
+<h1 class="font-h1 text-h1 text-on-surface">Alex Sterling</h1>
+<span class="bg-primary-container/10 text-primary px-sm py-xs rounded-full font-label-caps text-label-caps border border-primary/20 uppercase">Verified Candidate</span>
+</div>
+<div class="flex items-center gap-md text-secondary">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-md text-body-md">London, UK</span>
+</div>
+<div class="h-1 w-1 bg-outline-variant rounded-full"></div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span class="font-body-md text-body-md">Member since 2021</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex gap-md">
+<button class="px-lg h-[44px] border border-outline text-on-surface font-semibold rounded-lg flex items-center gap-sm hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                        Download CV/Dossier
+                    </button>
+<button class="px-lg h-[44px] bg-primary text-on-primary font-semibold rounded-lg flex items-center gap-sm hover:shadow-lg transition-all">
+<span class="material-symbols-outlined text-[20px]">send</span>
+                        Message Alex
+                    </button>
+</div>
+</section>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Financial Readiness: THE MOST IMPORTANT -->
+<section class="col-span-12 lg:col-span-8">
+<div class="glass-card rounded-xl p-lg h-full">
+<div class="flex items-center justify-between mb-xl">
+<h2 class="font-h2 text-h2 flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+                                Financial Readiness
+                            </h2>
+<span class="text-tertiary font-semibold flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px] filled-icon">check_circle</span>
+                                Fully Vetted
+                            </span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-lg">
+<div class="bg-surface-container-low p-md rounded-lg border border-outline-variant hover:border-primary transition-all">
+<p class="font-label-caps text-label-caps text-secondary mb-xs uppercase">Liquid Capital</p>
+<p class="font-metric-lg text-metric-lg text-primary">$250,000</p>
+<div class="mt-md h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-3/4"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-md rounded-lg border border-outline-variant hover:border-primary transition-all">
+<p class="font-label-caps text-label-caps text-secondary mb-xs uppercase">Net Worth</p>
+<p class="font-metric-lg text-metric-lg text-on-surface">$1.2M</p>
+<p class="font-body-sm text-body-sm text-secondary mt-md">Asset verification complete</p>
+</div>
+<div class="bg-surface-container-low p-md rounded-lg border border-outline-variant hover:border-primary transition-all">
+<p class="font-label-caps text-label-caps text-secondary mb-xs uppercase">Credit Score</p>
+<div class="flex items-baseline gap-xs">
+<p class="font-metric-lg text-metric-lg text-on-surface">780+</p>
+<span class="text-tertiary text-body-sm font-semibold">Excellent</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-md">Verified by Experian</p>
+</div>
+<div class="bg-surface-container-low p-md rounded-lg border border-outline-variant hover:border-primary transition-all flex flex-col justify-between">
+<p class="font-label-caps text-label-caps text-secondary mb-xs uppercase">Financing Status</p>
+<div class="flex items-center gap-sm">
+<div class="h-10 w-10 bg-tertiary-container text-on-tertiary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">task_alt</span>
+</div>
+<p class="font-metric-md text-metric-md text-on-surface">Pre-approved</p>
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-md">Letter of intent active</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Verification Progress Widget -->
+<section class="col-span-12 lg:col-span-4">
+<div class="bg-inverse-surface text-inverse-on-surface rounded-xl p-lg shadow-xl h-full">
+<h3 class="font-h3 text-h3 mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-tertiary-fixed">shield_person</span>
+                            Trust Status
+                        </h3>
+<div class="space-y-lg">
+<div class="flex items-center gap-md">
+<div class="h-8 w-8 rounded-full bg-tertiary-fixed/20 flex items-center justify-center text-tertiary-fixed">
+<span class="material-symbols-outlined text-[18px]">id_card</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md font-semibold">ID Verified</p>
+<p class="text-outline text-body-sm">Passport &amp; Biometrics</p>
+</div>
+<span class="material-symbols-outlined text-tertiary-fixed filled-icon">check_circle</span>
+</div>
+<div class="flex items-center gap-md">
+<div class="h-8 w-8 rounded-full bg-tertiary-fixed/20 flex items-center justify-center text-tertiary-fixed">
+<span class="material-symbols-outlined text-[18px]">fact_check</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md font-semibold">Background Check</p>
+<p class="text-outline text-body-sm">Passed (Global Search)</p>
+</div>
+<span class="material-symbols-outlined text-tertiary-fixed filled-icon">check_circle</span>
+</div>
+<div class="flex items-center gap-md">
+<div class="h-8 w-8 rounded-full bg-tertiary-fixed/20 flex items-center justify-center text-tertiary-fixed">
+<span class="material-symbols-outlined text-[18px]">finance_mode</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md font-semibold">Financials Vetted</p>
+<p class="text-outline text-body-sm">Audited by Platform</p>
+</div>
+<span class="material-symbols-outlined text-tertiary-fixed filled-icon">check_circle</span>
+</div>
+</div>
+<div class="mt-xl pt-lg border-t border-outline/30 text-center">
+<p class="font-body-sm text-body-sm text-outline">Verification Score</p>
+<p class="font-metric-lg text-metric-lg text-tertiary-fixed mt-xs">98/100</p>
+</div>
+</div>
+</section>
+<!-- Investment Interests -->
+<section class="col-span-12">
+<div class="glass-card rounded-xl p-lg">
+<h2 class="font-h2 text-h2 mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">target</span>
+                            Investment Interests
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="space-y-md">
+<p class="font-label-caps text-label-caps text-secondary uppercase">Industries</p>
+<div class="flex flex-wrap gap-xs">
+<span class="bg-surface-container-highest px-md py-sm rounded-lg text-body-sm font-semibold border border-outline-variant">Quick Service Restaurants (QSR)</span>
+<span class="bg-surface-container-highest px-md py-sm rounded-lg text-body-sm font-semibold border border-outline-variant">Health &amp; Wellness</span>
+<span class="bg-surface-container-highest px-md py-sm rounded-lg text-body-sm font-semibold border border-outline-variant">Logistics</span>
+</div>
+</div>
+<div class="space-y-md">
+<p class="font-label-caps text-label-caps text-secondary uppercase">Desired Locations</p>
+<div class="flex flex-wrap gap-xs">
+<span class="flex items-center gap-xs px-md py-sm rounded-lg bg-surface border border-outline-variant font-body-sm">
+<span class="material-symbols-outlined text-[16px]">location_on</span> London, UK
+                                    </span>
+<span class="flex items-center gap-xs px-md py-sm rounded-lg bg-surface border border-outline-variant font-body-sm">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Amsterdam, NL
+                                    </span>
+<span class="flex items-center gap-xs px-md py-sm rounded-lg bg-surface border border-outline-variant font-body-sm">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Berlin, DE
+                                    </span>
+</div>
+</div>
+<div class="space-y-md">
+<p class="font-label-caps text-label-caps text-secondary uppercase">Budget Range</p>
+<div class="p-md bg-primary-container/5 rounded-lg border border-primary/20 text-center">
+<p class="font-metric-md text-metric-md text-primary">$100k - $500k</p>
+<p class="text-body-sm text-secondary mt-xs">Per Single-Unit Agreement</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Professional Experience & Skills -->
+<section class="col-span-12 md:col-span-8">
+<div class="glass-card rounded-xl p-lg h-full">
+<h2 class="font-h2 text-h2 mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">work</span>
+                            Professional Experience
+                        </h2>
+<div class="space-y-xl">
+<div class="flex gap-md">
+<div class="w-1 bg-primary rounded-full"></div>
+<div>
+<h4 class="font-h3 text-h3">Senior Operations Manager</h4>
+<p class="text-secondary font-medium">Global Tech Firm • 8 Years</p>
+<p class="mt-sm text-body-md text-on-surface-variant leading-relaxed">
+                                        Oversaw logistics and supply chain optimization for EMEA markets. Managed a direct team of 50+ employees and a $12M annual budget. Specialized in scaling operational efficiencies and lean management.
+                                    </p>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="w-1 bg-outline-variant rounded-full"></div>
+<div>
+<h4 class="font-h3 text-h3">Former Small Business Owner</h4>
+<p class="text-secondary font-medium">Boutique Cafe • 3 Years</p>
+<p class="mt-sm text-body-md text-on-surface-variant leading-relaxed">
+                                        Successfully launched and exited a multi-location boutique coffee brand. Handled all aspects of P&amp;L management, hiring, and brand positioning.
+                                    </p>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="w-1 bg-tertiary rounded-full"></div>
+<div>
+<h4 class="font-h3 text-h3">MBA Graduate</h4>
+<p class="text-secondary font-medium">London Business School</p>
+<p class="mt-sm text-body-md text-on-surface-variant leading-relaxed">
+                                        Focus on Entrepreneurship and Corporate Finance. Graduated with Dean's List honors.
+                                    </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="col-span-12 md:col-span-4">
+<div class="glass-card rounded-xl p-lg h-full">
+<h2 class="font-h2 text-h2 mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">psychology</span>
+                            Core Competencies
+                        </h2>
+<div class="space-y-sm">
+<div class="p-md bg-surface rounded-lg border border-outline-variant">
+<div class="flex justify-between items-center mb-xs">
+<span class="font-semibold text-body-md">Operations</span>
+<span class="text-primary font-bold">95%</span>
+</div>
+<div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[95%]"></div>
+</div>
+</div>
+<div class="p-md bg-surface rounded-lg border border-outline-variant">
+<div class="flex justify-between items-center mb-xs">
+<span class="font-semibold text-body-md">Supply Chain</span>
+<span class="text-primary font-bold">88%</span>
+</div>
+<div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[88%]"></div>
+</div>
+</div>
+<div class="p-md bg-surface rounded-lg border border-outline-variant">
+<div class="flex justify-between items-center mb-xs">
+<span class="font-semibold text-body-md">Team Leadership</span>
+<span class="text-primary font-bold">92%</span>
+</div>
+<div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[92%]"></div>
+</div>
+</div>
+<div class="p-md bg-surface rounded-lg border border-outline-variant">
+<div class="flex justify-between items-center mb-xs">
+<span class="font-semibold text-body-md">Financial Modeling</span>
+<span class="text-primary font-bold">85%</span>
+</div>
+<div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[85%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-xl">
+<p class="font-label-caps text-label-caps text-secondary uppercase mb-md">Endorsements</p>
+<div class="flex -space-x-2">
+<div class="w-10 h-10 rounded-full border-2 border-surface overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Corporate headshot of a female executive with glasses and a friendly smile, representing a high-level endorsement for a candidate. High-end LinkedIn aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_WeEcY-uw4rZu8NHwuem66KSmPDs8xMZ70jEcKcpXk7jps3G-tLcc0ix7imoLjIPVvR_4zJMLd2ZYEWb7ySIhQ1gjhwdbwNOKJX5bcc4CtepIIzOAT4Nzz7jDkMBgpz01qBy8LFpsTzUI93XpSkxuv_2eYTUvdGdNUi_Nu_3lD3XfiQWfN00_KA0Q8xo07nD0I-LVMkoEXgcy_tGa0z0Q7MKjDlId58eRPNEF8fqJSytzFiT1w_aF"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-surface overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a senior business consultant in a formal blazer, professional studio lighting, representing professional endorsement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXW8tXsY1_alseI4wVMX9s0lGLGTJ96NYuIhNAVtrGb4wTfLIHmtZiskLacQtAoa85Q07YV3qNTnQLZ-tZ8gBKjI4vzJ3owMYvPald6KgTdddnYAw8uibl_uKvTYq8SquWxrGJtApS3qx5Pml7qTKnzQ3n3FPuIyvqnt2I4yRWwagxVb6QU355zN0wraTJ8poFsjIq0snFmYI5NPE0FQ3dzXTOc5M8T5I6nienT6s9SJ9v2kVdO9hg"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-surface overflow-hidden bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-body-sm">
+                                    +12
+                                </div>
+</div>
+<p class="text-body-sm text-secondary mt-sm">Endorsed by former CEOs and Franchisors</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Micro-interaction Script -->
+<script>
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Simulating loading of data
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('Profile loaded for: Alex Sterling');
+        });
+    </script>
+</body></html>

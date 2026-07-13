@@ -29,12 +29,13 @@ export default function Modal({ isOpen, onClose, title, children, width = 480 })
     >
       <div
         style={{
-          backgroundColor: 'var(--surface)',
-          borderRadius: 'var(--radius-lg)',
+          backgroundColor: 'var(--surface-container-high)',
+          borderRadius: 16,
           width: '100%',
           maxWidth: width,
           maxHeight: '90vh',
           overflow: 'auto',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.15)',
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -44,25 +45,26 @@ export default function Modal({ isOpen, onClose, title, children, width = 480 })
             alignItems: 'center',
             justifyContent: 'space-between',
             padding: '20px 24px',
-            borderBottom: '1px solid var(--border)',
+            borderBottom: '1px solid var(--outline-variant)',
           }}
         >
-          <h2 style={{ fontSize: 18, fontWeight: 600 }}>{title}</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--on-surface)' }}>{title}</h2>
           <button
             onClick={onClose}
             style={{
               background: 'none',
               border: 'none',
-              color: 'var(--text-muted)',
+              color: 'var(--on-surface-variant)',
               display: 'flex',
               padding: 4,
               borderRadius: 8,
+              cursor: 'pointer',
             }}
           >
             <X size={20} />
           </button>
         </div>
-        <div style={{ padding: 24 }}>{children}</div>
+        <div style={{ padding: 24, color: 'var(--on-surface-variant)' }}>{children}</div>
       </div>
     </div>
   );
