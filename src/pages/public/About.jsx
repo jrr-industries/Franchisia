@@ -4,10 +4,10 @@ import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import Avatar from '../../components/ui/Avatar';
 import Badge from '../../components/ui/Badge';
-import { useSite } from '../../context/SiteContext';
+import { useSiteValue } from '../../context/SiteContext';
 
 export default function About() {
-  const { about } = useSite();
+  const about = useSiteValue('about');
 
   const stats = [
     { value: '10K+', label: 'Active Listings', icon: Globe },

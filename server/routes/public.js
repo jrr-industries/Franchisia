@@ -1,5 +1,7 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
+import { getMaintenanceMode } from "../settings.js";
+import { getSiteContent } from "../site-content.js";
 
 const router = Router();
 
@@ -91,6 +93,14 @@ router.get("/industries", async (_req, res) => {
     console.error("Public route error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
+});
+
+router.get("/site-content", (_req, res) => {
+  res.json(getSiteContent());
+});
+
+router.get("/maintenance", (_req, res) => {
+  res.json({ enabled: getMaintenanceMode() });
 });
 
 export default router;

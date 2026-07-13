@@ -1,7 +1,7 @@
-import { useSite } from '../context/SiteContext';
+import { useSiteValue } from '../context/SiteContext';
 
 export default function Statistics() {
-  const { stats } = useSite();
+  const stats = useSiteValue('stats');
 
   return (
     <section style={{ padding: '80px 0', backgroundColor: 'var(--inverse-surface)', color: 'var(--inverse-on-surface)' }}>

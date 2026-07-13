@@ -91,6 +91,7 @@ model User {
   skills                     UserSkill[]
   bookmarks                  Bookmark[]
   reactions                  MessageReaction[]
+  policyAcceptances           CompanyPolicyAcceptance[]
 
   @@index([email])
   @@index([role])
@@ -230,6 +231,7 @@ model Company {
   followers     CompanyFollower[]
   listings      FranchiseListing[]
   reviews       Review[]
+  policies      CompanyPolicy[]
 
   @@index([slug])
   @@index([industry])
@@ -277,6 +279,7 @@ model FranchiseListing {
   createdByUser    User          @relation(fields: [createdBy], references: [id])
   reviews          Review[]
   bookmarks        Bookmark[]
+  policyAcceptances CompanyPolicyAcceptance[]
 
   @@index([companyId])
   @@index([industry])
@@ -643,6 +646,158 @@ model Report {
   resolvedBy  String?  @map("resolved_by")
 
   @@map("reports")
+}
+
+enum PolicyStatus {
+  draft
+  published
+  archived
+}
+
+model CompanyPolicy {
+  id        String   @id @default(cuid())
+  companyId String   @map("company_id")
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  // Eligibility Requirements
+  minimumAge                    Int?     @map("minimum_age")
+  minimumEducation              String?  @map("minimum_education")
+  businessExperienceRequired    String?  @map("business_experience_required")
+  netWorthRequired              String?  @map("net_worth_required")
+  preferredIndustries           String[] @map("preferred_industries")
+  commercialSpaceRequired       Boolean? @default(false) @map("commercial_space_required")
+  businessRegistrationRequired  Boolean? @default(false) @map("business_registration_required")
+  gstRequired                   Boolean? @default(false) @map("gst_required")
+  localLicenseRequired          Boolean? @default(false) @map("local_license_required")
+  additionalRequirements        String?  @map("additional_requirements")
+
+  // Investment
+  minimumInvestment String? @map("minimum_investment")
+  maximumInvestment String? @map("maximum_investment")
+  franchiseFee      String? @map("franchise_fee")
+  royaltyFee        String? @map("royalty_fee")
+  marketingFee      String? @map("marketing_fee")
+  workingCapital    String? @map("working_capital")
+  securityDeposit   String? @map("security_deposit")
+  expectedROI       String? @map("expected_roi")
+  breakEvenPeriod   String? @map("break_even_period")
+
+  // Agreement
+  agreementDuration     String?  @map("agreement_duration")
+  renewalAvailable      Boolean? @default(false) @map("renewal_available")
+  terminationConditions String?  @map("termination_conditions")
+  exitPolicy            String?  @map("exit_policy")
+  transferPolicy        String?  @map("transfer_policy")
+  renewalCharges        String?  @map("renewal_charges")
+
+  // Training & Support
+  initialTraining    String? @map("initial_training")
+  onSiteSupport      String? @map("on_site_support")
+  marketingSupport   String? @map("marketing_support")
+  technologySupport  String? @map("technology_support")
+  operationsManual   String? @map("operations_manual")
+  storeSetupSupport  String? @map("store_setup_support")
+  hiringSupport      String? @map("hiring_support")
+  supplyChainSupport String? @map("supply_chain_support")
+
+  // Territory
+  exclusiveTerritory    Boolean? @default(false) @map("exclusive_territory")
+  nonExclusiveTerritory Boolean? @default(false) @map("non_exclusive_territory")
+  expansionPlans        String?  @map("expansion_plans")
+  targetCities          String[] @map("target_cities")
+  targetStates          String[] @map("target_states")
+  targetCountries       String[] @map("target_countries")
+
+  // Legal Policies
+  refundPolicy             String? @map("refund_policy")
+  cancellationPolicy       String? @map("cancellation_policy")
+  brandGuidelines          String? @map("brand_guidelines")
+  trademarkRules           String? @map("trademark_rules")
+  confidentialityAgreement String? @map("confidentiality_agreement")
+  codeOfConduct            String? @map("code_of_conduct")
+
+  // Status
+  status      PolicyStatus @default(draft)
+  version     String       @default("1.0")
+  isActive    Boolean      @default(false) @map("is_active")
+  isSuspended Boolean      @default(false) @map("is_suspended")
+  publishedAt DateTime?    @map("published_at") @db.Timestamptz(6)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  faqs       CompanyFAQ[]
+  documents  CompanyDocument[]
+  versions   CompanyPolicyVersion[]
+  acceptances CompanyPolicyAcceptance[]
+
+  @@index([companyId])
+  @@index([status])
+  @@map("company_policies")
+}
+
+model CompanyFAQ {
+  id        String   @id @default(cuid())
+  policyId  String   @map("policy_id")
+  policy    CompanyPolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  question  String
+  answer    String
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([policyId])
+  @@map("company_faqs")
+}
+
+model CompanyDocument {
+  id        String   @id @default(cuid())
+  policyId  String   @map("policy_id")
+  policy    CompanyPolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  type      String
+  title     String
+  url       String
+  fileName  String?  @map("file_name")
+  fileSize  Int?     @map("file_size")
+  mimeType  String?  @map("mime_type")
+  isHidden  Boolean  @default(false) @map("is_hidden")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([policyId])
+  @@map("company_documents")
+}
+
+model CompanyPolicyVersion {
+  id          String   @id @default(cuid())
+  policyId    String   @map("policy_id")
+  policy      CompanyPolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  version     String
+  data        Json
+  description String?
+  publishedAt DateTime? @map("published_at") @db.Timestamptz(6)
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([policyId])
+  @@map("company_policy_versions")
+}
+
+model CompanyPolicyAcceptance {
+  id            String   @id @default(cuid())
+  policyId      String   @map("policy_id")
+  policy        CompanyPolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  userId        String   @map("user_id")
+  user          User     @relation(fields: [userId], references: [id])
+  listingId     String?  @map("listing_id")
+  listing       FranchiseListing? @relation(fields: [listingId], references: [id])
+  policyVersion String   @map("policy_version")
+  acceptedAt    DateTime @default(now()) @map("accepted_at") @db.Timestamptz(6)
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@unique([policyId, userId])
+  @@index([policyId])
+  @@index([userId])
+  @@map("company_policy_acceptances")
 }
 
 enum NotificationType {

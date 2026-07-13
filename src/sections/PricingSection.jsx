@@ -10,7 +10,7 @@ const plans = [
   {
     name: 'Professional', price: '$10', period: '/month', desc: 'For serious franchise seekers', popular: true,
     features: ['Verified profile', 'Unlimited search', 'Direct messaging', 'Investment calculator', 'Priority support', 'Application tracking'],
-    cta: 'Start Free Trial', variant: 'primary',
+    cta: 'Contact Sales', variant: 'primary',
   },
   {
     name: 'Enterprise', price: '$25', period: '/month', desc: 'For franchisors & brokers',

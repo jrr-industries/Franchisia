@@ -1,14 +1,10 @@
 import { Star } from 'lucide-react';
 import Avatar from '../components/ui/Avatar';
-
-const testimonials = [
-  { name: 'Sarah Johnson', role: 'Franchisor, Coffee Chain', text: 'Franchisia helped us connect with qualified franchisees across the country. The platform made the entire process seamless.', rating: 5 },
-  { name: 'Mark Williams', role: 'Franchisee', text: 'I found my dream franchise through Franchisia. The search filters and company profiles gave me all the information I needed.', rating: 5 },
-  { name: 'Emily Chen', role: 'Broker', text: 'As a broker, this platform has been invaluable. I can manage multiple clients and opportunities all in one place.', rating: 5 },
-  { name: 'David Rodriguez', role: 'Investor', text: 'The analytics and ROI calculators gave me the confidence to invest. Highly recommended for serious investors.', rating: 4 },
-];
+import { useSiteValue } from '../context/SiteContext';
 
 export default function Testimonials() {
+  const testimonials = useSiteValue('testimonials');
+
   return (
     <section style={{ padding: '80px 0', backgroundColor: 'var(--surface-container-lowest)' }}>
       <div className="container">
@@ -20,8 +16,8 @@ export default function Testimonials() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
-          {testimonials.map((t) => (
-            <div key={t.name} style={{ padding: 24, backgroundColor: 'var(--surface)', border: '1px solid var(--outline-variant)', borderRadius: 12, transition: 'all 0.2s' }}
+          {testimonials.map((t, i) => (
+            <div key={i} style={{ padding: 24, backgroundColor: 'var(--surface)', border: '1px solid var(--outline-variant)', borderRadius: 12, transition: 'all 0.2s' }}
               onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--primary)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--outline-variant)'; }}
             >

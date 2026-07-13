@@ -77,6 +77,15 @@ export const MessageType = {
 export type MessageType = (typeof MessageType)[keyof typeof MessageType]
 
 
+export const PolicyStatus = {
+  draft: 'draft',
+  published: 'published',
+  archived: 'archived'
+} as const
+
+export type PolicyStatus = (typeof PolicyStatus)[keyof typeof PolicyStatus]
+
+
 export const NotificationType = {
   new_lead: 'new_lead',
   application_received: 'application_received',

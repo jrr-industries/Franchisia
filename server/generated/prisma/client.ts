@@ -201,3 +201,28 @@ export type Bookmark = Prisma.BookmarkModel
  * 
  */
 export type Report = Prisma.ReportModel
+/**
+ * Model CompanyPolicy
+ * 
+ */
+export type CompanyPolicy = Prisma.CompanyPolicyModel
+/**
+ * Model CompanyFAQ
+ * 
+ */
+export type CompanyFAQ = Prisma.CompanyFAQModel
+/**
+ * Model CompanyDocument
+ * 
+ */
+export type CompanyDocument = Prisma.CompanyDocumentModel
+/**
+ * Model CompanyPolicyVersion
+ * 
+ */
+export type CompanyPolicyVersion = Prisma.CompanyPolicyVersionModel
+/**
+ * Model CompanyPolicyAcceptance
+ * 
+ */
+export type CompanyPolicyAcceptance = Prisma.CompanyPolicyAcceptanceModel

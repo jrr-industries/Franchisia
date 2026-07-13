@@ -2,8 +2,25 @@ import { useState, useCallback, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
+import MaintenancePage from '../pages/public/MaintenancePage';
+import { useSite } from '../context/SiteContext';
+import { useAuth } from '../context/AuthContext';
 
 export default function DashboardLayout() {
+  const { maintenanceMode } = useSite();
+  const { isAdmin, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ width: 32, height: 32, borderRadius: '50%', border: '3px solid var(--border)', borderTopColor: 'var(--primary)', animation: 'spin 1s linear infinite' }} />
+      </div>
+    );
+  }
+
+  if (maintenanceMode && !isAdmin) {
+    return <MaintenancePage />;
+  }
   const [collapsed, setCollapsed] = useState(() => {
     try { return localStorage.getItem('sidebar_collapsed') === 'true'; } catch { return false; }
   });

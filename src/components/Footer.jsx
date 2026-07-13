@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Phone, MapPin, Globe, MessageSquare, Share2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { useSite } from '../context/SiteContext';
+import { useSiteValue } from '../context/SiteContext';
 
 const footerLinks = [
   {
@@ -34,25 +34,15 @@ const footerLinks = [
 ];
 
 function FooterLink({ to, children }) {
-  const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
-
-  const handleClick = (e) => {
-    if (!isAuthenticated) {
-      e.preventDefault();
-      navigate('/login');
-    }
-  };
-
   return (
-    <Link to={to} onClick={handleClick} className="footer-link" style={{ fontSize: 14, color: 'var(--on-surface-variant)', transition: 'color 0.2s', textDecoration: 'none' }}>
+    <Link to={to} className="footer-link" style={{ fontSize: 14, color: 'var(--on-surface-variant)', transition: 'color 0.2s', textDecoration: 'none' }}>
       {children}
     </Link>
   );
 }
 
 export default function Footer() {
-  const { contact } = useSite();
+  const contact = useSiteValue('contact');
 
   return (
     <footer className="site-footer" style={{ backgroundColor: 'var(--surface)', borderTop: '1px solid var(--outline-variant)', paddingTop: 64, paddingBottom: 32 }}>
@@ -67,11 +57,16 @@ export default function Footer() {
               The professional network for the franchise industry. Connect with franchisors, franchisees, consultors, investors, and suppliers.
             </p>
             <div style={{ display: 'flex', gap: 12 }}>
-              {[Globe, MessageSquare, Share2].map((Icon, i) => (
-                <a key={i} href="#" style={{ width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 10, backgroundColor: 'var(--surface-hover)', color: 'var(--on-surface-variant)', transition: 'all 0.2s' }}>
-                  <Icon size={16} />
-                </a>
-              ))}
+              <a href={`mailto:${contact.email}`} style={{ width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 10, backgroundColor: 'var(--surface-hover)', color: 'var(--on-surface-variant)', transition: 'all 0.2s', textDecoration: 'none' }} title="Email us">
+                <Mail size={16} />
+              </a>
+              <button
+                onClick={() => { navigator.share?.({ title: 'Franchisia', text: 'Join the professional franchise network', url: window.location.origin })?.catch(() => {}); }}
+                style={{ width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 10, backgroundColor: 'var(--surface-hover)', color: 'var(--on-surface-variant)', transition: 'all 0.2s', border: 'none', cursor: 'pointer' }}
+                title="Share"
+              >
+                <Share2 size={16} />
+              </button>
             </div>
           </div>
 

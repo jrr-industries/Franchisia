@@ -2,6 +2,8 @@ import { Router } from "express";
 import prisma from "../prisma.js";
 import { authenticate, authorize } from "../middleware/auth.js";
 import { emitCompanyCreated, emitCompanyUpdated, emitCompanyDeleted, emitCompanyVerified, getIO } from "../socket.js";
+import { getMaintenanceMode, setMaintenanceMode, getFeatureFlags, setFeatureFlags } from "../settings.js";
+import { getSiteContent, setSiteContent } from "../site-content.js";
 
 const router = Router();
 
@@ -1214,21 +1216,12 @@ router.delete("/followers/user/:targetUserId/:userId", async (req, res) => {
 
 // ==================== Settings ====================
 
-let maintenanceMode = false;
-let featureFlags = {
-  registration: true,
-  messaging: true,
-  listings: true,
-  marketplace: true,
-  analytics: true,
-};
-
 router.get("/settings", async (req, res) => {
   try {
     res.json({
       platformName: "Franchisia",
-      maintenanceMode,
-      featureFlags,
+      maintenanceMode: getMaintenanceMode(),
+      featureFlags: getFeatureFlags(),
       theme: "system",
       version: "1.0.0",
     });
@@ -1240,12 +1233,12 @@ router.get("/settings", async (req, res) => {
 
 router.patch("/settings", async (req, res) => {
   try {
-    if (req.body.maintenanceMode !== undefined) maintenanceMode = req.body.maintenanceMode;
-    if (req.body.featureFlags) featureFlags = { ...featureFlags, ...req.body.featureFlags };
+    if (req.body.maintenanceMode !== undefined) setMaintenanceMode(req.body.maintenanceMode);
+    if (req.body.featureFlags) setFeatureFlags(req.body.featureFlags);
     await prisma.auditLog.create({
       data: { userId: req.user.id, action: "UPDATE_SETTINGS", tableName: "settings", newData: req.body, ipAddress: req.ip },
     });
-    res.json({ success: true, maintenanceMode, featureFlags });
+    res.json({ success: true, maintenanceMode: getMaintenanceMode(), featureFlags: getFeatureFlags() });
   } catch (error) {
     console.error("Admin route error:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -1253,15 +1246,39 @@ router.patch("/settings", async (req, res) => {
 });
 
 router.get("/settings/maintenance", async (req, res) => {
-  res.json({ enabled: maintenanceMode });
+  res.json({ enabled: getMaintenanceMode() });
 });
 
 router.post("/settings/maintenance", async (req, res) => {
-  maintenanceMode = !!req.body.enabled;
+  setMaintenanceMode(!!req.body.enabled);
   await prisma.auditLog.create({
-    data: { userId: req.user.id, action: maintenanceMode ? "ENABLE_MAINTENANCE" : "DISABLE_MAINTENANCE", tableName: "settings", newData: { maintenanceMode }, ipAddress: req.ip },
+    data: { userId: req.user.id, action: getMaintenanceMode() ? "ENABLE_MAINTENANCE" : "DISABLE_MAINTENANCE", tableName: "settings", newData: { maintenanceMode: getMaintenanceMode() }, ipAddress: req.ip },
   });
-  res.json({ enabled: maintenanceMode });
+  res.json({ enabled: getMaintenanceMode() });
+});
+
+// ==================== Site Content ====================
+
+router.get("/site-content", async (req, res) => {
+  try {
+    res.json(getSiteContent());
+  } catch (error) {
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/site-content", async (req, res) => {
+  try {
+    const data = setSiteContent(req.body);
+    await prisma.auditLog.create({
+      data: { userId: req.user.id, action: "UPDATE_SITE_CONTENT", tableName: "settings", newData: req.body, ipAddress: req.ip },
+    });
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 // ==================== Content Moderation ====================

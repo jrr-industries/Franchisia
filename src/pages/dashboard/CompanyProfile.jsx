@@ -5,7 +5,7 @@ import {
   MapPin, Globe, MessageSquare, UserPlus, ExternalLink, Star,
   Briefcase, Users, TrendingUp, Calendar, CheckCircle, Phone,
   Mail, Clock, DollarSign, ChevronRight, Heart, Share2, Check,
-  Building2, Award, Target, Plus, Edit3, Trash2, Send, Eye,
+  Building2, Award, Target, Plus, Edit3, Trash2, Send, Eye, FileSignature,
 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
@@ -18,6 +18,7 @@ import Pagination from '../../components/ui/Pagination';
 import Select from '../../components/ui/Select';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../components/ui/Toast';
+import CompanyPoliciesView from './CompanyPoliciesView';
 
 const API = '/api';
 
@@ -803,11 +804,18 @@ export default function CompanyProfile() {
     </motion.div>
   );
 
+  const policiesContent = (
+    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+      <CompanyPoliciesView companyId={c.id} />
+    </motion.div>
+  );
+
   const tabs = [
     { id: 'about', label: 'About', content: aboutContent },
     { id: 'opportunities', label: 'Opportunities', content: opportunitiesContent },
     { id: 'reviews', label: 'Reviews', content: reviewsContent },
     { id: 'contact', label: 'Contact', content: contactContent },
+    { id: 'policies', label: 'Policies & Terms', content: policiesContent },
   ];
 
   return (

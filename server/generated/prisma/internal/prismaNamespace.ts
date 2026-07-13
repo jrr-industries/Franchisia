@@ -415,7 +415,12 @@ export const ModelName = {
   UserDocument: 'UserDocument',
   VerificationHistory: 'VerificationHistory',
   Bookmark: 'Bookmark',
-  Report: 'Report'
+  Report: 'Report',
+  CompanyPolicy: 'CompanyPolicy',
+  CompanyFAQ: 'CompanyFAQ',
+  CompanyDocument: 'CompanyDocument',
+  CompanyPolicyVersion: 'CompanyPolicyVersion',
+  CompanyPolicyAcceptance: 'CompanyPolicyAcceptance'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -431,7 +436,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "userSkill" | "userInterest" | "userEducation" | "userExperience" | "company" | "franchiseListing" | "application" | "connection" | "companyFollower" | "conversation" | "conversationParticipant" | "message" | "messageReaction" | "notification" | "review" | "meeting" | "meetingParticipant" | "messageRequest" | "siteStat" | "siteContact" | "aboutPage" | "aboutTeam" | "aboutTimeline" | "auditLog" | "userDocument" | "verificationHistory" | "bookmark" | "report"
+    modelProps: "user" | "session" | "account" | "verification" | "userSkill" | "userInterest" | "userEducation" | "userExperience" | "company" | "franchiseListing" | "application" | "connection" | "companyFollower" | "conversation" | "conversationParticipant" | "message" | "messageReaction" | "notification" | "review" | "meeting" | "meetingParticipant" | "messageRequest" | "siteStat" | "siteContact" | "aboutPage" | "aboutTeam" | "aboutTimeline" | "auditLog" | "userDocument" | "verificationHistory" | "bookmark" | "report" | "companyPolicy" | "companyFAQ" | "companyDocument" | "companyPolicyVersion" | "companyPolicyAcceptance"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2803,6 +2808,376 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CompanyPolicy: {
+      payload: Prisma.$CompanyPolicyPayload<ExtArgs>
+      fields: Prisma.CompanyPolicyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CompanyPolicyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CompanyPolicyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyPayload>
+        }
+        findFirst: {
+          args: Prisma.CompanyPolicyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CompanyPolicyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyPayload>
+        }
+        findMany: {
+          args: Prisma.CompanyPolicyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyPayload>[]
+        }
+        create: {
+          args: Prisma.CompanyPolicyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyPayload>
+        }
+        createMany: {
+          args: Prisma.CompanyPolicyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CompanyPolicyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyPayload>[]
+        }
+        delete: {
+          args: Prisma.CompanyPolicyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyPayload>
+        }
+        update: {
+          args: Prisma.CompanyPolicyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyPayload>
+        }
+        deleteMany: {
+          args: Prisma.CompanyPolicyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CompanyPolicyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CompanyPolicyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyPayload>[]
+        }
+        upsert: {
+          args: Prisma.CompanyPolicyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyPayload>
+        }
+        aggregate: {
+          args: Prisma.CompanyPolicyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCompanyPolicy>
+        }
+        groupBy: {
+          args: Prisma.CompanyPolicyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyPolicyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CompanyPolicyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyPolicyCountAggregateOutputType> | number
+        }
+      }
+    }
+    CompanyFAQ: {
+      payload: Prisma.$CompanyFAQPayload<ExtArgs>
+      fields: Prisma.CompanyFAQFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CompanyFAQFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyFAQPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CompanyFAQFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyFAQPayload>
+        }
+        findFirst: {
+          args: Prisma.CompanyFAQFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyFAQPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CompanyFAQFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyFAQPayload>
+        }
+        findMany: {
+          args: Prisma.CompanyFAQFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyFAQPayload>[]
+        }
+        create: {
+          args: Prisma.CompanyFAQCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyFAQPayload>
+        }
+        createMany: {
+          args: Prisma.CompanyFAQCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CompanyFAQCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyFAQPayload>[]
+        }
+        delete: {
+          args: Prisma.CompanyFAQDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyFAQPayload>
+        }
+        update: {
+          args: Prisma.CompanyFAQUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyFAQPayload>
+        }
+        deleteMany: {
+          args: Prisma.CompanyFAQDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CompanyFAQUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CompanyFAQUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyFAQPayload>[]
+        }
+        upsert: {
+          args: Prisma.CompanyFAQUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyFAQPayload>
+        }
+        aggregate: {
+          args: Prisma.CompanyFAQAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCompanyFAQ>
+        }
+        groupBy: {
+          args: Prisma.CompanyFAQGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyFAQGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CompanyFAQCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyFAQCountAggregateOutputType> | number
+        }
+      }
+    }
+    CompanyDocument: {
+      payload: Prisma.$CompanyDocumentPayload<ExtArgs>
+      fields: Prisma.CompanyDocumentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CompanyDocumentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDocumentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CompanyDocumentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDocumentPayload>
+        }
+        findFirst: {
+          args: Prisma.CompanyDocumentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDocumentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CompanyDocumentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDocumentPayload>
+        }
+        findMany: {
+          args: Prisma.CompanyDocumentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDocumentPayload>[]
+        }
+        create: {
+          args: Prisma.CompanyDocumentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDocumentPayload>
+        }
+        createMany: {
+          args: Prisma.CompanyDocumentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CompanyDocumentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDocumentPayload>[]
+        }
+        delete: {
+          args: Prisma.CompanyDocumentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDocumentPayload>
+        }
+        update: {
+          args: Prisma.CompanyDocumentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDocumentPayload>
+        }
+        deleteMany: {
+          args: Prisma.CompanyDocumentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CompanyDocumentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CompanyDocumentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDocumentPayload>[]
+        }
+        upsert: {
+          args: Prisma.CompanyDocumentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDocumentPayload>
+        }
+        aggregate: {
+          args: Prisma.CompanyDocumentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCompanyDocument>
+        }
+        groupBy: {
+          args: Prisma.CompanyDocumentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyDocumentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CompanyDocumentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyDocumentCountAggregateOutputType> | number
+        }
+      }
+    }
+    CompanyPolicyVersion: {
+      payload: Prisma.$CompanyPolicyVersionPayload<ExtArgs>
+      fields: Prisma.CompanyPolicyVersionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CompanyPolicyVersionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyVersionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CompanyPolicyVersionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyVersionPayload>
+        }
+        findFirst: {
+          args: Prisma.CompanyPolicyVersionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyVersionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CompanyPolicyVersionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyVersionPayload>
+        }
+        findMany: {
+          args: Prisma.CompanyPolicyVersionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyVersionPayload>[]
+        }
+        create: {
+          args: Prisma.CompanyPolicyVersionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyVersionPayload>
+        }
+        createMany: {
+          args: Prisma.CompanyPolicyVersionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CompanyPolicyVersionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyVersionPayload>[]
+        }
+        delete: {
+          args: Prisma.CompanyPolicyVersionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyVersionPayload>
+        }
+        update: {
+          args: Prisma.CompanyPolicyVersionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyVersionPayload>
+        }
+        deleteMany: {
+          args: Prisma.CompanyPolicyVersionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CompanyPolicyVersionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CompanyPolicyVersionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyVersionPayload>[]
+        }
+        upsert: {
+          args: Prisma.CompanyPolicyVersionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyVersionPayload>
+        }
+        aggregate: {
+          args: Prisma.CompanyPolicyVersionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCompanyPolicyVersion>
+        }
+        groupBy: {
+          args: Prisma.CompanyPolicyVersionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyPolicyVersionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CompanyPolicyVersionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyPolicyVersionCountAggregateOutputType> | number
+        }
+      }
+    }
+    CompanyPolicyAcceptance: {
+      payload: Prisma.$CompanyPolicyAcceptancePayload<ExtArgs>
+      fields: Prisma.CompanyPolicyAcceptanceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CompanyPolicyAcceptanceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyAcceptancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CompanyPolicyAcceptanceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyAcceptancePayload>
+        }
+        findFirst: {
+          args: Prisma.CompanyPolicyAcceptanceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyAcceptancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CompanyPolicyAcceptanceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyAcceptancePayload>
+        }
+        findMany: {
+          args: Prisma.CompanyPolicyAcceptanceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyAcceptancePayload>[]
+        }
+        create: {
+          args: Prisma.CompanyPolicyAcceptanceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyAcceptancePayload>
+        }
+        createMany: {
+          args: Prisma.CompanyPolicyAcceptanceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CompanyPolicyAcceptanceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyAcceptancePayload>[]
+        }
+        delete: {
+          args: Prisma.CompanyPolicyAcceptanceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyAcceptancePayload>
+        }
+        update: {
+          args: Prisma.CompanyPolicyAcceptanceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyAcceptancePayload>
+        }
+        deleteMany: {
+          args: Prisma.CompanyPolicyAcceptanceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CompanyPolicyAcceptanceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CompanyPolicyAcceptanceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyAcceptancePayload>[]
+        }
+        upsert: {
+          args: Prisma.CompanyPolicyAcceptanceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPolicyAcceptancePayload>
+        }
+        aggregate: {
+          args: Prisma.CompanyPolicyAcceptanceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCompanyPolicyAcceptance>
+        }
+        groupBy: {
+          args: Prisma.CompanyPolicyAcceptanceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyPolicyAcceptanceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CompanyPolicyAcceptanceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyPolicyAcceptanceCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3342,6 +3717,122 @@ export const ReportScalarFieldEnum = {
 export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]
 
 
+export const CompanyPolicyScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  minimumAge: 'minimumAge',
+  minimumEducation: 'minimumEducation',
+  businessExperienceRequired: 'businessExperienceRequired',
+  netWorthRequired: 'netWorthRequired',
+  preferredIndustries: 'preferredIndustries',
+  commercialSpaceRequired: 'commercialSpaceRequired',
+  businessRegistrationRequired: 'businessRegistrationRequired',
+  gstRequired: 'gstRequired',
+  localLicenseRequired: 'localLicenseRequired',
+  additionalRequirements: 'additionalRequirements',
+  minimumInvestment: 'minimumInvestment',
+  maximumInvestment: 'maximumInvestment',
+  franchiseFee: 'franchiseFee',
+  royaltyFee: 'royaltyFee',
+  marketingFee: 'marketingFee',
+  workingCapital: 'workingCapital',
+  securityDeposit: 'securityDeposit',
+  expectedROI: 'expectedROI',
+  breakEvenPeriod: 'breakEvenPeriod',
+  agreementDuration: 'agreementDuration',
+  renewalAvailable: 'renewalAvailable',
+  terminationConditions: 'terminationConditions',
+  exitPolicy: 'exitPolicy',
+  transferPolicy: 'transferPolicy',
+  renewalCharges: 'renewalCharges',
+  initialTraining: 'initialTraining',
+  onSiteSupport: 'onSiteSupport',
+  marketingSupport: 'marketingSupport',
+  technologySupport: 'technologySupport',
+  operationsManual: 'operationsManual',
+  storeSetupSupport: 'storeSetupSupport',
+  hiringSupport: 'hiringSupport',
+  supplyChainSupport: 'supplyChainSupport',
+  exclusiveTerritory: 'exclusiveTerritory',
+  nonExclusiveTerritory: 'nonExclusiveTerritory',
+  expansionPlans: 'expansionPlans',
+  targetCities: 'targetCities',
+  targetStates: 'targetStates',
+  targetCountries: 'targetCountries',
+  refundPolicy: 'refundPolicy',
+  cancellationPolicy: 'cancellationPolicy',
+  brandGuidelines: 'brandGuidelines',
+  trademarkRules: 'trademarkRules',
+  confidentialityAgreement: 'confidentialityAgreement',
+  codeOfConduct: 'codeOfConduct',
+  status: 'status',
+  version: 'version',
+  isActive: 'isActive',
+  isSuspended: 'isSuspended',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyPolicyScalarFieldEnum = (typeof CompanyPolicyScalarFieldEnum)[keyof typeof CompanyPolicyScalarFieldEnum]
+
+
+export const CompanyFAQScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  question: 'question',
+  answer: 'answer',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyFAQScalarFieldEnum = (typeof CompanyFAQScalarFieldEnum)[keyof typeof CompanyFAQScalarFieldEnum]
+
+
+export const CompanyDocumentScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  type: 'type',
+  title: 'title',
+  url: 'url',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  isHidden: 'isHidden',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyDocumentScalarFieldEnum = (typeof CompanyDocumentScalarFieldEnum)[keyof typeof CompanyDocumentScalarFieldEnum]
+
+
+export const CompanyPolicyVersionScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  version: 'version',
+  data: 'data',
+  description: 'description',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CompanyPolicyVersionScalarFieldEnum = (typeof CompanyPolicyVersionScalarFieldEnum)[keyof typeof CompanyPolicyVersionScalarFieldEnum]
+
+
+export const CompanyPolicyAcceptanceScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  userId: 'userId',
+  listingId: 'listingId',
+  policyVersion: 'policyVersion',
+  acceptedAt: 'acceptedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CompanyPolicyAcceptanceScalarFieldEnum = (typeof CompanyPolicyAcceptanceScalarFieldEnum)[keyof typeof CompanyPolicyAcceptanceScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3356,6 +3847,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -3577,6 +4075,20 @@ export type EnumMessageRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputT
 export type ListEnumMessageRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageRequestStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'PolicyStatus'
+ */
+export type EnumPolicyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PolicyStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PolicyStatus[]'
+ */
+export type ListEnumPolicyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PolicyStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -3719,6 +4231,11 @@ export type GlobalOmitConfig = {
   verificationHistory?: Prisma.VerificationHistoryOmit
   bookmark?: Prisma.BookmarkOmit
   report?: Prisma.ReportOmit
+  companyPolicy?: Prisma.CompanyPolicyOmit
+  companyFAQ?: Prisma.CompanyFAQOmit
+  companyDocument?: Prisma.CompanyDocumentOmit
+  companyPolicyVersion?: Prisma.CompanyPolicyVersionOmit
+  companyPolicyAcceptance?: Prisma.CompanyPolicyAcceptanceOmit
 }
 
 /* Types for Logging */

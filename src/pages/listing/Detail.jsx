@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   MapPin, DollarSign, TrendingUp, Briefcase, Calendar, Heart,
   MessageSquare, Share2, CheckCircle, Clock, Building2, Eye,
+  ChevronLeft, ChevronRight, BadgeCheck, FileSignature,
 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
@@ -13,6 +14,7 @@ import VerifiedBadge from '../../components/ui/VerifiedBadge';
 import Modal from '../../components/ui/Modal';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../components/ui/Toast';
+import CompanyPoliciesView from '../dashboard/CompanyPoliciesView';
 
 const API = '/api';
 
@@ -28,6 +30,8 @@ export default function ListingDetail() {
   const [applyModal, setApplyModal] = useState(false);
   const [coverMessage, setCoverMessage] = useState('');
   const [applying, setApplying] = useState(false);
+  const [policyAccepted, setPolicyAccepted] = useState(null);
+  const [showPolicies, setShowPolicies] = useState(true);
 
   useEffect(() => {
     if (!slug) return;
@@ -89,6 +93,8 @@ export default function ListingDetail() {
         addToast('Application submitted!', 'success');
         setApplyModal(false);
         setCoverMessage('');
+        setShowPolicies(true);
+        setPolicyAccepted(null);
       } else {
         const err = await res.json();
         addToast(err.error || 'Failed to apply', 'error');
@@ -100,10 +106,22 @@ export default function ListingDetail() {
     }
   };
 
+  const handlePolicyAccept = (acceptance) => {
+    setPolicyAccepted(acceptance);
+    setShowPolicies(false);
+  };
+
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href)
       .then(() => addToast('Link copied!', 'success'))
       .catch(() => addToast('Failed to copy', 'error'));
+  };
+
+  const resetApplyModal = () => {
+    setApplyModal(false);
+    setShowPolicies(true);
+    setPolicyAccepted(null);
+    setCoverMessage('');
   };
 
   if (loading) {
@@ -256,28 +274,66 @@ export default function ListingDetail() {
         </div>
       </Card>
 
-      <Modal isOpen={applyModal} onClose={() => setApplyModal(false)} title={`Apply to ${l.title}`}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <p style={{ fontSize: 14, color: 'var(--text-secondary)' }}>
-            Send your application to {c.name}. Include a cover message to help your application stand out.
-          </p>
-          <textarea
-            value={coverMessage}
-            onChange={(e) => setCoverMessage(e.target.value)}
-            placeholder="Tell the franchisor why you're interested..."
-            style={{
-              width: '100%', padding: '10px 14px', borderRadius: 6, border: '1px solid var(--border)',
-              backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 14,
-              outline: 'none', fontFamily: 'inherit', resize: 'vertical', minHeight: 100, boxSizing: 'border-box',
-            }}
-          />
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
-            <Button variant="secondary" size="sm" onClick={() => setApplyModal(false)}>Cancel</Button>
-            <Button variant="primary" size="sm" onClick={handleApply} disabled={applying}>
-              {applying ? 'Submitting...' : 'Submit Application'}
-            </Button>
-          </div>
-        </div>
+      <Modal isOpen={applyModal} onClose={resetApplyModal} title={showPolicies ? "Review Company Policies" : `Apply to ${l.title}`}
+        width={showPolicies ? "800px" : undefined}>
+        <AnimatePresence mode="wait">
+          {showPolicies ? (
+            <motion.div key="policies" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, padding: '12px 16px', borderRadius: 8, backgroundColor: 'var(--primary-light)' }}>
+                <FileSignature size={20} color="var(--primary)" />
+                <div>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--primary)' }}>Step 1: Review & Accept Policies</p>
+                  <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Please review the company's franchise terms before applying</p>
+                </div>
+              </div>
+              <div style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+                <CompanyPoliciesView
+                  companyId={c.id}
+                  listingId={l.id}
+                  onAccept={handlePolicyAccept}
+                  accepted={policyAccepted}
+                />
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div key="application" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, padding: '12px 16px', borderRadius: 8, backgroundColor: '#daf3e5' }}>
+                <BadgeCheck size={20} color="#10633a" />
+                <div>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: '#10633a' }}>Step 2: Submit Application</p>
+                  <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+                    Terms accepted v{policyAccepted?.policyVersion} on {policyAccepted ? new Date(policyAccepted.acceptedAt).toLocaleDateString() : ''}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowPolicies(true)}
+                  style={{ marginLeft: 'auto', background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: 12, fontWeight: 500, textDecoration: 'underline' }}
+                >
+                  Review again
+                </button>
+              </div>
+              <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 16 }}>
+                Send your application to {c.name}. Include a cover message to help your application stand out.
+              </p>
+              <textarea
+                value={coverMessage}
+                onChange={(e) => setCoverMessage(e.target.value)}
+                placeholder="Tell the franchisor why you're interested..."
+                style={{
+                  width: '100%', padding: '10px 14px', borderRadius: 6, border: '1px solid var(--border)',
+                  backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 14,
+                  outline: 'none', fontFamily: 'inherit', resize: 'vertical', minHeight: 100, boxSizing: 'border-box',
+                }}
+              />
+              <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 16 }}>
+                <Button variant="secondary" size="sm" onClick={resetApplyModal}>Cancel</Button>
+                <Button variant="primary" size="sm" onClick={handleApply} disabled={applying}>
+                  {applying ? 'Submitting...' : 'Submit Application'}
+                </Button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Modal>
     </motion.div>
   );

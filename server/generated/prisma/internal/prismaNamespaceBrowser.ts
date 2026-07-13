@@ -82,7 +82,12 @@ export const ModelName = {
   UserDocument: 'UserDocument',
   VerificationHistory: 'VerificationHistory',
   Bookmark: 'Bookmark',
-  Report: 'Report'
+  Report: 'Report',
+  CompanyPolicy: 'CompanyPolicy',
+  CompanyFAQ: 'CompanyFAQ',
+  CompanyDocument: 'CompanyDocument',
+  CompanyPolicyVersion: 'CompanyPolicyVersion',
+  CompanyPolicyAcceptance: 'CompanyPolicyAcceptance'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -601,6 +606,122 @@ export const ReportScalarFieldEnum = {
 export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]
 
 
+export const CompanyPolicyScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  minimumAge: 'minimumAge',
+  minimumEducation: 'minimumEducation',
+  businessExperienceRequired: 'businessExperienceRequired',
+  netWorthRequired: 'netWorthRequired',
+  preferredIndustries: 'preferredIndustries',
+  commercialSpaceRequired: 'commercialSpaceRequired',
+  businessRegistrationRequired: 'businessRegistrationRequired',
+  gstRequired: 'gstRequired',
+  localLicenseRequired: 'localLicenseRequired',
+  additionalRequirements: 'additionalRequirements',
+  minimumInvestment: 'minimumInvestment',
+  maximumInvestment: 'maximumInvestment',
+  franchiseFee: 'franchiseFee',
+  royaltyFee: 'royaltyFee',
+  marketingFee: 'marketingFee',
+  workingCapital: 'workingCapital',
+  securityDeposit: 'securityDeposit',
+  expectedROI: 'expectedROI',
+  breakEvenPeriod: 'breakEvenPeriod',
+  agreementDuration: 'agreementDuration',
+  renewalAvailable: 'renewalAvailable',
+  terminationConditions: 'terminationConditions',
+  exitPolicy: 'exitPolicy',
+  transferPolicy: 'transferPolicy',
+  renewalCharges: 'renewalCharges',
+  initialTraining: 'initialTraining',
+  onSiteSupport: 'onSiteSupport',
+  marketingSupport: 'marketingSupport',
+  technologySupport: 'technologySupport',
+  operationsManual: 'operationsManual',
+  storeSetupSupport: 'storeSetupSupport',
+  hiringSupport: 'hiringSupport',
+  supplyChainSupport: 'supplyChainSupport',
+  exclusiveTerritory: 'exclusiveTerritory',
+  nonExclusiveTerritory: 'nonExclusiveTerritory',
+  expansionPlans: 'expansionPlans',
+  targetCities: 'targetCities',
+  targetStates: 'targetStates',
+  targetCountries: 'targetCountries',
+  refundPolicy: 'refundPolicy',
+  cancellationPolicy: 'cancellationPolicy',
+  brandGuidelines: 'brandGuidelines',
+  trademarkRules: 'trademarkRules',
+  confidentialityAgreement: 'confidentialityAgreement',
+  codeOfConduct: 'codeOfConduct',
+  status: 'status',
+  version: 'version',
+  isActive: 'isActive',
+  isSuspended: 'isSuspended',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyPolicyScalarFieldEnum = (typeof CompanyPolicyScalarFieldEnum)[keyof typeof CompanyPolicyScalarFieldEnum]
+
+
+export const CompanyFAQScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  question: 'question',
+  answer: 'answer',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyFAQScalarFieldEnum = (typeof CompanyFAQScalarFieldEnum)[keyof typeof CompanyFAQScalarFieldEnum]
+
+
+export const CompanyDocumentScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  type: 'type',
+  title: 'title',
+  url: 'url',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  isHidden: 'isHidden',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyDocumentScalarFieldEnum = (typeof CompanyDocumentScalarFieldEnum)[keyof typeof CompanyDocumentScalarFieldEnum]
+
+
+export const CompanyPolicyVersionScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  version: 'version',
+  data: 'data',
+  description: 'description',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CompanyPolicyVersionScalarFieldEnum = (typeof CompanyPolicyVersionScalarFieldEnum)[keyof typeof CompanyPolicyVersionScalarFieldEnum]
+
+
+export const CompanyPolicyAcceptanceScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  userId: 'userId',
+  listingId: 'listingId',
+  policyVersion: 'policyVersion',
+  acceptedAt: 'acceptedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CompanyPolicyAcceptanceScalarFieldEnum = (typeof CompanyPolicyAcceptanceScalarFieldEnum)[keyof typeof CompanyPolicyAcceptanceScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -615,6 +736,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {

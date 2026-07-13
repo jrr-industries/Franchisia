@@ -396,6 +396,7 @@ export type CompanyWhereInput = {
   followers?: Prisma.CompanyFollowerListRelationFilter
   listings?: Prisma.FranchiseListingListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
+  policies?: Prisma.CompanyPolicyListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -428,6 +429,7 @@ export type CompanyOrderByWithRelationInput = {
   followers?: Prisma.CompanyFollowerOrderByRelationAggregateInput
   listings?: Prisma.FranchiseListingOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
+  policies?: Prisma.CompanyPolicyOrderByRelationAggregateInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -463,6 +465,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   followers?: Prisma.CompanyFollowerListRelationFilter
   listings?: Prisma.FranchiseListingListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
+  policies?: Prisma.CompanyPolicyListRelationFilter
 }, "id" | "slug">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -558,6 +561,7 @@ export type CompanyCreateInput = {
   followers?: Prisma.CompanyFollowerCreateNestedManyWithoutCompanyInput
   listings?: Prisma.FranchiseListingCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCompanyInput
+  policies?: Prisma.CompanyPolicyCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -589,6 +593,7 @@ export type CompanyUncheckedCreateInput = {
   followers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutCompanyInput
   listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCompanyInput
+  policies?: Prisma.CompanyPolicyUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -620,6 +625,7 @@ export type CompanyUpdateInput = {
   followers?: Prisma.CompanyFollowerUpdateManyWithoutCompanyNestedInput
   listings?: Prisma.FranchiseListingUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCompanyNestedInput
+  policies?: Prisma.CompanyPolicyUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -651,6 +657,7 @@ export type CompanyUncheckedUpdateInput = {
   followers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutCompanyNestedInput
   listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  policies?: Prisma.CompanyPolicyUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -954,6 +961,20 @@ export type CompanyUpdateOneWithoutReviewsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutReviewsInput, Prisma.CompanyUpdateWithoutReviewsInput>, Prisma.CompanyUncheckedUpdateWithoutReviewsInput>
 }
 
+export type CompanyCreateNestedOneWithoutPoliciesInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPoliciesInput, Prisma.CompanyUncheckedCreateWithoutPoliciesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPoliciesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutPoliciesNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPoliciesInput, Prisma.CompanyUncheckedCreateWithoutPoliciesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPoliciesInput
+  upsert?: Prisma.CompanyUpsertWithoutPoliciesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutPoliciesInput, Prisma.CompanyUpdateWithoutPoliciesInput>, Prisma.CompanyUncheckedUpdateWithoutPoliciesInput>
+}
+
 export type CompanyCreateWithoutOwnerInput = {
   id?: string
   name: string
@@ -982,6 +1003,7 @@ export type CompanyCreateWithoutOwnerInput = {
   followers?: Prisma.CompanyFollowerCreateNestedManyWithoutCompanyInput
   listings?: Prisma.FranchiseListingCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCompanyInput
+  policies?: Prisma.CompanyPolicyCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutOwnerInput = {
@@ -1012,6 +1034,7 @@ export type CompanyUncheckedCreateWithoutOwnerInput = {
   followers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutCompanyInput
   listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCompanyInput
+  policies?: Prisma.CompanyPolicyUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutOwnerInput = {
@@ -1099,6 +1122,7 @@ export type CompanyCreateWithoutListingsInput = {
   owner: Prisma.UserCreateNestedOneWithoutCompaniesInput
   followers?: Prisma.CompanyFollowerCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCompanyInput
+  policies?: Prisma.CompanyPolicyCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutListingsInput = {
@@ -1129,6 +1153,7 @@ export type CompanyUncheckedCreateWithoutListingsInput = {
   updatedAt?: Date | string
   followers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCompanyInput
+  policies?: Prisma.CompanyPolicyUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutListingsInput = {
@@ -1175,6 +1200,7 @@ export type CompanyUpdateWithoutListingsInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutCompaniesNestedInput
   followers?: Prisma.CompanyFollowerUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCompanyNestedInput
+  policies?: Prisma.CompanyPolicyUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutListingsInput = {
@@ -1205,6 +1231,7 @@ export type CompanyUncheckedUpdateWithoutListingsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   followers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  policies?: Prisma.CompanyPolicyUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutFollowersInput = {
@@ -1235,6 +1262,7 @@ export type CompanyCreateWithoutFollowersInput = {
   owner: Prisma.UserCreateNestedOneWithoutCompaniesInput
   listings?: Prisma.FranchiseListingCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCompanyInput
+  policies?: Prisma.CompanyPolicyCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFollowersInput = {
@@ -1265,6 +1293,7 @@ export type CompanyUncheckedCreateWithoutFollowersInput = {
   updatedAt?: Date | string
   listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCompanyInput
+  policies?: Prisma.CompanyPolicyUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFollowersInput = {
@@ -1311,6 +1340,7 @@ export type CompanyUpdateWithoutFollowersInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutCompaniesNestedInput
   listings?: Prisma.FranchiseListingUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCompanyNestedInput
+  policies?: Prisma.CompanyPolicyUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFollowersInput = {
@@ -1341,6 +1371,7 @@ export type CompanyUncheckedUpdateWithoutFollowersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  policies?: Prisma.CompanyPolicyUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutReviewsInput = {
@@ -1371,6 +1402,7 @@ export type CompanyCreateWithoutReviewsInput = {
   owner: Prisma.UserCreateNestedOneWithoutCompaniesInput
   followers?: Prisma.CompanyFollowerCreateNestedManyWithoutCompanyInput
   listings?: Prisma.FranchiseListingCreateNestedManyWithoutCompanyInput
+  policies?: Prisma.CompanyPolicyCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutReviewsInput = {
@@ -1401,6 +1433,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   updatedAt?: Date | string
   followers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutCompanyInput
   listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCompanyInput
+  policies?: Prisma.CompanyPolicyUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutReviewsInput = {
@@ -1447,6 +1480,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutCompaniesNestedInput
   followers?: Prisma.CompanyFollowerUpdateManyWithoutCompanyNestedInput
   listings?: Prisma.FranchiseListingUpdateManyWithoutCompanyNestedInput
+  policies?: Prisma.CompanyPolicyUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutReviewsInput = {
@@ -1477,6 +1511,147 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   followers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutCompanyNestedInput
   listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCompanyNestedInput
+  policies?: Prisma.CompanyPolicyUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutPoliciesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  bannerUrl?: string | null
+  industry: string
+  description?: string | null
+  website?: string | null
+  foundedYear?: number | null
+  employeeCount?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  isVerified?: boolean
+  status?: $Enums.ListingStatus
+  followerCount?: number
+  listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutCompaniesInput
+  followers?: Prisma.CompanyFollowerCreateNestedManyWithoutCompanyInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutPoliciesInput = {
+  id?: string
+  ownerId: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  bannerUrl?: string | null
+  industry: string
+  description?: string | null
+  website?: string | null
+  foundedYear?: number | null
+  employeeCount?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  isVerified?: boolean
+  status?: $Enums.ListingStatus
+  followerCount?: number
+  listingCount?: number
+  averageRating?: number | null
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  followers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutCompanyInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutPoliciesInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPoliciesInput, Prisma.CompanyUncheckedCreateWithoutPoliciesInput>
+}
+
+export type CompanyUpsertWithoutPoliciesInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutPoliciesInput, Prisma.CompanyUncheckedUpdateWithoutPoliciesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPoliciesInput, Prisma.CompanyUncheckedCreateWithoutPoliciesInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutPoliciesInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutPoliciesInput, Prisma.CompanyUncheckedUpdateWithoutPoliciesInput>
+}
+
+export type CompanyUpdateWithoutPoliciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  industry?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  foundedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  employeeCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutCompaniesNestedInput
+  followers?: Prisma.CompanyFollowerUpdateManyWithoutCompanyNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutPoliciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  industry?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  foundedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  employeeCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  listingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  followers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutCompanyNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyOwnerInput = {
@@ -1534,6 +1709,7 @@ export type CompanyUpdateWithoutOwnerInput = {
   followers?: Prisma.CompanyFollowerUpdateManyWithoutCompanyNestedInput
   listings?: Prisma.FranchiseListingUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCompanyNestedInput
+  policies?: Prisma.CompanyPolicyUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutOwnerInput = {
@@ -1564,6 +1740,7 @@ export type CompanyUncheckedUpdateWithoutOwnerInput = {
   followers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutCompanyNestedInput
   listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  policies?: Prisma.CompanyPolicyUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateManyWithoutOwnerInput = {
@@ -1602,12 +1779,14 @@ export type CompanyCountOutputType = {
   followers: number
   listings: number
   reviews: number
+  policies: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   followers?: boolean | CompanyCountOutputTypeCountFollowersArgs
   listings?: boolean | CompanyCountOutputTypeCountListingsArgs
   reviews?: boolean | CompanyCountOutputTypeCountReviewsArgs
+  policies?: boolean | CompanyCountOutputTypeCountPoliciesArgs
 }
 
 /**
@@ -1641,6 +1820,13 @@ export type CompanyCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types
   where?: Prisma.ReviewWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountPoliciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyPolicyWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1672,6 +1858,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   followers?: boolean | Prisma.Company$followersArgs<ExtArgs>
   listings?: boolean | Prisma.Company$listingsArgs<ExtArgs>
   reviews?: boolean | Prisma.Company$reviewsArgs<ExtArgs>
+  policies?: boolean | Prisma.Company$policiesArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -1767,6 +1954,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   followers?: boolean | Prisma.Company$followersArgs<ExtArgs>
   listings?: boolean | Prisma.Company$listingsArgs<ExtArgs>
   reviews?: boolean | Prisma.Company$reviewsArgs<ExtArgs>
+  policies?: boolean | Prisma.Company$policiesArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1783,6 +1971,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     followers: Prisma.$CompanyFollowerPayload<ExtArgs>[]
     listings: Prisma.$FranchiseListingPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
+    policies: Prisma.$CompanyPolicyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2208,6 +2397,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   followers<T extends Prisma.Company$followersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$followersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyFollowerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   listings<T extends Prisma.Company$listingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$listingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FranchiseListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.Company$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  policies<T extends Prisma.Company$policiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$policiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPolicyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2732,6 +2922,30 @@ export type Company$reviewsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
+ * Company.policies
+ */
+export type Company$policiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyPolicy
+   */
+  select?: Prisma.CompanyPolicySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyPolicy
+   */
+  omit?: Prisma.CompanyPolicyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyPolicyInclude<ExtArgs> | null
+  where?: Prisma.CompanyPolicyWhereInput
+  orderBy?: Prisma.CompanyPolicyOrderByWithRelationInput | Prisma.CompanyPolicyOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyPolicyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyPolicyScalarFieldEnum | Prisma.CompanyPolicyScalarFieldEnum[]
 }
 
 /**

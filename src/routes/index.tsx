@@ -34,6 +34,7 @@ const Profile = lazy(() => import("../pages/dashboard/Profile"));
 const CompanyProfile = lazy(() => import("../pages/dashboard/CompanyProfile"));
 const ListingDetail = lazy(() => import("../pages/listing/Detail"));
 const SavedListings = lazy(() => import("../pages/dashboard/SavedListings"));
+const PoliciesTerms = lazy(() => import("../pages/dashboard/PoliciesTerms"));
 
 const AdminDashboard = lazy(() => import("../pages/admin/AdminDashboard"));
 const AdminUsers = lazy(() => import("../pages/admin/AdminUsers"));
@@ -50,6 +51,7 @@ const AdminAuditLogs = lazy(() => import("../pages/admin/AdminAuditLogs"));
 const AdminSystemHealth = lazy(() => import("../pages/admin/AdminSystemHealth"));
 const AdminSettingsPage = lazy(() => import("../pages/admin/AdminSettings"));
 const AdminContent = lazy(() => import("../pages/admin/AdminContent"));
+const AdminPolicies = lazy(() => import("../pages/admin/AdminPolicies"));
 
 function SuspenseFallback() {
   return (
@@ -68,15 +70,6 @@ function PageLoading() {
 }
 
 function HomePage() {
-  const { isAuthenticated, loading } = useAuth();
-  if (loading) {
-    return <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div style={{ width: 32, height: 32, borderRadius: "50%", border: "3px solid var(--border)", borderTopColor: "var(--primary)", animation: "spin 1s linear infinite" }} />
-    </div>;
-  }
-  if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
-  }
   return <Home />;
 }
 
@@ -92,6 +85,8 @@ export default function AppRoutes() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/discover" element={<Suspense fallback={<PageLoading />}><Discover /></Suspense>} />
+          <Route path="/companies" element={<Suspense fallback={<PageLoading />}><Companies /></Suspense>} />
           <Route path="/login" element={<AuthRedirect><Login /></AuthRedirect>} />
           <Route path="/signup" element={<AuthRedirect><Signup /></AuthRedirect>} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -105,8 +100,6 @@ export default function AppRoutes() {
 
         <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
           <Route path="/dashboard" element={<Suspense fallback={<PageLoading />}><DashboardHome /></Suspense>} />
-          <Route path="/discover" element={<Suspense fallback={<PageLoading />}><Discover /></Suspense>} />
-          <Route path="/companies" element={<Suspense fallback={<PageLoading />}><Companies /></Suspense>} />
           <Route path="/messages" element={<Suspense fallback={<PageLoading />}><Messages /></Suspense>} />
           <Route path="/notifications" element={<Suspense fallback={<PageLoading />}><NotificationsPage /></Suspense>} />
           <Route path="/settings" element={<Suspense fallback={<PageLoading />}><Settings /></Suspense>} />
@@ -114,6 +107,7 @@ export default function AppRoutes() {
           <Route path="/company/:id" element={<Suspense fallback={<PageLoading />}><CompanyProfile /></Suspense>} />
           <Route path="/listing/:slug" element={<Suspense fallback={<PageLoading />}><ListingDetail /></Suspense>} />
           <Route path="/saved-listings" element={<Suspense fallback={<PageLoading />}><SavedListings /></Suspense>} />
+          <Route path="/dashboard/policies" element={<Suspense fallback={<PageLoading />}><PoliciesTerms /></Suspense>} />
 
           <Route path="/admin" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminDashboard /></Suspense></AdminRoute>} />
           <Route path="/admin/users" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminUsers /></Suspense></AdminRoute>} />
@@ -130,6 +124,7 @@ export default function AppRoutes() {
           <Route path="/admin/system-health" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminSystemHealth /></Suspense></AdminRoute>} />
           <Route path="/admin/settings" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminSettingsPage /></Suspense></AdminRoute>} />
           <Route path="/admin/content" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminContent /></Suspense></AdminRoute>} />
+          <Route path="/admin/policies" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminPolicies /></Suspense></AdminRoute>} />
         </Route>
       </Routes>
     </Suspense>

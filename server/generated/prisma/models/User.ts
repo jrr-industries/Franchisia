@@ -677,6 +677,7 @@ export type UserWhereInput = {
   skills?: Prisma.UserSkillListRelationFilter
   bookmarks?: Prisma.BookmarkListRelationFilter
   reactions?: Prisma.MessageReactionListRelationFilter
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -763,6 +764,7 @@ export type UserOrderByWithRelationInput = {
   skills?: Prisma.UserSkillOrderByRelationAggregateInput
   bookmarks?: Prisma.BookmarkOrderByRelationAggregateInput
   reactions?: Prisma.MessageReactionOrderByRelationAggregateInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -852,6 +854,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   skills?: Prisma.UserSkillListRelationFilter
   bookmarks?: Prisma.BookmarkListRelationFilter
   reactions?: Prisma.MessageReactionListRelationFilter
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -1068,6 +1071,7 @@ export type UserCreateInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -1154,6 +1158,7 @@ export type UserUncheckedCreateInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -1240,6 +1245,7 @@ export type UserUpdateInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -1326,6 +1332,7 @@ export type UserUncheckedUpdateInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -2148,6 +2155,20 @@ export type UserUpdateOneRequiredWithoutBookmarksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBookmarksInput, Prisma.UserUpdateWithoutBookmarksInput>, Prisma.UserUncheckedUpdateWithoutBookmarksInput>
 }
 
+export type UserCreateNestedOneWithoutPolicyAcceptancesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPolicyAcceptancesInput, Prisma.UserUncheckedCreateWithoutPolicyAcceptancesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPolicyAcceptancesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPolicyAcceptancesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPolicyAcceptancesInput, Prisma.UserUncheckedCreateWithoutPolicyAcceptancesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPolicyAcceptancesInput
+  upsert?: Prisma.UserUpsertWithoutPolicyAcceptancesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPolicyAcceptancesInput, Prisma.UserUpdateWithoutPolicyAcceptancesInput>, Prisma.UserUncheckedUpdateWithoutPolicyAcceptancesInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   email: string
@@ -2231,6 +2252,7 @@ export type UserCreateWithoutSessionsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -2316,6 +2338,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2417,6 +2440,7 @@ export type UserUpdateWithoutSessionsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2502,6 +2526,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -2587,6 +2612,7 @@ export type UserCreateWithoutAccountsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -2672,6 +2698,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -2773,6 +2800,7 @@ export type UserUpdateWithoutAccountsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -2858,6 +2886,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSkillsInput = {
@@ -2943,6 +2972,7 @@ export type UserCreateWithoutSkillsInput = {
   interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSkillsInput = {
@@ -3028,6 +3058,7 @@ export type UserUncheckedCreateWithoutSkillsInput = {
   interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSkillsInput = {
@@ -3129,6 +3160,7 @@ export type UserUpdateWithoutSkillsInput = {
   interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSkillsInput = {
@@ -3214,6 +3246,7 @@ export type UserUncheckedUpdateWithoutSkillsInput = {
   interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInterestsInput = {
@@ -3299,6 +3332,7 @@ export type UserCreateWithoutInterestsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInterestsInput = {
@@ -3384,6 +3418,7 @@ export type UserUncheckedCreateWithoutInterestsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInterestsInput = {
@@ -3485,6 +3520,7 @@ export type UserUpdateWithoutInterestsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInterestsInput = {
@@ -3570,6 +3606,7 @@ export type UserUncheckedUpdateWithoutInterestsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEducationInput = {
@@ -3655,6 +3692,7 @@ export type UserCreateWithoutEducationInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEducationInput = {
@@ -3740,6 +3778,7 @@ export type UserUncheckedCreateWithoutEducationInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEducationInput = {
@@ -3841,6 +3880,7 @@ export type UserUpdateWithoutEducationInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEducationInput = {
@@ -3926,6 +3966,7 @@ export type UserUncheckedUpdateWithoutEducationInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutExperienceInput = {
@@ -4011,6 +4052,7 @@ export type UserCreateWithoutExperienceInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutExperienceInput = {
@@ -4096,6 +4138,7 @@ export type UserUncheckedCreateWithoutExperienceInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutExperienceInput = {
@@ -4197,6 +4240,7 @@ export type UserUpdateWithoutExperienceInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExperienceInput = {
@@ -4282,6 +4326,7 @@ export type UserUncheckedUpdateWithoutExperienceInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCompaniesInput = {
@@ -4367,6 +4412,7 @@ export type UserCreateWithoutCompaniesInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCompaniesInput = {
@@ -4452,6 +4498,7 @@ export type UserUncheckedCreateWithoutCompaniesInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCompaniesInput = {
@@ -4553,6 +4600,7 @@ export type UserUpdateWithoutCompaniesInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompaniesInput = {
@@ -4638,6 +4686,7 @@ export type UserUncheckedUpdateWithoutCompaniesInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutListingsInput = {
@@ -4723,6 +4772,7 @@ export type UserCreateWithoutListingsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutListingsInput = {
@@ -4808,6 +4858,7 @@ export type UserUncheckedCreateWithoutListingsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutListingsInput = {
@@ -4909,6 +4960,7 @@ export type UserUpdateWithoutListingsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutListingsInput = {
@@ -4994,6 +5046,7 @@ export type UserUncheckedUpdateWithoutListingsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutApplicationsInput = {
@@ -5079,6 +5132,7 @@ export type UserCreateWithoutApplicationsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -5164,6 +5218,7 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -5265,6 +5320,7 @@ export type UserUpdateWithoutApplicationsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -5350,6 +5406,7 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentConnectionsInput = {
@@ -5435,6 +5492,7 @@ export type UserCreateWithoutSentConnectionsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentConnectionsInput = {
@@ -5520,6 +5578,7 @@ export type UserUncheckedCreateWithoutSentConnectionsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentConnectionsInput = {
@@ -5610,6 +5669,7 @@ export type UserCreateWithoutReceivedConnectionsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
@@ -5695,6 +5755,7 @@ export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReceivedConnectionsInput = {
@@ -5796,6 +5857,7 @@ export type UserUpdateWithoutSentConnectionsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentConnectionsInput = {
@@ -5881,6 +5943,7 @@ export type UserUncheckedUpdateWithoutSentConnectionsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReceivedConnectionsInput = {
@@ -5977,6 +6040,7 @@ export type UserUpdateWithoutReceivedConnectionsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
@@ -6062,6 +6126,7 @@ export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCompanyFollowersInput = {
@@ -6147,6 +6212,7 @@ export type UserCreateWithoutCompanyFollowersInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCompanyFollowersInput = {
@@ -6232,6 +6298,7 @@ export type UserUncheckedCreateWithoutCompanyFollowersInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCompanyFollowersInput = {
@@ -6333,6 +6400,7 @@ export type UserUpdateWithoutCompanyFollowersInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyFollowersInput = {
@@ -6418,6 +6486,7 @@ export type UserUncheckedUpdateWithoutCompanyFollowersInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutParticipantsInput = {
@@ -6503,6 +6572,7 @@ export type UserCreateWithoutParticipantsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutParticipantsInput = {
@@ -6588,6 +6658,7 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutParticipantsInput = {
@@ -6689,6 +6760,7 @@ export type UserUpdateWithoutParticipantsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutParticipantsInput = {
@@ -6774,6 +6846,7 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMessagesInput = {
@@ -6859,6 +6932,7 @@ export type UserCreateWithoutMessagesInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -6944,6 +7018,7 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -7045,6 +7120,7 @@ export type UserUpdateWithoutMessagesInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -7130,6 +7206,7 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReactionsInput = {
@@ -7215,6 +7292,7 @@ export type UserCreateWithoutReactionsInput = {
   interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReactionsInput = {
@@ -7300,6 +7378,7 @@ export type UserUncheckedCreateWithoutReactionsInput = {
   interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReactionsInput = {
@@ -7401,6 +7480,7 @@ export type UserUpdateWithoutReactionsInput = {
   interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReactionsInput = {
@@ -7486,6 +7566,7 @@ export type UserUncheckedUpdateWithoutReactionsInput = {
   interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -7571,6 +7652,7 @@ export type UserCreateWithoutNotificationsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -7656,6 +7738,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -7757,6 +7840,7 @@ export type UserUpdateWithoutNotificationsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -7842,6 +7926,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -7927,6 +8012,7 @@ export type UserCreateWithoutReviewsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -8012,6 +8098,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -8113,6 +8200,7 @@ export type UserUpdateWithoutReviewsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -8198,6 +8286,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOrganizedMeetingsInput = {
@@ -8283,6 +8372,7 @@ export type UserCreateWithoutOrganizedMeetingsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOrganizedMeetingsInput = {
@@ -8368,6 +8458,7 @@ export type UserUncheckedCreateWithoutOrganizedMeetingsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOrganizedMeetingsInput = {
@@ -8469,6 +8560,7 @@ export type UserUpdateWithoutOrganizedMeetingsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrganizedMeetingsInput = {
@@ -8554,6 +8646,7 @@ export type UserUncheckedUpdateWithoutOrganizedMeetingsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMeetingParticipantsInput = {
@@ -8639,6 +8732,7 @@ export type UserCreateWithoutMeetingParticipantsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMeetingParticipantsInput = {
@@ -8724,6 +8818,7 @@ export type UserUncheckedCreateWithoutMeetingParticipantsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMeetingParticipantsInput = {
@@ -8825,6 +8920,7 @@ export type UserUpdateWithoutMeetingParticipantsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMeetingParticipantsInput = {
@@ -8910,6 +9006,7 @@ export type UserUncheckedUpdateWithoutMeetingParticipantsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentMessageRequestsInput = {
@@ -8995,6 +9092,7 @@ export type UserCreateWithoutSentMessageRequestsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentMessageRequestsInput = {
@@ -9080,6 +9178,7 @@ export type UserUncheckedCreateWithoutSentMessageRequestsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentMessageRequestsInput = {
@@ -9170,6 +9269,7 @@ export type UserCreateWithoutReceivedMessageRequestsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReceivedMessageRequestsInput = {
@@ -9255,6 +9355,7 @@ export type UserUncheckedCreateWithoutReceivedMessageRequestsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReceivedMessageRequestsInput = {
@@ -9356,6 +9457,7 @@ export type UserUpdateWithoutSentMessageRequestsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentMessageRequestsInput = {
@@ -9441,6 +9543,7 @@ export type UserUncheckedUpdateWithoutSentMessageRequestsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReceivedMessageRequestsInput = {
@@ -9537,6 +9640,7 @@ export type UserUpdateWithoutReceivedMessageRequestsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedMessageRequestsInput = {
@@ -9622,6 +9726,7 @@ export type UserUncheckedUpdateWithoutReceivedMessageRequestsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -9707,6 +9812,7 @@ export type UserCreateWithoutAuditLogsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -9792,6 +9898,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -9893,6 +10000,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -9978,6 +10086,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDocumentsInput = {
@@ -10063,6 +10172,7 @@ export type UserCreateWithoutDocumentsInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -10148,6 +10258,7 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -10249,6 +10360,7 @@ export type UserUpdateWithoutDocumentsInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -10334,6 +10446,7 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutVerificationHistoriesInput = {
@@ -10419,6 +10532,7 @@ export type UserCreateWithoutVerificationHistoriesInput = {
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVerificationHistoriesInput = {
@@ -10504,6 +10618,7 @@ export type UserUncheckedCreateWithoutVerificationHistoriesInput = {
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVerificationHistoriesInput = {
@@ -10605,6 +10720,7 @@ export type UserUpdateWithoutVerificationHistoriesInput = {
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVerificationHistoriesInput = {
@@ -10690,6 +10806,7 @@ export type UserUncheckedUpdateWithoutVerificationHistoriesInput = {
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBookmarksInput = {
@@ -10775,6 +10892,7 @@ export type UserCreateWithoutBookmarksInput = {
   interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
   skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBookmarksInput = {
@@ -10860,6 +10978,7 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
   skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBookmarksInput = {
@@ -10961,6 +11080,7 @@ export type UserUpdateWithoutBookmarksInput = {
   interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
   skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookmarksInput = {
@@ -11046,6 +11166,367 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
   skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  policyAcceptances?: Prisma.CompanyPolicyAcceptanceUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPolicyAcceptancesInput = {
+  id?: string
+  email: string
+  emailVerified?: boolean
+  name?: string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  onboardingCompleted?: boolean
+  emailVerifiedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.UserRole
+  accountStatus?: $Enums.AccountStatus
+  headline?: string | null
+  bio?: string | null
+  phone?: string | null
+  phoneVerified?: Date | string | null
+  location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
+  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserCreateindustriesInput | string[]
+  experienceYears?: number | null
+  website?: string | null
+  linkedinUrl?: string | null
+  companyName?: string | null
+  businessEmail?: string | null
+  businessRegistrationNumber?: string | null
+  businessRegistrationDoc?: string | null
+  companyLogo?: string | null
+  gstNumber?: string | null
+  consultancyName?: string | null
+  preferredIndustry?: string | null
+  preferredLocation?: string | null
+  investmentRange?: string | null
+  resumeUrl?: string | null
+  submittedForReviewAt?: Date | string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  verificationNotes?: string | null
+  rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
+  isActive?: boolean
+  followerCount?: number
+  followingCount?: number
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
+  organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowerInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutFollowingInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestCreateNestedManyWithoutRecipientInput
+  documents?: Prisma.UserDocumentCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
+  reactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPolicyAcceptancesInput = {
+  id?: string
+  email: string
+  emailVerified?: boolean
+  name?: string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  onboardingCompleted?: boolean
+  emailVerifiedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.UserRole
+  accountStatus?: $Enums.AccountStatus
+  headline?: string | null
+  bio?: string | null
+  phone?: string | null
+  phoneVerified?: Date | string | null
+  location?: string | null
+  country?: string | null
+  state?: string | null
+  city?: string | null
+  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserCreateindustriesInput | string[]
+  experienceYears?: number | null
+  website?: string | null
+  linkedinUrl?: string | null
+  companyName?: string | null
+  businessEmail?: string | null
+  businessRegistrationNumber?: string | null
+  businessRegistrationDoc?: string | null
+  companyLogo?: string | null
+  gstNumber?: string | null
+  consultancyName?: string | null
+  preferredIndustry?: string | null
+  preferredLocation?: string | null
+  investmentRange?: string | null
+  resumeUrl?: string | null
+  submittedForReviewAt?: Date | string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  verificationNotes?: string | null
+  rejectionReason?: string | null
+  verified?: boolean
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
+  isActive?: boolean
+  followerCount?: number
+  followingCount?: number
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  brandName?: string | null
+  businessLicenseDoc?: string | null
+  certifications?: string | null
+  companyBanner?: string | null
+  companyDescription?: string | null
+  contactPerson?: string | null
+  numberOfOutlets?: number | null
+  yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
+  organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedCreateNestedManyWithoutUserInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowerInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutFollowingInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  listings?: Prisma.FranchiseListingUncheckedCreateNestedManyWithoutCreatedByUserInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedCreateNestedManyWithoutRecipientInput
+  documents?: Prisma.UserDocumentUncheckedCreateNestedManyWithoutUserInput
+  education?: Prisma.UserEducationUncheckedCreateNestedManyWithoutUserInput
+  experience?: Prisma.UserExperienceUncheckedCreateNestedManyWithoutUserInput
+  interests?: Prisma.UserInterestUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.UserSkillUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
+  reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPolicyAcceptancesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPolicyAcceptancesInput, Prisma.UserUncheckedCreateWithoutPolicyAcceptancesInput>
+}
+
+export type UserUpsertWithoutPolicyAcceptancesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPolicyAcceptancesInput, Prisma.UserUncheckedUpdateWithoutPolicyAcceptancesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPolicyAcceptancesInput, Prisma.UserUncheckedCreateWithoutPolicyAcceptancesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPolicyAcceptancesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPolicyAcceptancesInput, Prisma.UserUncheckedUpdateWithoutPolicyAcceptancesInput>
+}
+
+export type UserUpdateWithoutPolicyAcceptancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserUpdateindustriesInput | string[]
+  experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
+  organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutFollowerNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutFollowingNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUpdateManyWithoutRecipientNestedInput
+  documents?: Prisma.UserDocumentUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
+  reactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPolicyAcceptancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  industries?: Prisma.UserUpdateindustriesInput | string[]
+  experienceYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessRegistrationDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gstNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  consultancyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredIndustry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investmentRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedForReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  followingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  brandName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessLicenseDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyBanner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
+  organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  verificationHistories?: Prisma.VerificationHistoryUncheckedUpdateManyWithoutUserNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
+  companyFollowers?: Prisma.CompanyFollowerUncheckedUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowerNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutFollowingNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  listings?: Prisma.FranchiseListingUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessageRequests?: Prisma.MessageRequestUncheckedUpdateManyWithoutRecipientNestedInput
+  documents?: Prisma.UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  education?: Prisma.UserEducationUncheckedUpdateManyWithoutUserNestedInput
+  experience?: Prisma.UserExperienceUncheckedUpdateManyWithoutUserNestedInput
+  interests?: Prisma.UserInterestUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.UserSkillUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
+  reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -11079,6 +11560,7 @@ export type UserCountOutputType = {
   skills: number
   bookmarks: number
   reactions: number
+  policyAcceptances: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -11107,6 +11589,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   skills?: boolean | UserCountOutputTypeCountSkillsArgs
   bookmarks?: boolean | UserCountOutputTypeCountBookmarksArgs
   reactions?: boolean | UserCountOutputTypeCountReactionsArgs
+  policyAcceptances?: boolean | UserCountOutputTypeCountPolicyAcceptancesArgs
 }
 
 /**
@@ -11294,6 +11777,13 @@ export type UserCountOutputTypeCountReactionsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.MessageReactionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPolicyAcceptancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyPolicyAcceptanceWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -11379,6 +11869,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   skills?: boolean | Prisma.User$skillsArgs<ExtArgs>
   bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>
   reactions?: boolean | Prisma.User$reactionsArgs<ExtArgs>
+  policyAcceptances?: boolean | Prisma.User$policyAcceptancesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -11592,6 +12083,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   skills?: boolean | Prisma.User$skillsArgs<ExtArgs>
   bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>
   reactions?: boolean | Prisma.User$reactionsArgs<ExtArgs>
+  policyAcceptances?: boolean | Prisma.User$policyAcceptancesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -11625,6 +12117,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     skills: Prisma.$UserSkillPayload<ExtArgs>[]
     bookmarks: Prisma.$BookmarkPayload<ExtArgs>[]
     reactions: Prisma.$MessageReactionPayload<ExtArgs>[]
+    policyAcceptances: Prisma.$CompanyPolicyAcceptancePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -12104,6 +12597,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   skills<T extends Prisma.User$skillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookmarks<T extends Prisma.User$bookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reactions<T extends Prisma.User$reactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  policyAcceptances<T extends Prisma.User$policyAcceptancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$policyAcceptancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPolicyAcceptancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13181,6 +13675,30 @@ export type User$reactionsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.MessageReactionScalarFieldEnum | Prisma.MessageReactionScalarFieldEnum[]
+}
+
+/**
+ * User.policyAcceptances
+ */
+export type User$policyAcceptancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyPolicyAcceptance
+   */
+  select?: Prisma.CompanyPolicyAcceptanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyPolicyAcceptance
+   */
+  omit?: Prisma.CompanyPolicyAcceptanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyPolicyAcceptanceInclude<ExtArgs> | null
+  where?: Prisma.CompanyPolicyAcceptanceWhereInput
+  orderBy?: Prisma.CompanyPolicyAcceptanceOrderByWithRelationInput | Prisma.CompanyPolicyAcceptanceOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyPolicyAcceptanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyPolicyAcceptanceScalarFieldEnum | Prisma.CompanyPolicyAcceptanceScalarFieldEnum[]
 }
 
 /**
