@@ -45,8 +45,14 @@ export default function DashboardLayout() {
         </div>
       </div>
       <style>{`
+        @media (max-width: 1024px) {
+          .dashboard-content { padding: 20px !important; }
+        }
         @media (max-width: 768px) {
           .dashboard-content { padding: 16px !important; }
+        }
+        @media (max-width: 480px) {
+          .dashboard-content { padding: 12px !important; }
         }
       `}</style>
     </div>

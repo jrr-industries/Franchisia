@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -6,7 +6,7 @@ import {
   MapPin, Briefcase, MessageSquare, UserPlus, Calendar,
   GraduationCap, Star, ExternalLink, Award, ThumbsUp, Globe,
   Share2, Flag, Check, CheckCircle, Link as LinkIcon, X,
-  Send, Settings, Edit3, Save
+  Send, Settings, Edit3, Save, Camera
 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
@@ -142,6 +142,78 @@ function formatRole(role) {
   return role.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+function RoleProfileInfo({ u }) {
+  const fieldStyle = {
+    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+    padding: '10px 14px', borderBottom: '1px solid var(--border)',
+    fontSize: 14,
+  };
+  const labelStyle = { fontWeight: 500, color: 'var(--text-secondary)', flexShrink: 0, minWidth: 150 };
+  const valueStyle = { color: 'var(--text)', textAlign: 'right', wordBreak: 'break-word' };
+
+  const commonFields = [
+    { label: 'Phone', value: u.phone },
+    { label: 'Website', value: u.website },
+    { label: 'LinkedIn', value: u.linkedinUrl },
+  ].filter((f) => f.value);
+
+  let roleFields = [];
+  if (u.role === 'franchisor') {
+    roleFields = [
+      { label: 'Company Name', value: u.companyName },
+      { label: 'Brand Name', value: u.brandName },
+      { label: 'Registration No.', value: u.businessRegistrationNumber },
+      { label: 'GST Number', value: u.gstNumber },
+      { label: 'Business Email', value: u.businessEmail },
+      { label: 'Years in Business', value: u.yearsInBusiness ? `${u.yearsInBusiness} yrs` : null },
+      { label: 'Number of Outlets', value: u.numberOfOutlets ? `${u.numberOfOutlets}` : null },
+      { label: 'Company Description', value: u.companyDescription || u.bio },
+    ];
+  } else if (u.role === 'franchisee') {
+    roleFields = [
+      { label: 'Investment Budget', value: u.investmentCapacity ? `$${Number(u.investmentCapacity).toLocaleString()}` : null },
+      { label: 'Preferred Industry', value: u.preferredIndustry },
+      { label: 'Business Experience', value: u.headline },
+    ];
+  } else if (u.role === 'investor') {
+    roleFields = [
+      { label: 'Investment Range', value: u.investmentRange },
+      { label: 'Preferred Industry', value: u.preferredIndustry },
+      { label: 'Company', value: u.companyName },
+    ];
+  } else if (u.role === 'consultant') {
+    roleFields = [
+      { label: 'Consultancy Name', value: u.consultancyName },
+      { label: 'Years of Experience', value: u.experienceYears ? `${u.experienceYears} yrs` : null },
+      { label: 'Certifications', value: u.certifications },
+    ];
+  } else if (u.role === 'supplier') {
+    roleFields = [
+      { label: 'Company Name', value: u.companyName },
+      { label: 'Services', value: u.headline },
+      { label: 'Contact Person', value: u.contactPerson },
+      { label: 'GST Number', value: u.gstNumber },
+    ];
+  }
+
+  const allFields = [...commonFields, ...roleFields.filter((f) => f.value)];
+  if (allFields.length === 0) return null;
+
+  return (
+    <div style={{ marginBottom: 28 }}>
+      <h3 style={s.sectionTitle}>Profile Information</h3>
+      <div style={{ borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', overflow: 'hidden' }}>
+        {allFields.map((f, i) => (
+          <div key={i} style={i === allFields.length - 1 ? { ...fieldStyle, borderBottom: 'none' } : fieldStyle}>
+            <span style={labelStyle}>{f.label}</span>
+            <span style={valueStyle}>{f.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Profile() {
   const { user: currentUser } = useAuth();
   const [searchParams] = useSearchParams();
@@ -169,25 +241,47 @@ export default function Profile() {
   const [reportSending, setReportSending] = useState(false);
 
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editForm, setEditForm] = useState({ name: '', headline: '', bio: '', location: '', country: '', state: '', city: '', website: '', phone: '', industry: '' });
+  const [editForm, setEditForm] = useState({ name: '', headline: '', bio: '', location: '', country: '', state: '', city: '', website: '', phone: '', industry: '', linkedinUrl: '', companyName: '', brandName: '', businessRegistrationNumber: '', gstNumber: '', businessEmail: '', numberOfOutlets: '', yearsInBusiness: '', companyDescription: '', contactPerson: '', consultancyName: '', certifications: '', preferredIndustry: '', investmentRange: '', investmentCapacity: '', experienceYears: '' });
   const [editSaving, setEditSaving] = useState(false);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [uploadingBanner, setUploadingBanner] = useState(false);
+
+  const avatarInputRef = useRef(null);
+  const bannerInputRef = useRef(null);
 
   const [availableStates, setAvailableStates] = useState([]);
   const [availableCities, setAvailableCities] = useState([]);
 
   useEffect(() => {
     if (editModalOpen && profileUser) {
+      const u = profileUser;
       setEditForm({
-        name: profileUser.name || '',
-        headline: profileUser.headline || '',
-        bio: profileUser.bio || '',
-        location: profileUser.location || '',
-        country: profileUser.country || 'India',
-        state: profileUser.state || '',
-        city: profileUser.city || '',
-        website: profileUser.website || '',
-        phone: profileUser.phone || '',
-        industry: (profileUser.industries || [])[0] || '',
+        name: u.name || '',
+        headline: u.headline || '',
+        bio: u.bio || '',
+        location: u.location || '',
+        country: u.country || 'India',
+        state: u.state || '',
+        city: u.city || '',
+        website: u.website || '',
+        phone: u.phone || '',
+        industry: (u.industries || [])[0] || '',
+        linkedinUrl: u.linkedinUrl || '',
+        companyName: u.companyName || '',
+        brandName: u.brandName || '',
+        businessRegistrationNumber: u.businessRegistrationNumber || '',
+        gstNumber: u.gstNumber || '',
+        businessEmail: u.businessEmail || '',
+        numberOfOutlets: u.numberOfOutlets ? String(u.numberOfOutlets) : '',
+        yearsInBusiness: u.yearsInBusiness ? String(u.yearsInBusiness) : '',
+        companyDescription: u.companyDescription || '',
+        contactPerson: u.contactPerson || '',
+        consultancyName: u.consultancyName || '',
+        certifications: u.certifications || '',
+        preferredIndustry: u.preferredIndustry || '',
+        investmentRange: u.investmentRange || '',
+        investmentCapacity: u.investmentCapacity ? String(u.investmentCapacity) : '',
+        experienceYears: u.experienceYears ? String(u.experienceYears) : '',
       });
     }
   }, [editModalOpen, profileUser]);
@@ -218,22 +312,39 @@ export default function Profile() {
     setEditSaving(true);
     try {
       const locationParts = [editForm.city, editForm.state, editForm.country].filter(Boolean);
+      const body = {
+        fullName: editForm.name,
+        headline: editForm.headline,
+        bio: editForm.bio,
+        location: locationParts.join(', '),
+        country: editForm.country || null,
+        state: editForm.state || null,
+        city: editForm.city || null,
+        website: editForm.website,
+        phone: editForm.phone,
+        linkedinUrl: editForm.linkedinUrl || null,
+        industries: editForm.industry ? [editForm.industry] : [],
+        companyName: editForm.companyName || null,
+        brandName: editForm.brandName || null,
+        businessRegistrationNumber: editForm.businessRegistrationNumber || null,
+        gstNumber: editForm.gstNumber || null,
+        businessEmail: editForm.businessEmail || null,
+        numberOfOutlets: editForm.numberOfOutlets || null,
+        yearsInBusiness: editForm.yearsInBusiness || null,
+        companyDescription: editForm.companyDescription || null,
+        contactPerson: editForm.contactPerson || null,
+        consultancyName: editForm.consultancyName || null,
+        certifications: editForm.certifications || null,
+        preferredIndustry: editForm.preferredIndustry || null,
+        investmentRange: editForm.investmentRange || null,
+        investmentCapacity: editForm.investmentCapacity || null,
+        experienceYears: editForm.experienceYears || null,
+      };
       const res = await fetch(`${API}/users/me`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({
-          fullName: editForm.name,
-          headline: editForm.headline,
-          bio: editForm.bio,
-          location: locationParts.join(', '),
-          country: editForm.country || null,
-          state: editForm.state || null,
-          city: editForm.city || null,
-          website: editForm.website,
-          phone: editForm.phone,
-          industries: editForm.industry ? [editForm.industry] : [],
-        }),
+        body: JSON.stringify(body),
       });
       if (res.ok) {
         const updated = await res.json();
@@ -266,6 +377,48 @@ export default function Profile() {
       setLoading(false);
     }
   }, [userId]);
+
+  const handleUploadAvatar = useCallback(async (file) => {
+    if (!file) return;
+    setUploadingAvatar(true);
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+      const res = await fetch(`${API}/uploads/profile-picture`, { method: 'POST', credentials: 'include', body: formData });
+      if (res.ok) {
+        const data = await res.json();
+        setProfileUser((prev) => ({ ...prev, image: data.url }));
+        addToast('Profile picture updated', 'success');
+      } else {
+        addToast('Failed to upload picture', 'error');
+      }
+    } catch {
+      addToast('Failed to upload picture', 'error');
+    } finally {
+      setUploadingAvatar(false);
+    }
+  }, [addToast]);
+
+  const handleUploadBanner = useCallback(async (file) => {
+    if (!file) return;
+    setUploadingBanner(true);
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+      const res = await fetch(`${API}/uploads/profile-banner`, { method: 'POST', credentials: 'include', body: formData });
+      if (res.ok) {
+        const data = await res.json();
+        setProfileUser((prev) => ({ ...prev, companyBanner: data.url }));
+        addToast('Banner updated', 'success');
+      } else {
+        addToast('Failed to upload banner', 'error');
+      }
+    } catch {
+      addToast('Failed to upload banner', 'error');
+    } finally {
+      setUploadingBanner(false);
+    }
+  }, [addToast]);
 
   const fetchMutualStatus = useCallback(async () => {
     if (!userId || isOwnProfile || !currentUser) return;
@@ -449,6 +602,8 @@ export default function Profile() {
             </div>
           )}
 
+          <RoleProfileInfo u={u} />
+
           {u.experience && u.experience.length > 0 && (
             <div style={{ marginBottom: 28 }}>
               <h3 style={s.sectionTitle}>Experience</h3>
@@ -530,10 +685,33 @@ export default function Profile() {
       transition={{ duration: 0.4 }}
       style={s.page}
     >
-      <div style={s.cover} />
+      <div
+        style={{
+          ...s.cover,
+          ...(u.companyBanner ? { background: `url(${u.companyBanner}) center/cover no-repeat` } : {}),
+          cursor: isOwnProfile ? 'pointer' : 'default',
+          overflow: 'hidden',
+        }}
+        onClick={() => isOwnProfile && bannerInputRef.current?.click()}
+      >
+        {isOwnProfile && (
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.3)', opacity: 0, transition: 'opacity 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '1'} onMouseLeave={(e) => e.currentTarget.style.opacity = '0'}>
+            <Camera size={28} color="#fff" />
+          </div>
+        )}
+        <input ref={bannerInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUploadBanner(f); e.target.value = ''; }} />
+      </div>
 
       <div style={s.infoRow}>
-        <Avatar src={u.image} name={u.name || 'User'} size={80} style={{ border: '4px solid var(--surface)' }} />
+        <div style={{ position: 'relative', cursor: isOwnProfile ? 'pointer' : 'default', flexShrink: 0 }} onClick={() => isOwnProfile && avatarInputRef.current?.click()}>
+          <Avatar src={u.image} name={u.name || 'User'} size={80} style={{ border: '4px solid var(--surface)' }} />
+          {isOwnProfile && (
+            <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.3)', opacity: 0, transition: 'opacity 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '1'} onMouseLeave={(e) => e.currentTarget.style.opacity = '0'}>
+              <Camera size={20} color="#fff" />
+            </div>
+          )}
+          <input ref={avatarInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUploadAvatar(f); e.target.value = ''; }} />
+        </div>
         <div style={s.infoText}>
           <div style={s.nameRow}>
             <h1 style={s.name}>          {u.name || 'User'}</h1>
@@ -656,8 +834,12 @@ export default function Profile() {
         <Tabs tabs={tabs} />
       </Card>
 
-      <Modal isOpen={editModalOpen} onClose={() => setEditModalOpen(false)} title="Edit Profile" width={520}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <Modal isOpen={editModalOpen} onClose={() => setEditModalOpen(false)} title="Edit Profile" width={560}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxHeight: '70vh', overflow: 'auto' }}>
+          <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--primary)', borderBottom: '1px solid var(--border)', paddingBottom: 8 }}>
+            Common Information
+          </div>
+
           <div>
             <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Full Name</label>
             <input style={s.input} value={editForm.name} onChange={(e) => setEditForm({ ...editForm, name: e.target.value })} placeholder="Your full name" />
@@ -717,8 +899,132 @@ export default function Profile() {
             <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Website</label>
             <input style={s.input} value={editForm.website} onChange={(e) => setEditForm({ ...editForm, website: e.target.value })} placeholder="https://" />
           </div>
+          <div>
+            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>LinkedIn URL</label>
+            <input style={s.input} value={editForm.linkedinUrl} onChange={(e) => setEditForm({ ...editForm, linkedinUrl: e.target.value })} placeholder="https://linkedin.com/in/" />
+          </div>
 
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 8 }}>
+          {profileUser?.role && profileUser?.role !== 'none' && profileUser?.role !== 'admin' && (
+            <>
+              <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--primary)', borderBottom: '1px solid var(--border)', paddingBottom: 8, marginTop: 8 }}>
+                {formatRole(profileUser.role)} Information
+              </div>
+
+              {(profileUser.role === 'franchisor' || profileUser.role === 'supplier') && (
+                <div>
+                  <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Company Name</label>
+                  <input style={s.input} value={editForm.companyName} onChange={(e) => setEditForm({ ...editForm, companyName: e.target.value })} placeholder="Company name" />
+                </div>
+              )}
+
+              {profileUser.role === 'franchisor' && (
+                <>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Brand Name</label>
+                    <input style={s.input} value={editForm.brandName} onChange={(e) => setEditForm({ ...editForm, brandName: e.target.value })} placeholder="Brand name" />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Business Email</label>
+                    <input style={s.input} value={editForm.businessEmail} onChange={(e) => setEditForm({ ...editForm, businessEmail: e.target.value })} placeholder="business@example.com" />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Company Registration No.</label>
+                    <input style={s.input} value={editForm.businessRegistrationNumber} onChange={(e) => setEditForm({ ...editForm, businessRegistrationNumber: e.target.value })} placeholder="Registration number" />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>GST Number (Optional)</label>
+                    <input style={s.input} value={editForm.gstNumber} onChange={(e) => setEditForm({ ...editForm, gstNumber: e.target.value })} placeholder="GST number" />
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                    <div>
+                      <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Years in Business</label>
+                      <input type="number" style={s.input} value={editForm.yearsInBusiness} onChange={(e) => setEditForm({ ...editForm, yearsInBusiness: e.target.value })} placeholder="e.g. 5" />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Number of Outlets</label>
+                      <input type="number" style={s.input} value={editForm.numberOfOutlets} onChange={(e) => setEditForm({ ...editForm, numberOfOutlets: e.target.value })} placeholder="e.g. 10" />
+                    </div>
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Company Description</label>
+                    <textarea style={s.textarea} value={editForm.companyDescription} onChange={(e) => setEditForm({ ...editForm, companyDescription: e.target.value })} placeholder="Describe your company" />
+                  </div>
+                </>
+              )}
+
+              {profileUser.role === 'franchisee' && (
+                <>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Investment Budget</label>
+                    <input style={s.input} value={editForm.investmentCapacity} onChange={(e) => setEditForm({ ...editForm, investmentCapacity: e.target.value })} placeholder="e.g. 50000" />
+                  </div>
+                  <SearchableSelect
+                    label="Preferred Industry"
+                    options={INDUSTRIES}
+                    value={editForm.preferredIndustry}
+                    onChange={(v) => setEditForm({ ...editForm, preferredIndustry: v })}
+                    placeholder="Select preferred industry"
+                  />
+                </>
+              )}
+
+              {profileUser.role === 'investor' && (
+                <>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Investment Range</label>
+                    <input style={s.input} value={editForm.investmentRange} onChange={(e) => setEditForm({ ...editForm, investmentRange: e.target.value })} placeholder="e.g. $100,000 - $1,000,000" />
+                  </div>
+                  <SearchableSelect
+                    label="Preferred Industry"
+                    options={INDUSTRIES}
+                    value={editForm.preferredIndustry}
+                    onChange={(v) => setEditForm({ ...editForm, preferredIndustry: v })}
+                    placeholder="Select preferred industry"
+                  />
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Company (Optional)</label>
+                    <input style={s.input} value={editForm.companyName} onChange={(e) => setEditForm({ ...editForm, companyName: e.target.value })} placeholder="Your company" />
+                  </div>
+                </>
+              )}
+
+              {profileUser.role === 'consultant' && (
+                <>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Consultancy Name</label>
+                    <input style={s.input} value={editForm.consultancyName} onChange={(e) => setEditForm({ ...editForm, consultancyName: e.target.value })} placeholder="Consultancy name" />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Years of Experience</label>
+                    <input type="number" style={s.input} value={editForm.experienceYears} onChange={(e) => setEditForm({ ...editForm, experienceYears: e.target.value })} placeholder="e.g. 8" />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Certifications</label>
+                    <input style={s.input} value={editForm.certifications} onChange={(e) => setEditForm({ ...editForm, certifications: e.target.value })} placeholder="e.g. CFE, Certified Franchise Executive" />
+                  </div>
+                </>
+              )}
+
+              {profileUser.role === 'supplier' && (
+                <>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Services Offered</label>
+                    <input style={s.input} value={editForm.headline} onChange={(e) => setEditForm({ ...editForm, headline: e.target.value })} placeholder="Services you offer" />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>Contact Person</label>
+                    <input style={s.input} value={editForm.contactPerson} onChange={(e) => setEditForm({ ...editForm, contactPerson: e.target.value })} placeholder="Contact person name" />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 4 }}>GST Number (Optional)</label>
+                    <input style={s.input} value={editForm.gstNumber} onChange={(e) => setEditForm({ ...editForm, gstNumber: e.target.value })} placeholder="GST number" />
+                  </div>
+                </>
+              )}
+            </>
+          )}
+
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 8, borderTop: '1px solid var(--border)', paddingTop: 16 }}>
             <Button variant="secondary" size="sm" onClick={() => setEditModalOpen(false)}>Cancel</Button>
             <Button variant="primary" size="sm" onClick={handleSaveProfile} disabled={editSaving} icon={<Save size={14} />}>
               {editSaving ? 'Saving...' : 'Save Changes'}

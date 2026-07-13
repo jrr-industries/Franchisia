@@ -220,6 +220,7 @@ export type UserCountAggregateOutputType = {
   contactPerson: number
   numberOfOutlets: number
   yearsInBusiness: number
+  completedTasks: number
   _all: number
 }
 
@@ -418,6 +419,7 @@ export type UserCountAggregateInputType = {
   contactPerson?: true
   numberOfOutlets?: true
   yearsInBusiness?: true
+  completedTasks?: true
   _all?: true
 }
 
@@ -565,6 +567,7 @@ export type UserGroupByOutputType = {
   contactPerson: string | null
   numberOfOutlets: number | null
   yearsInBusiness: number | null
+  completedTasks: string[]
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -648,6 +651,7 @@ export type UserWhereInput = {
   contactPerson?: Prisma.StringNullableFilter<"User"> | string | null
   numberOfOutlets?: Prisma.IntNullableFilter<"User"> | number | null
   yearsInBusiness?: Prisma.IntNullableFilter<"User"> | number | null
+  completedTasks?: Prisma.StringNullableListFilter<"User">
   organizedMeetings?: Prisma.MeetingListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   applications?: Prisma.ApplicationListRelationFilter
@@ -733,6 +737,7 @@ export type UserOrderByWithRelationInput = {
   contactPerson?: Prisma.SortOrderInput | Prisma.SortOrder
   numberOfOutlets?: Prisma.SortOrderInput | Prisma.SortOrder
   yearsInBusiness?: Prisma.SortOrderInput | Prisma.SortOrder
+  completedTasks?: Prisma.SortOrder
   organizedMeetings?: Prisma.MeetingOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   applications?: Prisma.ApplicationOrderByRelationAggregateInput
@@ -821,6 +826,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   contactPerson?: Prisma.StringNullableFilter<"User"> | string | null
   numberOfOutlets?: Prisma.IntNullableFilter<"User"> | number | null
   yearsInBusiness?: Prisma.IntNullableFilter<"User"> | number | null
+  completedTasks?: Prisma.StringNullableListFilter<"User">
   organizedMeetings?: Prisma.MeetingListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   applications?: Prisma.ApplicationListRelationFilter
@@ -906,6 +912,7 @@ export type UserOrderByWithAggregationInput = {
   contactPerson?: Prisma.SortOrderInput | Prisma.SortOrder
   numberOfOutlets?: Prisma.SortOrderInput | Prisma.SortOrder
   yearsInBusiness?: Prisma.SortOrderInput | Prisma.SortOrder
+  completedTasks?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -974,6 +981,7 @@ export type UserScalarWhereWithAggregatesInput = {
   contactPerson?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   numberOfOutlets?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
   yearsInBusiness?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  completedTasks?: Prisma.StringNullableListFilter<"User">
 }
 
 export type UserCreateInput = {
@@ -1034,6 +1042,7 @@ export type UserCreateInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -1119,6 +1128,7 @@ export type UserUncheckedCreateInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -1204,6 +1214,7 @@ export type UserUpdateInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -1289,6 +1300,7 @@ export type UserUncheckedUpdateInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -1374,6 +1386,7 @@ export type UserCreateManyInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
 }
 
 export type UserUpdateManyMutationInput = {
@@ -1434,6 +1447,7 @@ export type UserUpdateManyMutationInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -1494,6 +1508,7 @@ export type UserUncheckedUpdateManyInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -1562,6 +1577,7 @@ export type UserCountOrderByAggregateInput = {
   contactPerson?: Prisma.SortOrder
   numberOfOutlets?: Prisma.SortOrder
   yearsInBusiness?: Prisma.SortOrder
+  completedTasks?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -1714,6 +1730,10 @@ export type UserCreateindustriesInput = {
   set: string[]
 }
 
+export type UserCreatecompletedTasksInput = {
+  set: string[]
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -1769,6 +1789,11 @@ export type IntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type UserUpdatecompletedTasksInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -2181,6 +2206,7 @@ export type UserCreateWithoutSessionsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -2265,6 +2291,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -2365,6 +2392,7 @@ export type UserUpdateWithoutSessionsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -2449,6 +2477,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -2533,6 +2562,7 @@ export type UserCreateWithoutAccountsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -2617,6 +2647,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -2717,6 +2748,7 @@ export type UserUpdateWithoutAccountsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -2801,6 +2833,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2885,6 +2918,7 @@ export type UserCreateWithoutSkillsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -2969,6 +3003,7 @@ export type UserUncheckedCreateWithoutSkillsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -3069,6 +3104,7 @@ export type UserUpdateWithoutSkillsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -3153,6 +3189,7 @@ export type UserUncheckedUpdateWithoutSkillsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -3237,6 +3274,7 @@ export type UserCreateWithoutInterestsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -3321,6 +3359,7 @@ export type UserUncheckedCreateWithoutInterestsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -3421,6 +3460,7 @@ export type UserUpdateWithoutInterestsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -3505,6 +3545,7 @@ export type UserUncheckedUpdateWithoutInterestsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -3589,6 +3630,7 @@ export type UserCreateWithoutEducationInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -3673,6 +3715,7 @@ export type UserUncheckedCreateWithoutEducationInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -3773,6 +3816,7 @@ export type UserUpdateWithoutEducationInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -3857,6 +3901,7 @@ export type UserUncheckedUpdateWithoutEducationInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -3941,6 +3986,7 @@ export type UserCreateWithoutExperienceInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -4025,6 +4071,7 @@ export type UserUncheckedCreateWithoutExperienceInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -4125,6 +4172,7 @@ export type UserUpdateWithoutExperienceInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -4209,6 +4257,7 @@ export type UserUncheckedUpdateWithoutExperienceInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -4293,6 +4342,7 @@ export type UserCreateWithoutCompaniesInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -4377,6 +4427,7 @@ export type UserUncheckedCreateWithoutCompaniesInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -4477,6 +4528,7 @@ export type UserUpdateWithoutCompaniesInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -4561,6 +4613,7 @@ export type UserUncheckedUpdateWithoutCompaniesInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -4645,6 +4698,7 @@ export type UserCreateWithoutListingsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -4729,6 +4783,7 @@ export type UserUncheckedCreateWithoutListingsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -4829,6 +4884,7 @@ export type UserUpdateWithoutListingsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -4913,6 +4969,7 @@ export type UserUncheckedUpdateWithoutListingsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -4997,6 +5054,7 @@ export type UserCreateWithoutApplicationsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -5081,6 +5139,7 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -5181,6 +5240,7 @@ export type UserUpdateWithoutApplicationsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -5265,6 +5325,7 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5349,6 +5410,7 @@ export type UserCreateWithoutSentConnectionsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -5433,6 +5495,7 @@ export type UserUncheckedCreateWithoutSentConnectionsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -5522,6 +5585,7 @@ export type UserCreateWithoutReceivedConnectionsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -5606,6 +5670,7 @@ export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -5706,6 +5771,7 @@ export type UserUpdateWithoutSentConnectionsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -5790,6 +5856,7 @@ export type UserUncheckedUpdateWithoutSentConnectionsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -5885,6 +5952,7 @@ export type UserUpdateWithoutReceivedConnectionsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -5969,6 +6037,7 @@ export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -6053,6 +6122,7 @@ export type UserCreateWithoutCompanyFollowersInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -6137,6 +6207,7 @@ export type UserUncheckedCreateWithoutCompanyFollowersInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -6237,6 +6308,7 @@ export type UserUpdateWithoutCompanyFollowersInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -6321,6 +6393,7 @@ export type UserUncheckedUpdateWithoutCompanyFollowersInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -6405,6 +6478,7 @@ export type UserCreateWithoutParticipantsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -6489,6 +6563,7 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -6589,6 +6664,7 @@ export type UserUpdateWithoutParticipantsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -6673,6 +6749,7 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -6757,6 +6834,7 @@ export type UserCreateWithoutMessagesInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -6841,6 +6919,7 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -6941,6 +7020,7 @@ export type UserUpdateWithoutMessagesInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -7025,6 +7105,7 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -7109,6 +7190,7 @@ export type UserCreateWithoutReactionsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -7193,6 +7275,7 @@ export type UserUncheckedCreateWithoutReactionsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -7293,6 +7376,7 @@ export type UserUpdateWithoutReactionsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -7377,6 +7461,7 @@ export type UserUncheckedUpdateWithoutReactionsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -7461,6 +7546,7 @@ export type UserCreateWithoutNotificationsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -7545,6 +7631,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -7645,6 +7732,7 @@ export type UserUpdateWithoutNotificationsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -7729,6 +7817,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -7813,6 +7902,7 @@ export type UserCreateWithoutReviewsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -7897,6 +7987,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -7997,6 +8088,7 @@ export type UserUpdateWithoutReviewsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -8081,6 +8173,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -8165,6 +8258,7 @@ export type UserCreateWithoutOrganizedMeetingsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -8249,6 +8343,7 @@ export type UserUncheckedCreateWithoutOrganizedMeetingsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -8349,6 +8444,7 @@ export type UserUpdateWithoutOrganizedMeetingsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -8433,6 +8529,7 @@ export type UserUncheckedUpdateWithoutOrganizedMeetingsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8517,6 +8614,7 @@ export type UserCreateWithoutMeetingParticipantsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -8601,6 +8699,7 @@ export type UserUncheckedCreateWithoutMeetingParticipantsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -8701,6 +8800,7 @@ export type UserUpdateWithoutMeetingParticipantsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -8785,6 +8885,7 @@ export type UserUncheckedUpdateWithoutMeetingParticipantsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -8869,6 +8970,7 @@ export type UserCreateWithoutSentMessageRequestsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -8953,6 +9055,7 @@ export type UserUncheckedCreateWithoutSentMessageRequestsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -9042,6 +9145,7 @@ export type UserCreateWithoutReceivedMessageRequestsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -9126,6 +9230,7 @@ export type UserUncheckedCreateWithoutReceivedMessageRequestsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -9226,6 +9331,7 @@ export type UserUpdateWithoutSentMessageRequestsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -9310,6 +9416,7 @@ export type UserUncheckedUpdateWithoutSentMessageRequestsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -9405,6 +9512,7 @@ export type UserUpdateWithoutReceivedMessageRequestsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -9489,6 +9597,7 @@ export type UserUncheckedUpdateWithoutReceivedMessageRequestsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -9573,6 +9682,7 @@ export type UserCreateWithoutAuditLogsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -9657,6 +9767,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -9757,6 +9868,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -9841,6 +9953,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -9925,6 +10038,7 @@ export type UserCreateWithoutDocumentsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -10009,6 +10123,7 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -10109,6 +10224,7 @@ export type UserUpdateWithoutDocumentsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -10193,6 +10309,7 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -10277,6 +10394,7 @@ export type UserCreateWithoutVerificationHistoriesInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -10361,6 +10479,7 @@ export type UserUncheckedCreateWithoutVerificationHistoriesInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -10461,6 +10580,7 @@ export type UserUpdateWithoutVerificationHistoriesInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -10545,6 +10665,7 @@ export type UserUncheckedUpdateWithoutVerificationHistoriesInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -10629,6 +10750,7 @@ export type UserCreateWithoutBookmarksInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
@@ -10713,6 +10835,7 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   contactPerson?: string | null
   numberOfOutlets?: number | null
   yearsInBusiness?: number | null
+  completedTasks?: Prisma.UserCreatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
@@ -10813,6 +10936,7 @@ export type UserUpdateWithoutBookmarksInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
@@ -10897,6 +11021,7 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   numberOfOutlets?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   yearsInBusiness?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completedTasks?: Prisma.UserUpdatecompletedTasksInput | string[]
   organizedMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
@@ -11228,6 +11353,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   contactPerson?: boolean
   numberOfOutlets?: boolean
   yearsInBusiness?: boolean
+  completedTasks?: boolean
   organizedMeetings?: boolean | Prisma.User$organizedMeetingsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   applications?: boolean | Prisma.User$applicationsArgs<ExtArgs>
@@ -11314,6 +11440,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   contactPerson?: boolean
   numberOfOutlets?: boolean
   yearsInBusiness?: boolean
+  completedTasks?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -11374,6 +11501,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   contactPerson?: boolean
   numberOfOutlets?: boolean
   yearsInBusiness?: boolean
+  completedTasks?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -11434,9 +11562,10 @@ export type UserSelectScalar = {
   contactPerson?: boolean
   numberOfOutlets?: boolean
   yearsInBusiness?: boolean
+  completedTasks?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "country" | "state" | "city" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "companyLogo" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "verified" | "verifiedAt" | "verifiedBy" | "isActive" | "followerCount" | "followingCount" | "lastLoginAt" | "lastActiveAt" | "brandName" | "businessLicenseDoc" | "certifications" | "companyBanner" | "companyDescription" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "createdAt" | "updatedAt" | "onboardingCompleted" | "emailVerifiedAt" | "passwordHash" | "role" | "accountStatus" | "headline" | "bio" | "phone" | "phoneVerified" | "location" | "country" | "state" | "city" | "investmentCapacity" | "industries" | "experienceYears" | "website" | "linkedinUrl" | "companyName" | "businessEmail" | "businessRegistrationNumber" | "businessRegistrationDoc" | "companyLogo" | "gstNumber" | "consultancyName" | "preferredIndustry" | "preferredLocation" | "investmentRange" | "resumeUrl" | "submittedForReviewAt" | "reviewedBy" | "reviewedAt" | "verificationNotes" | "rejectionReason" | "verified" | "verifiedAt" | "verifiedBy" | "isActive" | "followerCount" | "followingCount" | "lastLoginAt" | "lastActiveAt" | "brandName" | "businessLicenseDoc" | "certifications" | "companyBanner" | "companyDescription" | "contactPerson" | "numberOfOutlets" | "yearsInBusiness" | "completedTasks", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organizedMeetings?: boolean | Prisma.User$organizedMeetingsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -11555,6 +11684,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     contactPerson: string | null
     numberOfOutlets: number | null
     yearsInBusiness: number | null
+    completedTasks: string[]
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -12060,6 +12190,7 @@ export interface UserFieldRefs {
   readonly contactPerson: Prisma.FieldRef<"User", 'String'>
   readonly numberOfOutlets: Prisma.FieldRef<"User", 'Int'>
   readonly yearsInBusiness: Prisma.FieldRef<"User", 'Int'>
+  readonly completedTasks: Prisma.FieldRef<"User", 'String[]'>
 }
     
 

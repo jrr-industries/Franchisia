@@ -9,7 +9,7 @@ import {
   ArrowRight, Clock, Bell, ChevronRight, Star, Bookmark,
   CheckCircle, UserPlus, Building2, BarChart3, Activity,
   Zap, Heart, DollarSign, MapPin, Award, Target, LogIn,
-  ExternalLink, Share2, Trash2, X, MoreHorizontal, AlertCircle,
+  ExternalLink, Share2, Trash2, X, MoreHorizontal, AlertCircle, Plus,
 } from "lucide-react";
 import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
@@ -21,7 +21,8 @@ import {
   useNotifications, useRecommendedCompanies, useRecommendedOpportunities,
   usePeopleYouMayKnow, useRecentMessages, useSavedListings, useTasks,
   useMarkNotificationRead, useMarkAllNotificationsRead, useDashboardPrefetch,
-} from "../../hooks/useDashboard";
+} from "../../hooks/useDashboard"
+import { useToast } from "../../components/ui/Toast"
 
 const statConfig = [
   { key: "profileViews", label: "Profile Views", icon: Eye, color: "#8B5CF6", bg: "#EDE9FE", suffix: "total" },
@@ -129,7 +130,7 @@ const NotificationItem = memo(({ notification, onRead }) => (
   </div>
 ));
 
-const RecommendCompanyItem = memo(({ company, onFollow, onView }) => (
+const RecommendCompanyItem = memo(({ company, onFollow, onView, following }) => (
   <div style={{ display: "flex", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
     {company.logoUrl ? <img src={company.logoUrl} alt="" style={{ width: 40, height: 40, borderRadius: 10, objectFit: "cover", flexShrink: 0 }} /> :
       <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 14, color: "var(--primary)", flexShrink: 0 }}>{company.name?.[0]}</div>}
@@ -140,8 +141,8 @@ const RecommendCompanyItem = memo(({ company, onFollow, onView }) => (
       </div>
       <p style={{ fontSize: 11, color: "var(--text-secondary)" }}>{company.industry}</p>
       <div style={{ display: "flex", gap: 4, marginTop: 6 }}>
-        <Button size="sm" variant={company.isFollowing ? "secondary" : "primary"} onClick={() => onFollow(company.id)} style={{ padding: "2px 8px", fontSize: 11 }}>
-          {company.isFollowing ? "Following" : "Follow"}
+        <Button size="sm" variant={company.isFollowing ? "secondary" : "primary"} disabled={following} onClick={() => onFollow(company.id)} style={{ padding: "2px 8px", fontSize: 11 }}>
+          {following ? "..." : company.isFollowing ? "Following" : "Follow"}
         </Button>
         <Button size="sm" variant="ghost" onClick={() => onView(company.slug || company.id)} style={{ padding: "2px 8px", fontSize: 11 }}>View</Button>
       </div>
@@ -164,15 +165,15 @@ const OpportunityItem = memo(({ opportunity, onApply, onBookmark }) => (
       </div>
       <div style={{ display: "flex", gap: 4, marginTop: 6 }}>
         <Button size="sm" onClick={() => onApply(opportunity.slug || opportunity.id)} style={{ padding: "2px 8px", fontSize: 11 }}>Apply</Button>
-        <Button size="sm" variant="ghost" onClick={() => onBookmark(opportunity.id)} style={{ padding: "2px 8px", fontSize: 11 }}>
-          <Bookmark size={12} />
+        <Button size="sm" variant="ghost" onClick={() => onBookmark(opportunity.id, !!opportunity.isBookmarked)} style={{ padding: "2px 8px", fontSize: 11 }}>
+          <Bookmark size={12} fill={opportunity.isBookmarked ? "var(--primary)" : "none"} />
         </Button>
       </div>
     </div>
   </div>
 ));
 
-const PeopleItem = memo(({ person, onConnect }) => (
+const PeopleItem = memo(({ person, onConnect, connecting }) => (
   <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
     <Avatar name={person.name} src={person.image} size={36} />
     <div style={{ flex: 1, minWidth: 0 }}>
@@ -180,8 +181,8 @@ const PeopleItem = memo(({ person, onConnect }) => (
       <p style={{ fontSize: 11, color: "var(--text-secondary)" }}>{person.headline || person.role}</p>
       {person.mutualConnectionCount > 0 && <p style={{ fontSize: 11, color: "var(--text-muted)" }}>{person.mutualConnectionCount} mutual</p>}
     </div>
-    <Button size="sm" variant="outline" style={{ padding: "3px 8px", fontSize: 11, flexShrink: 0 }} onClick={() => onConnect(person.id)}>
-      <UserPlus size={12} /> Connect
+    <Button size="sm" variant="outline" disabled={connecting} style={{ padding: "3px 8px", fontSize: 11, flexShrink: 0 }} onClick={() => onConnect(person.id)}>
+      <UserPlus size={12} /> {connecting ? "Connecting..." : "Connect"}
     </Button>
   </div>
 ));
@@ -269,8 +270,11 @@ export default function DashboardHome() {
 
   const markRead = useMarkNotificationRead();
   const markAllRead = useMarkAllNotificationsRead();
+  const { addToast } = useToast();
 
   const [creatingCompany, setCreatingCompany] = useState(false);
+  const [connectingPeople, setConnectingPeople] = useState(new Set());
+  const [followingCompanies, setFollowingCompanies] = useState(new Set());
   const [analyticsPeriod, setAnalyticsPeriod] = useState("monthly");
 
   const { data: analytics, isLoading: analyticsLoading } = useAnalytics(analyticsPeriod);
@@ -361,25 +365,51 @@ export default function DashboardHome() {
   };
 
   const handleFollowCompany = useCallback(async (companyId) => {
+    setFollowingCompanies((prev) => new Set(prev).add(companyId));
     try {
-      await fetch(`/api/follow/company/${companyId}`, { method: "POST", credentials: "include" });
+      const res = await fetch(`/api/follow/company/${companyId}`, { method: "POST", credentials: "include" });
+      if (res.ok) {
+        const data = await res.json();
+        addToast(data.following ? "Company followed" : "Company unfollowed", "success");
+      }
       queryClient.invalidateQueries({ queryKey: ["dashboard", "recommended-companies"] });
-    } catch {}
-  }, [queryClient]);
+    } catch {
+      addToast("Failed to follow company", "error");
+    } finally {
+      setFollowingCompanies((prev) => { const next = new Set(prev); next.delete(companyId); return next; });
+    }
+  }, [queryClient, addToast]);
 
-  const handleToggleBookmark = useCallback(async (listingId) => {
+  const handleToggleBookmark = useCallback(async (listingId, currentlyBookmarked) => {
     try {
-      await fetch("/api/bookmarks", { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ listingId }) });
+      if (currentlyBookmarked) {
+        const bookmark = await fetch(`/api/bookmarks/check/${listingId}`, { credentials: "include" }).then((r) => r.json());
+        if (bookmark.bookmarked) {
+          const list = await fetch("/api/bookmarks", { credentials: "include" }).then((r) => r.json());
+          const found = (list.bookmarks || []).find((b) => b.listingId === listingId || b.listing?.id === listingId);
+          if (found) {
+            await fetch(`/api/bookmarks/${found.id}`, { method: "DELETE", credentials: "include" });
+          }
+        }
+      } else {
+        await fetch("/api/bookmarks", { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ listingId }) });
+      }
       queryClient.invalidateQueries({ queryKey: ["dashboard", "saved-listings"] });
-    } catch {}
-  }, [queryClient]);
+      queryClient.invalidateQueries({ queryKey: ["dashboard", "recommended-opportunities"] });
+    } catch {
+      addToast("Failed to toggle bookmark", "error");
+    }
+  }, [queryClient, addToast]);
 
   const handleRemoveSaved = useCallback(async (id) => {
     try {
       await fetch(`/api/bookmarks/${id}`, { method: "DELETE", credentials: "include" });
       queryClient.invalidateQueries({ queryKey: ["dashboard", "saved-listings"] });
-    } catch {}
-  }, [queryClient]);
+      addToast("Removed saved listing", "success");
+    } catch {
+      addToast("Failed to remove listing", "error");
+    }
+  }, [queryClient, addToast]);
 
   const handleMeetingRespond = useCallback(async (meetingId, action) => {
     try {
@@ -388,9 +418,14 @@ export default function DashboardHome() {
     } catch {}
   }, [queryClient]);
 
-  const handleToggleTask = useCallback((taskId) => {
-    setTasks((prev) => prev.map((t) => t.id === taskId ? { ...t, completed: !t.completed } : t));
-  }, []);
+  const handleToggleTask = useCallback(async (taskId) => {
+    try {
+      await fetch(`/api/dashboard/tasks/${taskId}/toggle`, { method: "PUT", credentials: "include" });
+      queryClient.invalidateQueries({ queryKey: ["dashboard", "tasks"] });
+    } catch {
+      addToast("Failed to update task", "error");
+    }
+  }, [queryClient, addToast]);
 
   const handleNavigate = useCallback((path) => navigate(path), [navigate]);
 
@@ -438,8 +473,17 @@ export default function DashboardHome() {
       )}
 
       <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 4 }}>Welcome back, {user?.name || "User"}!</h1>
-        <p style={{ color: "var(--text-secondary)", fontSize: 15 }}>Here's your complete franchise overview.</p>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div>
+            <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 4 }}>Welcome back, {user?.name || "User"}!</h1>
+            <p style={{ color: "var(--text-secondary)", fontSize: 15 }}>Here's your complete franchise overview.</p>
+          </div>
+          {user?.role === "franchisor" && (
+            <Button size="sm" icon={<Plus size={16} />} onClick={() => navigate("/listings/create")}>
+              Post Opportunity
+            </Button>
+          )}
+        </div>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 12, marginBottom: 24 }}>
@@ -523,21 +567,21 @@ export default function DashboardHome() {
         <Card hover={false}>
           <SectionHeader title="Recommended Companies" link="/companies" />
           {recommendedCompanies.length > 0 ? recommendedCompanies.slice(0, 3).map((c) => (
-            <RecommendCompanyItem key={c.id} company={c} onFollow={handleFollowCompany} onView={(slug) => navigate(`/company/${slug}`)} />
+            <RecommendCompanyItem key={c.id} company={c} following={followingCompanies.has(c.id)} onFollow={handleFollowCompany} onView={(slug) => navigate(`/company/${slug}`)} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No franchisor companies available.</p>}
         </Card>
 
         <Card hover={false}>
           <SectionHeader title="Recommended Opportunities" link="/discover" />
           {opportunities.length > 0 ? opportunities.slice(0, 3).map((o) => (
-            <OpportunityItem key={o.id} opportunity={o} onApply={(slug) => navigate(`/listing/${slug}`)} onBookmark={handleToggleBookmark} />
+            <OpportunityItem key={o.id} opportunity={o} onApply={(slug) => navigate(`/listing/${slug}`)} onBookmark={(id, bookmarked) => handleToggleBookmark(id, bookmarked)} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No opportunities available yet.</p>}
         </Card>
 
         <Card hover={false}>
           <SectionHeader title="People You May Know" />
           {people.length > 0 ? people.slice(0, 3).map((p) => (
-            <PeopleItem key={p.id} person={p} onConnect={async (id) => { await fetch(`/api/follow/user/${id}`, { method: "POST", credentials: "include" }); queryClient.invalidateQueries({ queryKey: ["dashboard", "people"] }); }} />
+            <PeopleItem key={p.id} person={p} connecting={connectingPeople.has(p.id)} onConnect={async (id) => { setConnectingPeople((prev) => new Set(prev).add(id)); try { const res = await fetch(`/api/follow/user/${id}`, { method: "POST", credentials: "include" }); if (res.ok) { addToast("Connected", "success"); queryClient.invalidateQueries({ queryKey: ["dashboard", "people"] }); } else { addToast("Failed to connect", "error"); } } catch { addToast("Failed to connect", "error"); } finally { setConnectingPeople((prev) => { const next = new Set(prev); next.delete(id); return next; }); } }} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No suggestions yet.</p>}
         </Card>
       </div>

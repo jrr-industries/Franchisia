@@ -10,7 +10,7 @@ export default function SearchSection() {
           Search through thousands of verified franchise opportunities across every industry.
         </p>
 
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', backgroundColor: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: 20, maxWidth: 900, margin: '0 auto' }}>
+        <div className="search-section-inner" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', backgroundColor: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: 20, maxWidth: 900, margin: '0 auto' }}>
           {[
             { placeholder: 'Industry', options: ['All Industries', 'Food & Beverage', 'Retail', 'Health & Fitness', 'Education', 'Technology', 'Services'] },
             { placeholder: 'Location', options: ['All Locations', 'United States', 'Canada', 'United Kingdom', 'Australia'] },
@@ -38,8 +38,15 @@ export default function SearchSection() {
               ))}
             </select>
           ))}
-          <Button icon={<Search size={18} />}>Search</Button>
+          <Button className="search-btn" icon={<Search size={18} />}>Search</Button>
         </div>
+        <style>{`
+          @media (max-width: 768px) {
+            .search-section-inner { flex-direction: column !important; align-items: stretch !important; padding: 16px !important; }
+            .search-section-inner select { min-width: 100% !important; }
+            .search-btn { width: 100% !important; justify-content: center !important; }
+          }
+        `}</style>
       </div>
     </section>
   );

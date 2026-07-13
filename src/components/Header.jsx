@@ -189,6 +189,10 @@ export default function Header({ onToggleSidebar }) {
       <style>{`
         .header-icon-btn { transition: background-color 0.15s, color 0.15s; }
         .header-icon-btn:hover { background-color: var(--surface-hover); color: var(--text) !important; }
+        @media (max-width: 1200px) {
+          .header-nav-links { gap: 16px !important; }
+          .header-search-container { max-width: 300px !important; }
+        }
         @media (max-width: 1024px) {
           .header-nav-links { display: none !important; }
           .header-search-container { max-width: 280px !important; }

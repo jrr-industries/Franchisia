@@ -2899,7 +2899,8 @@ export const UserScalarFieldEnum = {
   companyDescription: 'companyDescription',
   contactPerson: 'contactPerson',
   numberOfOutlets: 'numberOfOutlets',
-  yearsInBusiness: 'yearsInBusiness'
+  yearsInBusiness: 'yearsInBusiness',
+  completedTasks: 'completedTasks'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]

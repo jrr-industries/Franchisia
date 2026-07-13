@@ -16,6 +16,7 @@ export default function Statistics() {
           {stats.map((s, i) => (
             <div
               key={s.label}
+              className="stat-item"
               style={{
                 textAlign: 'center',
                 padding: '20px 40px',
@@ -24,7 +25,7 @@ export default function Statistics() {
                 position: 'relative',
               }}
             >
-              <div style={{
+              <div className="stat-value" style={{
                 fontSize: 36,
                 fontWeight: 800,
                 color: 'var(--primary)',
@@ -43,7 +44,7 @@ export default function Statistics() {
                 {s.label}
               </div>
               {i < stats.length - 1 && (
-                <div style={{
+                <div className="stat-divider" style={{
                   position: 'absolute',
                   right: 0,
                   top: '50%',
@@ -56,6 +57,17 @@ export default function Statistics() {
             </div>
           ))}
         </div>
+        <style>{`
+          @media (max-width: 768px) {
+            .stat-item { min-width: 140px !important; padding: 16px 20px !important; }
+            .stat-value { font-size: 28px !important; }
+            .stat-divider { display: none !important; }
+          }
+          @media (max-width: 480px) {
+            .stat-item { min-width: 50% !important; padding: 12px 16px !important; }
+            .stat-item:nth-child(2n) .stat-divider { display: none !important; }
+          }
+        `}</style>
       </div>
     </section>
   );

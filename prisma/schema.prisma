@@ -65,6 +65,7 @@ model User {
   contactPerson              String?                   @map("contact_person")
   numberOfOutlets            Int?                      @map("number_of_outlets")
   yearsInBusiness            Int?                      @map("years_in_business")
+  completedTasks             String[]                  @map("completed_tasks")
   organizedMeetings          Meeting[]
   accounts                   Account[]
   applications               Application[]

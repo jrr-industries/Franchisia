@@ -55,9 +55,9 @@ export default function Footer() {
   const { contact } = useSite();
 
   return (
-    <footer style={{ backgroundColor: 'var(--surface)', borderTop: '1px solid var(--border)', paddingTop: 64, paddingBottom: 32 }}>
+    <footer className="site-footer" style={{ backgroundColor: 'var(--surface)', borderTop: '1px solid var(--border)', paddingTop: 64, paddingBottom: 32 }}>
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48, marginBottom: 48 }}>
+        <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48, marginBottom: 48 }}>
           <div>
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, fontWeight: 800, fontSize: 22, color: 'var(--primary)', marginBottom: 16 }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--primary)', display: 'inline-block' }} />
@@ -87,9 +87,9 @@ export default function Footer() {
           ))}
         </div>
 
-        <div style={{ paddingTop: 24, borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
+        <div className="footer-bottom" style={{ paddingTop: 24, borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
           <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>&copy; {new Date().getFullYear()} Franchisia. All rights reserved.</p>
-          <div style={{ display: 'flex', gap: 24 }}>
+          <div className="footer-contact" style={{ display: 'flex', gap: 24 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--text-muted)' }}>
               <Mail size={14} />
               <span>{contact.email}</span>
@@ -105,6 +105,22 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      <style>{`
+        @media (max-width: 1024px) {
+          .footer-grid { gap: 32px !important; }
+        }
+        @media (max-width: 768px) {
+          .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
+          .footer-grid > div:first-child { grid-column: 1 / -1; }
+          .footer-contact { flex-wrap: wrap !important; gap: 12px !important; }
+          .site-footer { padding-top: 48px !important; padding-bottom: 24px !important; }
+        }
+        @media (max-width: 480px) {
+          .footer-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .footer-bottom { flex-direction: column !important; text-align: center !important; }
+          .footer-contact { justify-content: center !important; }
+        }
+      `}</style>
     </footer>
   );
 }

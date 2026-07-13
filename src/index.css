@@ -187,6 +187,19 @@ img {
   border-radius: var(--radius-sm);
 }
 
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 20px;
+  }
+  .dashboard-content {
+    padding: 20px !important;
+  }
+  section {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 0 16px;
@@ -196,5 +209,30 @@ img {
   }
   .header-brand-text {
     display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+  h1 {
+    font-size: 28px !important;
+  }
+  h2 {
+    font-size: 24px !important;
+  }
+  h3 {
+    font-size: 18px !important;
+  }
+  p {
+    font-size: 14px !important;
+  }
+  .dashboard-content {
+    padding: 12px !important;
+  }
+  section {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
   }
 }

@@ -81,7 +81,7 @@ const roleConfig = {
       { name: 'consultancyName', label: 'Consultancy Name', type: 'text', required: true },
       { name: 'yearsOfExperience', label: 'Years of Experience', type: 'number', required: true },
       { name: 'certifications', label: 'Certifications', type: 'text', required: true, placeholder: 'e.g. CFE, Certified Franchise Executive' },
-      { name: 'linkedinProfile', label: 'LinkedIn', type: 'url', required: true, placeholder: 'https://linkedin.com/in/' },
+      { name: 'linkedinProfile', label: 'LinkedIn (Optional)', type: 'url', required: false, placeholder: 'https://linkedin.com/in/' },
       { name: 'website', label: 'Website', type: 'url', required: true, placeholder: 'https://' },
     ],
     hasUpload: true,

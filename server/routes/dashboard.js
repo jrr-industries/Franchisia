@@ -359,24 +359,44 @@ router.get("/recommended-opportunities", async (req, res) => {
   try {
     const userId = req.user.id;
 
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { industries: true, location: true, country: true, city: true },
+    });
+
     const userCompanies = await prisma.company.findMany({
       where: { ownerId: userId },
       select: { id: true },
     });
     const companyIds = userCompanies.map((c) => c.id);
 
+    const where = {
+      status: "active",
+      company: { status: "active" },
+      ...(companyIds.length > 0 ? { companyId: { notIn: companyIds } } : {}),
+    };
+
+    if (user.industries && user.industries.length > 0) {
+      where.industry = { in: user.industries };
+    }
+
     const listings = await prisma.franchiseListing.findMany({
-      where: {
-        status: "active",
-        company: { status: "active" },
-        ...(companyIds.length > 0 ? { companyId: { notIn: companyIds } } : {}),
-      },
+      where,
       include: {
         company: { select: { id: true, name: true, slug: true, logoUrl: true, isVerified: true } },
       },
       orderBy: { viewCount: "desc" },
       take: 10,
     });
+
+    const userLocParts = [user.city, user.country].filter(Boolean);
+    if (userLocParts.length > 0) {
+      listings.sort((a, b) => {
+        const aMatch = a.city && userLocParts.some((p) => a.city.toLowerCase().includes(p.toLowerCase()) || a.country?.toLowerCase().includes(p.toLowerCase())) ? 1 : 0;
+        const bMatch = b.city && userLocParts.some((p) => b.city.toLowerCase().includes(p.toLowerCase()) || b.country?.toLowerCase().includes(p.toLowerCase())) ? 1 : 0;
+        return bMatch - aMatch;
+      });
+    }
 
     const listingsWithBookmark = await Promise.all(
       listings.map(async (l) => {
@@ -594,6 +614,8 @@ router.get("/tasks", async (req, res) => {
       },
     });
 
+    const completedSet = new Set(user.completedTasks || []);
+
     const tasks = [];
 
     if (!user.headline || !user.bio) {
@@ -618,9 +640,36 @@ router.get("/tasks", async (req, res) => {
       tasks.push({ id: "complete-onboarding", task: "Complete onboarding", deadline: "3 days", priority: "high", completed: false });
     }
 
-    res.json({ tasks });
+    const filtered = tasks.filter((t) => !completedSet.has(t.id));
+    res.json({ tasks: filtered });
   } catch (error) {
     console.error("Dashboard tasks error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/tasks/:id/toggle", async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { id } = req.params;
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { completedTasks: true },
+    });
+
+    const completed = user.completedTasks || [];
+    const exists = completed.includes(id);
+    const updated = exists ? completed.filter((t) => t !== id) : [...completed, id];
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: { completedTasks: { set: updated } },
+    });
+
+    res.json({ completed: !exists });
+  } catch (error) {
+    console.error("Dashboard tasks toggle error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

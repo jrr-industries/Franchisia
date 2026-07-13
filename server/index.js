@@ -27,6 +27,7 @@ import discoverRoutes from "./routes/discover.js";
 import searchRoutes from "./routes/search.js";
 import dashboardRoutes from "./routes/dashboard.js";
 import bookmarkRoutes from "./routes/bookmarks.js";
+import uploadRoutes from "./routes/uploads.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -84,6 +85,7 @@ app.use("/api/discover", discoverRoutes);
 app.use("/api/search", searchRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/bookmarks", bookmarkRoutes);
+app.use("/api/uploads", uploadRoutes);
 
 app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
 
