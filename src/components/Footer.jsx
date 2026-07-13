@@ -1,9 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Phone, MapPin, Globe, MessageSquare, Share2 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import { useSiteValue } from '../context/SiteContext';
+import { Link } from 'react-router-dom';
+import { Mail, Phone, MapPin, Share2 } from 'lucide-react';
+import { usePublicSettings, useSiteContact } from '../hooks/useCMS';
 
-const footerLinks = [
+const defaultFooterLinks = [
   {
     title: 'Platform',
     links: [
@@ -42,7 +41,10 @@ function FooterLink({ to, children }) {
 }
 
 export default function Footer() {
-  const contact = useSiteValue('contact');
+  const { data: settings } = usePublicSettings();
+  const { data: contact } = useSiteContact();
+
+  const footerLinks = settings?.footerLinks || settings?.footer || defaultFooterLinks;
 
   return (
     <footer className="site-footer" style={{ backgroundColor: 'var(--surface)', borderTop: '1px solid var(--outline-variant)', paddingTop: 64, paddingBottom: 32 }}>
@@ -57,7 +59,7 @@ export default function Footer() {
               The professional network for the franchise industry. Connect with franchisors, franchisees, consultors, investors, and suppliers.
             </p>
             <div style={{ display: 'flex', gap: 12 }}>
-              <a href={`mailto:${contact.email}`} style={{ width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 10, backgroundColor: 'var(--surface-hover)', color: 'var(--on-surface-variant)', transition: 'all 0.2s', textDecoration: 'none' }} title="Email us">
+              <a href={`mailto:${contact?.email || ''}`} style={{ width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 10, backgroundColor: 'var(--surface-hover)', color: 'var(--on-surface-variant)', transition: 'all 0.2s', textDecoration: 'none' }} title="Email us">
                 <Mail size={16} />
               </a>
               <button
@@ -75,7 +77,7 @@ export default function Footer() {
               <h4 style={{ fontSize: 14, fontWeight: 700, marginBottom: 16, color: 'var(--on-surface)' }}>{col.title}</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {col.links.map((link) => (
-                  <FooterLink key={link.label} to={link.path}>{link.label}</FooterLink>
+                  <FooterLink key={link.label} to={link.path || link.url}>{link.label}</FooterLink>
                 ))}
               </div>
             </div>
@@ -87,15 +89,15 @@ export default function Footer() {
           <div className="footer-contact" style={{ display: 'flex', gap: 24 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--on-surface-variant)' }}>
               <Mail size={14} />
-              <span>{contact.email}</span>
+              <span>{contact?.email || ''}</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--on-surface-variant)' }}>
               <Phone size={14} />
-              <span>{contact.phone}</span>
+              <span>{contact?.phone || ''}</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--on-surface-variant)' }}>
               <MapPin size={14} />
-              <span>{contact.address}</span>
+              <span>{contact?.address || ''}</span>
             </div>
           </div>
         </div>

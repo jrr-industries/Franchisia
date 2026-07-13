@@ -1,26 +1,32 @@
-import { useState, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
-
-const defaultFaqs = [
-  { question: "What is Franchisia?", answer: "Franchisia is the leading professional network for the franchise industry. We connect franchisors, franchisees, brokers, investors, and suppliers on one platform." },
-  { question: "Is Franchisia free to use?", answer: "Yes! Our Starter plan is completely free. You can browse franchises, create a profile, and explore opportunities at no cost." },
-  { question: "How do I find franchise opportunities?", answer: "Use our advanced search to filter by industry, location, investment range, and business type." },
-  { question: "Are the companies verified?", answer: "Yes, every company on Franchisia goes through a verification process to ensure legitimacy and authenticity." },
-  { question: "What makes Franchisia different?", answer: "Franchisia combines professional networking with franchise marketplace features, including CRM tools, analytics, and AI-powered matching." },
-];
+import { useState } from "react";
+import { ChevronDown, Loader2 } from "lucide-react";
+import { useFAQ } from "../hooks/useCMS";
 
 export default function FAQSection() {
   const [open, setOpen] = useState(null);
-  const [faqs, setFaqs] = useState(defaultFaqs);
+  const { data: faqs, isLoading, isError } = useFAQ();
 
-  useEffect(() => {
-    fetch("/api/public/faq", { credentials: "include" })
-      .then((r) => { if (r.ok) return r.json(); throw new Error(); })
-      .then((data) => {
-        if (data.items?.length) setFaqs(data.items);
-      })
-      .catch(() => {});
-  }, []);
+  if (isLoading) {
+    return (
+      <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }} id="faq">
+        <div className="container" style={{ maxWidth: 700, display: "flex", justifyContent: "center" }}>
+          <Loader2 size={32} className="spin" color="var(--primary)" />
+        </div>
+      </section>
+    );
+  }
+
+  if (isError) {
+    return (
+      <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }} id="faq">
+        <div className="container" style={{ maxWidth: 700, textAlign: "center" }}>
+          <p style={{ fontSize: 14, color: "var(--danger)" }}>Failed to load FAQ.</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (!faqs?.length) return null;
 
   return (
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }} id="faq">

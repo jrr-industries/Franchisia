@@ -1,42 +1,73 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Search, FileText, Tag, Clock, ChevronRight, BookOpen, TrendingUp, Briefcase, Newspaper, Lightbulb } from "lucide-react";
+import { ArrowLeft, Search, FileText, Tag, Clock, BookOpen, TrendingUp, Briefcase, Newspaper, Lightbulb, Loader2, AlertCircle } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
+import { useBlogPosts } from "../../hooks/useCMS";
 
-const categories = [
-  { label: "All", icon: Tag },
-  { label: "Investment", icon: TrendingUp },
-  { label: "Marketing", icon: Lightbulb },
-  { label: "Legal", icon: FileText },
-  { label: "Technology", icon: Briefcase },
-  { label: "Expansion", icon: BookOpen },
-];
-
-const featuredArticles = [
-  { title: "The Future of Franchise Networking in 2026", category: "Technology", readTime: "5 min", featured: true },
-  { title: "How to Choose the Right Franchise Opportunity", category: "Investment", readTime: "8 min", featured: true },
-  { title: "Legal Considerations for Franchise Agreements", category: "Legal", readTime: "6 min", featured: true },
-];
-
-const recentArticles = [
-  { title: "Marketing Strategies for New Franchise Owners", category: "Marketing", readTime: "4 min" },
-  { title: "Expanding Your Franchise Across State Lines", category: "Expansion", readTime: "7 min" },
-  { title: "Technology Tools Every Franchise Needs", category: "Technology", readTime: "5 min" },
-  { title: "Understanding Franchise Fees and Royalties", category: "Investment", readTime: "6 min" },
-  { title: "Building a Strong Franchise Brand Identity", category: "Marketing", readTime: "4 min" },
-  { title: "Exit Strategies for Franchise Business Owners", category: "Legal", readTime: "8 min" },
-];
+const categoryIcons = {
+  Technology: TrendingUp,
+  Investment: TrendingUp,
+  Marketing: Lightbulb,
+  Legal: Briefcase,
+  Expansion: BookOpen,
+};
 
 export default function Blog() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+  const { data, isLoading, isError } = useBlogPosts({ page: 1, limit: 50 });
 
-  const filtered = recentArticles.filter(a =>
-    (activeCategory === "All" || a.category === activeCategory) &&
-    (!search || a.title.toLowerCase().includes(search.toLowerCase()))
-  );
+  const blogItems = data?.items || [];
+
+  const categories = useMemo(() => {
+    const cats = ["All", ...new Set(blogItems.map((a) => a.category).filter(Boolean))];
+    return cats;
+  }, [blogItems]);
+
+  const filtered = useMemo(() => {
+    return blogItems.filter((a) =>
+      (activeCategory === "All" || a.category === activeCategory) &&
+      (!search || a.title?.toLowerCase().includes(search.toLowerCase()))
+    );
+  }, [blogItems, activeCategory, search]);
+
+  if (isLoading) {
+    return (
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+        <section style={{ padding: "60px 0 40px", backgroundColor: "var(--surface-container-lowest)" }}>
+          <div className="container" style={{ maxWidth: 1000, margin: "0 auto" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
+              {[1, 2, 3].map((n) => (
+                <div key={n} style={{ padding: 24, borderRadius: 12, border: "1px solid var(--border)", backgroundColor: "var(--surface)", height: 140 }}>
+                  <div style={{ width: "60%", height: 14, backgroundColor: "var(--border)", borderRadius: 4, marginBottom: 12 }} />
+                  <div style={{ width: "80%", height: 10, backgroundColor: "var(--border)", borderRadius: 4, marginBottom: 8 }} />
+                  <div style={{ width: "40%", height: 10, backgroundColor: "var(--border)", borderRadius: 4 }} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </motion.div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+        <section style={{ padding: "60px 0 40px", backgroundColor: "var(--surface-container-lowest)" }}>
+          <div className="container" style={{ maxWidth: 1000, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", padding: "48px 24px" }}>
+              <AlertCircle size={40} color="var(--text-muted)" style={{ marginBottom: 12, opacity: 0.5 }} />
+              <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 4 }}>Failed to load blog posts</p>
+              <p style={{ fontSize: 13, color: "var(--text-muted)" }}>Please try again later.</p>
+            </div>
+          </div>
+        </section>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
@@ -68,68 +99,42 @@ export default function Blog() {
           </motion.div>
 
           <div style={{ display: "flex", gap: 8, marginBottom: 28, flexWrap: "wrap" }}>
-            {categories.map(cat => {
-              const Icon = cat.icon;
+            {categories.map((cat) => {
+              const Icon = categoryIcons[cat] || Tag;
               return (
-                <button key={cat.label} onClick={() => setActiveCategory(cat.label)}
+                <button key={cat} onClick={() => setActiveCategory(cat)}
                   style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", borderRadius: 100, fontSize: 13, fontWeight: 500, border: "1px solid", cursor: "pointer",
-                    borderColor: activeCategory === cat.label ? "var(--primary)" : "var(--border)", backgroundColor: activeCategory === cat.label ? "var(--primary-light)" : "transparent", color: activeCategory === cat.label ? "var(--primary)" : "var(--text-secondary)", transition: "all 0.15s" }}>
-                  <Icon size={14} /> {cat.label}
+                    borderColor: activeCategory === cat ? "var(--primary)" : "var(--border)", backgroundColor: activeCategory === cat ? "var(--primary-light)" : "transparent", color: activeCategory === cat ? "var(--primary)" : "var(--text-secondary)", transition: "all 0.15s" }}>
+                  <Icon size={14} /> {cat}
                 </button>
               );
             })}
           </div>
 
-          {featuredArticles.length > 0 && (
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} style={{ marginBottom: 32 }}>
-              <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
-                <BookOpen size={18} color="var(--primary)" /> Featured Articles
-              </h2>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
-                {featuredArticles.map((article, i) => (
-                  <motion.div key={article.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 + i * 0.05 }}
+          {filtered.length > 0 ? (
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16, marginBottom: 32 }}>
+                {filtered.map((article, i) => (
+                  <motion.div key={article.id || article.slug || article.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 + i * 0.03 }}
                     whileHover={{ y: -4 }}
-                    style={{ padding: 24, borderRadius: 12, border: "1px solid var(--border)", backgroundColor: "var(--surface)", cursor: "pointer" }}>
-                    <Badge variant="info" style={{ marginBottom: 8, fontSize: 10 }}>{article.category}</Badge>
-                    <h3 style={{ fontSize: 15, fontWeight: 600, marginBottom: 8, lineHeight: 1.4 }}>{article.title}</h3>
+                    style={{ padding: 20, borderRadius: 12, border: "1px solid var(--border)", backgroundColor: "var(--surface)", cursor: "pointer" }}>
+                    <Badge variant={article.featured ? "success" : "default"} style={{ marginBottom: 8, fontSize: 10 }}>{article.category || "General"}</Badge>
+                    <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 6, lineHeight: 1.4 }}>{article.title}</h3>
                     <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 12, color: "var(--text-muted)" }}>
-                      <span style={{ display: "flex", alignItems: "center", gap: 4 }}><Clock size={12} /> {article.readTime} read</span>
+                      <span style={{ display: "flex", alignItems: "center", gap: 4 }}><Clock size={12} /> {article.readTime || `${Math.ceil((article.content?.length || 0) / 1000)} min` || "N/A"} read</span>
                       {article.featured && <Badge variant="success" style={{ fontSize: 9 }}>Featured</Badge>}
                     </div>
                   </motion.div>
                 ))}
               </div>
             </motion.div>
+          ) : (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ textAlign: "center", padding: "48px 24px", borderRadius: 12, border: "1px dashed var(--border)", backgroundColor: "var(--background)", marginBottom: 32 }}>
+              <Newspaper size={40} color="var(--text-muted)" style={{ marginBottom: 12, opacity: 0.5 }} />
+              <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 4 }}>No articles found</p>
+              <p style={{ fontSize: 13, color: "var(--text-muted)" }}>Try adjusting your search or category filter.</p>
+            </motion.div>
           )}
-
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-            <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 16 }}>Latest Articles</h2>
-            {filtered.length > 0 ? (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16, marginBottom: 32 }}>
-                {filtered.map((article, i) => (
-                  <motion.div key={article.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 + i * 0.03 }}
-                    whileHover={{ y: -4 }}
-                    style={{ padding: 20, borderRadius: 12, border: "1px solid var(--border)", backgroundColor: "var(--surface)", cursor: "pointer" }}>
-                    <Badge variant="default" style={{ marginBottom: 8, fontSize: 10 }}>{article.category}</Badge>
-                    <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 6, lineHeight: 1.4 }}>{article.title}</h3>
-                    <span style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 12, color: "var(--text-muted)" }}><Clock size={12} /> {article.readTime} read</span>
-                  </motion.div>
-                ))}
-              </div>
-            ) : (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ textAlign: "center", padding: "48px 24px", borderRadius: 12, border: "1px dashed var(--border)", backgroundColor: "var(--background)", marginBottom: 32 }}>
-                <Newspaper size={40} color="var(--text-muted)" style={{ marginBottom: 12, opacity: 0.5 }} />
-                <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 4 }}>No articles found</p>
-                <p style={{ fontSize: 13, color: "var(--text-muted)" }}>Try adjusting your search or category filter.</p>
-              </motion.div>
-            )}
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-            style={{ textAlign: "center", padding: "32px 24px", borderRadius: 12, border: "1px dashed var(--border)", backgroundColor: "var(--surface-container-lowest)", marginBottom: 32 }}>
-            <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 16 }}>Blog content will be managed through the Admin CMS.</p>
-            <Link to="/"><motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}><Button variant="outline" size="sm" icon={<ArrowLeft size={14} />}>Back to Home</Button></motion.div></Link>
-          </motion.div>
         </div>
       </section>
     </motion.div>

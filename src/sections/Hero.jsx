@@ -1,17 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Globe, Users, Building2, MapPin, Network, Briefcase, TrendingUp } from "lucide-react";
+import { ArrowRight, Globe, Users, Building2, MapPin, Network, Briefcase, TrendingUp, Loader2 } from "lucide-react";
 import Button from "../components/ui/Button";
 import { useAuth } from "../context/AuthContext";
-import { useSite } from "../context/SiteContext";
-
-const quotes = [
-  "Connecting Entrepreneurs with Franchise Opportunities",
-  "Grow Beyond Boundaries",
-  "The Future of Franchise Networking",
-  "Verified Businesses. Trusted Partnerships.",
-];
+import { usePublicSettings, useStats } from "../hooks/useCMS";
 
 const nodes = [
   { x: 20, y: 25, size: 6, delay: 0 },
@@ -33,53 +26,66 @@ const connections = [
   [7, 9], [8, 4], [8, 9],
 ];
 
+const statIcons = [Building2, Users, Globe, MapPin, Briefcase, TrendingUp];
+
+const fallbackQuotes = [
+  "Connecting Entrepreneurs with Franchise Opportunities",
+];
+
+const defaultStats = [
+  { icon: Building2, value: "1000+", label: "Companies" },
+  { icon: Users, value: "5000+", label: "Professionals" },
+  { icon: Globe, value: "50+", label: "Industries" },
+  { icon: MapPin, value: "100+", label: "Cities" },
+];
+
 export default function Hero() {
   const { isAuthenticated, user } = useAuth();
-  const { stats: siteStats } = useSite();
+  const { data: settings, isLoading: settingsLoading } = usePublicSettings();
+  const { data: statsData, isLoading: statsLoading } = useStats();
   const [quoteIndex, setQuoteIndex] = useState(0);
-  const [heroSettings, setHeroSettings] = useState(null);
+
+  const heroSettings = settings?.hero || settings || {};
+
+  const rawQuotes = heroSettings.rotatingQuotes || heroSettings.heroQuotes || "";
+  const quotes = rawQuotes ? rawQuotes.split("\n").filter(Boolean) : [];
+  const activeQuotes = quotes.length > 0 ? quotes : fallbackQuotes;
+
+  const heroHeadline = heroSettings.headline || heroSettings.heroHeadline || "Find the Perfect Franchise Opportunity.";
+  const heroDescription = heroSettings.description || heroSettings.heroDescription || "Connect with franchisors, franchisees, brokers, investors, and suppliers on one professional platform.";
+  const ctaText = heroSettings.ctaText || "Explore Franchises";
+  const ctaUrl = heroSettings.ctaUrl || "/discover";
+  const secondaryCtaText = heroSettings.secondaryCtaText || "Register Company";
+  const secondaryCtaUrl = heroSettings.secondaryCtaUrl || "/signup";
+
+  const heroStats = (statsData || []).length > 0
+    ? (statsData || []).slice(0, 4).map((s, i) => ({
+        icon: statIcons[i] || Building2,
+        value: s.value,
+        label: s.label,
+      }))
+    : defaultStats;
 
   useEffect(() => {
-    fetch("/api/public/settings", { credentials: "include" })
-      .then((r) => { if (r.ok) return r.json(); throw new Error(); })
-      .then((data) => {
-        if (data.hero) setHeroSettings(data.hero);
-      })
-      .catch(() => {});
-  }, []);
-
-  const heroQuotes = heroSettings?.rotatingQuotes
-    ? heroSettings.rotatingQuotes.split("\n").filter(Boolean)
-    : quotes;
-
-  const heroHeadline = heroSettings?.headline || "Find the Perfect Franchise Opportunity.";
-  const heroDescription = heroSettings?.description || "Connect with franchisors, franchisees, brokers, investors, and suppliers on one professional platform.";
-  const ctaText = heroSettings?.ctaText || "Explore Franchises";
-  const ctaUrl = heroSettings?.ctaUrl || "/discover";
-  const secondaryCtaText = heroSettings?.secondaryCtaText || "Register Company";
-  const secondaryCtaUrl = heroSettings?.secondaryCtaUrl || "/signup";
-
-  const heroStats = (siteStats || []).slice(0, 4).map((s, i) => ({
-    icon: [Building2, Users, Globe, MapPin, Briefcase, TrendingUp][i] || Building2,
-    value: s.value,
-    label: s.label,
-  }));
-
-  if (heroStats.length === 0) {
-    heroStats.push(
-      { icon: Building2, value: "1000+", label: "Companies" },
-      { icon: Users, value: "5000+", label: "Professionals" },
-      { icon: Globe, value: "50+", label: "Industries" },
-      { icon: MapPin, value: "100+", label: "Cities" },
-    );
-  }
-
-  useEffect(() => {
+    if (activeQuotes.length <= 1) return;
     const interval = setInterval(() => {
-      setQuoteIndex((prev) => (prev + 1) % heroQuotes.length);
+      setQuoteIndex((prev) => (prev + 1) % activeQuotes.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, [heroQuotes.length]);
+  }, [activeQuotes.length]);
+
+  if (settingsLoading || statsLoading) {
+    return (
+      <section style={{ minHeight: "700px", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", position: "relative" }}>
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        >
+          <Loader2 size={48} color="var(--primary)" />
+        </motion.div>
+      </section>
+    );
+  }
 
   return (
     <section style={{ minHeight: "700px", display: "flex", alignItems: "center", overflow: "hidden", position: "relative" }}>
@@ -102,9 +108,9 @@ export default function Hero() {
               <path d="M7 12l3 3 7-7" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
             </motion.svg>
           </div>
-            <h1 style={{ fontSize: "clamp(36px, 5vw, 48px)", fontWeight: 700, lineHeight: 1.1, marginBottom: 16, letterSpacing: "-0.02em", color: "var(--on-surface)" }}>
-              {heroHeadline}
-            </h1>
+          <h1 style={{ fontSize: "clamp(36px, 5vw, 48px)", fontWeight: 700, lineHeight: 1.1, marginBottom: 16, letterSpacing: "-0.02em", color: "var(--on-surface)" }}>
+            {heroHeadline}
+          </h1>
           <div style={{ height: 32, marginBottom: 24, position: "relative" }}>
             <AnimatePresence mode="wait">
               <motion.p
@@ -115,14 +121,13 @@ export default function Hero() {
                 transition={{ duration: 0.5 }}
                 style={{ fontSize: 17, color: "var(--primary)", fontWeight: 500, position: "absolute", left: 0, top: 0 }}
               >
-                "{heroQuotes[quoteIndex]}"
+                "{activeQuotes[quoteIndex]}"
               </motion.p>
             </AnimatePresence>
           </div>
           <p style={{ fontSize: 18, color: "var(--on-surface-variant)", lineHeight: 1.6, marginBottom: 32, maxWidth: 560 }}>
             {heroDescription}
           </p>
-
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             {isAuthenticated ? (
               user?.role && user?.role !== "none" ? (
@@ -151,7 +156,6 @@ export default function Hero() {
               <div style={{ padding: 24 }}>
                 <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", borderRadius: 12, background: "linear-gradient(145deg, var(--primary-light), #daf3e5)", overflow: "hidden" }}>
                   <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 30% 40%, rgba(0,74,198,0.1), transparent 60%)" }} />
-
                   {nodes.map((node, i) => (
                     <motion.div
                       key={i}
@@ -167,7 +171,6 @@ export default function Hero() {
                       }}
                     />
                   ))}
-
                   <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
                     {connections.map(([from, to], i) => (
                       <motion.line
@@ -183,7 +186,6 @@ export default function Hero() {
                       />
                     ))}
                   </svg>
-
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -192,7 +194,6 @@ export default function Hero() {
                   >
                     <Network size={48} color="var(--primary)" style={{ opacity: 0.15 }} />
                   </motion.div>
-
                   <div style={{ position: "absolute", bottom: 16, left: 16, right: 16 }}>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                       {heroStats.slice(0, 4).map((stat, i) => (
@@ -218,7 +219,6 @@ export default function Hero() {
                     </div>
                   </div>
                 </div>
-
                 <div style={{ textAlign: "center", marginTop: 16, fontSize: 14, fontWeight: 600, color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
                   <Globe size={16} />
                   Global Franchise Network
@@ -228,7 +228,6 @@ export default function Hero() {
           </div>
         </motion.div>
       </div>
-
       <style>{`
         @media (min-width: 1024px) {
           .hero-visual-lg { display: block !important; }

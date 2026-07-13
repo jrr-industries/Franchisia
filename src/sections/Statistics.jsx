@@ -1,7 +1,9 @@
-import { useSiteValue } from '../context/SiteContext';
+import { useStats } from "../hooks/useCMS";
 
 export default function Statistics() {
-  const stats = useSiteValue('stats');
+  const { data: stats } = useStats();
+
+  if (!stats?.length) return null;
 
   return (
     <section style={{ padding: '80px 0', backgroundColor: 'var(--inverse-surface)', color: 'var(--inverse-on-surface)' }}>
@@ -15,7 +17,7 @@ export default function Statistics() {
         }}>
           {stats.map((s, i) => (
             <div
-              key={s.label}
+              key={s.label || i}
               className="stat-item"
               style={{
                 textAlign: 'center',

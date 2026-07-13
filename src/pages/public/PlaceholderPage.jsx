@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Construction, FileText, Users, Briefcase, Calendar } from "lucide-react";
+import { ArrowLeft, Construction, FileText, Users, Briefcase, Calendar, MapPin, AlertCircle } from "lucide-react";
 import Button from "../../components/ui/Button";
+import { useBlogPosts, usePartners, useCareers, useEvents } from "../../hooks/useCMS";
 
 const sectionIcon = {
   blog: FileText,
@@ -10,36 +11,121 @@ const sectionIcon = {
   events: Calendar,
 };
 
-const cardPlaceholders = {
-  blog: [
-    { title: "Industry Insights", desc: "Latest trends and analysis from franchise industry experts." },
-    { title: "Success Stories", desc: "Real stories from franchisors and franchisees who grew their business." },
-    { title: "Expert Guides", desc: "Step-by-step guides to help you navigate the franchise world." },
-    { title: "Company News", desc: "Updates and announcements from the Franchisia team." },
-  ],
-  partners: [
-    { title: "Technology Partners", desc: "Software and tools to streamline franchise operations." },
-    { title: "Financial Partners", desc: "Banks, investors, and financial institutions for funding." },
-    { title: "Service Providers", desc: "Legal, marketing, and consulting services for franchises." },
-    { title: "Supplier Network", desc: "Trusted suppliers for franchise operations worldwide." },
-  ],
-  careers: [
-    { title: "Engineering", desc: "Build the future of franchise networking technology." },
-    { title: "Product & Design", desc: "Create intuitive experiences for our global community." },
-    { title: "Sales & Marketing", desc: "Help franchises grow their reach and impact." },
-    { title: "Operations", desc: "Keep our platform running smoothly for millions of users." },
-  ],
-  events: [
-    { title: "Franchise Expos", desc: "Meet franchisors and explore opportunities in person." },
-    { title: "Webinars", desc: "Learn from industry leaders in live online sessions." },
-    { title: "Networking Meetups", desc: "Connect with professionals in your area." },
-    { title: "Workshops", desc: "Hands-on sessions to develop your franchise skills." },
-  ],
-};
+function TypeContent({ type }) {
+  switch (type) {
+    case "blog": {
+      const { data, isLoading, isError } = useBlogPosts({ page: 1, limit: 12 });
+      const items = data?.items || [];
+      if (isLoading) return <TypeSkeleton />;
+      if (isError) return <TypeError />;
+      if (!items.length) return <TypeEmpty type={type} />;
+      return items.map((item, i) => (
+        <motion.div key={item.id || item.slug || item.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.1 }}
+          whileHover={{ y: -4 }} style={{ padding: 24, borderRadius: 12, border: "1px solid var(--border)", backgroundColor: "var(--surface)" }}>
+          <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 12, color: "var(--primary)" }}>
+            <FileText size={20} />
+          </div>
+          <h3 style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{item.title}</h3>
+          <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>{item.description || item.excerpt || ""}</p>
+        </motion.div>
+      ));
+    }
+    case "partners": {
+      const { data: items, isLoading, isError } = usePartners();
+      if (isLoading) return <TypeSkeleton />;
+      if (isError) return <TypeError />;
+      if (!items?.length) return <TypeEmpty type={type} />;
+      return items.map((item, i) => (
+        <motion.div key={item.id || item.name} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.1 }}
+          whileHover={{ y: -4 }} style={{ padding: 24, borderRadius: 12, border: "1px solid var(--border)", backgroundColor: "var(--surface)" }}>
+          <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 12, color: "var(--primary)" }}>
+            <Users size={20} />
+          </div>
+          <h3 style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{item.name}</h3>
+          <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>{item.description}</p>
+        </motion.div>
+      ));
+    }
+    case "careers": {
+      const { data: items, isLoading, isError } = useCareers();
+      if (isLoading) return <TypeSkeleton />;
+      if (isError) return <TypeError />;
+      if (!items?.length) return <TypeEmpty type={type} />;
+      return items.map((item, i) => (
+        <motion.div key={item.id || item.jobTitle} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.1 }}
+          whileHover={{ y: -4 }} style={{ padding: 24, borderRadius: 12, border: "1px solid var(--border)", backgroundColor: "var(--surface)" }}>
+          <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 12, color: "var(--primary)" }}>
+            <Briefcase size={20} />
+          </div>
+          <h3 style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{item.jobTitle}</h3>
+          <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>{item.description}</p>
+          <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
+            {item.department && <span style={{ fontSize: 11, color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 4 }}><Briefcase size={12} /> {item.department}</span>}
+            {item.location && <span style={{ fontSize: 11, color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 4 }}><MapPin size={12} /> {item.location}</span>}
+          </div>
+        </motion.div>
+      ));
+    }
+    case "events": {
+      const { data: items, isLoading, isError } = useEvents();
+      if (isLoading) return <TypeSkeleton />;
+      if (isError) return <TypeError />;
+      if (!items?.length) return <TypeEmpty type={type} />;
+      return items.map((item, i) => (
+        <motion.div key={item.id || item.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.1 }}
+          whileHover={{ y: -4 }} style={{ padding: 24, borderRadius: 12, border: "1px solid var(--border)", backgroundColor: "var(--surface)" }}>
+          <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 12, color: "var(--primary)" }}>
+            <Calendar size={20} />
+          </div>
+          <h3 style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{item.title}</h3>
+          <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>{item.description}</p>
+          <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
+            {item.date && <span style={{ fontSize: 11, color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 4 }}><Calendar size={12} /> {item.date}</span>}
+            {item.venue && <span style={{ fontSize: 11, color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 4 }}><MapPin size={12} /> {item.venue}</span>}
+          </div>
+        </motion.div>
+      ));
+    }
+    default:
+      return null;
+  }
+}
+
+function TypeSkeleton() {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16, marginBottom: 32 }}>
+      {[1, 2, 3, 4].map((n) => (
+        <div key={n} style={{ padding: 24, borderRadius: 12, border: "1px solid var(--border)", backgroundColor: "var(--surface)", height: 140 }} />
+      ))}
+    </div>
+  );
+}
+
+function TypeError() {
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+      style={{ textAlign: "center", padding: "48px 24px", marginBottom: 32 }}>
+      <AlertCircle size={40} color="var(--text-muted)" style={{ marginBottom: 12, opacity: 0.5 }} />
+      <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 4, color: "var(--text)" }}>Failed to load data</p>
+      <p style={{ fontSize: 13, color: "var(--text-muted)" }}>Please try again later.</p>
+    </motion.div>
+  );
+}
+
+function TypeEmpty({ type }) {
+  const labels = { blog: "articles", partners: "partners", careers: "positions", events: "events" };
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+      style={{ textAlign: "center", padding: "48px 24px", borderRadius: 12, border: "1px dashed var(--border)", backgroundColor: "var(--background)", marginBottom: 32 }}>
+      <Construction size={40} color="var(--primary)" style={{ marginBottom: 12, opacity: 0.6 }} />
+      <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 4, color: "var(--text)" }}>No {labels[type] || "data"} yet</p>
+      <p style={{ fontSize: 13, color: "var(--text-muted)" }}>Content will be managed through the Admin CMS.</p>
+    </motion.div>
+  );
+}
 
 export default function PlaceholderPage({ title, description, type = "page" }) {
   const Icon = sectionIcon[type] || Construction;
-  const cards = cardPlaceholders[type] || [];
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
@@ -70,56 +156,43 @@ export default function PlaceholderPage({ title, description, type = "page" }) {
             </div>
           </motion.div>
 
-          {cards.length > 0 && (
+          {type !== "page" && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 16, color: "var(--text-secondary)" }}>Coming Soon</h2>
+              <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 16, color: "var(--text-secondary)" }}>Content</h2>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16, marginBottom: 32 }}>
-                {cards.map((card, i) => (
-                  <motion.div
-                    key={card.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + i * 0.1 }}
-                    whileHover={{ y: -4 }}
-                    style={{ padding: 24, borderRadius: 12, border: "1px solid var(--border)", backgroundColor: "var(--surface)" }}
-                  >
-                    <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 12, color: "var(--primary)" }}>
-                      <Icon size={20} />
-                    </div>
-                    <h3 style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{card.title}</h3>
-                    <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>{card.desc}</p>
-                  </motion.div>
-                ))}
+                <TypeContent type={type} />
               </div>
             </motion.div>
           )}
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            style={{ textAlign: "center", padding: "40px 24px", borderRadius: 16, border: "1px dashed var(--border)", backgroundColor: "var(--background)" }}
-          >
+          {type === "page" && (
             <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-              style={{ marginBottom: 16 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              style={{ textAlign: "center", padding: "40px 24px", borderRadius: 16, border: "1px dashed var(--border)", backgroundColor: "var(--background)" }}
             >
-              <Construction size={40} color="var(--primary)" style={{ opacity: 0.6 }} />
-            </motion.div>
-            <p style={{ fontSize: 14, color: "var(--text-muted)", marginBottom: 20 }}>
-              This section is under development. Content will be managed through the Admin CMS.
-            </p>
-            <Link to="/">
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                <Button variant="primary" icon={<ArrowLeft size={16} />}>Back to Home</Button>
+              <motion.div
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+                style={{ marginBottom: 16 }}
+              >
+                <Construction size={40} color="var(--primary)" style={{ opacity: 0.6 }} />
               </motion.div>
-            </Link>
-          </motion.div>
+              <p style={{ fontSize: 14, color: "var(--text-muted)", marginBottom: 20 }}>
+                This section is under development. Content will be managed through the Admin CMS.
+              </p>
+              <Link to="/">
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                  <Button variant="primary" icon={<ArrowLeft size={16} />}>Back to Home</Button>
+                </motion.div>
+              </Link>
+            </motion.div>
+          )}
         </div>
       </div>
     </motion.div>

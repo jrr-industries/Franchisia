@@ -1,21 +1,32 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Target, Eye, Award, Clock, Users, Globe } from 'lucide-react';
+import { ArrowRight, Target, Eye, Globe, Loader2 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import Avatar from '../../components/ui/Avatar';
 import Badge from '../../components/ui/Badge';
 import { useSiteValue } from '../../context/SiteContext';
+import { useStats } from '../../hooks/useCMS';
 
 export default function About() {
   const about = useSiteValue('about');
+  const { data: stats, isLoading, isError } = useStats();
 
-  const stats = [
-    { value: '10K+', label: 'Active Listings', icon: Globe },
-    { value: '50K+', label: 'Professionals', icon: Users },
-    { value: '12+', label: 'Years Expertise', icon: Award },
-    { value: '98%', label: 'Satisfaction', icon: Clock },
-  ];
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        <Loader2 size={32} style={{ animation: 'spin 1s linear infinite', color: 'var(--primary)' }} />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        <p style={{ color: 'var(--text-secondary)' }}>Failed to load statistics.</p>
+      </div>
+    );
+  }
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
@@ -109,18 +120,17 @@ export default function About() {
       <section style={{ padding: '80px 0' }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 32, textAlign: 'center' }}>
-            {stats.map((s) => {
-              const Icon = s.icon;
-              return (
-                <div key={s.label}>
-                  <div style={{ width: 48, height: 48, borderRadius: '50%', backgroundColor: 'var(--primary-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
-                    <Icon size={22} color="var(--primary)" />
-                  </div>
-                  <p style={{ fontSize: 32, fontWeight: 800, color: 'var(--primary)', fontFamily: "'JetBrains Mono', monospace", marginBottom: 4 }}>{s.value}</p>
-                  <p style={{ fontSize: 14, color: 'var(--text-secondary)' }}>{s.label}</p>
+            {stats?.length > 0 ? stats.map((s) => (
+              <div key={s.label || s.value}>
+                <div style={{ width: 48, height: 48, borderRadius: '50%', backgroundColor: 'var(--primary-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
+                  <Globe size={22} color="var(--primary)" />
                 </div>
-              );
-            })}
+                <p style={{ fontSize: 32, fontWeight: 800, color: 'var(--primary)', fontFamily: "'JetBrains Mono', monospace", marginBottom: 4 }}>{s.value}</p>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)' }}>{s.label}</p>
+              </div>
+            )) : (
+              <p style={{ fontSize: 14, color: 'var(--text-secondary)', textAlign: 'center', gridColumn: '1 / -1' }}>No statistics available.</p>
+            )}
           </div>
         </div>
       </section>

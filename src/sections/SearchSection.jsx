@@ -2,24 +2,11 @@ import { useState } from 'react';
 import { Search } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
-
-const sampleCompanies = [
-  { name: 'McDonald\'s', industry: 'Food & Beverage', location: 'United States', investment: '$500K+' },
-  { name: 'Subway', industry: 'Food & Beverage', location: 'United States', investment: '$100K - $500K' },
-  { name: '7-Eleven', industry: 'Retail', location: 'Asia', investment: '$100K - $500K' },
-  { name: 'KFC', industry: 'Food & Beverage', location: 'Africa', investment: '$500K+' },
-  { name: 'Anytime Fitness', industry: 'Health & Fitness', location: 'Europe', investment: '$100K - $500K' },
-  { name: 'Jamba Juice', industry: 'Food & Beverage', location: 'United States', investment: 'Under $100K' },
-];
+import { useIndustries, usePartners } from '../hooks/useCMS';
 
 const locations = [
   'All Locations', 'United States', 'Canada', 'United Kingdom', 'Europe',
   'Asia', 'Africa', 'Australia', 'South America', 'Middle East',
-];
-
-const industries = [
-  'All Industries', 'Food & Beverage', 'Retail', 'Health & Fitness', 'Education',
-  'Technology', 'Services', 'Hospitality', 'Automotive', 'Real Estate',
 ];
 
 const investments = [
@@ -33,12 +20,11 @@ export default function SearchSection() {
   const [investment, setInvestment] = useState('');
   const [showResults, setShowResults] = useState(false);
 
-  const filtered = sampleCompanies.filter((c) => {
-    if (industry && c.industry !== industry) return false;
-    if (location && c.location !== location) return false;
-    if (investment && c.investment !== investment) return false;
-    return true;
-  });
+  const { data: industriesData, isLoading } = useIndustries();
+  const { data: partners } = usePartners();
+
+  const industryList = industriesData?.items || industriesData || [];
+  const brands = partners || [];
 
   return (
     <section style={{ padding: '80px 0' }}>
@@ -52,6 +38,7 @@ export default function SearchSection() {
           <select
             value={industry}
             onChange={(e) => { setIndustry(e.target.value); setShowResults(true); }}
+            disabled={isLoading}
             style={{
               flex: 1, minWidth: 160, padding: '12px 16px', fontSize: 14,
               backgroundColor: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)',
@@ -59,9 +46,11 @@ export default function SearchSection() {
             }}
           >
             <option value="">Industry</option>
-            {industries.filter(i => i !== 'All Industries').map((opt) => (
-              <option key={opt} value={opt}>{opt}</option>
-            ))}
+            {industryList.map((opt) => {
+              const label = typeof opt === 'string' ? opt : opt.name || opt.label || opt;
+              const value = typeof opt === 'string' ? opt : opt.slug || opt.name || opt;
+              return <option key={value} value={value}>{label}</option>;
+            })}
           </select>
           <select
             value={location}
@@ -94,21 +83,29 @@ export default function SearchSection() {
           <Button
             className="search-btn"
             icon={<Search size={18} />}
-            onClick={() => setShowResults(true)}
+            onClick={() => navigate('/discover')}
           >
             Search Marketplace
           </Button>
         </div>
 
-        {showResults && (
+        {isLoading && (
+          <div style={{ marginTop: 32, textAlign: 'center', color: 'var(--on-surface-variant)', fontSize: 14 }}>
+            Loading...
+          </div>
+        )}
+
+        {showResults && !isLoading && (
           <div style={{ marginTop: 32, maxWidth: 900, margin: '32px auto 0', textAlign: 'left' }}>
             <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--on-surface-variant)', marginBottom: 16 }}>
-              {filtered.length > 0 ? `Showing ${filtered.length} franchise opportunity${filtered.length > 1 ? 'ies' : 'y'}` : 'No matching opportunities found. Try different filters.'}
+              {brands.length > 0
+                ? `Showing ${brands.length} franchise opportunit${brands.length > 1 ? 'ies' : 'y'}`
+                : 'No matching opportunities found. Try different filters.'}
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {filtered.map((c) => (
+              {brands.map((c) => (
                 <div
-                  key={c.name}
+                  key={c.id || c.name || c._id}
                   style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     padding: 16, backgroundColor: 'var(--surface)', border: '1px solid var(--outline-variant)',
@@ -120,17 +117,18 @@ export default function SearchSection() {
                 >
                   <div>
                     <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--on-surface)', marginBottom: 4 }}>{c.name}</p>
-                    <p style={{ fontSize: 13, color: 'var(--on-surface-variant)' }}>{c.industry} &middot; {c.location}</p>
+                    <p style={{ fontSize: 13, color: 'var(--on-surface-variant)' }}>{c.industry || 'Franchise'} &middot; {c.location || 'Global'}</p>
                   </div>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--primary)' }}>{c.investment}</span>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--primary)' }}>{c.investment || 'Contact for details'}</span>
                 </div>
               ))}
             </div>
             <p style={{ marginTop: 16, fontSize: 13, color: 'var(--on-surface-variant)', textAlign: 'center' }}>
-              <a href="/signup" style={{ color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>Sign up</a> to see all {sampleCompanies.length}+ opportunities
+              <a href="/signup" style={{ color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>Sign up</a> to see all {brands.length}+ opportunities
             </p>
           </div>
         )}
+
         <style>{`
           @media (max-width: 768px) {
             .search-section-inner { flex-direction: column !important; align-items: stretch !important; padding: 16px !important; }

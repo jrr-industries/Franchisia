@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Briefcase, MapPin, Clock, DollarSign, Users, Heart, Target, Award, Star, Search } from "lucide-react";
+import { ArrowLeft, Briefcase, MapPin, Clock, Users, Heart, Target, Award, Star, Search, Loader2, AlertCircle } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
+import { useCareers } from "../../hooks/useCMS";
 
 const benefits = [
   { icon: Target, title: "Remote First", desc: "Work from anywhere in the world." },
@@ -12,18 +13,56 @@ const benefits = [
   { icon: Star, title: "Equity", desc: "Stock options for all full-time employees." },
 ];
 
-const departments = ["Engineering", "Product", "Design", "Marketing", "Sales", "Operations"];
-
-const sampleJobs = [];
-
 export default function Careers() {
   const [activeDept, setActiveDept] = useState("All");
   const [search, setSearch] = useState("");
+  const { data: careers, isLoading, isError } = useCareers(activeDept === "All" ? undefined : activeDept);
 
-  const filtered = sampleJobs.filter(j =>
-    (activeDept === "All" || j.department === activeDept) &&
-    (!search || j.title.toLowerCase().includes(search.toLowerCase()))
-  );
+  const departments = useMemo(() => {
+    if (!careers?.length) return [];
+    return [...new Set(careers.map((j) => j.department).filter(Boolean))];
+  }, [careers]);
+
+  const filtered = useMemo(() => {
+    if (!careers?.length) return [];
+    return careers.filter((j) =>
+      (!search || j.jobTitle?.toLowerCase().includes(search.toLowerCase()) ||
+        j.department?.toLowerCase().includes(search.toLowerCase()) ||
+        j.location?.toLowerCase().includes(search.toLowerCase()))
+    );
+  }, [careers, search]);
+
+  if (isLoading) {
+    return (
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+        <section style={{ padding: "60px 0 40px", backgroundColor: "var(--surface-container-lowest)" }}>
+          <div className="container" style={{ maxWidth: 1000, margin: "0 auto" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {[1, 2, 3].map((n) => (
+                <div key={n} style={{ padding: 20, borderRadius: 12, border: "1px solid var(--border)", backgroundColor: "var(--surface)", height: 80 }} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </motion.div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+        <section style={{ padding: "60px 0 40px", backgroundColor: "var(--surface-container-lowest)" }}>
+          <div className="container" style={{ maxWidth: 1000, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", padding: "48px 24px" }}>
+              <AlertCircle size={40} color="var(--text-muted)" style={{ marginBottom: 12, opacity: 0.5 }} />
+              <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 4 }}>Failed to load positions</p>
+              <p style={{ fontSize: 13, color: "var(--text-muted)" }}>Please try again later.</p>
+            </div>
+          </div>
+        </section>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
@@ -77,26 +116,28 @@ export default function Careers() {
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} style={{ marginBottom: 32 }}>
             <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 16 }}>Open Positions</h2>
-            <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
-              {["All", ...departments].map(d => (
-                <button key={d} onClick={() => setActiveDept(d)}
-                  style={{ padding: "6px 14px", borderRadius: 100, fontSize: 13, fontWeight: 500, border: "1px solid", cursor: "pointer",
-                    borderColor: activeDept === d ? "var(--primary)" : "var(--border)", backgroundColor: activeDept === d ? "var(--primary-light)" : "transparent", color: activeDept === d ? "var(--primary)" : "var(--text-secondary)", transition: "all 0.15s" }}>
-                  {d}
-                </button>
-              ))}
-            </div>
+            {departments.length > 0 && (
+              <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
+                {["All", ...departments].map((d) => (
+                  <button key={d} onClick={() => setActiveDept(d)}
+                    style={{ padding: "6px 14px", borderRadius: 100, fontSize: 13, fontWeight: 500, border: "1px solid", cursor: "pointer",
+                      borderColor: activeDept === d ? "var(--primary)" : "var(--border)", backgroundColor: activeDept === d ? "var(--primary-light)" : "transparent", color: activeDept === d ? "var(--primary)" : "var(--text-secondary)", transition: "all 0.15s" }}>
+                    {d}
+                  </button>
+                ))}
+              </div>
+            )}
             {filtered.length > 0 ? (
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 {filtered.map((job, i) => (
-                  <motion.div key={job.title} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}
+                  <motion.div key={job.id || job.jobTitle} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}
                     whileHover={{ y: -2 }} style={{ padding: 20, borderRadius: 12, border: "1px solid var(--border)", backgroundColor: "var(--surface)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, cursor: "pointer" }}>
                     <div>
-                      <h3 style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>{job.title}</h3>
+                      <h3 style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>{job.jobTitle}</h3>
                       <div style={{ display: "flex", gap: 16, fontSize: 13, color: "var(--text-muted)", flexWrap: "wrap" }}>
-                        <span style={{ display: "flex", alignItems: "center", gap: 4 }}><Briefcase size={14} /> {job.department}</span>
-                        <span style={{ display: "flex", alignItems: "center", gap: 4 }}><MapPin size={14} /> {job.location}</span>
-                        <span style={{ display: "flex", alignItems: "center", gap: 4 }}><Clock size={14} /> {job.type}</span>
+                        {job.department && <span style={{ display: "flex", alignItems: "center", gap: 4 }}><Briefcase size={14} /> {job.department}</span>}
+                        {job.location && <span style={{ display: "flex", alignItems: "center", gap: 4 }}><MapPin size={14} /> {job.location}</span>}
+                        {job.employmentType && <span style={{ display: "flex", alignItems: "center", gap: 4 }}><Clock size={14} /> {job.employmentType}</span>}
                       </div>
                     </div>
                     <Button size="sm">Apply</Button>
@@ -110,12 +151,6 @@ export default function Careers() {
                 <p style={{ fontSize: 13, color: "var(--text-muted)" }}>We're always looking for great talent. Check back soon!</p>
               </motion.div>
             )}
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-            style={{ textAlign: "center", padding: "32px 24px", borderRadius: 12, border: "1px dashed var(--border)", backgroundColor: "var(--surface-container-lowest)", marginBottom: 32 }}>
-            <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 16 }}>Job listings will be managed through the Admin CMS.</p>
-            <Link to="/"><motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}><Button variant="outline" size="sm" icon={<ArrowLeft size={14} />}>Back to Home</Button></motion.div></Link>
           </motion.div>
         </div>
       </section>

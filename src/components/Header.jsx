@@ -3,15 +3,15 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Moon, Sun, Bell, MessageSquare, LogIn, UserPlus, Menu, LayoutDashboard, User, PanelLeft } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
+import { usePublicSettings } from "../hooks/useCMS";
 import Avatar from "./ui/Avatar";
 import Dropdown, { DropdownItem } from "./ui/Dropdown";
 import SearchBar from "./SearchBar";
 import MobileDrawer from "./MobileDrawer";
-import VerifiedBadge from "./ui/VerifiedBadge";
 import useSocketStore from "../store/socketStore";
 import Logo from "./Logo";
 
-const navLinks = [
+const defaultNavLinks = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "Pricing", path: "/pricing" },
@@ -28,6 +28,9 @@ export default function Header({ onToggleSidebar }) {
   const isConnected = useSocketStore((s) => s.isConnected);
   const unreadCount = useSocketStore((s) => s.unreadCount);
   const notificationCount = useSocketStore((s) => s.notificationCount);
+  const { data: settings } = usePublicSettings();
+
+  const navLinks = settings?.navigation || settings?.navLinks || defaultNavLinks;
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -67,17 +70,17 @@ export default function Header({ onToggleSidebar }) {
           <div style={{ display: "flex", gap: 24, alignItems: "center" }} className="header-nav-links">
             {navLinks.map((link) => (
               <Link
-                key={link.path}
-                to={link.path}
+                key={link.path || link.url}
+                to={link.path || link.url}
                 style={{
                   fontSize: 14, fontWeight: 600,
-                  color: location.pathname === link.path ? "var(--primary)" : "var(--on-surface-variant)",
+                  color: location.pathname === (link.path || link.url) ? "var(--primary)" : "var(--on-surface-variant)",
                   transition: "color 0.2s",
                   whiteSpace: "nowrap",
                   textDecoration: "none",
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = location.pathname === link.path ? "var(--primary)" : "var(--on-surface)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = location.pathname === link.path ? "var(--primary)" : "var(--on-surface-variant)"; }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = location.pathname === (link.path || link.url) ? "var(--primary)" : "var(--on-surface)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = location.pathname === (link.path || link.url) ? "var(--primary)" : "var(--on-surface-variant)"; }}
               >
                 {link.label}
               </Link>

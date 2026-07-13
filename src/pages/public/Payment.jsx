@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -9,12 +9,7 @@ import {
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
 import Card from "../../components/ui/Card";
-
-const defaultPlans = [
-  { name: "Free", slug: "free", price: 0, interval: "month", description: "Perfect for getting started", isPopular: false, features: { "Basic Profile": true, "Browse Franchises": true, "Email Support": true } },
-  { name: "Professional", slug: "professional", price: 10, interval: "month", description: "For serious franchise seekers", isPopular: true, features: { "Verified Profile": true, "Unlimited Search": true, "Direct Messaging": true, "Priority Support": true } },
-  { name: "Enterprise", slug: "enterprise", price: 25, interval: "month", description: "For franchisors & brokers", isPopular: false, features: { "Unlimited Listings": true, "CRM Tools": true, "Analytics Dashboard": true, "Dedicated Manager": true } },
-];
+import { usePlans, useFAQ } from "../../hooks/useCMS";
 
 const paymentMethods = [
   { icon: CreditCard, name: "Cards", desc: "Visa, Mastercard, Amex" },
@@ -25,49 +20,46 @@ const paymentMethods = [
   { icon: Radio, name: "Stripe", desc: "Coming soon" },
 ];
 
-const faqs = [
-  { q: "Can I upgrade my plan later?", a: "Yes, you can upgrade at any time. The price difference will be prorated." },
-  { q: "Is there a free trial?", a: "The Starter plan is free forever. Premium features require a paid subscription." },
-  { q: "Can I cancel anytime?", a: "Yes, you can cancel your subscription at any time. No cancellation fees." },
-  { q: "Do you offer refunds?", a: "We offer a 14-day money-back guarantee on all paid plans." },
-  { q: "Will I get an invoice?", a: "Yes, GST invoices are generated for all paid subscriptions." },
-  { q: "When will payments be available?", a: "Payment integration is coming soon. We are currently in early access and will enable subscriptions once Razorpay and Stripe integration is complete." },
-  { q: "Can I change my plan later?", a: "Yes, you can upgrade or downgrade your plan at any time from your account settings." },
-];
-
-const allFeatureKeys = ["Basic Profile", "Browse Franchises", "Email Support", "Verified Profile", "Unlimited Search", "Direct Messaging", "Priority Support", "Unlimited Listings", "CRM Tools", "Analytics Dashboard", "Dedicated Manager", "Custom Branding"];
-
 export default function Payment() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const planSlug = searchParams.get("plan") || "professional";
-  const [plans, setPlans] = useState(defaultPlans);
+  const { data: plans, isLoading: plansLoading, isError: plansError } = usePlans();
+  const { data: faqs, isLoading: faqsLoading } = useFAQ();
   const [selectedPlan, setSelectedPlan] = useState(planSlug);
   const [billingCycle, setBillingCycle] = useState("monthly");
   const [expandedFaq, setExpandedFaq] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch("/api/public/plans", { credentials: "include" })
-      .then((r) => { if (r.ok) return r.json(); throw new Error(); })
-      .then((data) => {
-        if (data.items?.length) {
-          setPlans(data.items.map((p) => ({ ...p, features: p.features || {} })));
-        }
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  }, []);
+  const plan = plans?.find((p) => p.slug === selectedPlan) || plans?.[1] || plans?.[0] || null;
+  const isFree = plan ? Number(plan.price) === 0 : true;
+  const priceDisplay = isFree ? "$0" : billingCycle === "yearly" ? `$${Number(plan.price) * 10}` : `$${Number(plan.price)}`;
+  const periodDisplay = isFree ? "forever" : billingCycle === "yearly" ? "/year" : `/${plan?.interval || "month"}`;
 
-  const plan = plans.find((p) => p.slug === selectedPlan) || plans[1] || plans[0];
-  const isFree = plan.price === 0;
-  const priceDisplay = isFree ? "$0" : billingCycle === "yearly" ? `$${Number(plan.price) * 10}` : `$${plan.price}`;
-  const periodDisplay = isFree ? "forever" : billingCycle === "yearly" ? "/year" : `/${plan.interval}`;
+  const allFeatureKeys = useMemo(() => {
+    if (!plans?.length) return [];
+    return [...new Set(plans.flatMap((p) => Object.keys(p.features || {})))];
+  }, [plans]);
 
-  if (loading) {
+  if (plansLoading) {
     return (
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh" }}>
         <Loader2 size={32} style={{ animation: "spin 1s linear infinite", color: "var(--primary)" }} />
+      </div>
+    );
+  }
+
+  if (plansError) {
+    return (
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh" }}>
+        <p style={{ color: "var(--text-secondary)" }}>Failed to load plans.</p>
+      </div>
+    );
+  }
+
+  if (!plans?.length) {
+    return (
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh" }}>
+        <p style={{ color: "var(--text-secondary)" }}>No plans available at this time.</p>
       </div>
     );
   }
@@ -144,49 +136,52 @@ export default function Payment() {
                 </div>
               )}
 
-              <Card padding="20px">
-                <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>Plan Features</h3>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  {Object.entries(plan.features || {}).map(([feature, included]) => included ? (
-                    <div key={feature} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "var(--text-secondary)" }}>
-                      <Check size={14} color="var(--primary)" />
-                      {feature}
-                    </div>
-                  ) : null)}
-                </div>
-              </Card>
+              {plan && (
+                <Card padding="20px">
+                  <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>Plan Features</h3>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    {Object.entries(plan.features || {}).map(([feature, included]) => included ? (
+                      <div key={feature} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "var(--text-secondary)" }}>
+                        <Check size={14} color="var(--primary)" />
+                        {feature}
+                      </div>
+                    ) : null)}
+                  </div>
+                </Card>
+              )}
 
-              {/* Plan Comparison Table */}
-              <div style={{ marginTop: 24 }}>
-                <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>Compare All Plans</h3>
-                <div style={{ overflowX: "auto" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
-                    <thead>
-                      <tr style={{ borderBottom: "2px solid var(--border)" }}>
-                        <th style={{ padding: "8px 12px", textAlign: "left", fontWeight: 600 }}>Feature</th>
-                        {plans.map((p) => (
-                          <th key={p.slug} style={{ padding: "8px 12px", textAlign: "center", fontWeight: 600, color: selectedPlan === p.slug ? "var(--primary)" : "" }}>{p.name}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {allFeatureKeys.map((feature) => (
-                        <tr key={feature} style={{ borderBottom: "1px solid var(--border)" }}>
-                          <td style={{ padding: "8px 12px" }}>{feature}</td>
-                          {plans.map((p) => {
-                            const included = p.features?.[feature];
-                            return (
-                              <td key={p.slug} style={{ padding: "8px 12px", textAlign: "center" }}>
-                                {included ? <Check size={14} color="var(--accent)" style={{ margin: "0 auto" }} /> : <span style={{ color: "var(--text-muted)" }}>-</span>}
-                              </td>
-                            );
-                          })}
+              {allFeatureKeys.length > 0 && (
+                <div style={{ marginTop: 24 }}>
+                  <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>Compare All Plans</h3>
+                  <div style={{ overflowX: "auto" }}>
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+                      <thead>
+                        <tr style={{ borderBottom: "2px solid var(--border)" }}>
+                          <th style={{ padding: "8px 12px", textAlign: "left", fontWeight: 600 }}>Feature</th>
+                          {plans.map((p) => (
+                            <th key={p.slug} style={{ padding: "8px 12px", textAlign: "center", fontWeight: 600, color: selectedPlan === p.slug ? "var(--primary)" : "" }}>{p.name}</th>
+                          ))}
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {allFeatureKeys.map((feature) => (
+                          <tr key={feature} style={{ borderBottom: "1px solid var(--border)" }}>
+                            <td style={{ padding: "8px 12px" }}>{feature}</td>
+                            {plans.map((p) => {
+                              const included = p.features?.[feature];
+                              return (
+                                <td key={p.slug} style={{ padding: "8px 12px", textAlign: "center" }}>
+                                  {included ? <Check size={14} color="var(--accent)" style={{ margin: "0 auto" }} /> : <span style={{ color: "var(--text-muted)" }}>-</span>}
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
+              )}
             </motion.div>
 
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
@@ -235,54 +230,63 @@ export default function Payment() {
                 </div>
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <p style={{ fontSize: 14, fontWeight: 600 }}>Order Summary</p>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "var(--text-secondary)" }}>
-                  <span>{plan.name} Plan ({billingCycle})</span>
-                  <span>{priceDisplay}{periodDisplay}</span>
+              {plan && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  <p style={{ fontSize: 14, fontWeight: 600 }}>Order Summary</p>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "var(--text-secondary)" }}>
+                    <span>{plan.name} Plan ({billingCycle})</span>
+                    <span>{priceDisplay}{periodDisplay}</span>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "var(--text-secondary)" }}>
+                    <span>GST (18%)</span>
+                    <span>--</span>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 15, fontWeight: 700, paddingTop: 12, borderTop: "1px solid var(--border)" }}>
+                    <span>Total</span>
+                    <span>{priceDisplay}{periodDisplay}</span>
+                  </div>
+                  <Button variant="primary" fullWidth size="lg" disabled style={{ marginTop: 8 }}>
+                    <Lock size={16} /> Pay {priceDisplay}
+                  </Button>
+                  <p style={{ fontSize: 11, color: "var(--text-muted)", textAlign: "center" }}>
+                    Payment gateway not yet integrated.
+                  </p>
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "var(--text-secondary)" }}>
-                  <span>GST (18%)</span>
-                  <span>--</span>
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 15, fontWeight: 700, paddingTop: 12, borderTop: "1px solid var(--border)" }}>
-                  <span>Total</span>
-                  <span>{priceDisplay}{periodDisplay}</span>
-                </div>
-                <Button variant="primary" fullWidth size="lg" disabled style={{ marginTop: 8 }}>
-                  <Lock size={16} /> Pay {priceDisplay}
-                </Button>
-                <p style={{ fontSize: 11, color: "var(--text-muted)", textAlign: "center" }}>
-                  Payment gateway not yet integrated.
-                </p>
-              </div>
+              )}
             </motion.div>
           </div>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} style={{ marginBottom: 32 }}>
-            <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
-              <HelpCircle size={18} color="var(--primary)" /> Frequently Asked Questions
-            </h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {faqs.map((faq) => (
-                <div key={faq.q} style={{ padding: 16, borderRadius: 10, border: "1px solid var(--border)", backgroundColor: "var(--surface)", cursor: "pointer" }}
-                  onClick={() => setExpandedFaq(expandedFaq === faq.q ? null : faq.q)}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <span style={{ fontSize: 14, fontWeight: 500 }}>{faq.q}</span>
-                    <ChevronRight size={16} style={{ transform: expandedFaq === faq.q ? "rotate(90deg)" : "", transition: "transform 0.15s" }} />
-                  </div>
-                  <AnimatePresence>
-                    {expandedFaq === faq.q && (
-                      <motion.p initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                        style={{ fontSize: 13, color: "var(--text-secondary)", marginTop: 12, lineHeight: 1.6, overflow: "hidden" }}>
-                        {faq.a}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+          {!faqsLoading && faqs?.length > 0 && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} style={{ marginBottom: 32 }}>
+              <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+                <HelpCircle size={18} color="var(--primary)" /> Frequently Asked Questions
+              </h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {faqs.map((faq) => {
+                  const question = faq.q || faq.question;
+                  const answer = faq.a || faq.answer;
+                  if (!question) return null;
+                  return (
+                    <div key={question} style={{ padding: 16, borderRadius: 10, border: "1px solid var(--border)", backgroundColor: "var(--surface)", cursor: "pointer" }}
+                      onClick={() => setExpandedFaq(expandedFaq === question ? null : question)}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <span style={{ fontSize: 14, fontWeight: 500 }}>{question}</span>
+                        <ChevronRight size={16} style={{ transform: expandedFaq === question ? "rotate(90deg)" : "", transition: "transform 0.15s" }} />
+                      </div>
+                      <AnimatePresence>
+                        {expandedFaq === question && (
+                          <motion.p initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                            style={{ fontSize: 13, color: "var(--text-secondary)", marginTop: 12, lineHeight: 1.6, overflow: "hidden" }}>
+                            {answer}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          )}
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.45 }}
             style={{ textAlign: "center" }}>

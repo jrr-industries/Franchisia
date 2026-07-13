@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import Card from '../../components/ui/Card';
 import Badge from '../../components/ui/Badge';
-import { useSiteValue } from '../../context/SiteContext';
+import { useSiteContact } from '../../hooks/useCMS';
 
 export default function Contact() {
-  const contact = useSiteValue('contact');
+  const { data: contact, isLoading } = useSiteContact();
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
 
   const contactInfo = [
-    { icon: Mail, label: 'Email', value: contact.email, desc: 'We respond within 24 hours' },
-    { icon: Phone, label: 'Phone', value: contact.phone, desc: 'Mon-Fri 9am-6pm EST' },
-    { icon: MapPin, label: 'Office', value: contact.address, desc: '123 Market Street, Suite 400' },
+    { icon: Mail, label: 'Email', value: contact?.email || '...', desc: 'We respond within 24 hours' },
+    { icon: Phone, label: 'Phone', value: contact?.phone || '...', desc: 'Mon-Fri 9am-6pm EST' },
+    { icon: MapPin, label: 'Office', value: contact?.address || '...', desc: 'Visit our office location' },
   ];
 
   const handleChange = (e) => {
@@ -25,6 +25,14 @@ export default function Contact() {
     e.preventDefault();
     setSubmitted(true);
   };
+
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        <Loader2 size={32} style={{ animation: 'spin 1s linear infinite', color: 'var(--primary)' }} />
+      </div>
+    );
+  }
 
   return (
     <div>
