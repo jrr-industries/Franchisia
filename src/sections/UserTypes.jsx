@@ -1,22 +1,23 @@
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
-import { ArrowRight, Store, Users, TrendingUp, Package } from 'lucide-react';
+import { ArrowRight, Store, Users, TrendingUp, Briefcase, Package } from 'lucide-react';
 
 const types = [
-  { title: "Franchisors", description: "Scale your brand with powerful tools to manage, market, and grow your franchise network.", icon: Store },
-  { title: "Franchisees", description: "Find and manage your dream franchise with curated opportunities and streamlined evaluation.", icon: Users },
-  { title: "Investors", description: "Discover high-potential opportunities with detailed analytics and performance tracking.", icon: TrendingUp },
-  { title: "Suppliers", description: "Connect with franchise networks and establish valuable B2B partnerships.", icon: Package },
+  { title: "Franchisor", description: "Grow your brand and recruit qualified franchise partners.", icon: Store },
+  { title: "Franchisee", description: "Discover trusted franchise opportunities.", icon: Users },
+  { title: "Investor", description: "Find businesses with strong growth potential.", icon: TrendingUp },
+  { title: "Consultant", description: "Guide brands toward successful expansion.", icon: Briefcase },
+  { title: "Supplier", description: "Connect with franchise businesses that need your services.", icon: Package },
 ];
 
 export default function UserTypes() {
   return (
-    <section style={{ padding: '80px 0', backgroundColor: 'var(--surface-container-lowest)' }}>
+    <section style={{ padding: '80px 0', backgroundColor: 'var(--surface)' }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: 'var(--on-surface)' }}>Tailored for Every Stakeholder</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: 'var(--on-surface)' }}>Built for Every Stakeholder</h2>
           <p style={{ fontSize: 16, color: 'var(--on-surface-variant)', maxWidth: 600, margin: '0 auto' }}>
-            Specialized tools and flows for your specific role.
+            Specialized tools and experiences designed for every role in the franchise ecosystem.
           </p>
         </motion.div>
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Globe, Users, Building2, MapPin, Network, Loader2 } from "lucide-react";
+import { ArrowRight, Globe, Users, Building2, MapPin, Network, BadgeCheck, Loader2 } from "lucide-react";
 import Button from "../components/ui/Button";
 import { useAuth } from "../context/AuthContext";
 import { useHeroSlides, usePublicSettings, useStats } from "../hooks/useCMS";
@@ -27,6 +27,12 @@ const connections = [
 ];
 
 const statIcons = [Building2, Users, Globe, MapPin];
+const defaultStats = [
+  { icon: Building2, value: "50,000+", label: "Registered Professionals" },
+  { icon: Users, value: "10,000+", label: "Marketplace Listings" },
+  { icon: Globe, value: "2,500+", label: "Verified Companies" },
+  { icon: MapPin, value: "100+", label: "Cities" },
+];
 
 export default function Hero() {
   const { isAuthenticated, user } = useAuth();
@@ -78,9 +84,9 @@ export default function Hero() {
     );
   }
 
-  const displayHeadline = heroHeadline || "Connecting Entrepreneurs Worldwide";
-  const displayDescription = heroDescription || "Join a global network of entrepreneurs, investors, and franchise experts shaping the future of franchising.";
-  const displayStats = heroStats.length > 0 ? heroStats.slice(0, 4) : null;
+  const displayHeadline = heroHeadline || "Find the Perfect Franchise Opportunity.";
+  const displayDescription = heroDescription || "Connect with verified franchisors, franchisees, investors, consultants, and suppliers on India's fastest-growing franchise ecosystem.";
+  const displayStats = heroStats.length > 0 ? heroStats.slice(0, 4) : defaultStats;
 
   return (
     <section style={{ minHeight: "700px", display: "flex", alignItems: "center", overflow: "hidden", position: "relative" }}>
@@ -132,18 +138,24 @@ export default function Hero() {
               )
             ) : (
               <>
-                {ctaText && ctaUrl && (
-                  <Link to={ctaUrl}><motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}><Button size="lg">{ctaText} <ArrowRight size={18} /></Button></motion.div></Link>
-                )}
-                {secondaryCtaText && secondaryCtaUrl && (
-                  <Link to={secondaryCtaUrl}><motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}><Button variant="outline" size="lg">{secondaryCtaText}</Button></motion.div></Link>
-                )}
+                <Link to={ctaUrl || "/discover"}><motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}><Button size="lg">{ctaText || "Explore Marketplace"} <ArrowRight size={18} /></Button></motion.div></Link>
+                <Link to={secondaryCtaUrl || "/signup"}><motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}><Button variant="outline" size="lg">{secondaryCtaText || "Register Your Business"}</Button></motion.div></Link>
               </>
             )}
-          </div>
-        </motion.div>
+            </div>
 
-        <motion.div
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 24 }}
+            >
+              <BadgeCheck size={16} color="var(--primary)" />
+              <span style={{ fontSize: 13, color: "var(--on-surface-variant)" }}>Trusted by franchise professionals across India.</span>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}

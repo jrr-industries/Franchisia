@@ -36,7 +36,7 @@ export default function NewsletterSection() {
           <Mail size={36} color="#fff" style={{ margin: "0 auto 16px", opacity: 0.9 }} />
           <h2 style={{ fontSize: 32, fontWeight: 700, color: "#fff", marginBottom: 12 }}>{getSectionContent(sectionSettings, 'newsletter', { heading: 'Stay Updated' }).heading}</h2>
           <p style={{ fontSize: 16, color: "rgba(255,255,255,0.8)", marginBottom: 32, maxWidth: 480, margin: "0 auto 32px" }}>
-            {getSectionContent(sectionSettings, 'newsletter', { description: 'Get the latest franchise opportunities, industry insights, and platform updates delivered to your inbox.' }).description}
+            {getSectionContent(sectionSettings, 'newsletter', { description: 'Get franchise opportunities and industry insights delivered directly to your inbox.' }).description}
           </p>
 
           <form onSubmit={handleSubmit} style={{ display: "flex", gap: 12, maxWidth: 500, margin: "0 auto", flexWrap: "wrap", justifyContent: "center" }}>

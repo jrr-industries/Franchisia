@@ -26,7 +26,7 @@ export default function PricingSection() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
             <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'pricing', { heading: 'Simple, Transparent Pricing' }).heading}</h2>
             <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-              {getSectionContent(sectionSettings, 'pricing', { description: 'Choose the plan that fits your needs. No hidden fees.' }).description}
+              {getSectionContent(sectionSettings, 'pricing', { description: 'Choose the plan that fits your goals.' }).description}
             </p>
           </motion.div>
 
@@ -56,7 +56,7 @@ export default function PricingSection() {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
           <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'pricing', { heading: 'Simple, Transparent Pricing' }).heading}</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-            {getSectionContent(sectionSettings, 'pricing', { description: 'Choose the plan that fits your needs. No hidden fees.' }).description}
+            {getSectionContent(sectionSettings, 'pricing', { description: 'Choose the plan that fits your goals.' }).description}
           </p>
         </motion.div>
 

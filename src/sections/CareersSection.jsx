@@ -24,7 +24,7 @@ export default function CareersSection() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
             <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'careers', { heading: 'Join Our Team' }).heading}</h2>
             <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-              {getSectionContent(sectionSettings, 'careers', { description: 'Help us shape the future of franchising. Explore current openings.' }).description}
+              {getSectionContent(sectionSettings, 'careers', { description: 'Help us shape the future of franchising.' }).description}
             </p>
           </motion.div>
 
@@ -54,7 +54,7 @@ export default function CareersSection() {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
           <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'careers', { heading: 'Join Our Team' }).heading}</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-            {getSectionContent(sectionSettings, 'careers', { description: 'Help us shape the future of franchising. Explore current openings.' }).description}
+            {getSectionContent(sectionSettings, 'careers', { description: 'Help us shape the future of franchising.' }).description}
           </p>
         </motion.div>
 

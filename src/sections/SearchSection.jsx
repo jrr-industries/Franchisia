@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from "framer-motion";
-import { Search, Building2, Users, MapPin, BadgeCheck, Loader2 } from 'lucide-react';
+import { Search, Building2, Users, MapPin, BadgeCheck, Loader2, Layers } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { useNavigate, Link } from 'react-router-dom';
 import { useIndustries, usePartners, usePublicSettings, getSectionContent } from '../hooks/useCMS';
@@ -14,11 +14,17 @@ async function fetchJSON(url) {
   return res.json();
 }
 
+const defaultCategories = [
+  'Food & Beverage', 'Retail', 'Healthcare', 'Education', 'Technology',
+  'Automotive', 'Beauty', 'Hospitality', 'Logistics', 'Real Estate',
+];
+
 export default function SearchSection() {
   const navigate = useNavigate();
   const [industry, setIndustry] = useState('');
   const [location, setLocation] = useState('');
   const [investment, setInvestment] = useState('');
+  const [category, setCategory] = useState('');
 
   const { data: industriesData, isLoading } = useIndustries();
   const { data: locationsData } = useQuery({
@@ -39,7 +45,7 @@ export default function SearchSection() {
   const investments = investmentsData || [];
   const industryList = industriesData?.items || industriesData || [];
 
-  const hasFilters = industry || location || investment;
+  const hasFilters = industry || location || investment || category;
   const filteredPartners = hasFilters ? (partners || []).filter((p) => {
     if (industry && p.industry !== industry) return false;
     if (location && p.city !== location) return false;
@@ -52,14 +58,14 @@ export default function SearchSection() {
       <div className="container" style={{ textAlign: 'center' }}>
 
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginBottom: 40 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: 'var(--on-surface)' }}>{getSectionContent(sectionSettings, 'search', { heading: 'Find Your Next Opportunity' }).heading}</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: 'var(--on-surface)' }}>{getSectionContent(sectionSettings, 'search', { heading: 'Find Your Next Franchise Opportunity' }).heading}</h2>
           <p style={{ fontSize: 16, color: 'var(--on-surface-variant)', maxWidth: 600, margin: '0 auto' }}>
-            {getSectionContent(sectionSettings, 'search', { description: 'Browse hundreds of franchise opportunities. Filter by industry, location, and investment range.' }).description}
+            {getSectionContent(sectionSettings, 'search', { description: 'Browse thousands of franchise opportunities. Filter by industry, location, investment range, and business category.' }).description}
           </p>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
-          className="search-section-inner" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', backgroundColor: 'var(--surface)', border: '1px solid var(--outline-variant)', borderRadius: 12, padding: 24, maxWidth: 900, margin: '0 auto' }}>
+          className="search-section-inner" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', backgroundColor: 'var(--surface)', border: '1px solid var(--outline-variant)', borderRadius: 12, padding: 24, maxWidth: 1100, margin: '0 auto' }}>
           <select
             value={industry}
             onChange={(e) => { setIndustry(e.target.value); }}
@@ -109,6 +115,20 @@ export default function SearchSection() {
               const value = typeof opt === 'string' ? opt : opt.value || opt;
               return <option key={value} value={value}>{label}</option>;
             })}
+          </select>
+          <select
+            value={category}
+            onChange={(e) => { setCategory(e.target.value); }}
+            style={{
+              flex: 1, minWidth: 160, padding: '12px 16px', fontSize: 14,
+              backgroundColor: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)',
+              borderRadius: 8, color: 'var(--on-surface)', cursor: 'pointer', outline: 'none',
+            }}
+          >
+            <option value="">Business Category</option>
+            {defaultCategories.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
           </select>
           <Button
             className="search-btn"

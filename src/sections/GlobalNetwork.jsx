@@ -58,10 +58,10 @@ const connections = [
 ];
 
 const statDefaults = [
-  { icon: Users, value: "10K+", label: "Professionals" },
-  { icon: Building2, value: "500+", label: "Companies" },
-  { icon: Briefcase, value: "1K+", label: "Listings" },
-  { icon: MapPin, value: "100+", label: "Countries" },
+  { icon: Users, value: "50K+", label: "Professionals" },
+  { icon: Building2, value: "2.5K+", label: "Companies" },
+  { icon: Briefcase, value: "10K+", label: "Listings" },
+  { icon: MapPin, value: "100+", label: "Cities" },
 ];
 
 const statIcons = [Users, Building2, Briefcase, MapPin];
@@ -92,9 +92,9 @@ export default function GlobalNetwork() {
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>Global Network</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>Connected Across India</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-            Connecting entrepreneurs, investors, and franchise experts worldwide.
+            Building a professional franchise network that spans every major business hub in the country.
           </p>
         </motion.div>
 

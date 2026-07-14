@@ -5,7 +5,7 @@ const badges = [
   { icon: MapPin, label: "Nearby Branches", desc: "Find branches close to you" },
   { icon: Navigation, label: "Company Locations", desc: "Explore company presence" },
   { icon: Globe, label: "Available Territories", desc: "Discover open territories" },
-  { icon: Compass, label: "Location Opportunities", desc: "Opportunities near you" },
+  { icon: Compass, label: "Future Expansion", desc: "Ready for growth" },
 ];
 
 export default function InteractiveMap() {
@@ -13,9 +13,9 @@ export default function InteractiveMap() {
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>Explore Opportunities Worldwide</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>Discover Opportunities Near You</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-            Discover franchise opportunities, branches, and territories across the globe.
+            Explore nearby branches, expansion territories and franchise opportunities.
           </p>
         </motion.div>
 

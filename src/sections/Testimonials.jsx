@@ -22,9 +22,9 @@ export default function Testimonials() {
       <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
         <div className="container">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'testimonials', { heading: 'What Our Users Say' }).heading}</h2>
+            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'testimonials', { heading: 'Success Stories' }).heading}</h2>
             <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-              {getSectionContent(sectionSettings, 'testimonials', { description: 'Join thousands of professionals who have found success on Franchisia.' }).description}
+              {getSectionContent(sectionSettings, 'testimonials', { description: 'Hear from professionals growing with Franchisia.' }).description}
             </p>
           </motion.div>
 
@@ -53,9 +53,9 @@ export default function Testimonials() {
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'testimonials', { heading: 'What Our Users Say' }).heading}</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'testimonials', { heading: 'Success Stories' }).heading}</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-            {getSectionContent(sectionSettings, 'testimonials', { description: 'Join thousands of professionals who have found success on Franchisia.' }).description}
+            {getSectionContent(sectionSettings, 'testimonials', { description: 'Hear from professionals growing with Franchisia.' }).description}
           </p>
         </motion.div>
 

@@ -28,9 +28,9 @@ export default function MediaGallery() {
       <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }}>
         <div className="container" style={{ textAlign: "center" }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginBottom: 48 }}>
-            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'media', { heading: 'Media Gallery' }).heading}</h2>
+            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'media', { heading: 'Community Gallery' }).heading}</h2>
             <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-              {getSectionContent(sectionSettings, 'media', { description: 'Photos and videos from our community.' }).description}
+              {getSectionContent(sectionSettings, 'media', { description: 'Highlights from our events and community.' }).description}
             </p>
           </motion.div>
           <div style={{ padding: 60, color: "var(--on-surface-variant)" }}>
@@ -46,9 +46,9 @@ export default function MediaGallery() {
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'media', { heading: 'Media Gallery' }).heading}</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'media', { heading: 'Community Gallery' }).heading}</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-            {getSectionContent(sectionSettings, 'media', { description: 'Photos and videos from our community.' }).description}
+            {getSectionContent(sectionSettings, 'media', { description: 'Highlights from our events and community.' }).description}
           </p>
           <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 20 }}>
             {["", "image", "video"].map((t) => (

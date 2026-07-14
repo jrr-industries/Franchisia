@@ -22,9 +22,9 @@ export default function FeaturedCompanies() {
       <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }}>
         <div className="container" style={{ textAlign: "center" }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginBottom: 48 }}>
-            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'featured_companies', { heading: 'Featured Franchise Brands' }).heading}</h2>
+            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'featured_companies', { heading: 'Featured Companies' }).heading}</h2>
             <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-              {getSectionContent(sectionSettings, 'featured_companies', { description: 'Top-rated franchisors actively looking for partners.' }).description}
+              {getSectionContent(sectionSettings, 'featured_companies', { description: 'Verified brands actively expanding.' }).description}
             </p>
           </motion.div>
           <div style={{ padding: 60, color: "var(--on-surface-variant)" }}>
@@ -40,13 +40,13 @@ export default function FeaturedCompanies() {
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'featured_companies', { heading: 'Featured Franchise Brands' }).heading}</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'featured_companies', { heading: 'Featured Companies' }).heading}</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-            {getSectionContent(sectionSettings, 'featured_companies', { description: 'Top-rated franchisors actively looking for partners.' }).description}
+            {getSectionContent(sectionSettings, 'featured_companies', { description: 'Verified brands actively expanding.' }).description}
           </p>
         </motion.div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
           {companies.map((c, i) => (
             <motion.div
               key={c.id}
@@ -62,9 +62,9 @@ export default function FeaturedCompanies() {
             >
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
                 {c.logoUrl ? (
-                  <img src={c.logoUrl} alt={c.name} style={{ width: 44, height: 44, borderRadius: 10, objectFit: "cover" }} />
+                  <img src={c.logoUrl} alt={c.name} style={{ width: 48, height: 48, borderRadius: 10, objectFit: "cover" }} />
                 ) : (
-                  <div style={{ width: 44, height: 44, borderRadius: 10, backgroundColor: "var(--surface-container-high)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ width: 48, height: 48, borderRadius: 10, backgroundColor: "var(--surface-container-high)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Building2 size={20} color="var(--primary)" />
                   </div>
                 )}

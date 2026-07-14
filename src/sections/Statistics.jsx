@@ -45,7 +45,15 @@ export default function Statistics() {
     return (
       <section style={{ padding: '80px 0', backgroundColor: 'var(--inverse-surface)', color: 'var(--inverse-on-surface)' }}>
         <div className="container" style={{ textAlign: 'center' }}>
-          <p style={{ fontSize: 14, color: 'var(--on-surface-variant)', opacity: 0.6 }}>Platform statistics will be displayed once available.</p>
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 32 }}>
+            {[{ value: '50,000+', label: 'Registered Professionals' }, { value: '10,000+', label: 'Marketplace Listings' }, { value: '2,500+', label: 'Verified Companies' }, { value: '100+', label: 'Cities' }].map((s, i) => (
+              <div key={s.label} style={{ textAlign: 'center', padding: '20px 40px', minWidth: 180 }}>
+                <div style={{ fontSize: 48, fontWeight: 700, color: 'var(--primary-fixed)', fontFamily: "'JetBrains Mono', monospace", lineHeight: 1.2, marginBottom: 4 }}>{s.value}</div>
+                <div style={{ fontSize: 13, color: 'var(--on-surface-variant)', fontWeight: 500 }}>{s.label}</div>
+              </div>
+            ))}
+          </motion.div>
+          <p style={{ fontSize: 14, color: 'var(--on-surface-variant)', opacity: 0.6, marginTop: 16 }}>Live platform statistics will update as the community grows.</p>
         </div>
       </section>
     );

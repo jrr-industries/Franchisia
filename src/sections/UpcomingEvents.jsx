@@ -23,7 +23,7 @@ export default function UpcomingEvents() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
             <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'events', { heading: 'Upcoming Events' }).heading}</h2>
             <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-              {getSectionContent(sectionSettings, 'events', { description: 'Join us at industry events, webinars, and networking sessions.' }).description}
+              {getSectionContent(sectionSettings, 'events', { description: 'Meet franchise leaders and expand your network.' }).description}
             </p>
           </motion.div>
 

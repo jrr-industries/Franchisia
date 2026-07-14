@@ -24,7 +24,7 @@ export default function FAQSection() {
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'faq', { heading: 'Frequently Asked Questions' }).heading}</h2>
             <p style={{ fontSize: 16, color: "var(--on-surface-variant)" }}>
-              {getSectionContent(sectionSettings, 'faq', { description: "Got questions? We've got answers." }).description}
+              {getSectionContent(sectionSettings, 'faq', { description: "Everything you need to know about Franchisia." }).description}
             </p>
           </div>
 
@@ -51,7 +51,7 @@ export default function FAQSection() {
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'faq', { heading: 'Frequently Asked Questions' }).heading}</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)" }}>
-            {getSectionContent(sectionSettings, 'faq', { description: "Got questions? We've got answers." }).description}
+            {getSectionContent(sectionSettings, 'faq', { description: "Everything you need to know about Franchisia." }).description}
           </p>
         </div>
 

@@ -23,9 +23,9 @@ export default function LatestBlogPosts() {
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'blog', { heading: 'Latest from Our Blog' }).heading}</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'blog', { heading: 'Latest Franchise Insights' }).heading}</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-            {getSectionContent(sectionSettings, 'blog', { description: 'Insights, tips, and stories to help you make smarter franchise decisions.' }).description}
+            {getSectionContent(sectionSettings, 'blog', { description: 'Industry news, expert advice and business strategies.' }).description}
           </p>
         </motion.div>
 

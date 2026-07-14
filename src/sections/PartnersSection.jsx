@@ -31,7 +31,7 @@ export default function PartnersSection() {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
           <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'partners', { heading: 'Our Partners' }).heading}</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-            {getSectionContent(sectionSettings, 'partners', { description: 'Collaborating with industry leaders to deliver the best franchise experience.' }).description}
+            {getSectionContent(sectionSettings, 'partners', { description: 'Working together with industry leaders.' }).description}
           </p>
         </motion.div>
 

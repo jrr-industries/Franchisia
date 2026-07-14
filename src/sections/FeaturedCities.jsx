@@ -28,22 +28,22 @@ export default function FeaturedCities() {
             </p>
           </motion.div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 16 }}>
-            {['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai'].map((name, i) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                style={{ padding: 24, borderRadius: 12, border: "1px dashed var(--outline-variant)", backgroundColor: "var(--surface)", opacity: 0.5 }}
-              >
-                <MapPin size={24} color="var(--outline-variant)" style={{ marginBottom: 12 }} />
-                <h3 style={{ fontSize: 16, fontWeight: 700, color: "var(--on-surface-variant)", marginBottom: 4 }}>{name}</h3>
-                <span style={{ fontSize: 12, fontWeight: 600, color: "var(--outline-variant)" }}>Coming soon</span>
-              </motion.div>
-            ))}
-          </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 16 }}>
+              {['Chennai', 'Bengaluru', 'Mumbai', 'Delhi', 'Hyderabad', 'Pune', 'Ahmedabad', 'Coimbatore'].map((name, i) => (
+                <motion.div
+                  key={name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  style={{ padding: 24, borderRadius: 12, border: "1px dashed var(--outline-variant)", backgroundColor: "var(--surface)", opacity: 0.5 }}
+                >
+                  <MapPin size={24} color="var(--outline-variant)" style={{ marginBottom: 12 }} />
+                  <h3 style={{ fontSize: 16, fontWeight: 700, color: "var(--on-surface-variant)", marginBottom: 4 }}>{name}</h3>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: "var(--outline-variant)" }}>Coming soon</span>
+                </motion.div>
+              ))}
+            </div>
         </div>
       </section>
     );

@@ -28,7 +28,7 @@ export default function Industries() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
-            {['Food & Beverage', 'Retail', 'Healthcare', 'Education', 'Technology'].map((ind, i) => (
+            {['Food & Beverage', 'Retail', 'Healthcare', 'Education', 'Technology', 'Automotive', 'Beauty', 'Hospitality', 'Logistics', 'Real Estate'].map((ind, i) => (
               <motion.div
                 key={ind}
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -52,7 +52,7 @@ export default function Industries() {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 48 }}>
           <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: 'var(--on-surface)' }}>{getSectionContent(sectionSettings, 'industries', { heading: 'Explore by Industry' }).heading}</h2>
           <p style={{ fontSize: 16, color: 'var(--on-surface-variant)', maxWidth: 600, margin: '0 auto' }}>
-            {getSectionContent(sectionSettings, 'industries', { description: `Browse franchise opportunities across ${industries?.length || 0}+ thriving industries.` }).description}
+            {getSectionContent(sectionSettings, 'industries', { description: `Browse franchise opportunities across ${industries?.length || 10}+ thriving industries.` }).description}
           </p>
         </motion.div>
 

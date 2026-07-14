@@ -37,9 +37,9 @@ export default function AIRecommendations() {
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>AI-Powered Recommendations</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>AI-Powered Franchise Matching</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-            Let our intelligent engine match you with the perfect franchise opportunity.
+            Receive personalized recommendations based on your interests and investment goals.
           </p>
         </motion.div>
 

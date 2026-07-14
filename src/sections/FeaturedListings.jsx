@@ -24,9 +24,9 @@ export default function FeaturedListings() {
       <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
         <div className="container" style={{ textAlign: "center" }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginBottom: 48 }}>
-            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'featured_listings', { heading: 'Featured Opportunities' }).heading}</h2>
+            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'featured_listings', { heading: 'Featured Franchise Opportunities' }).heading}</h2>
             <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-              {getSectionContent(sectionSettings, 'featured_listings', { description: 'Hand-picked franchise opportunities with verified potential.' }).description}
+              {getSectionContent(sectionSettings, 'featured_listings', { description: 'Explore investment-ready opportunities.' }).description}
             </p>
           </motion.div>
           <div style={{ padding: 60, color: "var(--on-surface-variant)" }}>
@@ -42,13 +42,13 @@ export default function FeaturedListings() {
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'featured_listings', { heading: 'Featured Opportunities' }).heading}</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'featured_listings', { heading: 'Featured Franchise Opportunities' }).heading}</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-            {getSectionContent(sectionSettings, 'featured_listings', { description: 'Hand-picked franchise opportunities with verified potential.' }).description}
+            {getSectionContent(sectionSettings, 'featured_listings', { description: 'Explore investment-ready opportunities.' }).description}
           </p>
         </motion.div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 20 }}>
           {listings.map((l, i) => (
             <motion.div
               key={l.id}
@@ -60,9 +60,15 @@ export default function FeaturedListings() {
               style={{
                 padding: 24, borderRadius: 12, border: "1px solid var(--outline-variant)",
                 backgroundColor: "var(--surface)", cursor: "pointer",
+                position: "relative", overflow: "hidden",
               }}
               onClick={() => navigate(`/listing/${l.slug}`)}
             >
+              {l.company?.bannerUrl && (
+                <div style={{ height: 100, margin: -24, marginBottom: 16, overflow: "hidden" }}>
+                  <img src={l.company.bannerUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                </div>
+              )}
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
                 {l.company?.logoUrl ? (
                   <img src={l.company.logoUrl} alt={l.company.name} style={{ width: 44, height: 44, borderRadius: 10, objectFit: "cover" }} />
@@ -88,10 +94,18 @@ export default function FeaturedListings() {
                 <span style={{ display: "flex", alignItems: "center", gap: 4 }}><Eye size={14} /> {l.viewCount || 0}</span>
               </div>
               {l.investmentMin && (
-                <div style={{ fontSize: 16, fontWeight: 700, color: "var(--primary)" }}>
-                  ${Number(l.investmentMin).toLocaleString()}{l.investmentMax ? ` - $${Number(l.investmentMax).toLocaleString()}` : ""}
+                <div style={{ fontSize: 18, fontWeight: 700, color: "var(--primary)", marginBottom: 12 }}>
+                  ₹{Number(l.investmentMin).toLocaleString()}{l.investmentMax ? ` - ₹${Number(l.investmentMax).toLocaleString()}` : ""}
                 </div>
               )}
+              <div style={{ display: "flex", gap: 8 }}>
+                <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); }}>
+                  Save Listing
+                </Button>
+                <Button size="sm" onClick={(e) => { e.stopPropagation(); navigate(`/listing/${l.slug}`); }}>
+                  Apply Now
+                </Button>
+              </div>
             </motion.div>
           ))}
         </div>
