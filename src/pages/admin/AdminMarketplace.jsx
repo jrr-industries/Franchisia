@@ -13,11 +13,12 @@ import Modal from '../../components/ui/Modal';
 const API = '/api';
 
 const statusLabels = {
+  draft: { label: 'Draft', variant: 'default' },
   pending: { label: 'Pending', variant: 'warning' },
   active: { label: 'Active', variant: 'success' },
-  rejected: { label: 'Rejected', variant: 'danger' },
+  suspended: { label: 'Suspended', variant: 'danger' },
   inactive: { label: 'Inactive', variant: 'default' },
-  filled: { label: 'Filled', variant: 'info' },
+  closed: { label: 'Closed', variant: 'info' },
 };
 
 export default function AdminMarketplace() {
@@ -120,7 +121,7 @@ export default function AdminMarketplace() {
         {tab === 'listings' ? (
           <>
             <div style={{ minWidth: 150 }}>
-              <Select options={[{ value: '', label: 'All Status' }, { value: 'pending', label: 'Pending' }, { value: 'active', label: 'Active' }, { value: 'rejected', label: 'Rejected' }, { value: 'inactive', label: 'Inactive' }, { value: 'filled', label: 'Filled' }]}
+              <Select options={[{ value: '', label: 'All Status' }, { value: 'draft', label: 'Draft' }, { value: 'pending', label: 'Pending' }, { value: 'active', label: 'Active' }, { value: 'suspended', label: 'Suspended' }, { value: 'inactive', label: 'Inactive' }, { value: 'closed', label: 'Closed' }]}
                 value={statusFilter} onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }} />
             </div>
             <div style={{ minWidth: 150 }}>
@@ -179,7 +180,7 @@ export default function AdminMarketplace() {
                           {l.status === 'pending' && (
                             <>
                               <Button variant="primary" size="sm" icon={<Check size={12} />} onClick={() => handleStatus(l.id, 'active')}>Approve</Button>
-                              <Button variant="danger" size="sm" icon={<X size={12} />} onClick={() => handleStatus(l.id, 'rejected')}>Reject</Button>
+                              <Button variant="danger" size="sm" icon={<X size={12} />} onClick={() => handleStatus(l.id, 'suspended')}>Suspend</Button>
                             </>
                           )}
                           {l.status === 'active' && (

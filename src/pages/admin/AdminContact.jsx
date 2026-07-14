@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Save, Loader2 } from "lucide-react";
 
@@ -16,6 +17,7 @@ const s = {
 };
 
 export default function AdminContact() {
+  const queryClient = useQueryClient();
   const [form, setForm] = useState({ email: "", phone: "", address: "" });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -44,7 +46,12 @@ export default function AdminContact() {
     setMessage("");
     try {
       const res = await fetch(`${API}/contact`, { method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify(form) });
-      if (res.ok) { setMessage("Contact information saved successfully."); setTimeout(() => setMessage(""), 3000); }
+      if (res.ok) {
+        queryClient.invalidateQueries({ queryKey: ["cms", "contact"] });
+        queryClient.invalidateQueries({ queryKey: ["cms", "site-content"] });
+        setMessage("Contact information saved successfully.");
+        setTimeout(() => setMessage(""), 3000);
+      }
     } catch (e) { console.error(e); }
     finally { setSaving(false); }
   };

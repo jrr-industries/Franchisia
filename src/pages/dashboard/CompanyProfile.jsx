@@ -161,7 +161,7 @@ export default function CompanyProfile() {
 
   const [opportunities, setOpportunities] = useState([]);
   const [opportunityModal, setOpportunityModal] = useState(null);
-  const [oppForm, setOppForm] = useState({ title: '', description: '', industry: '', investmentMin: '', investmentMax: '', franchiseFee: '', royaltyFee: '', roiPercentage: '', breakEvenMonths: '', location: '', city: '', country: '', state: '', areaRequired: '', requirements: '', support: '', training: '', businessType: '' });
+  const [oppForm, setOppForm] = useState({ title: '', description: '', industry: '', investmentMin: '', investmentMax: '', franchiseFee: '', royaltyFee: '', roiPercentage: '', breakEvenMonths: '', location: '', city: '', country: '', state: '', areaRequired: '', requirements: '', support: '', training: '', businessType: '', images: '' });
   const [oppSubmitting, setOppSubmitting] = useState(false);
   const [oppStatusTab, setOppStatusTab] = useState('active');
 
@@ -247,6 +247,7 @@ export default function CompanyProfile() {
         requirements: oppForm.requirements || undefined,
         support: oppForm.support || undefined,
         training: oppForm.training || undefined,
+        images: oppForm.images ? oppForm.images.split('\n').map(s => s.trim()).filter(Boolean) : undefined,
       };
 
       const res = await fetch(url, {
@@ -663,6 +664,12 @@ export default function CompanyProfile() {
                   style={{ width: '100%', padding: '8px 12px', borderRadius: 6, border: '1px solid var(--border)', backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
               </div>
             ))}
+          </div>
+          <div>
+            <label style={{ fontSize: 12, fontWeight: 500, display: 'block', marginBottom: 4 }}>Image URLs (one per line)</label>
+            <textarea value={oppForm.images} onChange={(e) => handleOppFormChange('images', e.target.value)}
+              placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
+              style={{ width: '100%', padding: '8px 12px', borderRadius: 6, border: '1px solid var(--border)', backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 13, outline: 'none', fontFamily: 'inherit', resize: 'vertical', minHeight: 50, boxSizing: 'border-box' }} />
           </div>
           {['requirements', 'support', 'training'].map((f) => (
             <div key={f}>

@@ -198,6 +198,19 @@ export default function ListingDetail() {
           )}
         </div>
 
+        {l.images && l.images.length > 0 && (
+          <div style={{ marginBottom: 24 }}>
+            <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>Gallery</h3>
+            <div style={{ display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 8 }}>
+              {l.images.map((img, i) => (
+                <img key={i} src={img} alt={`Listing image ${i + 1}`}
+                  style={{ width: 240, height: 180, borderRadius: 12, objectFit: 'cover', flexShrink: 0, border: '1px solid var(--border)' }}
+                  onClick={() => window.open(img, '_blank')} />
+              ))}
+            </div>
+          </div>
+        )}
+
         {l.description && (
           <div style={{ marginBottom: 24 }}>
             <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>Description</h3>

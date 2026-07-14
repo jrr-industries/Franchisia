@@ -93,7 +93,8 @@ router.get("/company/:companyId", async (req, res) => {
 
 router.post("/", authenticate, async (req, res) => {
   try {
-    const { companyId, title, slug, description, industry, businessType, investmentMin, investmentMax, roiPercentage, franchiseFee, royaltyFee, breakEvenMonths, location, city, country, state, isRemote, images, videoUrl, areaRequired, requirements, support, training } = req.body;
+    const { companyId, title, slug: rawSlug, description, industry, businessType, investmentMin, investmentMax, roiPercentage, franchiseFee, royaltyFee, breakEvenMonths, location, city, country, state, isRemote, images, videoUrl, areaRequired, requirements, support, training } = req.body;
+    const slug = rawSlug || title?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
     const company = await prisma.company.findUnique({ where: { id: companyId } });
     if (!company) return res.status(404).json({ error: "Company not found" });

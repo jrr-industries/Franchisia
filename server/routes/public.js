@@ -275,7 +275,11 @@ router.get("/site-content", async (req, res) => {
   }
 });
 
-router.get("/locations", (_req, res) => {
+router.get("/locations", async (_req, res) => {
+  try {
+    const setting = await prisma.siteSetting.findUnique({ where: { key: "locations" } });
+    if (setting?.value) return res.json(setting.value);
+  } catch (_) {}
   const locations = {
     "India": {
       "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool", "Rajahmundry", "Tirupati", "Kakinada", "Kadapa", "Anantapur", "Eluru", "Ongole", "Machilipatnam", "Tenali", "Proddatur", "Chittoor", "Hindupur"],
@@ -315,7 +319,11 @@ router.get("/locations", (_req, res) => {
   res.json(locations);
 });
 
-router.get("/investment-ranges", (_req, res) => {
+router.get("/investment-ranges", async (_req, res) => {
+  try {
+    const setting = await prisma.siteSetting.findUnique({ where: { key: "investmentRanges" } });
+    if (setting?.value) return res.json(setting.value);
+  } catch (_) {}
   res.json([
     { label: "Any Investment", value: "" },
     { label: "Under $50K", value: "under-50k" },

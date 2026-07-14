@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Search, Edit3, Trash2, X, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const API = "/api/admin/cms";
 
@@ -50,6 +51,7 @@ function slugify(text) {
 }
 
 export default function AdminBlog() {
+  const qc = useQueryClient();
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -127,7 +129,7 @@ export default function AdminBlog() {
       const url = editing ? `${API}/blog/${editing.id}` : `${API}/blog`;
       const method = editing ? "PUT" : "POST";
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify(body) });
-      if (res.ok) { setShowModal(false); fetchItems(); }
+      if (res.ok) { setShowModal(false); fetchItems(); qc.invalidateQueries({ queryKey: ["cms", "blog"] }); }
     } catch (e) { console.error(e); }
     finally { setSaving(false); }
   };
@@ -135,7 +137,7 @@ export default function AdminBlog() {
   const handleDelete = async () => {
     try {
       await fetch(`${API}/blog/${deleteId}`, { method: "DELETE", credentials: "include" });
-      setDeleteId(null); fetchItems();
+      setDeleteId(null); fetchItems(); qc.invalidateQueries({ queryKey: ["cms", "blog"] });
     } catch (e) { console.error(e); }
   };
 

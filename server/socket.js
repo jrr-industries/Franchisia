@@ -395,6 +395,14 @@ export function emitApplicationUpdate(application) {
   ioInstance?.emit("application-updated", application);
 }
 
+export function emitUserUpdate(user) {
+  ioInstance?.emit("user-updated", user);
+}
+
+export function emitCmsUpdate(type) {
+  ioInstance?.emit("cms-updated", { type });
+}
+
 export function emitDashboardRefresh(userId) {
   ioInstance?.to(userId).emit("dashboard-refresh");
 }

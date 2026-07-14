@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
-import { MapPin, DollarSign, TrendingUp, Star, Users, Building2, ChevronRight, Search as SearchIcon, MessageSquare, Sparkles, Clock, ShieldCheck, ChevronLeft } from 'lucide-react';
+import { MapPin, DollarSign, TrendingUp, Star, Users, Building2, ChevronRight, Search as SearchIcon, MessageSquare, Sparkles, Clock, ShieldCheck, ChevronLeft, Heart } from 'lucide-react';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import Badge from '../../components/ui/Badge';
@@ -83,6 +83,7 @@ export default function Discover() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [followStates, setFollowStates] = useState({});
+  const [bookmarkedIds, setBookmarkedIds] = useState(new Set());
   const [messageTarget, setMessageTarget] = useState(null);
   const [messageContent, setMessageContent] = useState('');
   const [messageSending, setMessageSending] = useState(false);
@@ -153,6 +154,24 @@ export default function Discover() {
     }
   };
 
+  const handleToggleBookmark = async (listingId) => {
+    try {
+      const isBookmarked = bookmarkedIds.has(listingId);
+      if (isBookmarked) {
+        const res = await fetch(`${API}/bookmarks`, { credentials: 'include' });
+        if (res.ok) {
+          const d = await res.json();
+          const bm = (d.bookmarks || []).find(b => b.listingId === listingId);
+          if (bm) await fetch(`${API}/bookmarks/${bm.id}`, { method: 'DELETE', credentials: 'include' });
+        }
+      } else {
+        await fetch(`${API}/bookmarks`, { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ listingId }) });
+      }
+      setBookmarkedIds(prev => { const n = new Set(prev); isBookmarked ? n.delete(listingId) : n.add(listingId); return n; });
+      addToast(isBookmarked ? 'Removed from saved' : 'Saved!', 'success');
+    } catch {}
+  };
+
   const handleFollow = async (companyId) => {
     setFollowStates(prev => ({ ...prev, [companyId]: { ...prev[companyId], loading: true } }));
     try {
@@ -178,9 +197,10 @@ export default function Discover() {
 
   const renderListingCard = (l) => {
     const invest = formatInvest(l.investmentMin, l.investmentMax);
+    const isSaved = bookmarkedIds.has(l.id);
     return (
       <Card key={l.id} padding="20px" style={s.listingCard}
-        onClick={() => navigate(`/company/${l.company.slug}`)}>
+        onClick={() => navigate(`/listing/${l.slug}`)}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <Avatar name={l.title} src={l.company.logoUrl} size={48} />
           <div style={{ flex: 1, minWidth: 0 }}>
@@ -190,6 +210,10 @@ export default function Discover() {
             </div>
             <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{l.company.name}</span>
           </div>
+          <button onClick={(e) => { e.stopPropagation(); handleToggleBookmark(l.id); }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, color: isSaved ? 'var(--primary)' : 'var(--text-muted)' }}>
+            <Heart size={18} fill={isSaved ? 'var(--primary)' : 'none'} />
+          </button>
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, fontSize: 12, color: 'var(--text-secondary)' }}>
           {l.industry && <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><Building2 size={13} /> {l.industry}</span>}
@@ -197,7 +221,7 @@ export default function Discover() {
           {invest && <span style={{ display: 'flex', alignItems: 'center', gap: 4, color: 'var(--accent)', fontWeight: 600 }}><DollarSign size={13} /> {invest}</span>}
           {l.roiPercentage && <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><TrendingUp size={13} /> ROI: {Number(l.roiPercentage)}%</span>}
         </div>
-        <Button variant="primary" size="sm" fullWidth onClick={(e) => { e.stopPropagation(); navigate(`/company/${l.company.slug}`); }}>
+        <Button variant="primary" size="sm" fullWidth onClick={(e) => { e.stopPropagation(); navigate(`/listing/${l.slug}`); }}>
           View Details
         </Button>
       </Card>

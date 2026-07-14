@@ -1,6 +1,7 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authenticate } from "../middleware/auth.js";
+import { emitUserUpdate } from "../socket.js";
 
 const router = Router();
 
@@ -68,6 +69,7 @@ router.put("/me", authenticate, async (req, res) => {
       data,
     });
     const { passwordHash, ...userData } = user;
+    try { emitUserUpdate(userData); } catch {}
     res.json(userData);
   } catch (error) {
     console.error("Users route error:", error);

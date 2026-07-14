@@ -112,6 +112,7 @@ export default function AdminPlans() {
       try { features = JSON.parse(form.features); } catch { features = form.features.split("\n").filter(Boolean).map((f) => f.trim()); }
       const body = {
         ...form,
+        slug: form.slug || slugify(form.name),
         price: parseFloat(form.price) || 0,
         displayOrder: parseInt(form.displayOrder) || 0,
         features,

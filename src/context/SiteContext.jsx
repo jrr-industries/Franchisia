@@ -8,8 +8,7 @@ let _qc = null;
 
 export function updateLiveStore(updates) {
   if (_qc) {
-    _qc.setQueryData(SITE_QUERY_KEY, (old) => old ? { ...old, ...updates } : updates);
-    _qc.invalidateQueries({ queryKey: SITE_QUERY_KEY });
+    _qc.invalidateQueries({ queryKey: ["cms"] });
   }
 }
 

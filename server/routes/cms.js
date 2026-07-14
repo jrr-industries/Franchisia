@@ -1,12 +1,13 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authenticate, authorize } from "../middleware/auth.js";
+import { emitCmsUpdate } from "../socket.js";
 
 const router = Router();
 
 router.use(authenticate, authorize("admin"));
 
-const ADMIN_ONLY = ["title", "content", "shortDescription", "status", "category", "image", "featuredImage", "author", "tags", "publishedAt", "jobTitle", "department", "location", "jobType", "salaryRange", "description", "requirements", "responsibilities", "venue", "eventDate", "endDate", "startTime", "endTime", "eventType", "registrationLink", "organizer", "name", "partnerType", "logo", "website", "contactEmail", "testimonial", "company", "rating", "question", "answer", "order", "price", "interval", "features", "isFeatured", "popular", "type", "url", "fileName", "alt", "key", "value"];
+const ADMIN_ONLY = ["title", "slug", "content", "shortDescription", "status", "category", "image", "featuredImage", "author", "tags", "publishedAt", "jobTitle", "department", "location", "jobType", "salaryRange", "description", "requirements", "responsibilities", "venue", "eventDate", "endDate", "startTime", "endTime", "eventType", "registrationLink", "organizer", "name", "partnerType", "logo", "website", "contactEmail", "testimonial", "company", "rating", "question", "answer", "order", "price", "interval", "features", "isFeatured", "popular", "type", "url", "fileName", "alt", "key", "value", "label", "sort", "displayOrder", "applyLink", "benefits", "employmentType", "experience", "salary"];
 
 router.use((req, res, next) => {
   if (["POST", "PUT", "PATCH"].includes(req.method)) {
@@ -57,7 +58,10 @@ router.get("/blog/:id", async (req, res) => {
 
 router.post("/blog", async (req, res) => {
   try {
-    const item = await prisma.blogPost.create({ data: req.body });
+    const data = { ...req.body };
+    if (!data.slug && data.title) data.slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const item = await prisma.blogPost.create({ data });
+    try { emitCmsUpdate("blog"); } catch {}
     res.status(201).json(item);
   } catch (error) {
     console.error("Blog create error:", error);
@@ -71,6 +75,7 @@ router.put("/blog/:id", async (req, res) => {
       where: { id: req.params.id },
       data: req.body,
     });
+    try { emitCmsUpdate("blog"); } catch {}
     res.json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -80,6 +85,7 @@ router.put("/blog/:id", async (req, res) => {
 router.delete("/blog/:id", async (req, res) => {
   try {
     await prisma.blogPost.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("blog"); } catch {}
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -465,7 +471,10 @@ router.get("/plans/:id", async (req, res) => {
 
 router.post("/plans", async (req, res) => {
   try {
-    const item = await prisma.plan.create({ data: req.body });
+    const data = { ...req.body };
+    if (!data.slug && data.name) data.slug = data.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const item = await prisma.plan.create({ data });
+    try { emitCmsUpdate("plans"); } catch {}
     res.status(201).json(item);
   } catch (error) {
     console.error("Plan create error:", error);
@@ -479,6 +488,7 @@ router.put("/plans/:id", async (req, res) => {
       where: { id: req.params.id },
       data: req.body,
     });
+    try { emitCmsUpdate("plans"); } catch {}
     res.json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -488,6 +498,7 @@ router.put("/plans/:id", async (req, res) => {
 router.delete("/plans/:id", async (req, res) => {
   try {
     await prisma.plan.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("plans"); } catch {}
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -588,6 +599,7 @@ router.get("/settings/:id", async (req, res) => {
 router.post("/settings", async (req, res) => {
   try {
     const item = await prisma.siteSetting.create({ data: req.body });
+    try { emitCmsUpdate("settings"); } catch {}
     res.status(201).json(item);
   } catch (error) {
     console.error("Settings create error:", error);
@@ -602,6 +614,7 @@ router.put("/settings/:id", async (req, res) => {
       update: { key: req.body.key, value: req.body.value },
       create: { id: req.params.id, key: req.body.key, value: req.body.value },
     });
+    try { emitCmsUpdate("settings"); } catch {}
     res.json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -611,6 +624,7 @@ router.put("/settings/:id", async (req, res) => {
 router.delete("/settings/:id", async (req, res) => {
   try {
     await prisma.siteSetting.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("settings"); } catch {}
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -654,6 +668,7 @@ router.get("/pages/:id", async (req, res) => {
 router.post("/pages", async (req, res) => {
   try {
     const item = await prisma.contentPage.create({ data: req.body });
+    try { emitCmsUpdate("pages"); } catch {}
     res.status(201).json(item);
   } catch (error) {
     console.error("Page create error:", error);
@@ -667,6 +682,7 @@ router.put("/pages/:id", async (req, res) => {
       where: { id: req.params.id },
       data: req.body,
     });
+    try { emitCmsUpdate("pages"); } catch {}
     res.json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -676,8 +692,56 @@ router.put("/pages/:id", async (req, res) => {
 router.delete("/pages/:id", async (req, res) => {
   try {
     await prisma.contentPage.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("pages"); } catch {}
     res.json({ success: true });
   } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Statistics
+router.get("/stats", async (req, res) => {
+  try {
+    const items = await prisma.siteStat.findMany({ orderBy: { sort: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    console.error("Stats CMS error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/stats", async (req, res) => {
+  try {
+    const item = await prisma.siteStat.create({ data: req.body });
+    try { emitCmsUpdate("stats"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    console.error("Stat create error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/stats/:id", async (req, res) => {
+  try {
+    const item = await prisma.siteStat.update({
+      where: { id: req.params.id },
+      data: req.body,
+    });
+    try { emitCmsUpdate("stats"); } catch {}
+    res.json(item);
+  } catch (error) {
+    console.error("Stat update error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/stats/:id", async (req, res) => {
+  try {
+    await prisma.siteStat.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("stats"); } catch {}
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Stat delete error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

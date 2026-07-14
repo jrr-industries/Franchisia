@@ -322,8 +322,9 @@ export default function DashboardHome() {
     socket.on("bookmark-updated", () => invalidate("dashboard", "saved-listings"));
     socket.on("application-updated", () => { invalidate("dashboard", "stats"); invalidate("dashboard", "activity"); });
     socket.on("dashboard-refresh", () => queryClient.invalidateQueries({ queryKey: ["dashboard"] }));
+    socket.on("user-updated", () => { invalidate("dashboard", "stats"); invalidate("dashboard", "people"); invalidate("cms"); });
 
-    return () => { socket.off("new-message"); socket.off("notification"); socket.off("company-created"); socket.off("company-updated"); socket.off("company-verified"); socket.off("connection-updated"); socket.off("stats-updated"); socket.off("listing-updated"); socket.off("listing-created"); socket.off("listing-deleted"); socket.off("bookmark-updated"); socket.off("application-updated"); socket.off("dashboard-refresh"); };
+    return () => { socket.off("new-message"); socket.off("notification"); socket.off("company-created"); socket.off("company-updated"); socket.off("company-verified"); socket.off("connection-updated"); socket.off("stats-updated"); socket.off("listing-updated"); socket.off("listing-created"); socket.off("listing-deleted"); socket.off("bookmark-updated"); socket.off("application-updated"); socket.off("dashboard-refresh"); socket.off("user-updated"); };
   }, [isConnected, queryClient]);
 
   const needsOnboarding = user && !["verified", "pending_admin_review"].includes(user.accountStatus);

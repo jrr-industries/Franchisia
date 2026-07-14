@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '../../context/AuthContext';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -314,6 +315,8 @@ export default function Profile() {
     });
   }, [editForm.country, editForm.state]);
 
+  const queryClient = useQueryClient();
+
   const handleSaveProfile = useCallback(async () => {
     setEditSaving(true);
     try {
@@ -354,6 +357,9 @@ export default function Profile() {
       if (res.ok) {
         const updated = await res.json();
         setProfileUser((prev) => ({ ...prev, ...updated }));
+        queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+        queryClient.invalidateQueries({ queryKey: ["cms"] });
+        queryClient.invalidateQueries({ queryKey: ["messages"] });
         addToast('Profile updated successfully', 'success');
         setEditModalOpen(false);
       } else {
