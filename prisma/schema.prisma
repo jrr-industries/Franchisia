@@ -948,6 +948,15 @@ model Plan {
   @@map("plans")
 }
 
+model NewsletterSubscription {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("newsletter_subscriptions")
+}
+
 model Media {
   id        String   @id @default(cuid())
   url       String
@@ -983,6 +992,104 @@ model SiteSetting {
   value Json
 
   @@map("site_settings")
+}
+
+model HeroSlide {
+  id              String   @id @default(cuid())
+  title           String
+  subtitle        String?
+  quote           String?
+  backgroundType  String?  @default("color")
+  backgroundColor String?
+  backgroundImage String?
+  backgroundVideo String?
+  ctaText         String?
+  ctaUrl          String?
+  secondaryCtaText String?
+  secondaryCtaUrl String?
+  heroImage       String?
+  isActive        Boolean  @default(true)
+  sortOrder       Int      @default(0)
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("hero_slides")
+}
+
+model UserType {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  icon        String?
+  image       String?
+  buttonText  String?  @map("button_text")
+  buttonUrl   String?  @map("button_url")
+  color       String?
+  isPublished Boolean  @default(true) @map("is_published")
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("user_types")
+}
+
+model Feature {
+  id          String   @id @default(cuid())
+  icon        String?
+  title       String
+  description String?
+  category    String?
+  buttonText  String?  @map("button_text")
+  buttonUrl   String?  @map("button_url")
+  image       String?
+  isPublished Boolean  @default(true) @map("is_published")
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("features")
+}
+
+model HowItWork {
+  id           String   @id @default(cuid())
+  stepNumber   Int      @map("step_number")
+  title        String
+  description  String?
+  icon         String?
+  illustration String?
+  animation    String?
+  isPublished  Boolean  @default(true) @map("is_published")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("how_it_works")
+}
+
+model FeaturedCity {
+  id           String   @id @default(cuid())
+  name         String
+  state        String?
+  image        String?
+  isFeatured   Boolean  @default(false) @map("is_featured")
+  displayOrder Int      @default(0) @map("display_order")
+  listingCount Int      @default(0) @map("listing_count")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("featured_cities")
+}
+
+model NavigationLink {
+  id        String   @id @default(cuid())
+  label     String
+  url       String
+  parentId  String?  @map("parent_id")
+  isVisible Boolean  @default(true) @map("is_visible")
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("navigation_links")
 }
 
 enum NotificationType {

@@ -110,7 +110,7 @@ export default function Partners() {
               style={{ textAlign: "center", padding: "48px 24px", borderRadius: 12, border: "1px dashed var(--border)", backgroundColor: "var(--background)", marginBottom: 32 }}>
               <Users size={40} color="var(--text-muted)" style={{ marginBottom: 12, opacity: 0.5 }} />
               <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 4 }}>No partners yet</p>
-              <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 20 }}>Partner listings will appear here once the Admin CMS is configured.</p>
+              <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 20 }}>No partners found.</p>
               <Button variant="primary" size="sm" icon={<Mail size={14} />}>Contact Partnerships Team</Button>
             </motion.div>
           )}

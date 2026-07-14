@@ -6,6 +6,14 @@ import MaintenancePage from '../pages/public/MaintenancePage';
 import { useSite } from '../context/SiteContext';
 import { useAuth } from '../context/AuthContext';
 
+function getBreakpoint() {
+  const w = typeof window !== 'undefined' ? window.innerWidth : 1200;
+  if (w <= 768) return 'mobile';
+  if (w <= 1024) return 'tablet';
+  if (w <= 1200) return 'laptop';
+  return 'desktop';
+}
+
 export default function DashboardLayout() {
   const { maintenanceMode } = useSite();
   const { isAdmin, loading } = useAuth();
@@ -21,28 +29,55 @@ export default function DashboardLayout() {
   if (maintenanceMode && !isAdmin) {
     return <MaintenancePage />;
   }
-  const [collapsed, setCollapsed] = useState(() => {
-    try { return localStorage.getItem('sidebar_collapsed') === 'true'; } catch { return false; }
-  });
+
+  const [breakpoint, setBreakpoint] = useState(getBreakpoint);
   const [sidebarOverlay, setSidebarOverlay] = useState(false);
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== 'undefined' && window.innerWidth <= 768
-  );
   const location = useLocation();
+
+  const isMobile = breakpoint === 'mobile';
+  const isTablet = breakpoint === 'tablet';
+  const isLaptop = breakpoint === 'laptop';
+
+  const [collapsed, setCollapsed] = useState(() => {
+    try {
+      const saved = localStorage.getItem('sidebar_collapsed');
+      if (saved !== null) return saved === 'true';
+    } catch {}
+    return isTablet || isMobile;
+  });
 
   useEffect(() => {
     setSidebarOverlay(false);
   }, [location.pathname]);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    const handleResize = () => {
+      const bp = getBreakpoint();
+      setBreakpoint(bp);
+    };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    if (isTablet || isMobile) {
+      setCollapsed(true);
+    }
+  }, [isTablet, isMobile]);
+
   const handleToggle = useCallback(() => {
-    setSidebarOverlay(true);
-  }, []);
+    if (isMobile) {
+      setSidebarOverlay(true);
+    } else {
+      setCollapsed((prev) => {
+        const next = !prev;
+        try { localStorage.setItem('sidebar_collapsed', String(next)); } catch {}
+        return next;
+      });
+    }
+  }, [isMobile]);
+
+  const sidebarWidth = collapsed ? 64 : 'var(--sidebar-width)';
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
@@ -51,25 +86,37 @@ export default function DashboardLayout() {
           {sidebarOverlay && <Sidebar overlayOpen={true} onOverlayClose={() => setSidebarOverlay(false)} />}
         </>
       ) : (
-        <div className="sidebar-desktop">
-          <Sidebar collapsed={collapsed} onToggle={() => setCollapsed((prev) => { const next = !prev; try { localStorage.setItem('sidebar_collapsed', String(next)); } catch {} return next; })} />
+        <div className="sidebar-desktop" style={{ width: sidebarWidth, flexShrink: 0 }}>
+          <Sidebar
+            collapsed={collapsed}
+            onToggle={() => {
+              setCollapsed((prev) => {
+                const next = !prev;
+                try { localStorage.setItem('sidebar_collapsed', String(next)); } catch {}
+                return next;
+              });
+            }}
+          />
         </div>
       )}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         <Header onToggleSidebar={handleToggle} />
-        <div className="dashboard-content" style={{ flex: 1, padding: 24, overflow: 'auto' }}>
+        <div className="dashboard-content" style={{ flex: 1, overflow: 'auto' }}>
           <Outlet />
         </div>
       </div>
       <style>{`
+        .dashboard-content {
+          padding: 24px;
+        }
+        @media (max-width: 1200px) {
+          .dashboard-content { padding: 20px; }
+        }
         @media (max-width: 1024px) {
-          .dashboard-content { padding: 20px !important; }
+          .dashboard-content { padding: 16px; }
         }
         @media (max-width: 768px) {
-          .dashboard-content { padding: 16px !important; }
-        }
-        @media (max-width: 480px) {
-          .dashboard-content { padding: 12px !important; }
+          .dashboard-content { padding: 12px; }
         }
       `}</style>
     </div>

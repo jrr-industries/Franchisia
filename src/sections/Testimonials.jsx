@@ -1,9 +1,11 @@
+import { motion } from "framer-motion";
 import { Star, Loader2 } from "lucide-react";
-import { useTestimonials } from "../hooks/useCMS";
+import { useTestimonials, usePublicSettings, getSectionContent } from "../hooks/useCMS";
 import Avatar from "../components/ui/Avatar";
 
 export default function Testimonials() {
   const { data: testimonials, isLoading, isError } = useTestimonials();
+  const { data: sectionSettings } = usePublicSettings();
 
   if (isLoading) {
     return (
@@ -15,21 +17,33 @@ export default function Testimonials() {
     );
   }
 
-  if (isError) {
+  if (isError || !testimonials?.length) {
     return (
       <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
-        <div className="container" style={{ textAlign: "center" }}>
-          <p style={{ fontSize: 14, color: "var(--danger)" }}>Failed to load testimonials.</p>
-        </div>
-      </section>
-    );
-  }
+        <div className="container">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
+            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'testimonials', { heading: 'What Our Users Say' }).heading}</h2>
+            <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
+              {getSectionContent(sectionSettings, 'testimonials', { description: 'Join thousands of professionals who have found success on Franchisia.' }).description}
+            </p>
+          </motion.div>
 
-  if (!testimonials?.length) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
-        <div className="container" style={{ textAlign: "center" }}>
-          <p style={{ fontSize: 14, color: "var(--text-muted)" }}>No testimonials yet.</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+            {[1, 2, 3].map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                style={{ padding: 24, backgroundColor: "var(--surface)", border: "1px dashed var(--outline-variant)", borderRadius: 12, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 200, opacity: 0.5 }}
+              >
+                <Star size={32} color="var(--outline-variant)" style={{ marginBottom: 8 }} />
+                <p style={{ fontSize: 14, color: "var(--on-surface-variant)", fontStyle: "italic" }}>Testimonials coming soon</p>
+                <p style={{ fontSize: 12, color: "var(--on-surface-variant)", marginTop: 4 }}>Community stories and reviews will appear here</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
     );
@@ -38,16 +52,23 @@ export default function Testimonials() {
   return (
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
       <div className="container">
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>What Our Users Say</h2>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'testimonials', { heading: 'What Our Users Say' }).heading}</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-            Join thousands of professionals who have found success on Franchisia.
+            {getSectionContent(sectionSettings, 'testimonials', { description: 'Join thousands of professionals who have found success on Franchisia.' }).description}
           </p>
-        </div>
+        </motion.div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
           {testimonials.map((t, i) => (
-            <div key={t.id || i} style={{ padding: 24, backgroundColor: "var(--surface)", border: "1px solid var(--outline-variant)", borderRadius: 12, transition: "all 0.2s" }}
+            <motion.div
+              key={t.id || i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              whileHover={{ y: -4 }}
+              style={{ padding: 24, backgroundColor: "var(--surface)", border: "1px solid var(--outline-variant)", borderRadius: 12, transition: "all 0.2s" }}
               onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--primary)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--outline-variant)"; }}
             >
@@ -64,7 +85,7 @@ export default function Testimonials() {
                   <p style={{ fontSize: 12, color: "var(--on-surface-variant)" }}>{t.role || t.company}</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -70,6 +70,96 @@ router.get("/:slug", async (req, res) => {
   }
 });
 
+router.get("/my", authenticate, async (req, res) => {
+  try {
+    const company = await prisma.company.findFirst({
+      where: { ownerId: req.user.id },
+    });
+    if (!company) return res.json({ listings: [] });
+
+    const { status } = req.query;
+    const where = { companyId: company.id };
+    if (status) where.status = status;
+
+    const listings = await prisma.franchiseListing.findMany({
+      where,
+      include: {
+        _count: { select: { applications: true, bookmarks: true } },
+      },
+      orderBy: { updatedAt: "desc" },
+    });
+    res.json({ listings });
+  } catch (error) {
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/:id/duplicate", authenticate, async (req, res) => {
+  try {
+    const original = await prisma.franchiseListing.findUnique({
+      where: { id: req.params.id },
+      include: { company: true },
+    });
+    if (!original) return res.status(404).json({ error: "Listing not found" });
+    if (original.company.ownerId !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+
+    const baseSlug = original.slug + "-copy";
+    let slug = baseSlug;
+    let counter = 1;
+    while (await prisma.franchiseListing.findUnique({ where: { slug } })) {
+      slug = `${baseSlug}-${counter}`;
+      counter++;
+    }
+
+    const listing = await prisma.franchiseListing.create({
+      data: {
+        companyId: original.companyId,
+        createdBy: req.user.id,
+        title: `${original.title} (Copy)`,
+        slug,
+        description: original.description,
+        industry: original.industry,
+        businessType: original.businessType,
+        investmentMin: original.investmentMin,
+        investmentMax: original.investmentMax,
+        roiPercentage: original.roiPercentage,
+        franchiseFee: original.franchiseFee,
+        royaltyFee: original.royaltyFee,
+        breakEvenMonths: original.breakEvenMonths,
+        location: original.location,
+        city: original.city,
+        country: original.country,
+        state: original.state,
+        isRemote: original.isRemote,
+        images: original.images,
+        videoUrl: original.videoUrl,
+        areaRequired: original.areaRequired,
+        requirements: original.requirements,
+        support: original.support,
+        training: original.training,
+        status: "draft",
+      },
+    });
+
+    await prisma.company.update({
+      where: { id: original.companyId },
+      data: { listingCount: { increment: 1 } },
+    });
+
+    try { emitListingCreated(listing); } catch {}
+    res.status(201).json(listing);
+  } catch (error) {
+    if (error.code === "P2002") {
+      return res.status(409).json({ error: "A listing with this slug already exists" });
+    }
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/company/:companyId", async (req, res) => {
   try {
     const { status } = req.query;
@@ -93,8 +183,16 @@ router.get("/company/:companyId", async (req, res) => {
 
 router.post("/", authenticate, async (req, res) => {
   try {
-    const { companyId, title, slug: rawSlug, description, industry, businessType, investmentMin, investmentMax, roiPercentage, franchiseFee, royaltyFee, breakEvenMonths, location, city, country, state, isRemote, images, videoUrl, areaRequired, requirements, support, training } = req.body;
-    const slug = rawSlug || title?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    let { companyId, title, slug: rawSlug, description, industry, businessType, investmentMin, investmentMax, roiPercentage, franchiseFee, royaltyFee, breakEvenMonths, location, city, country, state, isRemote, images, videoUrl, areaRequired, requirements, support, training } = req.body;
+
+    if (!title?.trim()) return res.status(400).json({ error: "Title is required" });
+    if (!industry?.trim()) return res.status(400).json({ error: "Industry is required" });
+
+    const slug = rawSlug?.trim() || title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+    if (images && !Array.isArray(images)) {
+      images = typeof images === "string" ? images.split("\n").map(s => s.trim()).filter(Boolean) : [];
+    }
 
     const company = await prisma.company.findUnique({ where: { id: companyId } });
     if (!company) return res.status(404).json({ error: "Company not found" });
@@ -107,7 +205,7 @@ router.post("/", authenticate, async (req, res) => {
         companyId, createdBy: req.user.id, title, slug, description, industry,
         businessType, investmentMin, investmentMax, roiPercentage, franchiseFee,
         royaltyFee, breakEvenMonths, location, city, country, state, isRemote,
-        images, videoUrl, areaRequired, requirements, support, training,
+        images: images || [], videoUrl, areaRequired, requirements, support, training,
       },
     });
 

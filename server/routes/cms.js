@@ -7,7 +7,7 @@ const router = Router();
 
 router.use(authenticate, authorize("admin"));
 
-const ADMIN_ONLY = ["title", "slug", "content", "shortDescription", "status", "category", "image", "featuredImage", "author", "tags", "publishedAt", "jobTitle", "department", "location", "jobType", "salaryRange", "description", "requirements", "responsibilities", "venue", "eventDate", "endDate", "startTime", "endTime", "eventType", "registrationLink", "organizer", "name", "partnerType", "logo", "website", "contactEmail", "testimonial", "company", "rating", "question", "answer", "order", "price", "interval", "features", "isFeatured", "popular", "type", "url", "fileName", "alt", "key", "value", "label", "sort", "displayOrder", "applyLink", "benefits", "employmentType", "experience", "salary"];
+const ADMIN_ONLY = ["title", "slug", "content", "shortDescription", "status", "category", "image", "featuredImage", "author", "tags", "publishedAt", "jobTitle", "department", "location", "jobType", "salaryRange", "description", "requirements", "responsibilities", "venue", "eventDate", "endDate", "startTime", "endTime", "eventType", "registrationLink", "organizer", "name", "partnerType", "logo", "website", "contactEmail", "testimonial", "company", "rating", "question", "answer", "order", "price", "interval", "features", "isFeatured", "popular", "type", "url", "fileName", "alt", "key", "value", "label", "sort", "displayOrder", "applyLink", "benefits", "employmentType", "experience", "salary", "subtitle", "quote", "backgroundType", "backgroundColor", "backgroundImage", "backgroundVideo", "ctaText", "ctaUrl", "secondaryCtaText", "secondaryCtaUrl", "heroImage", "isActive", "sortOrder", "icon", "buttonText", "buttonUrl", "color", "isPublished", "stepNumber", "illustration", "animation", "state", "isFeatured", "listingCount", "parentId", "isVisible", "label", "url"];
 
 router.use((req, res, next) => {
   if (["POST", "PUT", "PATCH"].includes(req.method)) {
@@ -586,10 +586,131 @@ router.get("/settings", async (req, res) => {
   }
 });
 
+// ── Hero Slides ──
+
+router.get("/hero-slides", async (req, res) => {
+  try {
+    const { page = 1, limit = 50, isActive } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const where = {};
+    if (isActive !== undefined) where.isActive = isActive === "true";
+    const [items, total] = await Promise.all([
+      prisma.heroSlide.findMany({ where, skip, take: parseInt(limit), orderBy: { sortOrder: "asc" } }),
+      prisma.heroSlide.count({ where }),
+    ]);
+    res.json({ items, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/hero-slides/:id", async (req, res) => {
+  try {
+    const item = await prisma.heroSlide.findUnique({ where: { id: req.params.id } });
+    if (!item) return res.status(404).json({ error: "Not found" });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/hero-slides", async (req, res) => {
+  try {
+    const item = await prisma.heroSlide.create({ data: req.body });
+    try { emitCmsUpdate("hero-slides"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/hero-slides/:id", async (req, res) => {
+  try {
+    const item = await prisma.heroSlide.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("hero-slides"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/hero-slides/:id", async (req, res) => {
+  try {
+    await prisma.heroSlide.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("hero-slides"); } catch {}
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Navigation Links ──
+
+router.get("/navigation", async (req, res) => {
+  try {
+    const items = await prisma.navigationLink.findMany({ where: { isVisible: true }, orderBy: { sortOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/navigation/all", async (req, res) => {
+  try {
+    const items = await prisma.navigationLink.findMany({ orderBy: { sortOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/navigation/:id", async (req, res) => {
+  try {
+    const item = await prisma.navigationLink.findUnique({ where: { id: req.params.id } });
+    if (!item) return res.status(404).json({ error: "Not found" });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/navigation", async (req, res) => {
+  try {
+    const item = await prisma.navigationLink.create({ data: req.body });
+    try { emitCmsUpdate("navigation"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/navigation/:id", async (req, res) => {
+  try {
+    const item = await prisma.navigationLink.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("navigation"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/navigation/:id", async (req, res) => {
+  try {
+    await prisma.navigationLink.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("navigation"); } catch {}
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Settings ──
 router.get("/settings/:id", async (req, res) => {
   try {
-    const item = await prisma.siteSetting.findUnique({ where: { id: req.params.id } });
-    if (!item) return res.status(404).json({ error: "Not found" });
+    let item = await prisma.siteSetting.findUnique({ where: { id: req.params.id } });
+    if (!item) {
+      item = { id: req.params.id, key: req.params.id, value: {} };
+    }
     res.json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -611,8 +732,8 @@ router.put("/settings/:id", async (req, res) => {
   try {
     const item = await prisma.siteSetting.upsert({
       where: { id: req.params.id },
-      update: { key: req.body.key, value: req.body.value },
-      create: { id: req.params.id, key: req.body.key, value: req.body.value },
+      update: { key: req.params.id, value: req.body.value },
+      create: { id: req.params.id, key: req.params.id, value: req.body.value },
     });
     try { emitCmsUpdate("settings"); } catch {}
     res.json(item);
@@ -627,6 +748,39 @@ router.delete("/settings/:id", async (req, res) => {
     try { emitCmsUpdate("settings"); } catch {}
     res.json({ success: true });
   } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Contact
+router.get("/contact", async (req, res) => {
+  try {
+    const item = await prisma.siteContact.findFirst();
+    res.json(item || { email: "", phone: "", address: "" });
+  } catch (error) {
+    console.error("Contact CMS error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/contact", async (req, res) => {
+  try {
+    const existing = await prisma.siteContact.findFirst();
+    let item;
+    if (existing) {
+      item = await prisma.siteContact.update({
+        where: { id: existing.id },
+        data: { email: req.body.email, phone: req.body.phone, address: req.body.address },
+      });
+    } else {
+      item = await prisma.siteContact.create({
+        data: { email: req.body.email, phone: req.body.phone, address: req.body.address },
+      });
+    }
+    try { emitCmsUpdate("contact"); } catch {}
+    res.json(item);
+  } catch (error) {
+    console.error("Contact update error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

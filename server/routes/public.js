@@ -333,6 +333,115 @@ router.get("/investment-ranges", async (_req, res) => {
   ]);
 });
 
+router.get("/media", async (req, res) => {
+  try {
+    const { page = 1, limit = 20, type } = req.query;
+    const where = {};
+    if (type) where.type = type;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const [items, total] = await Promise.all([
+      prisma.media.findMany({ where, skip, take: parseInt(limit), orderBy: { createdAt: "desc" } }),
+      prisma.media.count({ where }),
+    ]);
+    res.json({ items, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/featured-companies", async (_req, res) => {
+  try {
+    const companies = await prisma.company.findMany({
+      where: { status: "active", owner: { role: "franchisor", isActive: true } },
+      take: 8,
+      include: { _count: { select: { followers: true, listings: true } } },
+      orderBy: [{ isVerified: "desc" }, { followerCount: "desc" }],
+    });
+    res.json(companies);
+  } catch (error) {
+    console.error("Featured companies error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/featured-listings", async (_req, res) => {
+  try {
+    const listings = await prisma.franchiseListing.findMany({
+      where: { status: "active", isFeatured: true },
+      take: 6,
+      include: {
+        company: { select: { id: true, name: true, slug: true, logoUrl: true, isVerified: true } },
+        _count: { select: { applications: true } },
+      },
+      orderBy: [{ viewCount: "desc" }, { createdAt: "desc" }],
+    });
+    res.json(listings);
+  } catch (error) {
+    console.error("Featured listings error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/newsletter", async (req, res) => {
+  try {
+    const { email, name } = req.body;
+    if (!email) return res.status(400).json({ error: "Email is required" });
+    const existing = await prisma.newsletterSubscription.findUnique({ where: { email } });
+    if (existing) return res.json({ message: "Already subscribed" });
+    const sub = await prisma.newsletterSubscription.create({ data: { email, name } });
+    res.status(201).json(sub);
+  } catch (error) {
+    if (error.code === "P2002") return res.json({ message: "Already subscribed" });
+    console.error("Newsletter error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/hero-slides", async (_req, res) => {
+  try {
+    const items = await prisma.heroSlide.findMany({ where: { isActive: true }, orderBy: { sortOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/featured-cities", async (_req, res) => {
+  try {
+    const listings = await prisma.franchiseListing.findMany({
+      where: { status: "active", city: { not: null } },
+      select: { city: true, state: true },
+    });
+
+    const cityMap = new Map();
+    listings.forEach(l => {
+      const key = `${l.city}|${l.state || ''}`;
+      if (cityMap.has(key)) {
+        cityMap.get(key).listingCount++;
+      } else {
+        cityMap.set(key, { name: l.city, state: l.state || '', listingCount: 1 });
+      }
+    });
+
+    const items = Array.from(cityMap.values())
+      .sort((a, b) => b.listingCount - a.listingCount)
+      .slice(0, 20);
+
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/navigation", async (_req, res) => {
+  try {
+    const items = await prisma.navigationLink.findMany({ where: { isVisible: true }, orderBy: { sortOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/pages/:slug", async (req, res) => {
   try {
     const page = await prisma.contentPage.findUnique({ where: { slug: req.params.slug } });

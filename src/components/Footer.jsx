@@ -1,36 +1,7 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Share2 } from 'lucide-react';
-import { usePublicSettings, useSiteContact } from '../hooks/useCMS';
-
-const defaultFooterLinks = [
-  {
-    title: 'Platform',
-    links: [
-      { label: 'Discover', path: '/discover' },
-      { label: 'Companies', path: '/companies' },
-      { label: 'Pricing', path: '/pricing' },
-      { label: 'About', path: '/about' },
-    ],
-  },
-  {
-    title: 'Support',
-    links: [
-      { label: 'Contact', path: '/contact' },
-      { label: 'FAQ', path: '/faq' },
-      { label: 'Privacy', path: '/privacy' },
-      { label: 'Terms', path: '/terms' },
-    ],
-  },
-  {
-    title: 'Community',
-    links: [
-      { label: 'Blog', path: '/blog' },
-      { label: 'Careers', path: '/careers' },
-      { label: 'Partners', path: '/partners' },
-      { label: 'Events', path: '/events' },
-    ],
-  },
-];
+import { useNavigation, usePublicSettings, useSiteContact } from '../hooks/useCMS';
 
 function FooterLink({ to, children }) {
   return (
@@ -41,13 +12,21 @@ function FooterLink({ to, children }) {
 }
 
 export default function Footer() {
-  const { data: settings } = usePublicSettings();
+  const { data: settings, isLoading: settingsLoading, isError: settingsError } = usePublicSettings();
+  const { data: navLinks, isLoading: navLoading, isError: navError } = useNavigation();
   const { data: contact } = useSiteContact();
 
-  const footerLinks = settings?.footerLinks || settings?.footer || defaultFooterLinks;
+  const description = settings?.footerDescription;
 
   return (
-    <footer className="site-footer" style={{ backgroundColor: 'var(--surface)', borderTop: '1px solid var(--outline-variant)', paddingTop: 64, paddingBottom: 32 }}>
+    <motion.footer
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="site-footer"
+      style={{ backgroundColor: 'var(--surface)', borderTop: '1px solid var(--outline-variant)', paddingTop: 64, paddingBottom: 32 }}
+    >
       <div className="container">
         <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48, marginBottom: 48 }}>
           <div>
@@ -55,9 +34,11 @@ export default function Footer() {
               <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--primary)', display: 'inline-block' }} />
               Franchisia
             </Link>
-            <p style={{ fontSize: 14, color: 'var(--on-surface-variant)', lineHeight: 1.7, marginBottom: 24, maxWidth: 360 }}>
-              The professional network for the franchise industry. Connect with franchisors, franchisees, consultors, investors, and suppliers.
-            </p>
+            {description && (
+              <p style={{ fontSize: 14, color: 'var(--on-surface-variant)', lineHeight: 1.7, marginBottom: 24, maxWidth: 360 }}>
+                {description}
+              </p>
+            )}
             <div style={{ display: 'flex', gap: 12 }}>
               <a href={`mailto:${contact?.email || ''}`} style={{ width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 10, backgroundColor: 'var(--surface-hover)', color: 'var(--on-surface-variant)', transition: 'all 0.2s', textDecoration: 'none' }} title="Email us">
                 <Mail size={16} />
@@ -72,16 +53,16 @@ export default function Footer() {
             </div>
           </div>
 
-          {footerLinks.map((col) => (
-            <div key={col.title}>
-              <h4 style={{ fontSize: 14, fontWeight: 700, marginBottom: 16, color: 'var(--on-surface)' }}>{col.title}</h4>
+          {navLinks && navLinks.length > 0 && (
+            <div>
+              <h4 style={{ fontSize: 14, fontWeight: 700, marginBottom: 16, color: 'var(--on-surface)' }}>Links</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {col.links.map((link) => (
-                  <FooterLink key={link.label} to={link.path || link.url}>{link.label}</FooterLink>
+                {navLinks.map((link) => (
+                  <FooterLink key={link.path || link.url} to={link.path || link.url}>{link.label}</FooterLink>
                 ))}
               </div>
             </div>
-          ))}
+          )}
         </div>
 
         <div className="footer-bottom" style={{ paddingTop: 24, borderTop: '1px solid var(--outline-variant)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
@@ -120,6 +101,6 @@ export default function Footer() {
           .footer-contact { justify-content: center !important; }
         }
       `}</style>
-    </footer>
+    </motion.footer>
   );
 }

@@ -32,6 +32,200 @@ export function useSiteContent() {
   });
 }
 
+export function useHeroSlides() {
+  return useQuery({
+    queryKey: ["cms", "hero-slides"],
+    queryFn: async () => { const d = await fetchJSON(`${API}/public/hero-slides`); return d.items || []; },
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useUserTypes() {
+  return useQuery({
+    queryKey: ["cms", "user-types"],
+    queryFn: async () => { const d = await fetchJSON(`${API}/public/user-types`); return d.items || []; },
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useFeatures() {
+  return useQuery({
+    queryKey: ["cms", "features"],
+    queryFn: async () => { const d = await fetchJSON(`${API}/public/features`); return d.items || []; },
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useHowItWorks() {
+  return useQuery({
+    queryKey: ["cms", "how-it-works"],
+    queryFn: async () => { const d = await fetchJSON(`${API}/public/how-it-works`); return d.items || []; },
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useFeaturedCities() {
+  return useQuery({
+    queryKey: ["cms", "featured-cities"],
+    queryFn: async () => { const d = await fetchJSON(`${API}/public/featured-cities`); return d.items || []; },
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useNavigation() {
+  return useQuery({
+    queryKey: ["cms", "navigation"],
+    queryFn: async () => { const d = await fetchJSON(`${API}/public/navigation`); return d.items || []; },
+    staleTime: 10 * 60 * 1000,
+  });
+}
+
+// Admin mutations for new cms models
+
+export function useCreateHeroSlide() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => postJSON(`${API}/admin/cms/hero-slides`, data, "POST"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "hero-slides"] }),
+  });
+}
+
+export function useUpdateHeroSlide() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...data }) => postJSON(`${API}/admin/cms/hero-slides/${id}`, data, "PUT"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "hero-slides"] }),
+  });
+}
+
+export function useDeleteHeroSlide() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => fetch(`${API}/admin/cms/hero-slides/${id}`, { method: "DELETE", credentials: "include" }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "hero-slides"] }),
+  });
+}
+
+export function useCreateUserType() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => postJSON(`${API}/admin/cms/user-types`, data, "POST"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "user-types"] }),
+  });
+}
+
+export function useUpdateUserType() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...data }) => postJSON(`${API}/admin/cms/user-types/${id}`, data, "PUT"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "user-types"] }),
+  });
+}
+
+export function useDeleteUserType() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => fetch(`${API}/admin/cms/user-types/${id}`, { method: "DELETE", credentials: "include" }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "user-types"] }),
+  });
+}
+
+export function useCreateFeature() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => postJSON(`${API}/admin/cms/features`, data, "POST"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "features"] }),
+  });
+}
+
+export function useUpdateFeature() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...data }) => postJSON(`${API}/admin/cms/features/${id}`, data, "PUT"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "features"] }),
+  });
+}
+
+export function useDeleteFeature() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => fetch(`${API}/admin/cms/features/${id}`, { method: "DELETE", credentials: "include" }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "features"] }),
+  });
+}
+
+export function useCreateHowItWork() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => postJSON(`${API}/admin/cms/how-it-works`, data, "POST"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "how-it-works"] }),
+  });
+}
+
+export function useUpdateHowItWork() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...data }) => postJSON(`${API}/admin/cms/how-it-works/${id}`, data, "PUT"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "how-it-works"] }),
+  });
+}
+
+export function useDeleteHowItWork() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => fetch(`${API}/admin/cms/how-it-works/${id}`, { method: "DELETE", credentials: "include" }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "how-it-works"] }),
+  });
+}
+
+export function useCreateCity() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => postJSON(`${API}/admin/cms/featured-cities`, data, "POST"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "featured-cities"] }),
+  });
+}
+
+export function useUpdateCity() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...data }) => postJSON(`${API}/admin/cms/featured-cities/${id}`, data, "PUT"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "featured-cities"] }),
+  });
+}
+
+export function useDeleteCity() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => fetch(`${API}/admin/cms/featured-cities/${id}`, { method: "DELETE", credentials: "include" }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "featured-cities"] }),
+  });
+}
+
+export function useCreateNavLink() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => postJSON(`${API}/admin/cms/navigation`, data, "POST"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "navigation"] }),
+  });
+}
+
+export function useUpdateNavLink() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...data }) => postJSON(`${API}/admin/cms/navigation/${id}`, data, "PUT"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "navigation"] }),
+  });
+}
+
+export function useDeleteNavLink() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => fetch(`${API}/admin/cms/navigation/${id}`, { method: "DELETE", credentials: "include" }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "navigation"] }),
+  });
+}
+
 export function useStats() {
   return useQuery({
     queryKey: ["cms", "stats"],
@@ -160,6 +354,45 @@ export function useLocations() {
     queryFn: () => fetchJSON(`${API}/public/locations`),
     staleTime: 30 * 60 * 1000,
   });
+}
+
+export function useFeaturedCompanies() {
+  return useQuery({
+    queryKey: ["cms", "featured-companies"],
+    queryFn: () => fetchJSON(`${API}/public/featured-companies`),
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useFeaturedListings() {
+  return useQuery({
+    queryKey: ["cms", "featured-listings"],
+    queryFn: () => fetchJSON(`${API}/public/featured-listings`),
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useNewsletterSubscribe() {
+  return useMutation({
+    mutationFn: (data) => postJSON(`${API}/public/newsletter`, data, "POST"),
+  });
+}
+
+export function useMedia({ page = 1, limit = 20, type } = {}) {
+  const params = new URLSearchParams({ page, limit });
+  if (type) params.set("type", type);
+  return useQuery({
+    queryKey: ["cms", "media", { page, limit, type }],
+    queryFn: () => fetchJSON(`${API}/public/media?${params}`),
+    staleTime: 10 * 60 * 1000,
+  });
+}
+
+export function getSectionContent(settings, sectionName, defaults = {}) {
+  if (!settings) return defaults;
+  const heading = settings[`section_${sectionName}_heading`]?.text || defaults.heading || "";
+  const description = settings[`section_${sectionName}_description`]?.text || defaults.description || "";
+  return { heading, description };
 }
 
 export function usePage(slug) {

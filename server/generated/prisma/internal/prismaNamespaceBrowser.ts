@@ -96,8 +96,16 @@ export const ModelName = {
   Testimonial: 'Testimonial',
   SiteFAQ: 'SiteFAQ',
   Plan: 'Plan',
+  NewsletterSubscription: 'NewsletterSubscription',
   Media: 'Media',
-  SiteSetting: 'SiteSetting'
+  ContentPage: 'ContentPage',
+  SiteSetting: 'SiteSetting',
+  HeroSlide: 'HeroSlide',
+  UserType: 'UserType',
+  Feature: 'Feature',
+  HowItWork: 'HowItWork',
+  FeaturedCity: 'FeaturedCity',
+  NavigationLink: 'NavigationLink'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -876,6 +884,16 @@ export const PlanScalarFieldEnum = {
 export type PlanScalarFieldEnum = (typeof PlanScalarFieldEnum)[keyof typeof PlanScalarFieldEnum]
 
 
+export const NewsletterSubscriptionScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  name: 'name',
+  createdAt: 'createdAt'
+} as const
+
+export type NewsletterSubscriptionScalarFieldEnum = (typeof NewsletterSubscriptionScalarFieldEnum)[keyof typeof NewsletterSubscriptionScalarFieldEnum]
+
+
 export const MediaScalarFieldEnum = {
   id: 'id',
   url: 'url',
@@ -890,6 +908,21 @@ export const MediaScalarFieldEnum = {
 export type MediaScalarFieldEnum = (typeof MediaScalarFieldEnum)[keyof typeof MediaScalarFieldEnum]
 
 
+export const ContentPageScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  title: 'title',
+  content: 'content',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContentPageScalarFieldEnum = (typeof ContentPageScalarFieldEnum)[keyof typeof ContentPageScalarFieldEnum]
+
+
 export const SiteSettingScalarFieldEnum = {
   id: 'id',
   key: 'key',
@@ -897,6 +930,110 @@ export const SiteSettingScalarFieldEnum = {
 } as const
 
 export type SiteSettingScalarFieldEnum = (typeof SiteSettingScalarFieldEnum)[keyof typeof SiteSettingScalarFieldEnum]
+
+
+export const HeroSlideScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  subtitle: 'subtitle',
+  quote: 'quote',
+  backgroundType: 'backgroundType',
+  backgroundColor: 'backgroundColor',
+  backgroundImage: 'backgroundImage',
+  backgroundVideo: 'backgroundVideo',
+  ctaText: 'ctaText',
+  ctaUrl: 'ctaUrl',
+  secondaryCtaText: 'secondaryCtaText',
+  secondaryCtaUrl: 'secondaryCtaUrl',
+  heroImage: 'heroImage',
+  isActive: 'isActive',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HeroSlideScalarFieldEnum = (typeof HeroSlideScalarFieldEnum)[keyof typeof HeroSlideScalarFieldEnum]
+
+
+export const UserTypeScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  icon: 'icon',
+  image: 'image',
+  buttonText: 'buttonText',
+  buttonUrl: 'buttonUrl',
+  color: 'color',
+  isPublished: 'isPublished',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserTypeScalarFieldEnum = (typeof UserTypeScalarFieldEnum)[keyof typeof UserTypeScalarFieldEnum]
+
+
+export const FeatureScalarFieldEnum = {
+  id: 'id',
+  icon: 'icon',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  buttonText: 'buttonText',
+  buttonUrl: 'buttonUrl',
+  image: 'image',
+  isPublished: 'isPublished',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FeatureScalarFieldEnum = (typeof FeatureScalarFieldEnum)[keyof typeof FeatureScalarFieldEnum]
+
+
+export const HowItWorkScalarFieldEnum = {
+  id: 'id',
+  stepNumber: 'stepNumber',
+  title: 'title',
+  description: 'description',
+  icon: 'icon',
+  illustration: 'illustration',
+  animation: 'animation',
+  isPublished: 'isPublished',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HowItWorkScalarFieldEnum = (typeof HowItWorkScalarFieldEnum)[keyof typeof HowItWorkScalarFieldEnum]
+
+
+export const FeaturedCityScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  state: 'state',
+  image: 'image',
+  isFeatured: 'isFeatured',
+  displayOrder: 'displayOrder',
+  listingCount: 'listingCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FeaturedCityScalarFieldEnum = (typeof FeaturedCityScalarFieldEnum)[keyof typeof FeaturedCityScalarFieldEnum]
+
+
+export const NavigationLinkScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  url: 'url',
+  parentId: 'parentId',
+  isVisible: 'isVisible',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NavigationLinkScalarFieldEnum = (typeof NavigationLinkScalarFieldEnum)[keyof typeof NavigationLinkScalarFieldEnum]
 
 
 export const SortOrder = {

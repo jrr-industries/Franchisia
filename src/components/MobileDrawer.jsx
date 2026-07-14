@@ -102,40 +102,49 @@ export default function MobileDrawer({ open, onClose }) {
         </div>
 
         <div style={{ flex: 1, overflow: "auto", padding: 12 }}>
-          {!isAuthenticated && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: "8px 4px 16px", borderBottom: "1px solid var(--border)", marginBottom: 8 }}>
-              <Link
-                to="/login"
-                onClick={onClose}
-                style={{ display: "flex", alignItems: "center", gap: 8, justifyContent: "center", padding: "10px 16px", borderRadius: "var(--radius-sm)", fontSize: 14, fontWeight: 600, backgroundColor: "var(--primary)", color: "white", textDecoration: "none", border: "none", cursor: "pointer" }}
-              >
-                <LogIn size={16} /> Sign In
-              </Link>
-              <Link
-                to="/register"
-                onClick={onClose}
-                style={{ display: "flex", alignItems: "center", gap: 8, justifyContent: "center", padding: "10px 16px", borderRadius: "var(--radius-sm)", fontSize: 14, fontWeight: 600, backgroundColor: "transparent", color: "var(--primary)", textDecoration: "none", border: "1px solid var(--primary)", cursor: "pointer" }}
-              >
-                <UserPlus size={16} /> Create Account
-              </Link>
-            </div>
+          {!isAuthenticated ? (
+            <>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: "8px 4px 16px", borderBottom: "1px solid var(--border)", marginBottom: 8 }}>
+                <Link
+                  to="/login"
+                  onClick={onClose}
+                  style={{ display: "flex", alignItems: "center", gap: 8, justifyContent: "center", padding: "10px 16px", borderRadius: "var(--radius-sm)", fontSize: 14, fontWeight: 600, backgroundColor: "var(--primary)", color: "white", textDecoration: "none", border: "none", cursor: "pointer" }}
+                >
+                  <LogIn size={16} /> Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={onClose}
+                  style={{ display: "flex", alignItems: "center", gap: 8, justifyContent: "center", padding: "10px 16px", borderRadius: "var(--radius-sm)", fontSize: 14, fontWeight: 600, backgroundColor: "transparent", color: "var(--primary)", textDecoration: "none", border: "1px solid var(--primary)", cursor: "pointer" }}
+                >
+                  <UserPlus size={16} /> Create Account
+                </Link>
+              </div>
+              <Link to="/" onClick={onClose} style={linkStyle("/")}>Home</Link>
+              <Link to="/about" onClick={onClose} style={linkStyle("/about")}>About</Link>
+              <Link to="/pricing" onClick={onClose} style={linkStyle("/pricing")}>Pricing</Link>
+              <Link to="/contact" onClick={onClose} style={linkStyle("/contact")}>Contact</Link>
+              <Link to="/faq" onClick={onClose} style={linkStyle("/faq")}>FAQ</Link>
+            </>
+          ) : (
+            <>
+              <p style={{ fontSize: 11, fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 1, padding: "8px 12px" }}>Main</p>
+              {mainLinks.map((l) => (
+                <Link key={l.path} to={l.path} onClick={onClose} style={linkStyle(l.path)}>
+                  <l.icon size={20} style={{ flexShrink: 0 }} />
+                  {l.label}
+                </Link>
+              ))}
+
+              <p style={{ fontSize: 11, fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 1, padding: "8px 12px", marginTop: 16 }}>Account</p>
+              {accountLinks.map((l) => (
+                <Link key={l.path} to={l.path} onClick={onClose} style={linkStyle(l.path)}>
+                  <l.icon size={20} style={{ flexShrink: 0 }} />
+                  {l.label}
+                </Link>
+              ))}
+            </>
           )}
-
-          <p style={{ fontSize: 11, fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 1, padding: "8px 12px" }}>Main</p>
-          {mainLinks.map((l) => (
-            <Link key={l.path} to={l.path} onClick={onClose} style={linkStyle(l.path)}>
-              <l.icon size={20} style={{ flexShrink: 0 }} />
-              {l.label}
-            </Link>
-          ))}
-
-          <p style={{ fontSize: 11, fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 1, padding: "8px 12px", marginTop: 16 }}>Account</p>
-          {accountLinks.map((l) => (
-            <Link key={l.path} to={l.path} onClick={onClose} style={linkStyle(l.path)}>
-              <l.icon size={20} style={{ flexShrink: 0 }} />
-              {l.label}
-            </Link>
-          ))}
 
           {isAdmin && (
             <>

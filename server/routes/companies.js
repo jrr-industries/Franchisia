@@ -58,6 +58,26 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/my", authenticate, async (req, res) => {
+  try {
+    const company = await prisma.company.findFirst({
+      where: { ownerId: req.user.id },
+      include: {
+        policies: {
+          orderBy: { updatedAt: "desc" },
+          take: 1,
+          include: { faqs: { orderBy: { sortOrder: "asc" } }, documents: true },
+        },
+      },
+    });
+    if (!company) return res.status(404).json({ error: "Company not found" });
+    res.json(company);
+  } catch (error) {
+    console.error("Companies route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/:slug", async (req, res) => {
   try {
     let currentUserId = null;

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Moon, Sun, Bell, MessageSquare, LogIn, UserPlus, Menu, LayoutDashboard, User, PanelLeft } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
-import { usePublicSettings } from "../hooks/useCMS";
+import { useNavigation } from "../hooks/useCMS";
 import Avatar from "./ui/Avatar";
 import Dropdown, { DropdownItem } from "./ui/Dropdown";
 import SearchBar from "./SearchBar";
@@ -11,26 +12,16 @@ import MobileDrawer from "./MobileDrawer";
 import useSocketStore from "../store/socketStore";
 import Logo from "./Logo";
 
-const defaultNavLinks = [
-  { label: "Home", path: "/" },
-  { label: "About", path: "/about" },
-  { label: "Pricing", path: "/pricing" },
-  { label: "Contact", path: "/contact" },
-  { label: "FAQ", path: "/faq" },
-];
-
 export default function Header({ onToggleSidebar }) {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
-  const { isAuthenticated, user, isVerified, logout } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const isConnected = useSocketStore((s) => s.isConnected);
   const unreadCount = useSocketStore((s) => s.unreadCount);
   const notificationCount = useSocketStore((s) => s.notificationCount);
-  const { data: settings } = usePublicSettings();
-
-  const navLinks = settings?.navigation || settings?.navLinks || defaultNavLinks;
+  const { data: navLinks, isLoading, isError } = useNavigation();
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -45,11 +36,14 @@ export default function Header({ onToggleSidebar }) {
       .catch(() => {});
   }, [isAuthenticated, location.pathname]);
 
-  const isDashboard = location.pathname.startsWith("/dashboard") || location.pathname.startsWith("/admin") || location.pathname.startsWith("/messages") || location.pathname.startsWith("/notifications") || location.pathname.startsWith("/profile") || location.pathname.startsWith("/settings");
+  const isDashboard = location.pathname.startsWith("/dashboard") || location.pathname.startsWith("/admin") || location.pathname.startsWith("/messages") || location.pathname.startsWith("/notifications") || location.pathname.startsWith("/profile") || location.pathname.startsWith("/settings") || location.pathname.startsWith("/discover") || location.pathname.startsWith("/companies") || location.pathname.startsWith("/saved-listings") || location.pathname.startsWith("/listing/") || location.pathname.startsWith("/company/");
 
   return (
     <>
-      <header
+      <motion.header
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
         style={{
           position: "sticky", top: 0, zIndex: 100,
           backgroundColor: "var(--surface)",
@@ -67,25 +61,27 @@ export default function Header({ onToggleSidebar }) {
             <Logo size={44} />
           </div>
 
-          <div style={{ display: "flex", gap: 24, alignItems: "center" }} className="header-nav-links">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path || link.url}
-                to={link.path || link.url}
-                style={{
-                  fontSize: 14, fontWeight: 600,
-                  color: location.pathname === (link.path || link.url) ? "var(--primary)" : "var(--on-surface-variant)",
-                  transition: "color 0.2s",
-                  whiteSpace: "nowrap",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = location.pathname === (link.path || link.url) ? "var(--primary)" : "var(--on-surface)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = location.pathname === (link.path || link.url) ? "var(--primary)" : "var(--on-surface-variant)"; }}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+          {!isAuthenticated && (
+            <div style={{ display: "flex", gap: 24, alignItems: "center" }} className="header-nav-links">
+              {navLinks?.map((link) => (
+                <Link
+                  key={link.path || link.url}
+                  to={link.path || link.url}
+                  style={{
+                    fontSize: 14, fontWeight: 600,
+                    color: location.pathname === (link.path || link.url) ? "var(--primary)" : "var(--on-surface-variant)",
+                    transition: "color 0.2s",
+                    whiteSpace: "nowrap",
+                    textDecoration: "none",
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = location.pathname === (link.path || link.url) ? "var(--primary)" : "var(--on-surface)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = location.pathname === (link.path || link.url) ? "var(--primary)" : "var(--on-surface-variant)"; }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          )}
 
           <div style={{ flex: 1, maxWidth: 400, display: "flex", justifyContent: "center" }} className="header-search-container">
             <SearchBar />
@@ -102,9 +98,7 @@ export default function Header({ onToggleSidebar }) {
                   type="button"
                   onClick={() => navigate("/messages")}
                   className="header-icon-btn"
-                  style={{
-                    position: "relative",
-                  }}
+                  style={{ position: "relative" }}
                   aria-label="Messages"
                 >
                   <MessageSquare size={18} />
@@ -119,9 +113,7 @@ export default function Header({ onToggleSidebar }) {
                   type="button"
                   onClick={() => navigate("/notifications")}
                   className="header-icon-btn"
-                  style={{
-                    position: "relative",
-                  }}
+                  style={{ position: "relative" }}
                   aria-label="Notifications"
                 >
                   <Bell size={18} />
@@ -184,7 +176,7 @@ export default function Header({ onToggleSidebar }) {
             </button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       <MobileDrawer open={mobileDrawerOpen} onClose={() => setMobileDrawerOpen(false)} />
 

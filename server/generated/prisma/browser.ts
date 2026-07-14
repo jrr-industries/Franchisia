@@ -243,12 +243,52 @@ export type SiteFAQ = Prisma.SiteFAQModel
  */
 export type Plan = Prisma.PlanModel
 /**
+ * Model NewsletterSubscription
+ * 
+ */
+export type NewsletterSubscription = Prisma.NewsletterSubscriptionModel
+/**
  * Model Media
  * 
  */
 export type Media = Prisma.MediaModel
 /**
+ * Model ContentPage
+ * 
+ */
+export type ContentPage = Prisma.ContentPageModel
+/**
  * Model SiteSetting
  * 
  */
 export type SiteSetting = Prisma.SiteSettingModel
+/**
+ * Model HeroSlide
+ * 
+ */
+export type HeroSlide = Prisma.HeroSlideModel
+/**
+ * Model UserType
+ * 
+ */
+export type UserType = Prisma.UserTypeModel
+/**
+ * Model Feature
+ * 
+ */
+export type Feature = Prisma.FeatureModel
+/**
+ * Model HowItWork
+ * 
+ */
+export type HowItWork = Prisma.HowItWorkModel
+/**
+ * Model FeaturedCity
+ * 
+ */
+export type FeaturedCity = Prisma.FeaturedCityModel
+/**
+ * Model NavigationLink
+ * 
+ */
+export type NavigationLink = Prisma.NavigationLinkModel

@@ -930,6 +930,12 @@ router.get("/companies/:id/profile", async (req, res) => {
         owner: { select: { id: true, name: true, email: true, image: true } },
         _count: { select: { followers: true, listings: true, reviews: true } },
         listings: { take: 10, orderBy: { createdAt: "desc" }, include: { _count: { select: { applications: true } } } },
+        policies: {
+          include: {
+            faqs: { orderBy: { sortOrder: "asc" } },
+            documents: { where: { isHidden: false } },
+          },
+        },
       },
     });
     if (!company) return res.status(404).json({ error: "Company not found" });

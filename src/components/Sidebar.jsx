@@ -6,6 +6,7 @@ import {
   Heart, Briefcase, ClipboardList, Activity, Server, Megaphone, X,
   FileSignature, FileEdit, CalendarDays, Megaphone as MegaphoneIcon,
   Star, HelpCircle, CreditCard, Image, Newspaper, PenLine,
+  Store, FolderOpen, LineChart, Globe, Menu, GitPullRequest, MapPin,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Logo from './Logo';
@@ -24,7 +25,13 @@ const accountLinks = [
 ];
 
 const companyLinks = [
+  { label: 'My Company', path: '/company/my', icon: Building2 },
+  { label: 'My Marketplace', path: '/dashboard/listings', icon: Store },
+  { label: 'Applications', path: '/dashboard/applications', icon: ClipboardList },
   { label: 'Policies & Terms', path: '/dashboard/policies', icon: FileSignature },
+  { label: 'Analytics', path: '/dashboard/analytics', icon: LineChart },
+  { label: 'Followers', path: '/dashboard/followers', icon: Heart },
+  { label: 'Documents', path: '/dashboard/documents', icon: FolderOpen },
 ];
 
 export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClose }) {
@@ -94,7 +101,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
 
         {isFranchisor && (
           <>
-            <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>My Company</p>
+            <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>My Business</p>
             {companyLinks.map((l) => (
               <Link key={l.path} to={l.path} onClick={handleClose} style={linkStyle(l.path)} title={l.label}>
                 <l.icon size={20} style={{ flexShrink: 0 }} />
@@ -139,6 +146,12 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
             <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>Content Management</p>
             {[
               { label: 'Hero', path: '/admin/cms/hero', icon: PenLine },
+              { label: 'Hero Slides', path: '/admin/cms/hero-slides', icon: Image },
+              { label: 'User Types', path: '/admin/cms/user-types', icon: Users },
+              { label: 'Features', path: '/admin/cms/features', icon: Star },
+              { label: 'How It Works', path: '/admin/cms/how-it-works', icon: GitPullRequest },
+              { label: 'Cities', path: '/admin/cms/cities', icon: MapPin },
+              { label: 'Navigation', path: '/admin/cms/navigation', icon: Menu },
               { label: 'Statistics', path: '/admin/cms/statistics', icon: BarChart3 },
               { label: 'Blog', path: '/admin/cms/blog', icon: Newspaper },
               { label: 'Careers', path: '/admin/cms/careers', icon: Briefcase },

@@ -40,6 +40,11 @@ const CompanyProfile = lazy(() => import("../pages/dashboard/CompanyProfile"));
 const ListingDetail = lazy(() => import("../pages/listing/Detail"));
 const SavedListings = lazy(() => import("../pages/dashboard/SavedListings"));
 const PoliciesTerms = lazy(() => import("../pages/dashboard/PoliciesTerms"));
+const MyMarketplace = lazy(() => import("../pages/dashboard/MyMarketplace"));
+const Applications = lazy(() => import("../pages/dashboard/Applications"));
+const Analytics = lazy(() => import("../pages/dashboard/Analytics"));
+const Followers = lazy(() => import("../pages/dashboard/Followers"));
+const Documents = lazy(() => import("../pages/dashboard/Documents"));
 
 const AdminDashboard = lazy(() => import("../pages/admin/AdminDashboard"));
 const AdminUsers = lazy(() => import("../pages/admin/AdminUsers"));
@@ -66,6 +71,12 @@ const AdminSiteFAQ = lazy(() => import("../pages/admin/AdminSiteFAQ"));
 const AdminPlans = lazy(() => import("../pages/admin/AdminPlans"));
 const AdminMedia = lazy(() => import("../pages/admin/AdminMedia"));
 const AdminHero = lazy(() => import("../pages/admin/AdminHero"));
+const AdminHeroSlides = lazy(() => import("../pages/admin/AdminHeroSlides"));
+const AdminUserTypes = lazy(() => import("../pages/admin/AdminUserTypes"));
+const AdminFeatures = lazy(() => import("../pages/admin/AdminFeatures"));
+const AdminHowItWorks = lazy(() => import("../pages/admin/AdminHowItWorks"));
+const AdminCities = lazy(() => import("../pages/admin/AdminCities"));
+const AdminNavigation = lazy(() => import("../pages/admin/AdminNavigation"));
 const AdminStatistics = lazy(() => import("../pages/admin/AdminStatistics"));
 const AdminFooter = lazy(() => import("../pages/admin/AdminFooter"));
 const AdminPages = lazy(() => import("../pages/admin/AdminPages"));
@@ -108,8 +119,6 @@ export default function AppRoutes() {
           <Route path="/careers" element={<Careers />} />
           <Route path="/events" element={<Events />} />
           <Route path="/payment" element={<Payment />} />
-          <Route path="/discover" element={<Suspense fallback={<PageLoading />}><Discover /></Suspense>} />
-          <Route path="/companies" element={<Suspense fallback={<PageLoading />}><Companies /></Suspense>} />
           <Route path="/login" element={<AuthRedirect><Login /></AuthRedirect>} />
           <Route path="/signup" element={<AuthRedirect><Signup /></AuthRedirect>} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -130,6 +139,13 @@ export default function AppRoutes() {
           <Route path="/company/:id" element={<Suspense fallback={<PageLoading />}><CompanyProfile /></Suspense>} />
           <Route path="/listing/:slug" element={<Suspense fallback={<PageLoading />}><ListingDetail /></Suspense>} />
           <Route path="/saved-listings" element={<Suspense fallback={<PageLoading />}><SavedListings /></Suspense>} />
+          <Route path="/discover" element={<Suspense fallback={<PageLoading />}><Discover /></Suspense>} />
+          <Route path="/companies" element={<Suspense fallback={<PageLoading />}><Companies /></Suspense>} />
+          <Route path="/dashboard/listings" element={<Suspense fallback={<PageLoading />}><MyMarketplace /></Suspense>} />
+          <Route path="/dashboard/applications" element={<Suspense fallback={<PageLoading />}><Applications /></Suspense>} />
+          <Route path="/dashboard/analytics" element={<Suspense fallback={<PageLoading />}><Analytics /></Suspense>} />
+          <Route path="/dashboard/followers" element={<Suspense fallback={<PageLoading />}><Followers /></Suspense>} />
+          <Route path="/dashboard/documents" element={<Suspense fallback={<PageLoading />}><Documents /></Suspense>} />
           <Route path="/dashboard/policies" element={<Suspense fallback={<PageLoading />}><PoliciesTerms /></Suspense>} />
 
           <Route path="/admin" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminDashboard /></Suspense></AdminRoute>} />
@@ -157,6 +173,12 @@ export default function AppRoutes() {
           <Route path="/admin/cms/plans" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminPlans /></Suspense></AdminRoute>} />
           <Route path="/admin/cms/media" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminMedia /></Suspense></AdminRoute>} />
           <Route path="/admin/cms/hero" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminHero /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/hero-slides" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminHeroSlides /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/user-types" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminUserTypes /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/features" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminFeatures /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/how-it-works" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminHowItWorks /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/cities" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminCities /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/navigation" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminNavigation /></Suspense></AdminRoute>} />
           <Route path="/admin/cms/pages" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminPages /></Suspense></AdminRoute>} />
           <Route path="/admin/cms/statistics" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminStatistics /></Suspense></AdminRoute>} />
           <Route path="/admin/cms/footer" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminFooter /></Suspense></AdminRoute>} />

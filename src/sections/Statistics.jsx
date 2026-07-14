@@ -1,14 +1,60 @@
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { useStats } from "../hooks/useCMS";
+
+function AnimatedCounter({ value, duration = 2000 }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const numeric = parseInt(value.replace(/[^0-9]/g, "")) || 0;
+    const suffix = value.replace(/[0-9]/g, "");
+    if (numeric === 0) { setCount(0); return; }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          const startTime = Date.now();
+          const tick = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * numeric));
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [value, duration]);
+
+  const numeric = parseInt(value.replace(/[^0-9]/g, "")) || 0;
+  const suffix = value.replace(/[0-9]/g, "");
+  return <span ref={ref}>{count}{suffix}</span>;
+}
 
 export default function Statistics() {
   const { data: stats } = useStats();
 
-  if (!stats?.length) return null;
+  if (!stats?.length) {
+    return (
+      <section style={{ padding: '80px 0', backgroundColor: 'var(--inverse-surface)', color: 'var(--inverse-on-surface)' }}>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <p style={{ fontSize: 14, color: 'var(--on-surface-variant)', opacity: 0.6 }}>Platform statistics will be displayed once available.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section style={{ padding: '80px 0', backgroundColor: 'var(--inverse-surface)', color: 'var(--inverse-on-surface)' }}>
       <div className="container">
-        <div style={{
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{
           display: 'flex',
           justifyContent: 'center',
           flexWrap: 'wrap',
@@ -16,8 +62,12 @@ export default function Statistics() {
           margin: '0 auto',
         }}>
           {stats.map((s, i) => (
-            <div
+            <motion.div
               key={s.label || i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
               className="stat-item"
               style={{
                 textAlign: 'center',
@@ -35,7 +85,7 @@ export default function Statistics() {
                 lineHeight: 1.2,
                 marginBottom: 4,
               }}>
-                {s.value}
+                <AnimatedCounter value={s.value} />
               </div>
               <div style={{
                 fontSize: 13,
@@ -56,9 +106,9 @@ export default function Statistics() {
                   backgroundColor: 'rgba(255,255,255,0.15)',
                 }} />
               )}
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
         <style>{`
           @media (max-width: 768px) {
             .stat-item { min-width: 140px !important; padding: 16px 20px !important; }

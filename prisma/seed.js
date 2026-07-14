@@ -93,6 +93,47 @@ async function main() {
     await prisma.aboutTimeline.create({ data: item });
   }
 
+  const sectionContent = [
+    { key: "section_featured_companies_heading", value: { text: "Featured Franchise Brands" } },
+    { key: "section_featured_companies_description", value: { text: "Top-rated franchisors actively looking for partners." } },
+    { key: "section_featured_listings_heading", value: { text: "Featured Opportunities" } },
+    { key: "section_featured_listings_description", value: { text: "Hand-picked franchise opportunities with verified potential." } },
+    { key: "section_testimonials_heading", value: { text: "What Our Users Say" } },
+    { key: "section_testimonials_description", value: { text: "Join thousands of professionals who have found success on Franchisia." } },
+    { key: "section_blog_heading", value: { text: "Latest from Our Blog" } },
+    { key: "section_blog_description", value: { text: "Insights, tips, and stories to help you make smarter franchise decisions." } },
+    { key: "section_events_heading", value: { text: "Upcoming Events" } },
+    { key: "section_events_description", value: { text: "Join us at industry events, webinars, and networking sessions." } },
+    { key: "section_careers_heading", value: { text: "Join Our Team" } },
+    { key: "section_careers_description", value: { text: "Help us shape the future of franchising. Explore current openings." } },
+    { key: "section_partners_heading", value: { text: "Our Partners" } },
+    { key: "section_partners_description", value: { text: "Collaborating with industry leaders to deliver the best franchise experience." } },
+    { key: "section_media_heading", value: { text: "Media Gallery" } },
+    { key: "section_media_description", value: { text: "Photos and videos from our community." } },
+    { key: "section_pricing_heading", value: { text: "Simple, Transparent Pricing" } },
+    { key: "section_pricing_description", value: { text: "Choose the plan that fits your needs. No hidden fees." } },
+    { key: "section_faq_heading", value: { text: "Frequently Asked Questions" } },
+    { key: "section_faq_description", value: { text: "Got questions? We've got answers." } },
+    { key: "section_contact_heading", value: { text: "Get in Touch" } },
+    { key: "section_contact_description", value: { text: "Have questions? We'd love to hear from you." } },
+    { key: "section_search_heading", value: { text: "Find Your Next Opportunity" } },
+    { key: "section_search_description", value: { text: "Browse hundreds of franchise opportunities. Filter by industry, location, and investment range." } },
+    { key: "section_industries_heading", value: { text: "Explore by Industry" } },
+    { key: "section_featured_cities_heading", value: { text: "Opportunities by City" } },
+    { key: "section_featured_cities_description", value: { text: "Explore franchise opportunities in top business hubs across India." } },
+    { key: "section_newsletter_heading", value: { text: "Stay Updated" } },
+    { key: "section_newsletter_description", value: { text: "Get the latest franchise opportunities, industry insights, and platform updates delivered to your inbox." } },
+    { key: "section_statistics_heading", value: { text: "Platform Statistics" } },
+  ];
+
+  for (const s of sectionContent) {
+    await prisma.siteSetting.upsert({
+      where: { key: s.key },
+      update: {},
+      create: { key: s.key, value: s.value },
+    });
+  }
+
   console.log("Seed complete!");
 }
 

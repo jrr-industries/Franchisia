@@ -16,8 +16,8 @@ const paymentMethods = [
   { icon: Building2, name: "Net Banking", desc: "All major banks" },
   { icon: Smartphone, name: "UPI", desc: "Google Pay, PhonePe, Paytm" },
   { icon: Wallet, name: "Wallet", desc: "Paytm, Mobikwik, Freecharge" },
-  { icon: Landmark, name: "Razorpay", desc: "Coming soon" },
-  { icon: Radio, name: "Stripe", desc: "Coming soon" },
+  { icon: Landmark, name: "Razorpay", desc: "Not yet available" },
+  { icon: Radio, name: "Stripe", desc: "Not yet available" },
 ];
 
 export default function Payment() {
@@ -208,7 +208,7 @@ export default function Payment() {
                             <p style={{ fontSize: 13, fontWeight: 500 }}>{pm.name}</p>
                             <p style={{ fontSize: 11, color: "var(--text-muted)" }}>{pm.desc}</p>
                           </div>
-                          <Badge variant="default" style={{ fontSize: 9 }}>Coming Soon</Badge>
+                          <Badge variant="default" style={{ fontSize: 9 }}>Not Available</Badge>
                         </div>
                       );
                     })}
@@ -217,9 +217,9 @@ export default function Payment() {
 
                 <div style={{ padding: 24, borderRadius: 12, border: "2px dashed var(--border)", backgroundColor: "var(--background)", textAlign: "center" }}>
                   <Zap size={36} color="var(--primary)" style={{ marginBottom: 12, opacity: 0.5 }} />
-                  <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>Payment Integration Coming Soon</h3>
+                  <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>Payment Gateway Not Configured</h3>
                   <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6, maxWidth: 400, margin: "0 auto 16px" }}>
-                    Franchisia is currently in early access. Subscription payments will be enabled once payment gateway integration is completed.
+                    Subscription payments will be enabled once a payment gateway is configured in the Admin CMS.
                   </p>
                   <div style={{ display: "flex", gap: 16, justifyContent: "center", fontSize: 12, color: "var(--text-muted)", flexWrap: "wrap" }}>
                     <span style={{ display: "flex", alignItems: "center", gap: 4 }}><Shield size={14} /> Razorpay</span>
@@ -249,7 +249,7 @@ export default function Payment() {
                     <Lock size={16} /> Pay {priceDisplay}
                   </Button>
                   <p style={{ fontSize: 11, color: "var(--text-muted)", textAlign: "center" }}>
-                    Payment gateway not yet integrated.
+                    Payment gateway not yet configured.
                   </p>
                 </div>
               )}

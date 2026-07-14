@@ -36,10 +36,10 @@ export function SiteProvider({ children }) {
     <SiteContext.Provider value={{
       stats: data?.stats,
       testimonials: data?.testimonials,
-      brands: data?.brands,
+      brands: data?.settings?.brands,
       about: data?.about,
       contact: data?.contact,
-      maintenanceMode: data?.maintenanceMode,
+      maintenanceMode: data?.settings?.maintenanceMode,
       setStats, setTestimonials, setBrands, setAbout, setContact, setMaintenanceMode,
     }}>
       {children}

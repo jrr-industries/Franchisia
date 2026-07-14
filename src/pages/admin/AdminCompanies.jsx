@@ -91,6 +91,11 @@ export default function AdminCompanies() {
     return <button onClick={onClick} style={{ padding: '8px 16px', fontSize: 13, fontWeight: 500, border: 'none', cursor: 'pointer', borderRadius: 8, backgroundColor: active ? 'var(--primary)' : 'transparent', color: active ? '#fff' : 'var(--text-secondary)' }}>{children}</button>;
   }
 
+  function PolicyField({ label, value }) {
+    if (!value) return null;
+    return <div><strong>{label}:</strong> {value}</div>;
+  }
+
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
@@ -179,9 +184,12 @@ export default function AdminCompanies() {
 
       {/* Company Profile Modal */}
       {profileModal && (
-        <Modal onClose={() => setProfileModal(null)}>
-          <div style={{ padding: 24, maxWidth: 680, width: '90vw', maxHeight: '85vh', overflow: 'auto' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20, paddingBottom: 20, borderBottom: '1px solid var(--border)' }}>
+        <Modal isOpen onClose={() => setProfileModal(null)} width={680}>
+          <div style={{ width: '100%', maxHeight: '85vh', overflow: 'auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '8px 12px 0' }}>
+              <button onClick={() => setProfileModal(null)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: 4, display: 'flex', borderRadius: 8 }}><X size={20} /></button>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20, padding: '0 24px 20px', borderBottom: '1px solid var(--border)' }}>
               {profileModal.logoUrl ? <img src={profileModal.logoUrl} alt={profileModal.name} style={{ width: 56, height: 56, borderRadius: 12, objectFit: 'cover' }} /> : <div style={{ width: 56, height: 56, borderRadius: 12, backgroundColor: 'var(--primary-light)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Building2 size={28} color="var(--primary)" /></div>}
               <div style={{ flex: 1 }}>
                 <h2 style={{ fontSize: 20, fontWeight: 700 }}>{profileModal.name}</h2>
@@ -197,8 +205,8 @@ export default function AdminCompanies() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: 4, marginBottom: 20 }}>
-              {['overview', 'listings', 'activity'].map(tab => (
+            <div style={{ display: 'flex', gap: 4, marginBottom: 20, flexWrap: 'wrap' }}>
+              {['overview', 'policies', 'listings', 'activity'].map(tab => (
                 <TabBtn key={tab} active={profileTab === tab} onClick={() => setProfileTab(tab)}>{tab.charAt(0).toUpperCase() + tab.slice(1)}</TabBtn>
               ))}
             </div>
@@ -210,7 +218,47 @@ export default function AdminCompanies() {
                   <div><strong>Verified:</strong> {profileModal.isVerified ? 'Yes' : 'No'}</div>
                   <div><strong>Industry:</strong> {profileModal.industry}</div>
                   <div><strong>Created:</strong> {new Date(profileModal.createdAt).toLocaleDateString()}</div>
+                  <div><strong>Owner:</strong> {profileModal.owner?.name || profileModal.owner?.email || 'N/A'}</div>
+                  <div><strong>Slug:</strong> {profileModal.slug}</div>
                 </div>
+
+                {profileData?.company?.description && (
+                  <div style={{ marginTop: 16 }}>
+                    <h4 style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Description</h4>
+                    <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{profileData.company.description}</p>
+                  </div>
+                )}
+
+                {(profileData?.company?.email || profileData?.company?.phone || profileData?.company?.website) && (
+                  <div style={{ marginTop: 16 }}>
+                    <h4 style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Contact</h4>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 14 }}>
+                      {profileData.company.email && <div><strong>Email:</strong> {profileData.company.email}</div>}
+                      {profileData.company.phone && <div><strong>Phone:</strong> {profileData.company.phone}</div>}
+                      {profileData.company.website && <div><strong>Website:</strong> <a href={profileData.company.website} target="_blank" rel="noreferrer" style={{ color: 'var(--primary)' }}>{profileData.company.website}</a></div>}
+                    </div>
+                  </div>
+                )}
+
+                {(profileData?.company?.address || profileData?.company?.city || profileData?.company?.state || profileData?.company?.country) && (
+                  <div style={{ marginTop: 16 }}>
+                    <h4 style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Location</h4>
+                    <div style={{ fontSize: 14, color: 'var(--text-secondary)' }}>
+                      {[profileData.company.address, profileData.company.city, profileData.company.state, profileData.company.country].filter(Boolean).join(', ')}
+                    </div>
+                  </div>
+                )}
+
+                {(profileData?.company?.foundedYear || profileData?.company?.employeeCount) && (
+                  <div style={{ marginTop: 16 }}>
+                    <h4 style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Additional Info</h4>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 14 }}>
+                      {profileData.company.foundedYear && <div><strong>Founded:</strong> {profileData.company.foundedYear}</div>}
+                      {profileData.company.employeeCount && <div><strong>Employees:</strong> {profileData.company.employeeCount}</div>}
+                    </div>
+                  </div>
+                )}
+
                 {profileData?.company && (
                   <div style={{ marginTop: 20 }}>
                     <h4 style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Stats</h4>
@@ -233,12 +281,125 @@ export default function AdminCompanies() {
               </div>
             )}
 
+            {profileTab === 'policies' && (
+              <div>
+                {profileData?.company?.policies?.length ? profileData.company.policies.map((policy) => (
+                  <div key={policy.id} style={{ marginBottom: 20, padding: 16, backgroundColor: 'var(--surface-container-low)', borderRadius: 12 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                      <h4 style={{ fontSize: 15, fontWeight: 700 }}>Policy v{policy.version}</h4>
+                      <div style={{ display: 'flex', gap: 6 }}>
+                        <Badge variant={policy.isActive ? 'success' : 'warning'}>{policy.isActive ? 'Active' : 'Inactive'}</Badge>
+                        <Badge variant={policy.status === 'published' ? 'success' : 'warning'}>{policy.status}</Badge>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 13 }}>
+                      <PolicyField label="Min Age" value={policy.minimumAge} />
+                      <PolicyField label="Education" value={policy.minimumEducation} />
+                      <PolicyField label="Business Experience" value={policy.businessExperienceRequired} />
+                      <PolicyField label="Net Worth Required" value={policy.netWorthRequired} />
+                      <PolicyField label="Preferred Industries" value={policy.preferredIndustries?.join(', ')} />
+                      <PolicyField label="Commercial Space Required" value={policy.commercialSpaceRequired ? 'Yes' : policy.commercialSpaceRequired === false ? 'No' : ''} />
+                      <PolicyField label="Business Registration Required" value={policy.businessRegistrationRequired ? 'Yes' : 'No'} />
+                      <PolicyField label="GST Required" value={policy.gstRequired ? 'Yes' : 'No'} />
+                      <PolicyField label="Local License Required" value={policy.localLicenseRequired ? 'Yes' : 'No'} />
+                    </div>
+
+                    {policy.additionalRequirements && (
+                      <div style={{ marginTop: 8 }}>
+                        <strong style={{ fontSize: 13 }}>Additional Requirements:</strong>
+                        <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 4 }}>{policy.additionalRequirements}</p>
+                      </div>
+                    )}
+
+                    <h5 style={{ fontSize: 13, fontWeight: 600, marginTop: 16, marginBottom: 8, color: 'var(--text-secondary)' }}>Investment</h5>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 13 }}>
+                      <PolicyField label="Min Investment" value={policy.minimumInvestment} />
+                      <PolicyField label="Max Investment" value={policy.maximumInvestment} />
+                      <PolicyField label="Franchise Fee" value={policy.franchiseFee} />
+                      <PolicyField label="Royalty Fee" value={policy.royaltyFee} />
+                      <PolicyField label="Marketing Fee" value={policy.marketingFee} />
+                      <PolicyField label="Working Capital" value={policy.workingCapital} />
+                      <PolicyField label="Security Deposit" value={policy.securityDeposit} />
+                      <PolicyField label="Expected ROI" value={policy.expectedROI} />
+                      <PolicyField label="Break-even Period" value={policy.breakEvenPeriod} />
+                    </div>
+
+                    <h5 style={{ fontSize: 13, fontWeight: 600, marginTop: 16, marginBottom: 8, color: 'var(--text-secondary)' }}>Agreement</h5>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 13 }}>
+                      <PolicyField label="Duration" value={policy.agreementDuration} />
+                      <PolicyField label="Renewal Available" value={policy.renewalAvailable ? 'Yes' : 'No'} />
+                      <PolicyField label="Renewal Charges" value={policy.renewalCharges} />
+                    </div>
+                    {policy.terminationConditions && <div style={{ marginTop: 4, fontSize: 13 }}><strong>Termination Conditions:</strong> {policy.terminationConditions}</div>}
+                    {policy.exitPolicy && <div style={{ marginTop: 4, fontSize: 13 }}><strong>Exit Policy:</strong> {policy.exitPolicy}</div>}
+                    {policy.transferPolicy && <div style={{ marginTop: 4, fontSize: 13 }}><strong>Transfer Policy:</strong> {policy.transferPolicy}</div>}
+
+                    <h5 style={{ fontSize: 13, fontWeight: 600, marginTop: 16, marginBottom: 8, color: 'var(--text-secondary)' }}>Training & Support</h5>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 13 }}>
+                      <PolicyField label="Initial Training" value={policy.initialTraining} />
+                      <PolicyField label="On-site Support" value={policy.onSiteSupport} />
+                      <PolicyField label="Marketing Support" value={policy.marketingSupport} />
+                      <PolicyField label="Technology Support" value={policy.technologySupport} />
+                      <PolicyField label="Operations Manual" value={policy.operationsManual} />
+                      <PolicyField label="Store Setup Support" value={policy.storeSetupSupport} />
+                      <PolicyField label="Hiring Support" value={policy.hiringSupport} />
+                      <PolicyField label="Supply Chain Support" value={policy.supplyChainSupport} />
+                    </div>
+
+                    <h5 style={{ fontSize: 13, fontWeight: 600, marginTop: 16, marginBottom: 8, color: 'var(--text-secondary)' }}>Territory</h5>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 13 }}>
+                      <PolicyField label="Exclusive Territory" value={policy.exclusiveTerritory ? 'Yes' : 'No'} />
+                      <PolicyField label="Non-Exclusive Territory" value={policy.nonExclusiveTerritory ? 'Yes' : 'No'} />
+                      <PolicyField label="Target Cities" value={policy.targetCities?.join(', ')} />
+                      <PolicyField label="Target States" value={policy.targetStates?.join(', ')} />
+                      <PolicyField label="Target Countries" value={policy.targetCountries?.join(', ')} />
+                    </div>
+                    {policy.expansionPlans && <div style={{ marginTop: 4, fontSize: 13 }}><strong>Expansion Plans:</strong> {policy.expansionPlans}</div>}
+
+                    <h5 style={{ fontSize: 13, fontWeight: 600, marginTop: 16, marginBottom: 8, color: 'var(--text-secondary)' }}>Legal Policies</h5>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 13 }}>
+                      <PolicyField label="Refund Policy" value={policy.refundPolicy} />
+                      <PolicyField label="Cancellation Policy" value={policy.cancellationPolicy} />
+                      <PolicyField label="Brand Guidelines" value={policy.brandGuidelines} />
+                      <PolicyField label="Trademark Rules" value={policy.trademarkRules} />
+                      <PolicyField label="Confidentiality Agreement" value={policy.confidentialityAgreement} />
+                      <PolicyField label="Code of Conduct" value={policy.codeOfConduct} />
+                    </div>
+
+                    {policy.faqs?.length > 0 && (
+                      <div style={{ marginTop: 16 }}>
+                        <h5 style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, color: 'var(--text-secondary)' }}>FAQs</h5>
+                        {policy.faqs.map((faq) => (
+                          <div key={faq.id} style={{ marginBottom: 8, padding: 10, backgroundColor: 'var(--surface)', borderRadius: 8 }}>
+                            <div style={{ fontSize: 13, fontWeight: 600 }}>{faq.question}</div>
+                            <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 4 }}>{faq.answer}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {policy.documents?.length > 0 && (
+                      <div style={{ marginTop: 16 }}>
+                        <h5 style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, color: 'var(--text-secondary)' }}>Documents</h5>
+                        {policy.documents.map((doc) => (
+                          <div key={doc.id} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, fontSize: 13 }}>
+                            <span style={{ color: 'var(--primary)' }}>{doc.title || doc.fileName || doc.url}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )) : <div style={{ padding: 40, textAlign: 'center', color: 'var(--text-muted)' }}>No policies defined for this company</div>}
+              </div>
+            )}
+
             {profileTab === 'listings' && (
               <div>
                 {profileData?.company?.listings?.length ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                     {profileData.company.listings.map((l) => (
-                      <div key={l.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 12, backgroundColor: 'var(--bg)', borderRadius: 8 }}>
+                      <div key={l.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 12, backgroundColor: 'var(--surface-container-low)', borderRadius: 8 }}>
                         <Briefcase size={16} color="var(--primary)" />
                         <div style={{ flex: 1 }}>
                           <div style={{ fontWeight: 500, fontSize: 14 }}>{l.title}</div>
@@ -255,9 +416,25 @@ export default function AdminCompanies() {
 
             {profileTab === 'activity' && (
               <div>
-                <div style={{ padding: 40, textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>
-                  Company activity timeline coming soon.
-                </div>
+                {profileData?.recentActivity?.length ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {profileData.recentActivity.map((a, i) => (
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 12, backgroundColor: 'var(--surface-container-low)', borderRadius: 8 }}>
+                        <Activity size={16} color="var(--primary)" />
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: 14, fontWeight: 500 }}>{a.title || a.description || 'Activity'}</div>
+                          <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+                            {a.createdAt ? new Date(a.createdAt).toLocaleDateString() : ''} {a.type ? `• ${a.type}` : ''}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={{ padding: 40, textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>
+                    No activity recorded for this company.
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Globe, Users, Building2, MapPin, Network, Briefcase, TrendingUp, Loader2 } from "lucide-react";
+import { ArrowRight, Globe, Users, Building2, MapPin, Network, Loader2 } from "lucide-react";
 import Button from "../components/ui/Button";
 import { useAuth } from "../context/AuthContext";
-import { usePublicSettings, useStats } from "../hooks/useCMS";
+import { useHeroSlides, usePublicSettings, useStats } from "../hooks/useCMS";
 
 const nodes = [
   { x: 20, y: 25, size: 6, delay: 0 },
@@ -26,37 +26,28 @@ const connections = [
   [7, 9], [8, 4], [8, 9],
 ];
 
-const statIcons = [Building2, Users, Globe, MapPin, Briefcase, TrendingUp];
-
-const fallbackQuotes = [
-  "Connecting Entrepreneurs with Franchise Opportunities",
-];
-
-const defaultStats = [
-  { icon: Building2, value: "1000+", label: "Companies" },
-  { icon: Users, value: "5000+", label: "Professionals" },
-  { icon: Globe, value: "50+", label: "Industries" },
-  { icon: MapPin, value: "100+", label: "Cities" },
-];
+const statIcons = [Building2, Users, Globe, MapPin];
 
 export default function Hero() {
   const { isAuthenticated, user } = useAuth();
+  const { data: heroSlides, isLoading: slidesLoading } = useHeroSlides();
   const { data: settings, isLoading: settingsLoading } = usePublicSettings();
   const { data: statsData, isLoading: statsLoading } = useStats();
   const [quoteIndex, setQuoteIndex] = useState(0);
 
+  const slide = Array.isArray(heroSlides) && heroSlides.length > 0 ? heroSlides[0] : null;
   const heroSettings = settings?.hero || settings || {};
 
-  const rawQuotes = heroSettings.rotatingQuotes || heroSettings.heroQuotes || "";
-  const quotes = rawQuotes ? rawQuotes.split("\n").filter(Boolean) : [];
-  const activeQuotes = quotes.length > 0 ? quotes : fallbackQuotes;
+  const rawQuotes = slide?.quotes || heroSettings.rotatingQuotes || heroSettings.heroQuotes || "";
+  const quotes = typeof rawQuotes === "string" ? rawQuotes.split("\n").filter(Boolean) : Array.isArray(rawQuotes) ? rawQuotes : [];
+  const activeQuotes = quotes.length > 0 ? quotes : [];
 
-  const heroHeadline = heroSettings.headline || heroSettings.heroHeadline || "Find the Perfect Franchise Opportunity.";
-  const heroDescription = heroSettings.description || heroSettings.heroDescription || "Connect with franchisors, franchisees, brokers, investors, and suppliers on one professional platform.";
-  const ctaText = heroSettings.ctaText || "Explore Franchises";
-  const ctaUrl = heroSettings.ctaUrl || "/discover";
-  const secondaryCtaText = heroSettings.secondaryCtaText || "Register Company";
-  const secondaryCtaUrl = heroSettings.secondaryCtaUrl || "/signup";
+  const heroHeadline = slide?.title || slide?.headline || heroSettings.headline || heroSettings.heroHeadline || "";
+  const heroDescription = slide?.subtitle || slide?.description || heroSettings.description || heroSettings.heroDescription || "";
+  const ctaText = slide?.ctaText || heroSettings.ctaText || "";
+  const ctaUrl = slide?.ctaUrl || heroSettings.ctaUrl || "";
+  const secondaryCtaText = slide?.secondaryCtaText || heroSettings.secondaryCtaText || "";
+  const secondaryCtaUrl = slide?.secondaryCtaUrl || heroSettings.secondaryCtaUrl || "";
 
   const heroStats = (statsData || []).length > 0
     ? (statsData || []).slice(0, 4).map((s, i) => ({
@@ -64,7 +55,7 @@ export default function Hero() {
         value: s.value,
         label: s.label,
       }))
-    : defaultStats;
+    : [];
 
   useEffect(() => {
     if (activeQuotes.length <= 1) return;
@@ -74,7 +65,7 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, [activeQuotes.length]);
 
-  if (settingsLoading || statsLoading) {
+  if (slidesLoading || settingsLoading || statsLoading) {
     return (
       <section style={{ minHeight: "700px", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", position: "relative" }}>
         <motion.div
@@ -86,6 +77,10 @@ export default function Hero() {
       </section>
     );
   }
+
+  const displayHeadline = heroHeadline || "Connecting Entrepreneurs Worldwide";
+  const displayDescription = heroDescription || "Join a global network of entrepreneurs, investors, and franchise experts shaping the future of franchising.";
+  const displayStats = heroStats.length > 0 ? heroStats.slice(0, 4) : null;
 
   return (
     <section style={{ minHeight: "700px", display: "flex", alignItems: "center", overflow: "hidden", position: "relative" }}>
@@ -109,7 +104,7 @@ export default function Hero() {
             </motion.svg>
           </div>
           <h1 style={{ fontSize: "clamp(36px, 5vw, 48px)", fontWeight: 700, lineHeight: 1.1, marginBottom: 16, letterSpacing: "-0.02em", color: "var(--on-surface)" }}>
-            {heroHeadline}
+            {displayHeadline}
           </h1>
           <div style={{ height: 32, marginBottom: 24, position: "relative" }}>
             <AnimatePresence mode="wait">
@@ -126,7 +121,7 @@ export default function Hero() {
             </AnimatePresence>
           </div>
           <p style={{ fontSize: 18, color: "var(--on-surface-variant)", lineHeight: 1.6, marginBottom: 32, maxWidth: 560 }}>
-            {heroDescription}
+            {displayDescription}
           </p>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             {isAuthenticated ? (
@@ -137,8 +132,12 @@ export default function Hero() {
               )
             ) : (
               <>
-                <Link to={ctaUrl}><motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}><Button size="lg">{ctaText} <ArrowRight size={18} /></Button></motion.div></Link>
-                <Link to={secondaryCtaUrl}><motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}><Button variant="outline" size="lg">{secondaryCtaText}</Button></motion.div></Link>
+                {ctaText && ctaUrl && (
+                  <Link to={ctaUrl}><motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}><Button size="lg">{ctaText} <ArrowRight size={18} /></Button></motion.div></Link>
+                )}
+                {secondaryCtaText && secondaryCtaUrl && (
+                  <Link to={secondaryCtaUrl}><motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}><Button variant="outline" size="lg">{secondaryCtaText}</Button></motion.div></Link>
+                )}
               </>
             )}
           </div>
@@ -194,30 +193,32 @@ export default function Hero() {
                   >
                     <Network size={48} color="var(--primary)" style={{ opacity: 0.15 }} />
                   </motion.div>
-                  <div style={{ position: "absolute", bottom: 16, left: 16, right: 16 }}>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                      {heroStats.slice(0, 4).map((stat, i) => (
-                        <motion.div
-                          key={stat.label}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.5 + i * 0.1 }}
-                          style={{
-                            padding: "8px 12px", borderRadius: 8,
-                            backgroundColor: "rgba(255,255,255,0.85)",
-                            backdropFilter: "blur(4px)",
-                            display: "flex", alignItems: "center", gap: 8,
-                          }}
-                        >
-                          <stat.icon size={16} color="var(--primary)" style={{ flexShrink: 0 }} />
-                          <div>
-                            <div style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.2 }}>{stat.value}</div>
-                            <div style={{ fontSize: 10, color: "var(--text-muted)", lineHeight: 1.2 }}>{stat.label}</div>
-                          </div>
-                        </motion.div>
-                      ))}
+                  {displayStats && (
+                    <div style={{ position: "absolute", bottom: 16, left: 16, right: 16 }}>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                        {displayStats.map((stat, i) => (
+                          <motion.div
+                            key={stat.label}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 + i * 0.1 }}
+                            style={{
+                              padding: "8px 12px", borderRadius: 8,
+                              backgroundColor: "rgba(255,255,255,0.85)",
+                              backdropFilter: "blur(4px)",
+                              display: "flex", alignItems: "center", gap: 8,
+                            }}
+                          >
+                            <stat.icon size={16} color="var(--primary)" style={{ flexShrink: 0 }} />
+                            <div>
+                              <div style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.2 }}>{stat.value}</div>
+                              <div style={{ fontSize: 10, color: "var(--text-muted)", lineHeight: 1.2 }}>{stat.label}</div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
                 <div style={{ textAlign: "center", marginTop: 16, fontSize: 14, fontWeight: 600, color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
                   <Globe size={16} />

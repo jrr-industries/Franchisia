@@ -22,11 +22,11 @@ export default function AdminSettings() {
   const [localContact, setLocalContact] = useState(null);
 
   useEffect(() => {
-    if (!loading && localStats === null) {
-      setLocalStats(JSON.parse(JSON.stringify(stats)));
-      setLocalTestimonials(JSON.parse(JSON.stringify(testimonials)));
-      setLocalBrands(JSON.parse(JSON.stringify(brands)));
-      setLocalContact(JSON.parse(JSON.stringify(contact)));
+    if (!loading && localStats === null && stats && testimonials && brands && contact) {
+      setLocalStats(structuredClone(stats));
+      setLocalTestimonials(structuredClone(testimonials));
+      setLocalBrands(structuredClone(brands));
+      setLocalContact(structuredClone(contact));
     }
   }, [loading, localStats, stats, testimonials, brands, contact]);
 
@@ -93,10 +93,10 @@ export default function AdminSettings() {
   };
 
   const handleDiscard = () => {
-    setLocalStats(JSON.parse(JSON.stringify(stats)));
-    setLocalTestimonials(JSON.parse(JSON.stringify(testimonials)));
-    setLocalBrands(JSON.parse(JSON.stringify(brands)));
-    setLocalContact(JSON.parse(JSON.stringify(contact)));
+    setLocalStats(stats ? structuredClone(stats) : null);
+    setLocalTestimonials(testimonials ? structuredClone(testimonials) : null);
+    setLocalBrands(brands ? structuredClone(brands) : null);
+    setLocalContact(contact ? structuredClone(contact) : null);
     showToast('Changes discarded', true);
   };
 

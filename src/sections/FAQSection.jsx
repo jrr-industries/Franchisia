@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { ChevronDown, Loader2 } from "lucide-react";
-import { useFAQ } from "../hooks/useCMS";
+import { useFAQ, usePublicSettings, getSectionContent } from "../hooks/useCMS";
 
 export default function FAQSection() {
   const [open, setOpen] = useState(null);
   const { data: faqs, isLoading, isError } = useFAQ();
+  const { data: sectionSettings } = usePublicSettings();
 
   if (isLoading) {
     return (
@@ -16,25 +17,41 @@ export default function FAQSection() {
     );
   }
 
-  if (isError) {
+  if (isError || !faqs?.length) {
     return (
       <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }} id="faq">
-        <div className="container" style={{ maxWidth: 700, textAlign: "center" }}>
-          <p style={{ fontSize: 14, color: "var(--danger)" }}>Failed to load FAQ.</p>
+        <div className="container" style={{ maxWidth: 700 }}>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'faq', { heading: 'Frequently Asked Questions' }).heading}</h2>
+            <p style={{ fontSize: 16, color: "var(--on-surface-variant)" }}>
+              {getSectionContent(sectionSettings, 'faq', { description: "Got questions? We've got answers." }).description}
+            </p>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {[1, 2, 3].map((_, i) => (
+              <div
+                key={i}
+                style={{ padding: "16px 20px", borderRadius: 12, border: "1px dashed var(--outline-variant)", backgroundColor: "var(--surface)", opacity: 0.5 }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+                  <span style={{ fontWeight: 600, fontSize: 15, color: "var(--on-surface-variant)" }}>FAQ content will be added shortly</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     );
   }
 
-  if (!faqs?.length) return null;
-
   return (
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }} id="faq">
       <div className="container" style={{ maxWidth: 700 }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'faq', { heading: 'Frequently Asked Questions' }).heading}</h2>
           <p style={{ fontSize: 16, color: "var(--on-surface-variant)" }}>
-            Got questions? We've got answers.
+            {getSectionContent(sectionSettings, 'faq', { description: "Got questions? We've got answers." }).description}
           </p>
         </div>
 
