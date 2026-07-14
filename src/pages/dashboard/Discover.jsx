@@ -10,16 +10,9 @@ import Modal from '../../components/ui/Modal';
 import VerifiedBadge from '../../components/ui/VerifiedBadge';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../components/ui/Toast';
+import { useIndustries } from '../../hooks/useCMS';
 
 const API = '/api';
-
-const INDUSTRIES = [
-  'All', 'Food & Beverage', 'Retail', 'Technology', 'Healthcare',
-  'Education', 'Fitness', 'Beauty & Wellness', 'Real Estate',
-  'Automotive', 'Finance', 'Hospitality', 'Manufacturing',
-  'Logistics', 'Travel', 'Agriculture', 'Pharmacy', 'Fashion',
-  'Electronics', 'Construction', 'Other',
-];
 
 function formatCount(n) {
   if (!n && n !== 0) return '0';
@@ -80,6 +73,9 @@ export default function Discover() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useAuth();
   const { addToast } = useToast();
+
+  const { data: industriesData, isLoading: industriesLoading } = useIndustries();
+  const industries = ['All', ...(Array.isArray(industriesData) ? industriesData.filter(Boolean) : [])];
 
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [selectedIndustry, setSelectedIndustry] = useState(searchParams.get('industry') || 'All');
@@ -244,7 +240,7 @@ export default function Discover() {
           </button>
         </div>
         <div ref={scrollRef} style={{ display: 'flex', gap: 8, overflow: 'auto', paddingBottom: 4, WebkitOverflowScrolling: 'touch' }}>
-          {INDUSTRIES.map((ind) => {
+          {industries.map((ind) => {
             const isActive = selectedIndustry === ind;
             const countData = data?.industryCounts?.find(c => c.industry === ind);
             return (

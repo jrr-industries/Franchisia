@@ -1,7 +1,7 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authenticate, authorize } from "../middleware/auth.js";
-import { emitCompanyCreated, emitCompanyUpdated, emitCompanyDeleted, emitCompanyVerified, getIO } from "../socket.js";
+import { emitCompanyCreated, emitCompanyUpdated, emitCompanyDeleted, emitCompanyVerified, emitNotification, getIO } from "../socket.js";
 import { getMaintenanceMode, setMaintenanceMode, getFeatureFlags, setFeatureFlags } from "../settings.js";
 import { getSiteContent, setSiteContent } from "../site-content.js";
 
@@ -39,6 +39,13 @@ router.get("/stats", async (req, res) => {
       verificationStats,
       roleStats,
       industryStats,
+      totalBlogPosts,
+      publishedBlogPosts,
+      draftBlogPosts,
+      totalEvents,
+      totalPartners,
+      totalTestimonials,
+      totalFAQs,
     ] = await Promise.all([
       prisma.user.count(),
       prisma.user.count({ where: { lastLoginAt: { gte: new Date(Date.now() - 15 * 60000) } } }),
@@ -156,7 +163,7 @@ router.patch("/users/:id/toggle-active", async (req, res) => {
       data: { isActive: !user.isActive },
     });
 
-    await prisma.notification.create({
+    const notif = await prisma.notification.create({
       data: {
         userId: user.id,
         type: user.isActive ? "account_suspended" : "account_reactivated",
@@ -165,6 +172,7 @@ router.patch("/users/:id/toggle-active", async (req, res) => {
         data: { adminId: req.user.id },
       },
     });
+    try { emitNotification(notif); } catch {}
 
     res.json({ id: updated.id, isActive: updated.isActive });
   } catch (error) {
@@ -184,7 +192,7 @@ router.patch("/users/:id/suspend", async (req, res) => {
       select: { id: true, isActive: true },
     });
 
-    await prisma.notification.create({
+    const notif = await prisma.notification.create({
       data: {
         userId: user.id,
         type: "account_suspended",
@@ -193,6 +201,7 @@ router.patch("/users/:id/suspend", async (req, res) => {
         data: { adminId: req.user.id },
       },
     });
+    try { emitNotification(notif); } catch {}
 
     await prisma.auditLog.create({
       data: {
@@ -223,7 +232,7 @@ router.patch("/users/:id/make-admin", async (req, res) => {
       data: { role: newRole },
     });
 
-    await prisma.notification.create({
+    const notif = await prisma.notification.create({
       data: {
         userId: user.id,
         type: newRole === "admin" ? "admin_promoted" : "admin_demoted",
@@ -232,6 +241,7 @@ router.patch("/users/:id/make-admin", async (req, res) => {
         data: { adminId: req.user.id },
       },
     });
+    try { emitNotification(notif); } catch {}
 
     res.json({ id: updated.id, role: updated.role });
   } catch (error) {
@@ -324,7 +334,7 @@ router.patch("/verification/:id/review", async (req, res) => {
         },
       });
 
-      await prisma.notification.create({
+      const notif = await prisma.notification.create({
         data: {
           userId,
           type: "verification_approved",
@@ -333,6 +343,7 @@ router.patch("/verification/:id/review", async (req, res) => {
           data: { reviewedBy: req.user.id },
         },
       });
+      try { emitNotification(notif); } catch {}
 
       await prisma.auditLog.create({
         data: {
@@ -398,7 +409,7 @@ router.patch("/verification/:id/review", async (req, res) => {
         },
       });
 
-      await prisma.notification.create({
+      const notif = await prisma.notification.create({
         data: {
           userId,
           type: "verification_rejected",
@@ -407,6 +418,7 @@ router.patch("/verification/:id/review", async (req, res) => {
           data: { reviewedBy: req.user.id, reason: notes },
         },
       });
+      try { emitNotification(notif); } catch {}
 
       await prisma.auditLog.create({
         data: {
@@ -1234,8 +1246,8 @@ router.get("/settings", async (req, res) => {
   try {
     res.json({
       platformName: "Franchisia",
-      maintenanceMode: getMaintenanceMode(),
-      featureFlags: getFeatureFlags(),
+      maintenanceMode: await getMaintenanceMode(),
+      featureFlags: await getFeatureFlags(),
       theme: "system",
       version: "1.0.0",
     });
@@ -1247,12 +1259,12 @@ router.get("/settings", async (req, res) => {
 
 router.patch("/settings", async (req, res) => {
   try {
-    if (req.body.maintenanceMode !== undefined) setMaintenanceMode(req.body.maintenanceMode);
-    if (req.body.featureFlags) setFeatureFlags(req.body.featureFlags);
+    if (req.body.maintenanceMode !== undefined) await setMaintenanceMode(req.body.maintenanceMode);
+    if (req.body.featureFlags) await setFeatureFlags(req.body.featureFlags);
     await prisma.auditLog.create({
       data: { userId: req.user.id, action: "UPDATE_SETTINGS", tableName: "settings", newData: req.body, ipAddress: req.ip },
     });
-    res.json({ success: true, maintenanceMode: getMaintenanceMode(), featureFlags: getFeatureFlags() });
+    res.json({ success: true, maintenanceMode: await getMaintenanceMode(), featureFlags: await getFeatureFlags() });
   } catch (error) {
     console.error("Admin route error:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -1260,22 +1272,22 @@ router.patch("/settings", async (req, res) => {
 });
 
 router.get("/settings/maintenance", async (req, res) => {
-  res.json({ enabled: getMaintenanceMode() });
+  res.json({ enabled: await getMaintenanceMode() });
 });
 
 router.post("/settings/maintenance", async (req, res) => {
-  setMaintenanceMode(!!req.body.enabled);
+  await setMaintenanceMode(!!req.body.enabled);
   await prisma.auditLog.create({
-    data: { userId: req.user.id, action: getMaintenanceMode() ? "ENABLE_MAINTENANCE" : "DISABLE_MAINTENANCE", tableName: "settings", newData: { maintenanceMode: getMaintenanceMode() }, ipAddress: req.ip },
+    data: { userId: req.user.id, action: (await getMaintenanceMode()) ? "ENABLE_MAINTENANCE" : "DISABLE_MAINTENANCE", tableName: "settings", newData: { maintenanceMode: await getMaintenanceMode() }, ipAddress: req.ip },
   });
-  res.json({ enabled: getMaintenanceMode() });
+  res.json({ enabled: await getMaintenanceMode() });
 });
 
 // ==================== Site Content ====================
 
 router.get("/site-content", async (req, res) => {
   try {
-    res.json(getSiteContent());
+    res.json(await getSiteContent());
   } catch (error) {
     console.error("Admin route error:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -1284,7 +1296,7 @@ router.get("/site-content", async (req, res) => {
 
 router.post("/site-content", async (req, res) => {
   try {
-    const data = setSiteContent(req.body);
+    const data = await setSiteContent(req.body);
     await prisma.auditLog.create({
       data: { userId: req.user.id, action: "UPDATE_SITE_CONTENT", tableName: "settings", newData: req.body, ipAddress: req.ip },
     });

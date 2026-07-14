@@ -28,8 +28,13 @@ const requireFranchisor = (req, res, next) => {
   next();
 };
 
-function canAccessPolicy(req, policy) {
-  return policy.companyId === req.user.companyId || req.user.role === "admin";
+async function canAccessPolicy(req, policyId) {
+  const policy = await prisma.companyPolicy.findUnique({
+    where: { id: policyId },
+    select: { company: { select: { ownerId: true } } },
+  });
+  if (!policy) return false;
+  return policy.company.ownerId === req.user.id || req.user.role === "admin";
 }
 
 router.get("/my", authenticate, async (req, res) => {

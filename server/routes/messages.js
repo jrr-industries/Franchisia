@@ -6,6 +6,7 @@ import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
+import { emitNotification } from "../socket.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uploadDir = path.join(__dirname, "..", "public", "uploads");
@@ -296,15 +297,20 @@ router.post("/conversations/:id/messages", async (req, res) => {
       select: { userId: true },
     });
     if (participants.length > 0) {
-      await prisma.notification.createMany({
-        data: participants.map((p) => ({
-          userId: p.userId,
-          type: "new_message",
-          title: "New Message",
-          body: `${req.user.name || "Someone"}: ${content?.substring(0, 100) || ""}`,
-          data: { conversationId: req.params.id, senderId: req.user.id },
-        })),
-      });
+      const notifications = await Promise.all(
+        participants.map((p) =>
+          prisma.notification.create({
+            data: {
+              userId: p.userId,
+              type: "new_message",
+              title: "New Message",
+              body: `${req.user.name || "Someone"}: ${content?.substring(0, 100) || ""}`,
+              data: { conversationId: req.params.id, senderId: req.user.id },
+            },
+          })
+        )
+      );
+      for (const n of notifications) { try { emitNotification(n); } catch {} }
     }
     res.json({ message });
   } catch (error) {
@@ -344,15 +350,20 @@ router.post("/conversations/:id/messages/upload", upload.single("file"), async (
       select: { userId: true },
     });
     if (participants.length > 0) {
-      await prisma.notification.createMany({
-        data: participants.map((p) => ({
-          userId: p.userId,
-          type: "new_message",
-          title: "New Attachment",
-          body: `${req.user.name || "Someone"} sent ${req.file.mimetype.startsWith("image/") ? "an image" : "a file"}`,
-          data: { conversationId: req.params.id, senderId: req.user.id, attachmentUrl },
-        })),
-      });
+      const notifications = await Promise.all(
+        participants.map((p) =>
+          prisma.notification.create({
+            data: {
+              userId: p.userId,
+              type: "new_message",
+              title: "New Attachment",
+              body: `${req.user.name || "Someone"} sent ${req.file.mimetype.startsWith("image/") ? "an image" : "a file"}`,
+              data: { conversationId: req.params.id, senderId: req.user.id, attachmentUrl },
+            },
+          })
+        )
+      );
+      for (const n of notifications) { try { emitNotification(n); } catch {} }
     }
 
     res.json({ message });
@@ -560,7 +571,7 @@ router.post("/request", async (req, res) => {
     const messageRequest = await prisma.messageRequest.create({
       data: { senderId: req.user.id, recipientId, status: "pending" },
     });
-    await prisma.notification.create({
+    const notif = await prisma.notification.create({
       data: {
         userId: recipientId,
         type: "message_request",
@@ -569,6 +580,7 @@ router.post("/request", async (req, res) => {
         data: { senderId: req.user.id, requestId: messageRequest.id, content: content || null },
       },
     });
+    try { emitNotification(notif); } catch {}
     res.json({ request: messageRequest });
   } catch (error) {
     console.error("Messages route error:", error);
@@ -599,7 +611,7 @@ router.post("/accept/:requestId", async (req, res) => {
         messageType: "system",
       },
     });
-    await prisma.notification.create({
+    const notif = await prisma.notification.create({
       data: {
         userId: messageRequest.senderId,
         type: "message_request_accepted",
@@ -608,6 +620,7 @@ router.post("/accept/:requestId", async (req, res) => {
         data: { recipientId: req.user.id, conversationId: conversation.id },
       },
     });
+    try { emitNotification(notif); } catch {}
     const fullConv = await prisma.conversation.findUnique({
       where: { id: conversation.id },
       include: {

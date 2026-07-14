@@ -144,7 +144,7 @@ export function useConversations() {
 
 export function useConversationMessages(convId, enabled = true) {
   return useQuery({
-    queryKey: ["messages", convId],
+    queryKey: ["messages", "messages", convId],
     queryFn: async () => {
       const d = await fetchJSON(`${API}/messages/conversations/${convId}/messages?page=1&limit=50`);
       return d.messages || [];
@@ -196,6 +196,10 @@ export function useMarkNotificationRead() {
     onError: (_, __, context) => {
       if (context?.prev) queryClient.setQueryData(["dashboard", "notifications"], context.prev);
     },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["dashboard", "notifications"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard", "stats"] });
+    },
   });
 }
 
@@ -216,6 +220,10 @@ export function useMarkAllNotificationsRead() {
         });
       }
       return { prev };
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["dashboard", "notifications"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard", "stats"] });
     },
   });
 }

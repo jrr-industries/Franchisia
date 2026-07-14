@@ -3,15 +3,15 @@ import { Search } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { useIndustries, usePartners } from '../hooks/useCMS';
+import { useQuery } from "@tanstack/react-query";
 
-const locations = [
-  'All Locations', 'United States', 'Canada', 'United Kingdom', 'Europe',
-  'Asia', 'Africa', 'Australia', 'South America', 'Middle East',
-];
+const API = '/api';
 
-const investments = [
-  'Any Investment', 'Under $50K', '$50K - $100K', '$100K - $500K', '$500K+',
-];
+async function fetchJSON(url) {
+  const res = await fetch(url, { credentials: "include" });
+  if (!res.ok) throw new Error(`Failed to fetch ${url}`);
+  return res.json();
+}
 
 export default function SearchSection() {
   const navigate = useNavigate();
@@ -22,6 +22,19 @@ export default function SearchSection() {
 
   const { data: industriesData, isLoading } = useIndustries();
   const { data: partners } = usePartners();
+  const { data: locationsData } = useQuery({
+    queryKey: ["cms", "locations-list"],
+    queryFn: () => fetchJSON(`${API}/public/locations`),
+    staleTime: 30 * 60 * 1000,
+    select: (d) => ['All Locations', ...Object.keys(d || {})],
+  });
+  const { data: investmentsData } = useQuery({
+    queryKey: ["cms", "investment-ranges"],
+    queryFn: () => fetchJSON(`${API}/public/investment-ranges`),
+    staleTime: 30 * 60 * 1000,
+  });
+  const locations = locationsData || ['All Locations'];
+  const investments = investmentsData || [];
 
   const industryList = industriesData?.items || industriesData || [];
   const brands = partners || [];
@@ -76,9 +89,14 @@ export default function SearchSection() {
             }}
           >
             <option value="">Investment Range</option>
-            {investments.filter(i => i !== 'Any Investment').map((opt) => (
-              <option key={opt} value={opt}>{opt}</option>
-            ))}
+            {(Array.isArray(investments) ? investments : []).filter(i => {
+              const label = typeof i === 'string' ? i : i.label || '';
+              return label !== 'Any Investment';
+            }).map((opt) => {
+              const label = typeof opt === 'string' ? opt : opt.label || opt;
+              const value = typeof opt === 'string' ? opt : opt.value || opt;
+              return <option key={value} value={value}>{label}</option>;
+            })}
           </select>
           <Button
             className="search-btn"

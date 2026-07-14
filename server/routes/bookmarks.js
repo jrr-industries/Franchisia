@@ -1,6 +1,7 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authenticate } from "../middleware/auth.js";
+import { emitBookmarkUpdate } from "../socket.js";
 
 const router = Router();
 router.use(authenticate);
@@ -19,6 +20,7 @@ router.post("/", async (req, res) => {
       data: { userId: req.user.id, listingId },
     });
 
+    try { emitBookmarkUpdate(req.user.id, listingId, true); } catch {}
     res.status(201).json({ bookmark });
   } catch (error) {
     console.error("Bookmark create error:", error);
@@ -53,6 +55,7 @@ router.delete("/:id", async (req, res) => {
     if (bookmark.userId !== req.user.id) return res.status(403).json({ error: "Not authorized" });
 
     await prisma.bookmark.delete({ where: { id: req.params.id } });
+    try { emitBookmarkUpdate(req.user.id, bookmark.listingId, false); } catch {}
     res.json({ success: true });
   } catch (error) {
     console.error("Bookmark delete error:", error);

@@ -4,8 +4,7 @@ import { ArrowLeft, CheckCircle, Upload, Building2, Briefcase, Package, Handshak
 import { useAuth } from '../../context/AuthContext';
 import logo from "../../assets/logo.png";
 import SearchableSelect from '../../components/ui/SearchableSelect';
-import INDUSTRIES from '../../data/industries';
-import { getCountries, getStates, getCities } from '../../data/locations';
+import { useIndustries, useLocations } from '../../hooks/useCMS';
 
 const roleConfig = {
   franchisor: {
@@ -108,6 +107,14 @@ export default function RoleForm() {
   const navigate = useNavigate();
   const { user, updateOnboarding, uploadDocument, submitForReview } = useAuth();
 
+  const { data: industriesData } = useIndustries();
+  const { data: locationsData } = useLocations();
+  const INDUSTRIES = ['All', ...(Array.isArray(industriesData) ? industriesData.filter(Boolean) : [])];
+  const LOCATIONS = locationsData || {};
+  function getCountries() { return Object.keys(LOCATIONS); }
+  function getStates(country) { const c = LOCATIONS[country]; return c ? Object.keys(c) : []; }
+  function getCities(country, state) { if (!country || !state) return []; const s = LOCATIONS[country]; return s?.[state] || []; }
+
   const config = roleConfig[role];
   const [form, setForm] = useState({});
   const [error, setError] = useState('');
@@ -120,8 +127,14 @@ export default function RoleForm() {
 
   const [selectedCountry, setSelectedCountry] = useState('India');
   const [selectedState, setSelectedState] = useState('');
-  const [availableStates, setAvailableStates] = useState(getStates('India'));
+  const [availableStates, setAvailableStates] = useState([]);
   const [availableCities, setAvailableCities] = useState([]);
+
+  useEffect(() => {
+    if (locationsData) {
+      setAvailableStates(getStates(selectedCountry));
+    }
+  }, [locationsData, selectedCountry]);
 
   useEffect(() => {
     if (!config) navigate('/onboarding/select-role');

@@ -1,9 +1,10 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
+import { authenticate } from "../middleware/auth.js";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/", authenticate, async (req, res) => {
   try {
     const { q } = req.query;
     if (!q || q.trim().length < 2) {

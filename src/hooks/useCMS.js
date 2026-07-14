@@ -154,6 +154,47 @@ export function useIndustries() {
   });
 }
 
+export function useLocations() {
+  return useQuery({
+    queryKey: ["cms", "locations"],
+    queryFn: () => fetchJSON(`${API}/public/locations`),
+    staleTime: 30 * 60 * 1000,
+  });
+}
+
+export function usePage(slug) {
+  return useQuery({
+    queryKey: ["cms", "page", slug],
+    queryFn: () => fetchJSON(`${API}/public/pages/${slug}`),
+    enabled: !!slug,
+    staleTime: 10 * 60 * 1000,
+  });
+}
+
+export function useCreatePage() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => postJSON(`${API}/admin/cms/pages`, data, "POST"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "page"] }),
+  });
+}
+
+export function useUpdatePage() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...data }) => postJSON(`${API}/admin/cms/pages/${id}`, data, "PUT"),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "page"] }),
+  });
+}
+
+export function useDeletePage() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => fetch(`${API}/admin/cms/pages/${id}`, { method: "DELETE", credentials: "include" }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cms", "page"] }),
+  });
+}
+
 // ── Admin CMS Mutations ──
 
 export function useUpdateSiteContent() {

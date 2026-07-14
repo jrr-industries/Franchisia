@@ -68,6 +68,7 @@ const AdminMedia = lazy(() => import("../pages/admin/AdminMedia"));
 const AdminHero = lazy(() => import("../pages/admin/AdminHero"));
 const AdminStatistics = lazy(() => import("../pages/admin/AdminStatistics"));
 const AdminFooter = lazy(() => import("../pages/admin/AdminFooter"));
+const AdminPages = lazy(() => import("../pages/admin/AdminPages"));
 const AdminContact = lazy(() => import("../pages/admin/AdminContact"));
 
 function SuspenseFallback() {
@@ -156,6 +157,7 @@ export default function AppRoutes() {
           <Route path="/admin/cms/plans" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminPlans /></Suspense></AdminRoute>} />
           <Route path="/admin/cms/media" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminMedia /></Suspense></AdminRoute>} />
           <Route path="/admin/cms/hero" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminHero /></Suspense></AdminRoute>} />
+          <Route path="/admin/cms/pages" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminPages /></Suspense></AdminRoute>} />
           <Route path="/admin/cms/statistics" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminStatistics /></Suspense></AdminRoute>} />
           <Route path="/admin/cms/footer" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminFooter /></Suspense></AdminRoute>} />
           <Route path="/admin/cms/contact" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminContact /></Suspense></AdminRoute>} />

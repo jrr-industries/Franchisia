@@ -1,6 +1,7 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authenticate } from "../middleware/auth.js";
+import { emitListingCreated, emitListingUpdate, emitListingDeleted } from "../socket.js";
 
 const router = Router();
 
@@ -114,6 +115,7 @@ router.post("/", authenticate, async (req, res) => {
       data: { listingCount: { increment: 1 } },
     });
 
+    try { emitListingCreated(listing); } catch {}
     res.status(201).json(listing);
   } catch (error) {
     if (error.code === "P2002") {
@@ -143,6 +145,7 @@ router.put("/:id", authenticate, async (req, res) => {
       where: { id: req.params.id },
       data: updates,
     });
+    try { emitListingUpdate(updated); } catch {}
     res.json(updated);
   } catch (error) {
     console.error("Listings route error:", error);
@@ -162,6 +165,7 @@ router.put("/:id/publish", authenticate, async (req, res) => {
       where: { id: req.params.id },
       data: { status: "active", publishedAt: new Date() },
     });
+    try { emitListingUpdate(updated); } catch {}
     res.json(updated);
   } catch (error) {
     console.error("Listings route error:", error);
@@ -200,6 +204,7 @@ router.put("/:id/close", authenticate, async (req, res) => {
       where: { id: req.params.id },
       data: { status: "closed" },
     });
+    try { emitListingUpdate(updated); } catch {}
     res.json(updated);
   } catch (error) {
     console.error("Listings route error:", error);
@@ -220,6 +225,7 @@ router.delete("/:id", authenticate, async (req, res) => {
       where: { id: listing.companyId },
       data: { listingCount: { decrement: 1 } },
     });
+    try { emitListingDeleted(req.params.id); } catch {}
     res.json({ success: true });
   } catch (error) {
     console.error("Listings route error:", error);

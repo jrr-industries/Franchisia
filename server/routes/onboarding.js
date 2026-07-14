@@ -2,7 +2,7 @@ import { Router } from "express";
 import { fromNodeHeaders } from "better-auth/node";
 import { auth } from "../lib/auth.ts";
 import prisma from "../prisma.js";
-import { emitCompanyCreated } from "../socket.js";
+import { emitCompanyCreated, emitCompanyUpdated } from "../socket.js";
 
 const router = Router();
 
@@ -51,7 +51,7 @@ router.put("/franchisor", async (req, res) => {
           where: { id: existing.id },
           data: { name: companyName, industry: industry || "Other", slug, description: companyDescription || null, website: website || null, email: businessEmail || null, address: businessAddress || null },
         });
-        emitCompanyCreated(updated);
+        emitCompanyUpdated(updated);
       } else {
         const company = await prisma.company.create({
           data: {

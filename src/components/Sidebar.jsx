@@ -149,6 +149,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
               { label: 'Pricing Plans', path: '/admin/cms/plans', icon: CreditCard },
               { label: 'Media', path: '/admin/cms/media', icon: Image },
               { label: 'Footer', path: '/admin/cms/footer', icon: FileEdit },
+              { label: 'Pages', path: '/admin/cms/pages', icon: FileText },
               { label: 'Contact', path: '/admin/cms/contact', icon: MessageSquare },
               { label: 'Settings', path: '/admin/settings', icon: Settings },
               { label: 'Audit Logs', path: '/admin/audit-logs', icon: FileText },

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authenticate } from "../middleware/auth.js";
-import { emitStatsUpdate, getIO } from "../socket.js";
+import { emitStatsUpdate, emitApplicationUpdate, getIO } from "../socket.js";
 
 const router = Router();
 
@@ -75,7 +75,7 @@ router.get("/listing/:listingId", authenticate, async (req, res) => {
     const applications = await prisma.application.findMany({
       where: { listingId: req.params.listingId },
       include: {
-        applicant: { select: { id: true, fullName: true, avatarUrl: true, headline: true, location: true } },
+        applicant: { select: { id: true, name: true, image: true, headline: true, location: true } },
       },
       orderBy: { createdAt: "desc" },
     });
@@ -104,6 +104,7 @@ router.put("/:id/status", authenticate, async (req, res) => {
       where: { id: req.params.id },
       data: { status },
     });
+    try { emitApplicationUpdate(updated); } catch {}
     res.json(updated);
   } catch (error) {
     console.error("Applications route error:", error);

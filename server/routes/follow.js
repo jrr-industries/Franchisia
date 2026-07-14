@@ -2,7 +2,7 @@ import { Router } from "express";
 import { fromNodeHeaders } from "better-auth/node";
 import { auth } from "../lib/auth.ts";
 import prisma from "../prisma.js";
-import { emitConnectionUpdate } from "../socket.js";
+import { emitConnectionUpdate, emitNotification } from "../socket.js";
 
 const router = Router();
 
@@ -20,7 +20,10 @@ router.use(async (req, res, next) => {
 async function ensureConversation(userId1, userId2) {
   const existing = await prisma.conversation.findFirst({
     where: {
-      participants: { every: { userId: { in: [userId1, userId2] } } },
+      AND: [
+        { participants: { some: { userId: userId1 } } },
+        { participants: { some: { userId: userId2 } } },
+      ],
     },
     include: {
       participants: { include: { user: { select: { id: true, name: true, email: true, image: true, role: true } } } },
@@ -60,7 +63,7 @@ router.post("/company/:companyId", async (req, res) => {
       await tx.company.update({ where: { id: companyId }, data: { followerCount: { increment: 1 } } });
       const company = await tx.company.findUnique({ where: { id: companyId }, select: { ownerId: true, name: true } });
       if (company && company.ownerId !== req.user.id) {
-        await tx.notification.create({
+        const notif = await tx.notification.create({
           data: {
             userId: company.ownerId,
             type: "company_followed",
@@ -69,6 +72,7 @@ router.post("/company/:companyId", async (req, res) => {
             data: { followerId: req.user.id, companyId },
           },
         });
+        try { emitNotification(notif); } catch {}
       }
     });
     res.json({ following: true });
@@ -111,7 +115,7 @@ router.post("/user/:userId", async (req, res) => {
         await tx.connection.create({ data: { followerId: req.user.id, followingId: targetId } });
         await tx.user.update({ where: { id: req.user.id }, data: { followingCount: { increment: 1 } } });
         await tx.user.update({ where: { id: targetId }, data: { followerCount: { increment: 1 } } });
-        await tx.notification.create({
+        const notif = await tx.notification.create({
           data: {
             userId: targetId,
             type: "new_follower",
@@ -120,6 +124,7 @@ router.post("/user/:userId", async (req, res) => {
             data: { followerId: req.user.id },
           },
         });
+        try { emitNotification(notif); } catch {}
       });
       emitConnectionUpdate(req.user.id);
       emitConnectionUpdate(targetId);
@@ -155,7 +160,10 @@ router.get("/user/:userId/mutual-status", async (req, res) => {
     if (mutual) {
       conversation = await prisma.conversation.findFirst({
         where: {
-          participants: { every: { userId: { in: [req.user.id, targetId] } } },
+          AND: [
+            { participants: { some: { userId: req.user.id } } },
+            { participants: { some: { userId: targetId } } },
+          ],
         },
         select: { id: true },
         orderBy: { createdAt: "desc" },

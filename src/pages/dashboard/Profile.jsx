@@ -18,8 +18,7 @@ import VerifiedBadge from '../../components/ui/VerifiedBadge';
 import { useToast } from '../../components/ui/Toast';
 import { useOnlineStatus } from '../../hooks/useOnlineStatus';
 import SearchableSelect from '../../components/ui/SearchableSelect';
-import INDUSTRIES from '../../data/industries';
-import { getCountries, getStates, getCities } from '../../data/locations';
+import { useIndustries, useLocations } from '../../hooks/useCMS';
 
 const API = '/api';
 
@@ -215,6 +214,15 @@ function RoleProfileInfo({ u }) {
 
 export default function Profile() {
   const { user: currentUser } = useAuth();
+  const { data: industriesData, isLoading: industriesLoading } = useIndustries();
+  const { data: locationsData, isLoading: locationsLoading } = useLocations();
+  const INDUSTRIES = ['All', ...(Array.isArray(industriesData) ? industriesData.filter(Boolean) : [])];
+  const LOCATIONS = locationsData || {};
+
+  function getCountries() { return Object.keys(LOCATIONS); }
+  function getStates(country) { const c = LOCATIONS[country]; return c ? Object.keys(c) : []; }
+  function getCities(country, state) { if (!country || !state) return []; const s = LOCATIONS[country]; return s?.[state] || []; }
+
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { addToast } = useToast();

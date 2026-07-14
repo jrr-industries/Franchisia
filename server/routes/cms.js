@@ -1,16 +1,21 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
+import { authenticate, authorize } from "../middleware/auth.js";
 
 const router = Router();
 
-const requireAdmin = async (req, res, next) => {
-  if (req.user?.role !== "admin") {
-    return res.status(403).json({ error: "Admin access required" });
+router.use(authenticate, authorize("admin"));
+
+const ADMIN_ONLY = ["title", "content", "shortDescription", "status", "category", "image", "featuredImage", "author", "tags", "publishedAt", "jobTitle", "department", "location", "jobType", "salaryRange", "description", "requirements", "responsibilities", "venue", "eventDate", "endDate", "startTime", "endTime", "eventType", "registrationLink", "organizer", "name", "partnerType", "logo", "website", "contactEmail", "testimonial", "company", "rating", "question", "answer", "order", "price", "interval", "features", "isFeatured", "popular", "type", "url", "fileName", "alt", "key", "value"];
+
+router.use((req, res, next) => {
+  if (["POST", "PUT", "PATCH"].includes(req.method)) {
+    req.body = Object.fromEntries(
+      Object.entries(req.body).filter(([k]) => ADMIN_ONLY.includes(k))
+    );
   }
   next();
-};
-
-router.use(requireAdmin);
+});
 
 // Blog Posts
 router.get("/blog", async (req, res) => {
@@ -606,6 +611,71 @@ router.put("/settings/:id", async (req, res) => {
 router.delete("/settings/:id", async (req, res) => {
   try {
     await prisma.siteSetting.delete({ where: { id: req.params.id } });
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Content Pages
+router.get("/pages", async (req, res) => {
+  try {
+    const { page = 1, limit = 50, search, status } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const where = {};
+    if (status) where.status = status;
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: "insensitive" } },
+        { slug: { contains: search, mode: "insensitive" } },
+      ];
+    }
+    const [items, total] = await Promise.all([
+      prisma.contentPage.findMany({ where, skip, take: parseInt(limit), orderBy: { createdAt: "desc" } }),
+      prisma.contentPage.count({ where }),
+    ]);
+    res.json({ items, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    console.error("Page CMS error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/pages/:id", async (req, res) => {
+  try {
+    const item = await prisma.contentPage.findUnique({ where: { id: req.params.id } });
+    if (!item) return res.status(404).json({ error: "Not found" });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/pages", async (req, res) => {
+  try {
+    const item = await prisma.contentPage.create({ data: req.body });
+    res.status(201).json(item);
+  } catch (error) {
+    console.error("Page create error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/pages/:id", async (req, res) => {
+  try {
+    const item = await prisma.contentPage.update({
+      where: { id: req.params.id },
+      data: req.body,
+    });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/pages/:id", async (req, res) => {
+  try {
+    await prisma.contentPage.delete({ where: { id: req.params.id } });
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });

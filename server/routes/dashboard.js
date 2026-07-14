@@ -26,7 +26,7 @@ router.get("/stats", async (req, res) => {
     ] = await Promise.all([
       prisma.connection.count({ where: { followingId: userId } }),
       prisma.application.count({ where: { applicantId: userId } }),
-      req.user.followerCount,
+      prisma.user.findUnique({ where: { id: userId }, select: { followerCount: true } }).then(u => u?.followerCount || 0),
       prisma.bookmark.count({ where: { userId } }),
       prisma.notification.count({ where: { userId, isRead: false } }),
       prisma.companyFollower.count({ where: { userId } }),

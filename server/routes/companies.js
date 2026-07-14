@@ -51,11 +51,7 @@ router.get("/", async (req, res) => {
       prisma.company.count({ where }),
     ]);
 
-    const filtered = franchisor !== "false"
-      ? companies.filter((c) => c.owner && c.owner.role === "franchisor" && c.owner.isActive !== false)
-      : companies;
-
-    res.json({ companies: filtered, total: filtered.length, page: parseInt(page), totalPages: Math.ceil(filtered.length / parseInt(limit)) });
+    res.json({ companies, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
   } catch (error) {
     console.error("Companies route error:", error);
     res.status(500).json({ error: "Internal server error" });

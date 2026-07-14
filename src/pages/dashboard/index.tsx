@@ -257,16 +257,16 @@ export default function DashboardHome() {
   const queryClient = useQueryClient();
   const prefetchDashboard = useDashboardPrefetch();
 
-  const { data: stats, isLoading: statsLoading } = useStats();
-  const { data: activities = [] } = useActivities();
-  const { data: meetings = [] } = useMeetings();
-  const { data: notifData } = useNotifications();
-  const { data: recommendedCompanies = [] } = useRecommendedCompanies();
-  const { data: opportunities = [] } = useRecommendedOpportunities();
-  const { data: people = [] } = usePeopleYouMayKnow();
-  const { data: recentMessages = [] } = useRecentMessages();
-  const { data: savedListings } = useSavedListings();
-  const { data: tasks = [] } = useTasks();
+  const { data: stats, isLoading: statsLoading, isError: statsError } = useStats();
+  const { data: activities = [], isLoading: activitiesLoading, isError: activitiesError } = useActivities();
+  const { data: meetings = [], isLoading: meetingsLoading, isError: meetingsError } = useMeetings();
+  const { data: notifData, isLoading: notifLoading, isError: notifError } = useNotifications();
+  const { data: recommendedCompanies = [], isLoading: companiesLoading, isError: companiesError } = useRecommendedCompanies();
+  const { data: opportunities = [], isLoading: oppsLoading, isError: oppsError } = useRecommendedOpportunities();
+  const { data: people = [], isLoading: peopleLoading, isError: peopleError } = usePeopleYouMayKnow();
+  const { data: recentMessages = [], isLoading: messagesLoading, isError: messagesError } = useRecentMessages();
+  const { data: savedListings, isLoading: savedLoading, isError: savedError } = useSavedListings();
+  const { data: tasks = [], isLoading: tasksLoading, isError: tasksError } = useTasks();
 
   const markRead = useMarkNotificationRead();
   const markAllRead = useMarkAllNotificationsRead();
@@ -487,7 +487,9 @@ export default function DashboardHome() {
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 12, marginBottom: 24 }}>
-        {statsLoading ? statConfig.map((cfg) => <StatSkeleton key={cfg.key} />) : statConfig.map((cfg) => (
+        {statsLoading ? statConfig.map((cfg) => <StatSkeleton key={cfg.key} />) : statsError ? (
+          <div style={{ gridColumn: "1 / -1", padding: 24, textAlign: "center", color: "var(--danger)", fontSize: 13 }}>Failed to load stats</div>
+        ) : statConfig.map((cfg) => (
           <StatCard key={cfg.key} cfg={cfg} value={s[cfg.key]} />
         ))}
       </div>
@@ -538,7 +540,9 @@ export default function DashboardHome() {
       <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 24, marginBottom: 24 }}>
         <Card hover={false}>
           <SectionHeader title="Recent Activity" link="/discover" />
-          {activities.length > 0 ? activities.slice(0, 6).map((a) => (
+          {activitiesLoading ? Array.from({ length: 4 }).map((_, i) => <ActivitySkeleton key={i} />) : activitiesError ? (
+            <p style={{ padding: 20, textAlign: "center", color: "var(--danger)", fontSize: 13 }}>Failed to load activity</p>
+          ) : activities.length > 0 ? activities.slice(0, 6).map((a) => (
             <ActivityItem key={a.id} activity={a} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No recent activity</p>}
         </Card>
@@ -546,7 +550,9 @@ export default function DashboardHome() {
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <Card hover={false} padding="16px">
             <SectionHeader title="Upcoming Meetings" />
-            {meetings.length > 0 ? meetings.slice(0, 3).map((m) => (
+            {meetingsLoading ? <ActivitySkeleton /> : meetingsError ? (
+              <p style={{ padding: 12, textAlign: "center", color: "var(--danger)", fontSize: 13 }}>Failed to load meetings</p>
+            ) : meetings.length > 0 ? meetings.slice(0, 3).map((m) => (
               <MeetingItem key={m.id} meeting={m} onRespond={handleMeetingRespond} />
             )) : <p style={{ padding: 12, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No upcoming meetings</p>}
           </Card>
@@ -556,7 +562,9 @@ export default function DashboardHome() {
               <h2 style={{ fontSize: 18, fontWeight: 600 }}>Notifications</h2>
               {(notifData?.unreadCount || 0) > 0 && <button onClick={() => markAllRead.mutate()} style={{ fontSize: 11, color: "var(--primary)", background: "none", border: "none", cursor: "pointer", fontWeight: 500 }}>Mark all read</button>}
             </div>
-            {(notifData?.notifications || []).length > 0 ? notifData.notifications.slice(0, 3).map((n) => (
+            {notifLoading ? Array.from({ length: 3 }).map((_, i) => <ActivitySkeleton key={i} />) : notifError ? (
+              <p style={{ padding: 8, textAlign: "center", color: "var(--danger)", fontSize: 13 }}>Failed to load notifications</p>
+            ) : (notifData?.notifications || []).length > 0 ? notifData.notifications.slice(0, 3).map((n) => (
               <NotificationItem key={n.id} notification={n} onRead={(id) => markRead.mutate(id)} />
             )) : <p style={{ padding: 8, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No notifications</p>}
           </Card>
@@ -566,21 +574,27 @@ export default function DashboardHome() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginBottom: 24 }}>
         <Card hover={false}>
           <SectionHeader title="Recommended Companies" link="/companies" />
-          {recommendedCompanies.length > 0 ? recommendedCompanies.slice(0, 3).map((c) => (
+          {companiesLoading ? Array.from({ length: 3 }).map((_, i) => <ActivitySkeleton key={i} />) : companiesError ? (
+            <p style={{ padding: 20, textAlign: "center", color: "var(--danger)", fontSize: 13 }}>Failed to load companies</p>
+          ) : recommendedCompanies.length > 0 ? recommendedCompanies.slice(0, 3).map((c) => (
             <RecommendCompanyItem key={c.id} company={c} following={followingCompanies.has(c.id)} onFollow={handleFollowCompany} onView={(slug) => navigate(`/company/${slug}`)} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No franchisor companies available.</p>}
         </Card>
 
         <Card hover={false}>
           <SectionHeader title="Recommended Opportunities" link="/discover" />
-          {opportunities.length > 0 ? opportunities.slice(0, 3).map((o) => (
+          {oppsLoading ? Array.from({ length: 3 }).map((_, i) => <ActivitySkeleton key={i} />) : oppsError ? (
+            <p style={{ padding: 20, textAlign: "center", color: "var(--danger)", fontSize: 13 }}>Failed to load opportunities</p>
+          ) : opportunities.length > 0 ? opportunities.slice(0, 3).map((o) => (
             <OpportunityItem key={o.id} opportunity={o} onApply={(slug) => navigate(`/listing/${slug}`)} onBookmark={(id, bookmarked) => handleToggleBookmark(id, bookmarked)} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No opportunities available yet.</p>}
         </Card>
 
         <Card hover={false}>
           <SectionHeader title="People You May Know" />
-          {people.length > 0 ? people.slice(0, 3).map((p) => (
+          {peopleLoading ? Array.from({ length: 3 }).map((_, i) => <ActivitySkeleton key={i} />) : peopleError ? (
+            <p style={{ padding: 20, textAlign: "center", color: "var(--danger)", fontSize: 13 }}>Failed to load suggestions</p>
+          ) : people.length > 0 ? people.slice(0, 3).map((p) => (
             <PeopleItem key={p.id} person={p} connecting={connectingPeople.has(p.id)} onConnect={async (id) => { setConnectingPeople((prev) => new Set(prev).add(id)); try { const res = await fetch(`/api/follow/user/${id}`, { method: "POST", credentials: "include" }); if (res.ok) { addToast("Connected", "success"); queryClient.invalidateQueries({ queryKey: ["dashboard", "people"] }); } else { addToast("Failed to connect", "error"); } } catch { addToast("Failed to connect", "error"); } finally { setConnectingPeople((prev) => { const next = new Set(prev); next.delete(id); return next; }); } }} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No suggestions yet.</p>}
         </Card>
@@ -589,21 +603,27 @@ export default function DashboardHome() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
         <Card hover={false}>
           <SectionHeader title="Recent Messages" link="/messages" />
-          {recentMessages.length > 0 ? recentMessages.slice(0, 3).map((c) => (
+          {messagesLoading ? Array.from({ length: 3 }).map((_, i) => <ActivitySkeleton key={i} />) : messagesError ? (
+            <p style={{ padding: 20, textAlign: "center", color: "var(--danger)", fontSize: 13 }}>Failed to load messages</p>
+          ) : recentMessages.length > 0 ? recentMessages.slice(0, 3).map((c) => (
             <RecentMessageItem key={c.id} conversation={c} userId={user?.id} onClick={() => navigate("/messages")} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No conversations yet.</p>}
         </Card>
 
         <Card hover={false}>
           <SectionHeader title="Saved Listings" link="/saved-listings" />
-          {(savedListings?.bookmarks || []).length > 0 ? savedListings.bookmarks.slice(0, 3).map((b) => (
+          {savedLoading ? Array.from({ length: 3 }).map((_, i) => <ActivitySkeleton key={i} />) : savedError ? (
+            <p style={{ padding: 20, textAlign: "center", color: "var(--danger)", fontSize: 13 }}>Failed to load saved listings</p>
+          ) : (savedListings?.bookmarks || []).length > 0 ? savedListings.bookmarks.slice(0, 3).map((b) => (
             <SavedListingItem key={b.id} bookmark={b} onView={(slug) => navigate(`/listing/${slug}`)} onRemove={handleRemoveSaved} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No saved listings yet.</p>}
         </Card>
 
         <Card hover={false}>
           <SectionHeader title="Tasks" />
-          {tasks.length > 0 ? tasks.map((t) => (
+          {tasksLoading ? Array.from({ length: 3 }).map((_, i) => <ActivitySkeleton key={i} />) : tasksError ? (
+            <p style={{ padding: 20, textAlign: "center", color: "var(--danger)", fontSize: 13 }}>Failed to load tasks</p>
+          ) : tasks.length > 0 ? tasks.map((t) => (
             <TaskItem key={t.id} task={t} onToggle={handleToggleTask} />
           )) : <p style={{ padding: 20, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>No tasks. You're all caught up!</p>}
         </Card>
