@@ -47,7 +47,7 @@ export default function Statistics() {
   }
 
   return (
-    <section style={{ padding: '80px 0', backgroundColor: 'var(--inverse-surface)', color: 'var(--inverse-on-surface)' }}>
+    <section className="stats-section" style={{ padding: '80px 0' }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{
           display: 'flex',
@@ -75,16 +75,16 @@ export default function Statistics() {
               <div className="stat-value" style={{
                 fontSize: 48,
                 fontWeight: 700,
-                color: 'var(--primary-fixed)',
+                color: '#004ac6',
                 fontFamily: "'JetBrains Mono', monospace",
                 lineHeight: 1.2,
                 marginBottom: 4,
               }}>
                 <AnimatedCounter value={s.value} />
               </div>
-              <div style={{
+              <div className="stat-label" style={{
                 fontSize: 13,
-                color: 'var(--on-surface-variant)',
+                color: '#565e74',
                 fontWeight: 500,
                 letterSpacing: '0.01em',
               }}>
@@ -98,13 +98,17 @@ export default function Statistics() {
                   transform: 'translateY(-50%)',
                   width: 1,
                   height: 40,
-                  backgroundColor: 'rgba(255,255,255,0.15)',
+                  backgroundColor: 'var(--border)',
                 }} />
               )}
             </motion.div>
           ))}
         </motion.div>
         <style>{`
+          .stats-section { background-color: #f0f4ff; }
+          .dark .stats-section { background-color: #1a2436; }
+          .dark .stat-value { color: #8ba4ff !important; }
+          .dark .stat-label { color: #c3c6d7 !important; }
           @media (max-width: 768px) {
             .stat-item { min-width: 140px !important; padding: 16px 20px !important; }
             .stat-value { font-size: 36px !important; }

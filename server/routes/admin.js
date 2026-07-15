@@ -1054,9 +1054,13 @@ router.post("/marketplace/listings/:id/feature", async (req, res) => {
   try {
     const listing = await prisma.franchiseListing.findUnique({ where: { id: req.params.id } });
     if (!listing) return res.status(404).json({ error: "Listing not found" });
+    const newFeatured = !listing.isFeatured;
     const updated = await prisma.franchiseListing.update({
       where: { id: req.params.id },
-      data: { isFeatured: !listing.isFeatured },
+      data: {
+        isFeatured: newFeatured,
+        ...(newFeatured ? { status: "active" } : {}),
+      },
     });
     res.json({ listing: updated });
   } catch (error) {

@@ -416,14 +416,17 @@ router.get("/featured-cities", async (_req, res) => {
   try {
     const featured = await prisma.featuredCity.findMany({ orderBy: { displayOrder: "asc" } });
     if (featured.length > 0) {
-      const listingCounts = await prisma.franchiseListing.groupBy({
-        by: ["city"],
-        where: { status: "active", city: { not: null } },
-        _count: { id: true },
+      const allListings = await prisma.franchiseListing.findMany({
+        where: { status: "active" },
+        select: { city: true },
       });
       const countMap = {};
-      listingCounts.forEach(l => { countMap[l.city] = l._count.id; });
-      const items = featured.map((c) => ({ ...c, listingCount: countMap[c.name] || c.listingCount || 0 }));
+      allListings.forEach((l) => { if (l.city) countMap[l.city] = (countMap[l.city] || 0) + 1; });
+      const items = featured.map((c) => ({
+        id: c.id, name: c.name, state: c.state, image: c.image,
+        isFeatured: c.isFeatured, displayOrder: c.displayOrder,
+        listingCount: countMap[c.name] || c.listingCount || 0,
+      }));
       return res.json({ items });
     }
     const listings = await prisma.franchiseListing.findMany({
@@ -444,6 +447,7 @@ router.get("/featured-cities", async (_req, res) => {
       .slice(0, 20);
     res.json({ items });
   } catch (error) {
+    console.error("Featured cities error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
