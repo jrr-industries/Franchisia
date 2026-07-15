@@ -57,8 +57,10 @@ export type ListingStatus = (typeof ListingStatus)[keyof typeof ListingStatus]
 
 
 export const ApplicationStatus = {
-  submitted: 'submitted',
+  pending: 'pending',
   reviewing: 'reviewing',
+  shortlisted: 'shortlisted',
+  interview: 'interview',
   accepted: 'accepted',
   rejected: 'rejected',
   withdrawn: 'withdrawn'

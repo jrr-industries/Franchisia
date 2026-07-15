@@ -231,6 +231,7 @@ model Company {
   listings      FranchiseListing[]
   reviews       Review[]
   policies      CompanyPolicy[]
+  applications  Application[]
 
   @@index([slug])
   @@index([industry])
@@ -291,22 +292,50 @@ model Application {
   id                 String            @id @default(cuid())
   listingId          String            @map("listing_id")
   applicantId        String            @map("applicant_id")
-  status             ApplicationStatus @default(submitted)
-  coverMessage       String?           @map("cover_message")
-  investmentCapacity Decimal?          @map("investment_capacity") @db.Decimal(12, 2)
-  internalNotes      String?           @map("internal_notes")
+  companyId          String?           @map("company_id")
+  status             ApplicationStatus @default(pending)
+
+  personalInfo       Json?             @map("personal_info")
+  businessInfo       Json?             @map("business_info")
+  financialInfo      Json?             @map("financial_info")
+  locationPreference Json?             @map("location_preference")
+  coverLetter        String?           @map("cover_letter")
+  notes              Json?             @map("notes")
+
   acceptedPolicyVersion String?        @map("accepted_policy_version")
   acceptedPolicyTerms  String?         @map("accepted_policy_terms")
   acceptedAt        DateTime?          @map("accepted_at") @db.Timestamptz(6)
+
+  viewedAt          DateTime?          @map("viewed_at") @db.Timestamptz(6)
+  shortlistedAt     DateTime?          @map("shortlisted_at") @db.Timestamptz(6)
+  interviewAt       DateTime?          @map("interview_at") @db.Timestamptz(6)
+
   createdAt          DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt          DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
   applicant          User              @relation(fields: [applicantId], references: [id], onDelete: Cascade)
   listing            FranchiseListing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  company            Company?          @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  documents          ApplicationDocument[]
 
   @@unique([listingId, applicantId])
   @@index([listingId])
   @@index([applicantId])
+  @@index([companyId])
   @@map("applications")
+}
+
+model ApplicationDocument {
+  id            String      @id @default(cuid())
+  applicationId String      @map("application_id")
+  type          String      @map("doc_type")
+  fileName      String      @map("file_name")
+  url           String
+  uploadedAt    DateTime    @default(now()) @map("uploaded_at") @db.Timestamptz(6)
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+  @@map("application_documents")
 }
 
 model Connection {
@@ -634,8 +663,10 @@ enum ListingStatus {
 }
 
 enum ApplicationStatus {
-  submitted
+  pending
   reviewing
+  shortlisted
+  interview
   accepted
   rejected
   withdrawn

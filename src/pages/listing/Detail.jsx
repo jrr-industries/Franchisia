@@ -1,20 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+
+import { motion } from 'framer-motion';
 import {
   MapPin, DollarSign, TrendingUp, Briefcase, Calendar, Heart,
-  MessageSquare, Share2, CheckCircle, Clock, Building2, Eye,
-  ChevronLeft, ChevronRight, BadgeCheck, FileSignature,
+  MessageSquare, Share2, Building2, Eye,
 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import Badge from '../../components/ui/Badge';
 import Avatar from '../../components/ui/Avatar';
 import VerifiedBadge from '../../components/ui/VerifiedBadge';
-import Modal from '../../components/ui/Modal';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../components/ui/Toast';
-import CompanyPoliciesView from '../dashboard/CompanyPoliciesView';
+import ApplyWizard from '../../components/ApplyWizard';
 
 const API = '/api';
 
@@ -27,11 +26,8 @@ export default function ListingDetail() {
   const [loading, setLoading] = useState(true);
   const [bookmarked, setBookmarked] = useState(false);
   const [bookmarking, setBookmarking] = useState(false);
-  const [applyModal, setApplyModal] = useState(false);
-  const [coverMessage, setCoverMessage] = useState('');
-  const [applying, setApplying] = useState(false);
-  const [policyAccepted, setPolicyAccepted] = useState(null);
-  const [showPolicies, setShowPolicies] = useState(true);
+  const [showWizard, setShowWizard] = useState(false);
+  const [myApplication, setMyApplication] = useState(null);
 
   useEffect(() => {
     if (!slug) return;
@@ -50,6 +46,17 @@ export default function ListingDetail() {
     fetch(`${API}/bookmarks/check/${listing.id}`, { credentials: 'include' })
       .then((r) => r.ok ? r.json() : null)
       .then((d) => { if (d) setBookmarked(d.bookmarked); })
+      .catch(() => {});
+  }, [listing?.id, user]);
+
+  useEffect(() => {
+    if (!listing?.id || !user) return;
+    fetch(`${API}/applications/my`, { credentials: 'include' })
+      .then((r) => r.ok ? r.json() : [])
+      .then((apps) => {
+        const match = (Array.isArray(apps) ? apps : []).find((a) => a.listingId === listing.id);
+        if (match) setMyApplication(match);
+      })
       .catch(() => {});
   }, [listing?.id, user]);
 
@@ -79,55 +86,16 @@ export default function ListingDetail() {
     }
   };
 
-  const handleApply = async () => {
-    if (!listing?.id || applying) return;
-    setApplying(true);
-    try {
-      const res = await fetch(`${API}/applications`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          listingId: listing.id,
-          coverMessage: coverMessage.trim() || undefined,
-          acceptedPolicyVersion: policyAccepted?.policyVersion || null,
-          acceptedPolicyTerms: 'I have read and agree to the company\'s Franchise Terms & Conditions.',
-          acceptedAt: policyAccepted?.acceptedAt || null,
-        }),
-      });
-      if (res.ok) {
-        addToast('Application submitted!', 'success');
-        setApplyModal(false);
-        setCoverMessage('');
-        setShowPolicies(true);
-        setPolicyAccepted(null);
-      } else {
-        const err = await res.json();
-        addToast(err.error || 'Failed to apply', 'error');
-      }
-    } catch {
-      addToast('Network error', 'error');
-    } finally {
-      setApplying(false);
-    }
-  };
-
-  const handlePolicyAccept = (acceptance) => {
-    setPolicyAccepted(acceptance);
-    setShowPolicies(false);
-  };
-
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href)
       .then(() => addToast('Link copied!', 'success'))
       .catch(() => addToast('Failed to copy', 'error'));
   };
 
-  const resetApplyModal = () => {
-    setApplyModal(false);
-    setShowPolicies(true);
-    setPolicyAccepted(null);
-    setCoverMessage('');
+  const handleApplied = (application) => {
+    setMyApplication(application);
+    setShowWizard(false);
+    addToast('Application submitted successfully!', 'success');
   };
 
   if (loading) {
@@ -267,25 +235,25 @@ export default function ListingDetail() {
         </div>
 
         <div style={{ display: 'flex', gap: 8, marginTop: 20, flexWrap: 'wrap' }}>
-          {user && (
-            <Button variant="primary" icon={<Briefcase size={16} />} onClick={() => setApplyModal(true)}>
+          {user && !myApplication && (
+            <Button variant="primary" icon={<Briefcase size={16} />} onClick={() => setShowWizard(true)}>
               Apply Now
+            </Button>
+          )}
+          {user && myApplication && myApplication.status !== 'accepted' && (
+            <Button variant="secondary" icon={<Briefcase size={16} />} disabled>
+              Applied
+            </Button>
+          )}
+          {user && myApplication?.status === 'accepted' && (
+            <Button variant="primary" icon={<MessageSquare size={16} />}
+              onClick={() => navigate('/messages')}>
+              Open Conversation
             </Button>
           )}
           <Button variant={bookmarked ? 'secondary' : 'outline'} icon={<Heart size={16} />}
             onClick={handleToggleBookmark} disabled={bookmarking}>
-            {bookmarked ? 'Saved' : 'Save'}
-          </Button>
-          <Button variant="outline" icon={<MessageSquare size={16} />}
-            onClick={() => {
-              if (c.ownerId) {
-                fetch(`${API}/messages/request`, {
-                  method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include',
-                  body: JSON.stringify({ recipientId: c.ownerId, content: `Hi, I'm interested in ${l.title}` }),
-                }).then(r => r.ok ? addToast('Message sent!', 'success') : null);
-              }
-            }}>
-            Message Company
+            {bookmarked ? 'Saved' : 'Save Listing'}
           </Button>
           <Button variant="ghost" icon={<Share2 size={16} />} onClick={handleShare}>
             Share
@@ -293,67 +261,17 @@ export default function ListingDetail() {
         </div>
       </Card>
 
-      <Modal isOpen={applyModal} onClose={resetApplyModal} title={showPolicies ? "Review Company Policies" : `Apply to ${l.title}`}
-        width={showPolicies ? "800px" : undefined}>
-        <AnimatePresence mode="wait">
-          {showPolicies ? (
-            <motion.div key="policies" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, padding: '12px 16px', borderRadius: 8, backgroundColor: 'var(--primary-light)' }}>
-                <FileSignature size={20} color="var(--primary)" />
-                <div>
-                  <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--primary)' }}>Step 1: Review & Accept Policies</p>
-                  <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Please review the company's franchise terms before applying</p>
-                </div>
-              </div>
-              <div style={{ maxHeight: '60vh', overflowY: 'auto' }}>
-                <CompanyPoliciesView
-                  companyId={c.id}
-                  listingId={l.id}
-                  onAccept={handlePolicyAccept}
-                  accepted={policyAccepted}
-                />
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div key="application" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, padding: '12px 16px', borderRadius: 8, backgroundColor: '#daf3e5' }}>
-                <BadgeCheck size={20} color="#10633a" />
-                <div>
-                  <p style={{ fontSize: 14, fontWeight: 600, color: '#10633a' }}>Step 2: Submit Application</p>
-                  <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
-                    Terms accepted v{policyAccepted?.policyVersion} on {policyAccepted ? new Date(policyAccepted.acceptedAt).toLocaleDateString() : ''}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setShowPolicies(true)}
-                  style={{ marginLeft: 'auto', background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: 12, fontWeight: 500, textDecoration: 'underline' }}
-                >
-                  Review again
-                </button>
-              </div>
-              <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 16 }}>
-                Send your application to {c.name}. Include a cover message to help your application stand out.
-              </p>
-              <textarea
-                value={coverMessage}
-                onChange={(e) => setCoverMessage(e.target.value)}
-                placeholder="Tell the franchisor why you're interested..."
-                style={{
-                  width: '100%', padding: '10px 14px', borderRadius: 6, border: '1px solid var(--border)',
-                  backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 14,
-                  outline: 'none', fontFamily: 'inherit', resize: 'vertical', minHeight: 100, boxSizing: 'border-box',
-                }}
-              />
-              <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 16 }}>
-                <Button variant="secondary" size="sm" onClick={resetApplyModal}>Cancel</Button>
-                <Button variant="primary" size="sm" onClick={handleApply} disabled={applying}>
-                  {applying ? 'Submitting...' : 'Submit Application'}
-                </Button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </Modal>
+      {showWizard && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 1000,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          backgroundColor: 'rgba(0,0,0,0.5)', padding: 20, overflowY: 'auto',
+        }} onClick={() => setShowWizard(false)}>
+          <div onClick={e => e.stopPropagation()} style={{ width: '100%', maxWidth: 800 }}>
+            <ApplyWizard listing={l} onComplete={handleApplied} onClose={() => setShowWizard(false)} />
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 }

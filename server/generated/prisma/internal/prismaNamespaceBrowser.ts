@@ -62,6 +62,7 @@ export const ModelName = {
   Company: 'Company',
   FranchiseListing: 'FranchiseListing',
   Application: 'Application',
+  ApplicationDocument: 'ApplicationDocument',
   Connection: 'Connection',
   CompanyFollower: 'CompanyFollower',
   Conversation: 'Conversation',
@@ -361,18 +362,37 @@ export const ApplicationScalarFieldEnum = {
   id: 'id',
   listingId: 'listingId',
   applicantId: 'applicantId',
+  companyId: 'companyId',
   status: 'status',
-  coverMessage: 'coverMessage',
-  investmentCapacity: 'investmentCapacity',
-  internalNotes: 'internalNotes',
+  personalInfo: 'personalInfo',
+  businessInfo: 'businessInfo',
+  financialInfo: 'financialInfo',
+  locationPreference: 'locationPreference',
+  coverLetter: 'coverLetter',
+  notes: 'notes',
   acceptedPolicyVersion: 'acceptedPolicyVersion',
   acceptedPolicyTerms: 'acceptedPolicyTerms',
   acceptedAt: 'acceptedAt',
+  viewedAt: 'viewedAt',
+  shortlistedAt: 'shortlistedAt',
+  interviewAt: 'interviewAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
+
+
+export const ApplicationDocumentScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  type: 'type',
+  fileName: 'fileName',
+  url: 'url',
+  uploadedAt: 'uploadedAt'
+} as const
+
+export type ApplicationDocumentScalarFieldEnum = (typeof ApplicationDocumentScalarFieldEnum)[keyof typeof ApplicationDocumentScalarFieldEnum]
 
 
 export const ConnectionScalarFieldEnum = {

@@ -395,6 +395,7 @@ export const ModelName = {
   Company: 'Company',
   FranchiseListing: 'FranchiseListing',
   Application: 'Application',
+  ApplicationDocument: 'ApplicationDocument',
   Connection: 'Connection',
   CompanyFollower: 'CompanyFollower',
   Conversation: 'Conversation',
@@ -463,7 +464,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "userSkill" | "userInterest" | "userEducation" | "userExperience" | "company" | "franchiseListing" | "application" | "connection" | "companyFollower" | "conversation" | "conversationParticipant" | "message" | "messageReaction" | "notification" | "review" | "meeting" | "meetingParticipant" | "messageRequest" | "siteStat" | "siteContact" | "aboutPage" | "aboutTeam" | "aboutTimeline" | "auditLog" | "userDocument" | "verificationHistory" | "salesInquiry" | "bookmark" | "report" | "companyPolicy" | "companyFAQ" | "companyDocument" | "companyPolicyVersion" | "companyPolicyAcceptance" | "blogPost" | "career" | "event" | "partner" | "testimonial" | "siteFAQ" | "plan" | "newsletterSubscription" | "media" | "contentPage" | "siteSetting" | "heroSlide" | "userType" | "feature" | "howItWork" | "featuredCity" | "navigationLink" | "heroSetting" | "industry" | "aISection" | "globalNetwork" | "mapLocation" | "globalMetric" | "newsletterSetting" | "footerSetting" | "marketplaceSearchSetting"
+    modelProps: "user" | "session" | "account" | "verification" | "userSkill" | "userInterest" | "userEducation" | "userExperience" | "company" | "franchiseListing" | "application" | "applicationDocument" | "connection" | "companyFollower" | "conversation" | "conversationParticipant" | "message" | "messageReaction" | "notification" | "review" | "meeting" | "meetingParticipant" | "messageRequest" | "siteStat" | "siteContact" | "aboutPage" | "aboutTeam" | "aboutTimeline" | "auditLog" | "userDocument" | "verificationHistory" | "salesInquiry" | "bookmark" | "report" | "companyPolicy" | "companyFAQ" | "companyDocument" | "companyPolicyVersion" | "companyPolicyAcceptance" | "blogPost" | "career" | "event" | "partner" | "testimonial" | "siteFAQ" | "plan" | "newsletterSubscription" | "media" | "contentPage" | "siteSetting" | "heroSlide" | "userType" | "feature" | "howItWork" | "featuredCity" | "navigationLink" | "heroSetting" | "industry" | "aISection" | "globalNetwork" | "mapLocation" | "globalMetric" | "newsletterSetting" | "footerSetting" | "marketplaceSearchSetting"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1278,6 +1279,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ApplicationCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ApplicationCountAggregateOutputType> | number
+        }
+      }
+    }
+    ApplicationDocument: {
+      payload: Prisma.$ApplicationDocumentPayload<ExtArgs>
+      fields: Prisma.ApplicationDocumentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ApplicationDocumentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationDocumentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ApplicationDocumentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationDocumentPayload>
+        }
+        findFirst: {
+          args: Prisma.ApplicationDocumentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationDocumentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ApplicationDocumentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationDocumentPayload>
+        }
+        findMany: {
+          args: Prisma.ApplicationDocumentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationDocumentPayload>[]
+        }
+        create: {
+          args: Prisma.ApplicationDocumentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationDocumentPayload>
+        }
+        createMany: {
+          args: Prisma.ApplicationDocumentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ApplicationDocumentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationDocumentPayload>[]
+        }
+        delete: {
+          args: Prisma.ApplicationDocumentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationDocumentPayload>
+        }
+        update: {
+          args: Prisma.ApplicationDocumentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationDocumentPayload>
+        }
+        deleteMany: {
+          args: Prisma.ApplicationDocumentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ApplicationDocumentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ApplicationDocumentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationDocumentPayload>[]
+        }
+        upsert: {
+          args: Prisma.ApplicationDocumentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationDocumentPayload>
+        }
+        aggregate: {
+          args: Prisma.ApplicationDocumentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateApplicationDocument>
+        }
+        groupBy: {
+          args: Prisma.ApplicationDocumentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApplicationDocumentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ApplicationDocumentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApplicationDocumentCountAggregateOutputType> | number
         }
       }
     }
@@ -5470,18 +5545,37 @@ export const ApplicationScalarFieldEnum = {
   id: 'id',
   listingId: 'listingId',
   applicantId: 'applicantId',
+  companyId: 'companyId',
   status: 'status',
-  coverMessage: 'coverMessage',
-  investmentCapacity: 'investmentCapacity',
-  internalNotes: 'internalNotes',
+  personalInfo: 'personalInfo',
+  businessInfo: 'businessInfo',
+  financialInfo: 'financialInfo',
+  locationPreference: 'locationPreference',
+  coverLetter: 'coverLetter',
+  notes: 'notes',
   acceptedPolicyVersion: 'acceptedPolicyVersion',
   acceptedPolicyTerms: 'acceptedPolicyTerms',
   acceptedAt: 'acceptedAt',
+  viewedAt: 'viewedAt',
+  shortlistedAt: 'shortlistedAt',
+  interviewAt: 'interviewAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
+
+
+export const ApplicationDocumentScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  type: 'type',
+  fileName: 'fileName',
+  url: 'url',
+  uploadedAt: 'uploadedAt'
+} as const
+
+export type ApplicationDocumentScalarFieldEnum = (typeof ApplicationDocumentScalarFieldEnum)[keyof typeof ApplicationDocumentScalarFieldEnum]
 
 
 export const ConnectionScalarFieldEnum = {
@@ -6498,6 +6592,20 @@ export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInput
 
 
 /**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
  * Reference to a field of type 'MessageType'
  */
 export type EnumMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageType'>
@@ -6522,20 +6630,6 @@ export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'NotificationType[]'
  */
 export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType[]'>
-    
-
-
-/**
- * Reference to a field of type 'Json'
- */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-/**
- * Reference to a field of type 'QueryMode'
- */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -6687,6 +6781,7 @@ export type GlobalOmitConfig = {
   company?: Prisma.CompanyOmit
   franchiseListing?: Prisma.FranchiseListingOmit
   application?: Prisma.ApplicationOmit
+  applicationDocument?: Prisma.ApplicationDocumentOmit
   connection?: Prisma.ConnectionOmit
   companyFollower?: Prisma.CompanyFollowerOmit
   conversation?: Prisma.ConversationOmit

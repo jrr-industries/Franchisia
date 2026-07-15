@@ -42,6 +42,7 @@ const SavedListings = lazy(() => import("../pages/dashboard/SavedListings"));
 const PoliciesTerms = lazy(() => import("../pages/dashboard/PoliciesTerms"));
 const MyMarketplace = lazy(() => import("../pages/dashboard/MyMarketplace"));
 const Applications = lazy(() => import("../pages/dashboard/Applications"));
+const ApplicationDetail = lazy(() => import("../pages/dashboard/ApplicationDetail"));
 const Analytics = lazy(() => import("../pages/dashboard/Analytics"));
 const Followers = lazy(() => import("../pages/dashboard/Followers"));
 const Documents = lazy(() => import("../pages/dashboard/Documents"));
@@ -171,6 +172,8 @@ export default function AppRoutes() {
           <Route path="/companies" element={<Suspense fallback={<PageLoading />}><Companies /></Suspense>} />
           <Route path="/dashboard/listings" element={<Suspense fallback={<PageLoading />}><MyMarketplace /></Suspense>} />
           <Route path="/dashboard/applications" element={<Suspense fallback={<PageLoading />}><Applications /></Suspense>} />
+          <Route path="/dashboard/application/:id" element={<Suspense fallback={<PageLoading />}><ApplicationDetail /></Suspense>} />
+          <Route path="/dashboard/applications/:listingId" element={<Suspense fallback={<PageLoading />}><Applications /></Suspense>} />
           <Route path="/dashboard/analytics" element={<Suspense fallback={<PageLoading />}><Analytics /></Suspense>} />
           <Route path="/dashboard/followers" element={<Suspense fallback={<PageLoading />}><Followers /></Suspense>} />
           <Route path="/dashboard/documents" element={<Suspense fallback={<PageLoading />}><Documents /></Suspense>} />

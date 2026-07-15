@@ -1081,22 +1081,44 @@ router.delete("/marketplace/listings/:id", async (req, res) => {
 
 router.get("/marketplace/applications", async (req, res) => {
   try {
-    const { page = 1, limit = 20, status } = req.query;
+    const { page = 1, limit = 20, status, search, companyId, listingId, applicantId } = req.query;
     const skip = (parseInt(page) - 1) * parseInt(limit);
     const where = {};
     if (status) where.status = status;
+    if (companyId) where.companyId = companyId;
+    if (listingId) where.listingId = listingId;
+    if (applicantId) where.applicantId = applicantId;
+    if (search) {
+      where.OR = [
+        { applicant: { name: { contains: search, mode: "insensitive" } } },
+        { applicant: { email: { contains: search, mode: "insensitive" } } },
+        { listing: { title: { contains: search, mode: "insensitive" } } },
+      ];
+    }
     const [applications, total] = await Promise.all([
       prisma.application.findMany({
         where, skip, take: parseInt(limit),
         include: {
           applicant: { select: { id: true, name: true, email: true, image: true } },
-          listing: { select: { id: true, title: true, company: { select: { name: true } } } },
+          listing: { select: { id: true, title: true, company: { select: { id: true, name: true } } } },
+          company: { select: { id: true, name: true } },
+          documents: { select: { id: true, type: true, fileName: true } },
         },
         orderBy: { createdAt: "desc" },
       }),
       prisma.application.count({ where }),
     ]);
     res.json({ applications, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    console.error("Admin route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/marketplace/applications/:id", async (req, res) => {
+  try {
+    await prisma.application.delete({ where: { id: req.params.id } });
+    res.json({ success: true });
   } catch (error) {
     console.error("Admin route error:", error);
     res.status(500).json({ error: "Internal server error" });

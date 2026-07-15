@@ -1,24 +1,31 @@
 import { useState, useEffect } from 'react';
-import { Search as SearchIcon, Check, X, Eye, Loader2, ChevronLeft, ChevronRight, Briefcase, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Search as SearchIcon, Check, X, Eye, Loader2, ChevronLeft, ChevronRight, Briefcase, Trash2 } from 'lucide-react';
+import Button from '../../components/ui/Button';
+import Badge from '../../components/ui/Badge';
+import { useToast } from '../../components/ui/Toast';
 
 const API = '/api/admin/marketplace';
 
 const statusColors = {
-  submitted: { bg: '#FEF3C7', color: '#92400E' },
+  pending: { bg: '#FEF3C7', color: '#92400E' },
   reviewing: { bg: '#DBEAFE', color: '#1E40AF' },
+  shortlisted: { bg: '#D1FAE5', color: '#065F46' },
+  interview: { bg: '#F3E8FF', color: '#6B21A8' },
   accepted: { bg: '#D1FAE5', color: '#065F46' },
   rejected: { bg: '#FEE2E2', color: '#991B1B' },
   withdrawn: { bg: '#F3F4F6', color: '#374151' },
 };
 
 export default function AdminApplications() {
+  const navigate = useNavigate();
+  const { addToast } = useToast();
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
-  const [selectedApp, setSelectedApp] = useState(null);
   const perPage = 10;
 
   const fetchItems = async () => {
@@ -36,18 +43,30 @@ export default function AdminApplications() {
   useEffect(() => { fetchItems(); }, [page, statusFilter]);
 
   useEffect(() => {
-    const timer = setTimeout(() => { setPage(1); }, 300);
+    const timer = setTimeout(() => { if (search !== undefined) setPage(1); fetchItems(); }, 300);
     return () => clearTimeout(timer);
   }, [search]);
 
   const handleStatus = async (id, status) => {
     try {
-      const res = await fetch(`${API}/applications/${id}/status`, {
-        method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+      const res = await fetch(`/api/applications/${id}/status`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' },
         credentials: 'include', body: JSON.stringify({ status }),
       });
-      if (res.ok) { fetchItems(); setSelectedApp(null); }
+      if (res.ok) {
+        addToast(`Application ${status}`, 'success');
+        fetchItems();
+      }
     } catch (e) { console.error(e); }
+  };
+
+  const handleDelete = async (id) => {
+    if (!confirm('Delete this application permanently?')) return;
+    try {
+      const res = await fetch(`${API}/applications/${id}`, { method: 'DELETE', credentials: 'include' });
+      if (res.ok) { addToast('Application deleted', 'success'); fetchItems(); }
+      else addToast('Failed to delete', 'error');
+    } catch { addToast('Network error', 'error'); }
   };
 
   const totalPages = Math.ceil(total / perPage);
@@ -67,17 +86,15 @@ export default function AdminApplications() {
       <div style={{ display: 'flex', gap: 12, marginBottom: 20 }}>
         <div style={{ position: 'relative', flex: 1 }}>
           <SearchIcon size={16} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search applicants..."
-            style={{ width: '100%', padding: '10px 16px 10px 36px', fontSize: 14, color: 'var(--text)', backgroundColor: 'var(--surface)', border: '2px solid var(--border)', borderRadius: 8, outline: 'none' }} />
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search by applicant name, email, or listing title..."
+            style={{ width: '100%', padding: '10px 16px 10px 36px', fontSize: 14, color: 'var(--text)', backgroundColor: 'var(--surface)', border: '2px solid var(--border)', borderRadius: 8, outline: 'none', boxSizing: 'border-box' }} />
         </div>
         <select value={statusFilter} onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
           style={{ padding: '10px 16px', fontSize: 14, borderRadius: 8, border: '2px solid var(--border)', backgroundColor: 'var(--surface)', color: 'var(--text)', outline: 'none' }}>
           <option value="">All Status</option>
-          <option value="submitted">Submitted</option>
-          <option value="reviewing">Reviewing</option>
-          <option value="accepted">Accepted</option>
-          <option value="rejected">Rejected</option>
-          <option value="withdrawn">Withdrawn</option>
+          {Object.keys(statusColors).map(s => (
+            <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
+          ))}
         </select>
       </div>
 
@@ -102,16 +119,16 @@ export default function AdminApplications() {
               return (
                 <tr key={a.id} style={{ borderBottom: '1px solid var(--border)' }}>
                   <td style={{ padding: '14px 16px', fontSize: 14 }}>
-                    <span style={{ fontWeight: 500 }}>{a.applicant?.name || a.applicant?.email || 'Unknown'}</span>
+                    <span style={{ fontWeight: 500 }}>{a.applicant?.name || a.personalInfo?.fullName || a.applicant?.email || 'Unknown'}</span>
                   </td>
-                  <td style={{ padding: '14px 16px', fontSize: 13, color: 'var(--text-secondary)' }}>{a.applicant?.email || '—'}</td>
+                  <td style={{ padding: '14px 16px', fontSize: 13, color: 'var(--text-secondary)' }}>{a.applicant?.email || a.personalInfo?.email || '—'}</td>
                   <td style={{ padding: '14px 16px', fontSize: 14 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                       <Briefcase size={14} color="var(--primary)" />
                       <span>{a.listing?.title || '—'}</span>
                     </div>
                   </td>
-                  <td style={{ padding: '14px 16px', fontSize: 13, color: 'var(--text-secondary)' }}>{a.listing?.company?.name || '—'}</td>
+                  <td style={{ padding: '14px 16px', fontSize: 13, color: 'var(--text-secondary)' }}>{a.listing?.company?.name || a.company?.name || '—'}</td>
                   <td style={{ padding: '14px 16px', fontSize: 13 }}>
                     <span style={{ display: 'inline-block', padding: '2px 10px', borderRadius: 100, fontSize: 12, fontWeight: 500, backgroundColor: sc.bg, color: sc.color }}>
                       {a.status}
@@ -122,11 +139,11 @@ export default function AdminApplications() {
                   </td>
                   <td style={{ padding: '14px 16px', fontSize: 14 }}>
                     <div style={{ display: 'flex', gap: 4 }}>
-                      <button onClick={() => setSelectedApp(a)}
+                      <button onClick={() => navigate(`/dashboard/application/${a.id}`)}
                         style={{ padding: '6px 10px', borderRadius: 6, border: '1px solid var(--border)', backgroundColor: 'transparent', color: 'var(--text)', cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', gap: 4 }}>
                         <Eye size={14} /> View
                       </button>
-                      {a.status === 'submitted' && (
+                      {a.status === 'pending' && (
                         <>
                           <button onClick={() => handleStatus(a.id, 'reviewing')}
                             style={{ padding: '6px 10px', borderRadius: 6, border: 'none', backgroundColor: '#DBEAFE', color: '#1E40AF', cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', gap: 4 }}>
@@ -138,7 +155,7 @@ export default function AdminApplications() {
                           </button>
                         </>
                       )}
-                      {a.status === 'reviewing' && (
+                      {(a.status === 'reviewing' || a.status === 'shortlisted') && (
                         <>
                           <button onClick={() => handleStatus(a.id, 'accepted')}
                             style={{ padding: '6px 10px', borderRadius: 6, border: 'none', backgroundColor: '#D1FAE5', color: '#065F46', cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', gap: 4 }}>
@@ -150,6 +167,10 @@ export default function AdminApplications() {
                           </button>
                         </>
                       )}
+                      <button onClick={() => handleDelete(a.id)}
+                        style={{ padding: '6px 10px', borderRadius: 6, border: '1px solid #FEE2E2', backgroundColor: 'transparent', color: '#991B1B', cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', gap: 4 }}>
+                        <Trash2 size={14} />
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -170,46 +191,6 @@ export default function AdminApplications() {
             style={{ padding: '8px 16px', borderRadius: 6, border: '1px solid var(--border)', backgroundColor: 'var(--surface)', color: 'var(--text)', cursor: page < totalPages ? 'pointer' : 'not-allowed', fontSize: 13, opacity: page < totalPages ? 1 : 0.5 }}>
             <ChevronRight size={16} />
           </button>
-        </div>
-      )}
-
-      {selectedApp && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: 20 }}
-          onClick={() => setSelectedApp(null)}>
-          <div onClick={(e) => e.stopPropagation()} style={{ backgroundColor: 'var(--surface)', borderRadius: 16, padding: 32, width: '100%', maxWidth: 520 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-              <h2 style={{ fontSize: 20, fontWeight: 700 }}>Application Details</h2>
-              <button onClick={() => setSelectedApp(null)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: 4, fontSize: 20 }}>✕</button>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div><label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>Applicant</label><p style={{ fontSize: 15, fontWeight: 600, margin: '4px 0 0' }}>{selectedApp.applicant?.name || 'Unknown'}</p></div>
-              <div><label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>Email</label><p style={{ fontSize: 14, margin: '4px 0 0' }}>{selectedApp.applicant?.email || '—'}</p></div>
-              <div><label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>Listing</label><p style={{ fontSize: 14, margin: '4px 0 0' }}>{selectedApp.listing?.title || '—'}</p></div>
-              <div><label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>Company</label><p style={{ fontSize: 14, margin: '4px 0 0' }}>{selectedApp.listing?.company?.name || '—'}</p></div>
-              <div><label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>Cover Message</label><p style={{ fontSize: 14, margin: '4px 0 0', color: 'var(--text-secondary)' }}>{selectedApp.coverMessage || 'No message'}</p></div>
-              <div><label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>Status</label>
-                <span style={{ display: 'inline-block', marginTop: 4, padding: '2px 10px', borderRadius: 100, fontSize: 12, fontWeight: 500, backgroundColor: statusColors[selectedApp.status]?.bg || '#F3F4F6', color: statusColors[selectedApp.status]?.color || '#374151' }}>
-                  {selectedApp.status}
-                </span>
-              </div>
-              <div><label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>Submitted</label><p style={{ fontSize: 14, margin: '4px 0 0' }}>{new Date(selectedApp.createdAt).toLocaleString()}</p></div>
-            </div>
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 24 }}>
-              {selectedApp.status === 'submitted' && (
-                <>
-                  <button onClick={() => handleStatus(selectedApp.id, 'reviewing')} style={{ padding: '10px 20px', borderRadius: 8, border: 'none', backgroundColor: '#DBEAFE', color: '#1E40AF', cursor: 'pointer', fontWeight: 600, fontSize: 14 }}>Mark Reviewing</button>
-                  <button onClick={() => handleStatus(selectedApp.id, 'rejected')} style={{ padding: '10px 20px', borderRadius: 8, border: 'none', backgroundColor: '#FEE2E2', color: '#991B1B', cursor: 'pointer', fontWeight: 600, fontSize: 14 }}>Reject</button>
-                </>
-              )}
-              {selectedApp.status === 'reviewing' && (
-                <>
-                  <button onClick={() => handleStatus(selectedApp.id, 'accepted')} style={{ padding: '10px 20px', borderRadius: 8, border: 'none', backgroundColor: '#D1FAE5', color: '#065F46', cursor: 'pointer', fontWeight: 600, fontSize: 14 }}>Accept</button>
-                  <button onClick={() => handleStatus(selectedApp.id, 'rejected')} style={{ padding: '10px 20px', borderRadius: 8, border: 'none', backgroundColor: '#FEE2E2', color: '#991B1B', cursor: 'pointer', fontWeight: 600, fontSize: 14 }}>Reject</button>
-                </>
-              )}
-              <button onClick={() => setSelectedApp(null)} style={{ padding: '10px 20px', borderRadius: 8, border: '1px solid var(--border)', backgroundColor: 'transparent', color: 'var(--text)', cursor: 'pointer', fontWeight: 500, fontSize: 14 }}>Close</button>
-            </div>
-          </div>
         </div>
       )}
     </div>

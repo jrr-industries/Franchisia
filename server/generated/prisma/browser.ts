@@ -73,6 +73,11 @@ export type FranchiseListing = Prisma.FranchiseListingModel
  */
 export type Application = Prisma.ApplicationModel
 /**
+ * Model ApplicationDocument
+ * 
+ */
+export type ApplicationDocument = Prisma.ApplicationDocumentModel
+/**
  * Model Connection
  * 
  */

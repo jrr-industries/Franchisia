@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Compass, Building2, MessageSquare, Bell, User, Settings,
@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Logo from './Logo';
+
+const API = '/api';
 
 const mainLinks = [
   { label: 'Home', path: '/', icon: LayoutDashboard },
@@ -39,6 +41,15 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
   const isFranchisor = user?.role === "franchisor";
   const sidebarVisible = overlayOpen === true;
   const sidebarOverlayMode = overlayOpen !== undefined;
+  const [unreadApps, setUnreadApps] = useState(0);
+
+  useEffect(() => {
+    if (!user || (!isFranchisor && !isAdmin)) return;
+    fetch(`${API}/applications/company`, { credentials: 'include' })
+      .then(r => r.ok ? r.json() : [])
+      .then(data => { setUnreadApps(Array.isArray(data) ? data.filter(a => a.status === 'pending').length : 0); })
+      .catch(() => {});
+  }, [user, isFranchisor, isAdmin]);
 
   const handleClose = useCallback(() => { onOverlayClose?.(); }, [onOverlayClose]);
 
@@ -62,7 +73,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
     return () => window.removeEventListener('keydown', handler);
   }, [sidebarVisible, handleClose]);
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => location.pathname === path || (path === '/dashboard/applications' && location.pathname.startsWith('/dashboard/application/'));
 
   const linkStyle = (path) => ({
     display: 'flex',
@@ -102,10 +113,32 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
           </Link>
         ))}
 
+        {user && (
+          <>
+            <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>Applications</p>
+            <Link to="/dashboard/applications" onClick={handleClose} style={{ ...linkStyle('/dashboard/applications'), position: 'relative' }} title="Applications">
+              <ClipboardList size={20} style={{ flexShrink: 0 }} />
+              {!collapsed && 'Applications'}
+              {unreadApps > 0 && (
+                <span style={{
+                  position: 'absolute', top: 6, right: 8,
+                  minWidth: 18, height: 18, borderRadius: 9,
+                  backgroundColor: 'var(--primary)', color: '#fff',
+                  fontSize: 10, fontWeight: 700,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  padding: '0 4px',
+                }}>
+                  {unreadApps}
+                </span>
+              )}
+            </Link>
+          </>
+        )}
+
         {isFranchisor && (
           <>
             <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>My Business</p>
-            {companyLinks.map((l) => (
+            {companyLinks.filter(l => l.path !== '/dashboard/applications').map((l) => (
               <Link key={l.path} to={l.path} onClick={handleClose} style={linkStyle(l.path)} title={l.label}>
                 <l.icon size={20} style={{ flexShrink: 0 }} />
                 {!collapsed && l.label}

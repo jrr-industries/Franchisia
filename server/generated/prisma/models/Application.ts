@@ -20,31 +20,23 @@ export type ApplicationModel = runtime.Types.Result.DefaultSelection<Prisma.$App
 
 export type AggregateApplication = {
   _count: ApplicationCountAggregateOutputType | null
-  _avg: ApplicationAvgAggregateOutputType | null
-  _sum: ApplicationSumAggregateOutputType | null
   _min: ApplicationMinAggregateOutputType | null
   _max: ApplicationMaxAggregateOutputType | null
-}
-
-export type ApplicationAvgAggregateOutputType = {
-  investmentCapacity: runtime.Decimal | null
-}
-
-export type ApplicationSumAggregateOutputType = {
-  investmentCapacity: runtime.Decimal | null
 }
 
 export type ApplicationMinAggregateOutputType = {
   id: string | null
   listingId: string | null
   applicantId: string | null
+  companyId: string | null
   status: $Enums.ApplicationStatus | null
-  coverMessage: string | null
-  investmentCapacity: runtime.Decimal | null
-  internalNotes: string | null
+  coverLetter: string | null
   acceptedPolicyVersion: string | null
   acceptedPolicyTerms: string | null
   acceptedAt: Date | null
+  viewedAt: Date | null
+  shortlistedAt: Date | null
+  interviewAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,13 +45,15 @@ export type ApplicationMaxAggregateOutputType = {
   id: string | null
   listingId: string | null
   applicantId: string | null
+  companyId: string | null
   status: $Enums.ApplicationStatus | null
-  coverMessage: string | null
-  investmentCapacity: runtime.Decimal | null
-  internalNotes: string | null
+  coverLetter: string | null
   acceptedPolicyVersion: string | null
   acceptedPolicyTerms: string | null
   acceptedAt: Date | null
+  viewedAt: Date | null
+  shortlistedAt: Date | null
+  interviewAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -68,38 +62,39 @@ export type ApplicationCountAggregateOutputType = {
   id: number
   listingId: number
   applicantId: number
+  companyId: number
   status: number
-  coverMessage: number
-  investmentCapacity: number
-  internalNotes: number
+  personalInfo: number
+  businessInfo: number
+  financialInfo: number
+  locationPreference: number
+  coverLetter: number
+  notes: number
   acceptedPolicyVersion: number
   acceptedPolicyTerms: number
   acceptedAt: number
+  viewedAt: number
+  shortlistedAt: number
+  interviewAt: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
 
-export type ApplicationAvgAggregateInputType = {
-  investmentCapacity?: true
-}
-
-export type ApplicationSumAggregateInputType = {
-  investmentCapacity?: true
-}
-
 export type ApplicationMinAggregateInputType = {
   id?: true
   listingId?: true
   applicantId?: true
+  companyId?: true
   status?: true
-  coverMessage?: true
-  investmentCapacity?: true
-  internalNotes?: true
+  coverLetter?: true
   acceptedPolicyVersion?: true
   acceptedPolicyTerms?: true
   acceptedAt?: true
+  viewedAt?: true
+  shortlistedAt?: true
+  interviewAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -108,13 +103,15 @@ export type ApplicationMaxAggregateInputType = {
   id?: true
   listingId?: true
   applicantId?: true
+  companyId?: true
   status?: true
-  coverMessage?: true
-  investmentCapacity?: true
-  internalNotes?: true
+  coverLetter?: true
   acceptedPolicyVersion?: true
   acceptedPolicyTerms?: true
   acceptedAt?: true
+  viewedAt?: true
+  shortlistedAt?: true
+  interviewAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -123,13 +120,20 @@ export type ApplicationCountAggregateInputType = {
   id?: true
   listingId?: true
   applicantId?: true
+  companyId?: true
   status?: true
-  coverMessage?: true
-  investmentCapacity?: true
-  internalNotes?: true
+  personalInfo?: true
+  businessInfo?: true
+  financialInfo?: true
+  locationPreference?: true
+  coverLetter?: true
+  notes?: true
   acceptedPolicyVersion?: true
   acceptedPolicyTerms?: true
   acceptedAt?: true
+  viewedAt?: true
+  shortlistedAt?: true
+  interviewAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -173,18 +177,6 @@ export type ApplicationAggregateArgs<ExtArgs extends runtime.Types.Extensions.In
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: ApplicationAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: ApplicationSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: ApplicationMinAggregateInputType
@@ -215,8 +207,6 @@ export type ApplicationGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   _count?: ApplicationCountAggregateInputType | true
-  _avg?: ApplicationAvgAggregateInputType
-  _sum?: ApplicationSumAggregateInputType
   _min?: ApplicationMinAggregateInputType
   _max?: ApplicationMaxAggregateInputType
 }
@@ -225,18 +215,23 @@ export type ApplicationGroupByOutputType = {
   id: string
   listingId: string
   applicantId: string
+  companyId: string | null
   status: $Enums.ApplicationStatus
-  coverMessage: string | null
-  investmentCapacity: runtime.Decimal | null
-  internalNotes: string | null
+  personalInfo: runtime.JsonValue | null
+  businessInfo: runtime.JsonValue | null
+  financialInfo: runtime.JsonValue | null
+  locationPreference: runtime.JsonValue | null
+  coverLetter: string | null
+  notes: runtime.JsonValue | null
   acceptedPolicyVersion: string | null
   acceptedPolicyTerms: string | null
   acceptedAt: Date | null
+  viewedAt: Date | null
+  shortlistedAt: Date | null
+  interviewAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: ApplicationCountAggregateOutputType | null
-  _avg: ApplicationAvgAggregateOutputType | null
-  _sum: ApplicationSumAggregateOutputType | null
   _min: ApplicationMinAggregateOutputType | null
   _max: ApplicationMaxAggregateOutputType | null
 }
@@ -263,34 +258,52 @@ export type ApplicationWhereInput = {
   id?: Prisma.StringFilter<"Application"> | string
   listingId?: Prisma.StringFilter<"Application"> | string
   applicantId?: Prisma.StringFilter<"Application"> | string
+  companyId?: Prisma.StringNullableFilter<"Application"> | string | null
   status?: Prisma.EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
-  coverMessage?: Prisma.StringNullableFilter<"Application"> | string | null
-  investmentCapacity?: Prisma.DecimalNullableFilter<"Application"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.StringNullableFilter<"Application"> | string | null
+  personalInfo?: Prisma.JsonNullableFilter<"Application">
+  businessInfo?: Prisma.JsonNullableFilter<"Application">
+  financialInfo?: Prisma.JsonNullableFilter<"Application">
+  locationPreference?: Prisma.JsonNullableFilter<"Application">
+  coverLetter?: Prisma.StringNullableFilter<"Application"> | string | null
+  notes?: Prisma.JsonNullableFilter<"Application">
   acceptedPolicyVersion?: Prisma.StringNullableFilter<"Application"> | string | null
   acceptedPolicyTerms?: Prisma.StringNullableFilter<"Application"> | string | null
   acceptedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
+  viewedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
+  shortlistedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
+  interviewAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   applicant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   listing?: Prisma.XOR<Prisma.FranchiseListingScalarRelationFilter, Prisma.FranchiseListingWhereInput>
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
+  documents?: Prisma.ApplicationDocumentListRelationFilter
 }
 
 export type ApplicationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   listingId?: Prisma.SortOrder
   applicantId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
-  coverMessage?: Prisma.SortOrderInput | Prisma.SortOrder
-  investmentCapacity?: Prisma.SortOrderInput | Prisma.SortOrder
-  internalNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  personalInfo?: Prisma.SortOrderInput | Prisma.SortOrder
+  businessInfo?: Prisma.SortOrderInput | Prisma.SortOrder
+  financialInfo?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationPreference?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverLetter?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   acceptedPolicyVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   acceptedPolicyTerms?: Prisma.SortOrderInput | Prisma.SortOrder
   acceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  shortlistedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  interviewAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   applicant?: Prisma.UserOrderByWithRelationInput
   listing?: Prisma.FranchiseListingOrderByWithRelationInput
+  company?: Prisma.CompanyOrderByWithRelationInput
+  documents?: Prisma.ApplicationDocumentOrderByRelationAggregateInput
 }
 
 export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
@@ -301,37 +314,51 @@ export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ApplicationWhereInput | Prisma.ApplicationWhereInput[]
   listingId?: Prisma.StringFilter<"Application"> | string
   applicantId?: Prisma.StringFilter<"Application"> | string
+  companyId?: Prisma.StringNullableFilter<"Application"> | string | null
   status?: Prisma.EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
-  coverMessage?: Prisma.StringNullableFilter<"Application"> | string | null
-  investmentCapacity?: Prisma.DecimalNullableFilter<"Application"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.StringNullableFilter<"Application"> | string | null
+  personalInfo?: Prisma.JsonNullableFilter<"Application">
+  businessInfo?: Prisma.JsonNullableFilter<"Application">
+  financialInfo?: Prisma.JsonNullableFilter<"Application">
+  locationPreference?: Prisma.JsonNullableFilter<"Application">
+  coverLetter?: Prisma.StringNullableFilter<"Application"> | string | null
+  notes?: Prisma.JsonNullableFilter<"Application">
   acceptedPolicyVersion?: Prisma.StringNullableFilter<"Application"> | string | null
   acceptedPolicyTerms?: Prisma.StringNullableFilter<"Application"> | string | null
   acceptedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
+  viewedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
+  shortlistedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
+  interviewAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   applicant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   listing?: Prisma.XOR<Prisma.FranchiseListingScalarRelationFilter, Prisma.FranchiseListingWhereInput>
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
+  documents?: Prisma.ApplicationDocumentListRelationFilter
 }, "id" | "listingId_applicantId">
 
 export type ApplicationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   listingId?: Prisma.SortOrder
   applicantId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
-  coverMessage?: Prisma.SortOrderInput | Prisma.SortOrder
-  investmentCapacity?: Prisma.SortOrderInput | Prisma.SortOrder
-  internalNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  personalInfo?: Prisma.SortOrderInput | Prisma.SortOrder
+  businessInfo?: Prisma.SortOrderInput | Prisma.SortOrder
+  financialInfo?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationPreference?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverLetter?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   acceptedPolicyVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   acceptedPolicyTerms?: Prisma.SortOrderInput | Prisma.SortOrder
   acceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  shortlistedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  interviewAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ApplicationCountOrderByAggregateInput
-  _avg?: Prisma.ApplicationAvgOrderByAggregateInput
   _max?: Prisma.ApplicationMaxOrderByAggregateInput
   _min?: Prisma.ApplicationMinOrderByAggregateInput
-  _sum?: Prisma.ApplicationSumOrderByAggregateInput
 }
 
 export type ApplicationScalarWhereWithAggregatesInput = {
@@ -341,13 +368,20 @@ export type ApplicationScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Application"> | string
   listingId?: Prisma.StringWithAggregatesFilter<"Application"> | string
   applicantId?: Prisma.StringWithAggregatesFilter<"Application"> | string
+  companyId?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
   status?: Prisma.EnumApplicationStatusWithAggregatesFilter<"Application"> | $Enums.ApplicationStatus
-  coverMessage?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
-  investmentCapacity?: Prisma.DecimalNullableWithAggregatesFilter<"Application"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
+  personalInfo?: Prisma.JsonNullableWithAggregatesFilter<"Application">
+  businessInfo?: Prisma.JsonNullableWithAggregatesFilter<"Application">
+  financialInfo?: Prisma.JsonNullableWithAggregatesFilter<"Application">
+  locationPreference?: Prisma.JsonNullableWithAggregatesFilter<"Application">
+  coverLetter?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
+  notes?: Prisma.JsonNullableWithAggregatesFilter<"Application">
   acceptedPolicyVersion?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
   acceptedPolicyTerms?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
   acceptedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Application"> | Date | string | null
+  viewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Application"> | Date | string | null
+  shortlistedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Application"> | Date | string | null
+  interviewAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Application"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Application"> | Date | string
 }
@@ -355,74 +389,113 @@ export type ApplicationScalarWhereWithAggregatesInput = {
 export type ApplicationCreateInput = {
   id?: string
   status?: $Enums.ApplicationStatus
-  coverMessage?: string | null
-  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: string | null
   acceptedPolicyTerms?: string | null
   acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   applicant: Prisma.UserCreateNestedOneWithoutApplicationsInput
   listing: Prisma.FranchiseListingCreateNestedOneWithoutApplicationsInput
+  company?: Prisma.CompanyCreateNestedOneWithoutApplicationsInput
+  documents?: Prisma.ApplicationDocumentCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateInput = {
   id?: string
   listingId: string
   applicantId: string
+  companyId?: string | null
   status?: $Enums.ApplicationStatus
-  coverMessage?: string | null
-  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: string | null
   acceptedPolicyTerms?: string | null
   acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  documents?: Prisma.ApplicationDocumentUncheckedCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
-  coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
   listing?: Prisma.FranchiseListingUpdateOneRequiredWithoutApplicationsNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutApplicationsNestedInput
+  documents?: Prisma.ApplicationDocumentUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   listingId?: Prisma.StringFieldUpdateOperationsInput | string
   applicantId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
-  coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  documents?: Prisma.ApplicationDocumentUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationCreateManyInput = {
   id?: string
   listingId: string
   applicantId: string
+  companyId?: string | null
   status?: $Enums.ApplicationStatus
-  coverMessage?: string | null
-  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: string | null
   acceptedPolicyTerms?: string | null
   acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -430,12 +503,18 @@ export type ApplicationCreateManyInput = {
 export type ApplicationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
-  coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -444,13 +523,20 @@ export type ApplicationUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   listingId?: Prisma.StringFieldUpdateOperationsInput | string
   applicantId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
-  coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -474,32 +560,37 @@ export type ApplicationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   listingId?: Prisma.SortOrder
   applicantId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  coverMessage?: Prisma.SortOrder
-  investmentCapacity?: Prisma.SortOrder
-  internalNotes?: Prisma.SortOrder
+  personalInfo?: Prisma.SortOrder
+  businessInfo?: Prisma.SortOrder
+  financialInfo?: Prisma.SortOrder
+  locationPreference?: Prisma.SortOrder
+  coverLetter?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   acceptedPolicyVersion?: Prisma.SortOrder
   acceptedPolicyTerms?: Prisma.SortOrder
   acceptedAt?: Prisma.SortOrder
+  viewedAt?: Prisma.SortOrder
+  shortlistedAt?: Prisma.SortOrder
+  interviewAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type ApplicationAvgOrderByAggregateInput = {
-  investmentCapacity?: Prisma.SortOrder
 }
 
 export type ApplicationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   listingId?: Prisma.SortOrder
   applicantId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  coverMessage?: Prisma.SortOrder
-  investmentCapacity?: Prisma.SortOrder
-  internalNotes?: Prisma.SortOrder
+  coverLetter?: Prisma.SortOrder
   acceptedPolicyVersion?: Prisma.SortOrder
   acceptedPolicyTerms?: Prisma.SortOrder
   acceptedAt?: Prisma.SortOrder
+  viewedAt?: Prisma.SortOrder
+  shortlistedAt?: Prisma.SortOrder
+  interviewAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -508,19 +599,22 @@ export type ApplicationMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   listingId?: Prisma.SortOrder
   applicantId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  coverMessage?: Prisma.SortOrder
-  investmentCapacity?: Prisma.SortOrder
-  internalNotes?: Prisma.SortOrder
+  coverLetter?: Prisma.SortOrder
   acceptedPolicyVersion?: Prisma.SortOrder
   acceptedPolicyTerms?: Prisma.SortOrder
   acceptedAt?: Prisma.SortOrder
+  viewedAt?: Prisma.SortOrder
+  shortlistedAt?: Prisma.SortOrder
+  interviewAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
-export type ApplicationSumOrderByAggregateInput = {
-  investmentCapacity?: Prisma.SortOrder
+export type ApplicationScalarRelationFilter = {
+  is?: Prisma.ApplicationWhereInput
+  isNot?: Prisma.ApplicationWhereInput
 }
 
 export type ApplicationCreateNestedManyWithoutApplicantInput = {
@@ -562,6 +656,48 @@ export type ApplicationUncheckedUpdateManyWithoutApplicantNestedInput = {
   connect?: Prisma.ApplicationWhereUniqueInput | Prisma.ApplicationWhereUniqueInput[]
   update?: Prisma.ApplicationUpdateWithWhereUniqueWithoutApplicantInput | Prisma.ApplicationUpdateWithWhereUniqueWithoutApplicantInput[]
   updateMany?: Prisma.ApplicationUpdateManyWithWhereWithoutApplicantInput | Prisma.ApplicationUpdateManyWithWhereWithoutApplicantInput[]
+  deleteMany?: Prisma.ApplicationScalarWhereInput | Prisma.ApplicationScalarWhereInput[]
+}
+
+export type ApplicationCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutCompanyInput, Prisma.ApplicationUncheckedCreateWithoutCompanyInput> | Prisma.ApplicationCreateWithoutCompanyInput[] | Prisma.ApplicationUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutCompanyInput | Prisma.ApplicationCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.ApplicationCreateManyCompanyInputEnvelope
+  connect?: Prisma.ApplicationWhereUniqueInput | Prisma.ApplicationWhereUniqueInput[]
+}
+
+export type ApplicationUncheckedCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutCompanyInput, Prisma.ApplicationUncheckedCreateWithoutCompanyInput> | Prisma.ApplicationCreateWithoutCompanyInput[] | Prisma.ApplicationUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutCompanyInput | Prisma.ApplicationCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.ApplicationCreateManyCompanyInputEnvelope
+  connect?: Prisma.ApplicationWhereUniqueInput | Prisma.ApplicationWhereUniqueInput[]
+}
+
+export type ApplicationUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutCompanyInput, Prisma.ApplicationUncheckedCreateWithoutCompanyInput> | Prisma.ApplicationCreateWithoutCompanyInput[] | Prisma.ApplicationUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutCompanyInput | Prisma.ApplicationCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.ApplicationUpsertWithWhereUniqueWithoutCompanyInput | Prisma.ApplicationUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.ApplicationCreateManyCompanyInputEnvelope
+  set?: Prisma.ApplicationWhereUniqueInput | Prisma.ApplicationWhereUniqueInput[]
+  disconnect?: Prisma.ApplicationWhereUniqueInput | Prisma.ApplicationWhereUniqueInput[]
+  delete?: Prisma.ApplicationWhereUniqueInput | Prisma.ApplicationWhereUniqueInput[]
+  connect?: Prisma.ApplicationWhereUniqueInput | Prisma.ApplicationWhereUniqueInput[]
+  update?: Prisma.ApplicationUpdateWithWhereUniqueWithoutCompanyInput | Prisma.ApplicationUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.ApplicationUpdateManyWithWhereWithoutCompanyInput | Prisma.ApplicationUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.ApplicationScalarWhereInput | Prisma.ApplicationScalarWhereInput[]
+}
+
+export type ApplicationUncheckedUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutCompanyInput, Prisma.ApplicationUncheckedCreateWithoutCompanyInput> | Prisma.ApplicationCreateWithoutCompanyInput[] | Prisma.ApplicationUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutCompanyInput | Prisma.ApplicationCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.ApplicationUpsertWithWhereUniqueWithoutCompanyInput | Prisma.ApplicationUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.ApplicationCreateManyCompanyInputEnvelope
+  set?: Prisma.ApplicationWhereUniqueInput | Prisma.ApplicationWhereUniqueInput[]
+  disconnect?: Prisma.ApplicationWhereUniqueInput | Prisma.ApplicationWhereUniqueInput[]
+  delete?: Prisma.ApplicationWhereUniqueInput | Prisma.ApplicationWhereUniqueInput[]
+  connect?: Prisma.ApplicationWhereUniqueInput | Prisma.ApplicationWhereUniqueInput[]
+  update?: Prisma.ApplicationUpdateWithWhereUniqueWithoutCompanyInput | Prisma.ApplicationUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.ApplicationUpdateManyWithWhereWithoutCompanyInput | Prisma.ApplicationUpdateManyWithWhereWithoutCompanyInput[]
   deleteMany?: Prisma.ApplicationScalarWhereInput | Prisma.ApplicationScalarWhereInput[]
 }
 
@@ -611,32 +747,62 @@ export type EnumApplicationStatusFieldUpdateOperationsInput = {
   set?: $Enums.ApplicationStatus
 }
 
+export type ApplicationCreateNestedOneWithoutDocumentsInput = {
+  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutDocumentsInput, Prisma.ApplicationUncheckedCreateWithoutDocumentsInput>
+  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutDocumentsInput
+  connect?: Prisma.ApplicationWhereUniqueInput
+}
+
+export type ApplicationUpdateOneRequiredWithoutDocumentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutDocumentsInput, Prisma.ApplicationUncheckedCreateWithoutDocumentsInput>
+  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutDocumentsInput
+  upsert?: Prisma.ApplicationUpsertWithoutDocumentsInput
+  connect?: Prisma.ApplicationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ApplicationUpdateToOneWithWhereWithoutDocumentsInput, Prisma.ApplicationUpdateWithoutDocumentsInput>, Prisma.ApplicationUncheckedUpdateWithoutDocumentsInput>
+}
+
 export type ApplicationCreateWithoutApplicantInput = {
   id?: string
   status?: $Enums.ApplicationStatus
-  coverMessage?: string | null
-  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: string | null
   acceptedPolicyTerms?: string | null
   acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   listing: Prisma.FranchiseListingCreateNestedOneWithoutApplicationsInput
+  company?: Prisma.CompanyCreateNestedOneWithoutApplicationsInput
+  documents?: Prisma.ApplicationDocumentCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateWithoutApplicantInput = {
   id?: string
   listingId: string
+  companyId?: string | null
   status?: $Enums.ApplicationStatus
-  coverMessage?: string | null
-  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: string | null
   acceptedPolicyTerms?: string | null
   acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  documents?: Prisma.ApplicationDocumentUncheckedCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationCreateOrConnectWithoutApplicantInput = {
@@ -672,43 +838,136 @@ export type ApplicationScalarWhereInput = {
   id?: Prisma.StringFilter<"Application"> | string
   listingId?: Prisma.StringFilter<"Application"> | string
   applicantId?: Prisma.StringFilter<"Application"> | string
+  companyId?: Prisma.StringNullableFilter<"Application"> | string | null
   status?: Prisma.EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
-  coverMessage?: Prisma.StringNullableFilter<"Application"> | string | null
-  investmentCapacity?: Prisma.DecimalNullableFilter<"Application"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.StringNullableFilter<"Application"> | string | null
+  personalInfo?: Prisma.JsonNullableFilter<"Application">
+  businessInfo?: Prisma.JsonNullableFilter<"Application">
+  financialInfo?: Prisma.JsonNullableFilter<"Application">
+  locationPreference?: Prisma.JsonNullableFilter<"Application">
+  coverLetter?: Prisma.StringNullableFilter<"Application"> | string | null
+  notes?: Prisma.JsonNullableFilter<"Application">
   acceptedPolicyVersion?: Prisma.StringNullableFilter<"Application"> | string | null
   acceptedPolicyTerms?: Prisma.StringNullableFilter<"Application"> | string | null
   acceptedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
+  viewedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
+  shortlistedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
+  interviewAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
+}
+
+export type ApplicationCreateWithoutCompanyInput = {
+  id?: string
+  status?: $Enums.ApplicationStatus
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  applicant: Prisma.UserCreateNestedOneWithoutApplicationsInput
+  listing: Prisma.FranchiseListingCreateNestedOneWithoutApplicationsInput
+  documents?: Prisma.ApplicationDocumentCreateNestedManyWithoutApplicationInput
+}
+
+export type ApplicationUncheckedCreateWithoutCompanyInput = {
+  id?: string
+  listingId: string
+  applicantId: string
+  status?: $Enums.ApplicationStatus
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  documents?: Prisma.ApplicationDocumentUncheckedCreateNestedManyWithoutApplicationInput
+}
+
+export type ApplicationCreateOrConnectWithoutCompanyInput = {
+  where: Prisma.ApplicationWhereUniqueInput
+  create: Prisma.XOR<Prisma.ApplicationCreateWithoutCompanyInput, Prisma.ApplicationUncheckedCreateWithoutCompanyInput>
+}
+
+export type ApplicationCreateManyCompanyInputEnvelope = {
+  data: Prisma.ApplicationCreateManyCompanyInput | Prisma.ApplicationCreateManyCompanyInput[]
+  skipDuplicates?: boolean
+}
+
+export type ApplicationUpsertWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.ApplicationWhereUniqueInput
+  update: Prisma.XOR<Prisma.ApplicationUpdateWithoutCompanyInput, Prisma.ApplicationUncheckedUpdateWithoutCompanyInput>
+  create: Prisma.XOR<Prisma.ApplicationCreateWithoutCompanyInput, Prisma.ApplicationUncheckedCreateWithoutCompanyInput>
+}
+
+export type ApplicationUpdateWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.ApplicationWhereUniqueInput
+  data: Prisma.XOR<Prisma.ApplicationUpdateWithoutCompanyInput, Prisma.ApplicationUncheckedUpdateWithoutCompanyInput>
+}
+
+export type ApplicationUpdateManyWithWhereWithoutCompanyInput = {
+  where: Prisma.ApplicationScalarWhereInput
+  data: Prisma.XOR<Prisma.ApplicationUpdateManyMutationInput, Prisma.ApplicationUncheckedUpdateManyWithoutCompanyInput>
 }
 
 export type ApplicationCreateWithoutListingInput = {
   id?: string
   status?: $Enums.ApplicationStatus
-  coverMessage?: string | null
-  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: string | null
   acceptedPolicyTerms?: string | null
   acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   applicant: Prisma.UserCreateNestedOneWithoutApplicationsInput
+  company?: Prisma.CompanyCreateNestedOneWithoutApplicationsInput
+  documents?: Prisma.ApplicationDocumentCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateWithoutListingInput = {
   id?: string
   applicantId: string
+  companyId?: string | null
   status?: $Enums.ApplicationStatus
-  coverMessage?: string | null
-  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: string | null
   acceptedPolicyTerms?: string | null
   acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  documents?: Prisma.ApplicationDocumentUncheckedCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationCreateOrConnectWithoutListingInput = {
@@ -737,16 +996,127 @@ export type ApplicationUpdateManyWithWhereWithoutListingInput = {
   data: Prisma.XOR<Prisma.ApplicationUpdateManyMutationInput, Prisma.ApplicationUncheckedUpdateManyWithoutListingInput>
 }
 
-export type ApplicationCreateManyApplicantInput = {
+export type ApplicationCreateWithoutDocumentsInput = {
   id?: string
-  listingId: string
   status?: $Enums.ApplicationStatus
-  coverMessage?: string | null
-  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: string | null
   acceptedPolicyTerms?: string | null
   acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  applicant: Prisma.UserCreateNestedOneWithoutApplicationsInput
+  listing: Prisma.FranchiseListingCreateNestedOneWithoutApplicationsInput
+  company?: Prisma.CompanyCreateNestedOneWithoutApplicationsInput
+}
+
+export type ApplicationUncheckedCreateWithoutDocumentsInput = {
+  id?: string
+  listingId: string
+  applicantId: string
+  companyId?: string | null
+  status?: $Enums.ApplicationStatus
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ApplicationCreateOrConnectWithoutDocumentsInput = {
+  where: Prisma.ApplicationWhereUniqueInput
+  create: Prisma.XOR<Prisma.ApplicationCreateWithoutDocumentsInput, Prisma.ApplicationUncheckedCreateWithoutDocumentsInput>
+}
+
+export type ApplicationUpsertWithoutDocumentsInput = {
+  update: Prisma.XOR<Prisma.ApplicationUpdateWithoutDocumentsInput, Prisma.ApplicationUncheckedUpdateWithoutDocumentsInput>
+  create: Prisma.XOR<Prisma.ApplicationCreateWithoutDocumentsInput, Prisma.ApplicationUncheckedCreateWithoutDocumentsInput>
+  where?: Prisma.ApplicationWhereInput
+}
+
+export type ApplicationUpdateToOneWithWhereWithoutDocumentsInput = {
+  where?: Prisma.ApplicationWhereInput
+  data: Prisma.XOR<Prisma.ApplicationUpdateWithoutDocumentsInput, Prisma.ApplicationUncheckedUpdateWithoutDocumentsInput>
+}
+
+export type ApplicationUpdateWithoutDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  applicant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
+  listing?: Prisma.FranchiseListingUpdateOneRequiredWithoutApplicationsNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutApplicationsNestedInput
+}
+
+export type ApplicationUncheckedUpdateWithoutDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  listingId?: Prisma.StringFieldUpdateOperationsInput | string
+  applicantId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ApplicationCreateManyApplicantInput = {
+  id?: string
+  listingId: string
+  companyId?: string | null
+  status?: $Enums.ApplicationStatus
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -754,41 +1124,150 @@ export type ApplicationCreateManyApplicantInput = {
 export type ApplicationUpdateWithoutApplicantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
-  coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   listing?: Prisma.FranchiseListingUpdateOneRequiredWithoutApplicationsNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutApplicationsNestedInput
+  documents?: Prisma.ApplicationDocumentUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateWithoutApplicantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   listingId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
-  coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  documents?: Prisma.ApplicationDocumentUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateManyWithoutApplicantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   listingId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
-  coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ApplicationCreateManyCompanyInput = {
+  id?: string
+  listingId: string
+  applicantId: string
+  status?: $Enums.ApplicationStatus
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  acceptedPolicyVersion?: string | null
+  acceptedPolicyTerms?: string | null
+  acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ApplicationUpdateWithoutCompanyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  applicant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
+  listing?: Prisma.FranchiseListingUpdateOneRequiredWithoutApplicationsNestedInput
+  documents?: Prisma.ApplicationDocumentUpdateManyWithoutApplicationNestedInput
+}
+
+export type ApplicationUncheckedUpdateWithoutCompanyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  listingId?: Prisma.StringFieldUpdateOperationsInput | string
+  applicantId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  documents?: Prisma.ApplicationDocumentUncheckedUpdateManyWithoutApplicationNestedInput
+}
+
+export type ApplicationUncheckedUpdateManyWithoutCompanyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  listingId?: Prisma.StringFieldUpdateOperationsInput | string
+  applicantId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -796,13 +1275,20 @@ export type ApplicationUncheckedUpdateManyWithoutApplicantInput = {
 export type ApplicationCreateManyListingInput = {
   id?: string
   applicantId: string
+  companyId?: string | null
   status?: $Enums.ApplicationStatus
-  coverMessage?: string | null
-  investmentCapacity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: string | null
   acceptedPolicyTerms?: string | null
   acceptedAt?: Date | string | null
+  viewedAt?: Date | string | null
+  shortlistedAt?: Date | string | null
+  interviewAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -810,125 +1296,215 @@ export type ApplicationCreateManyListingInput = {
 export type ApplicationUpdateWithoutListingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
-  coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutApplicationsNestedInput
+  documents?: Prisma.ApplicationDocumentUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateWithoutListingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   applicantId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
-  coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  documents?: Prisma.ApplicationDocumentUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateManyWithoutListingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   applicantId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
-  coverMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  investmentCapacity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  businessInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  financialInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  locationPreference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acceptedPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedPolicyTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shortlistedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  interviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type ApplicationCountOutputType
+ */
+
+export type ApplicationCountOutputType = {
+  documents: number
+}
+
+export type ApplicationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  documents?: boolean | ApplicationCountOutputTypeCountDocumentsArgs
+}
+
+/**
+ * ApplicationCountOutputType without action
+ */
+export type ApplicationCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ApplicationCountOutputType
+   */
+  select?: Prisma.ApplicationCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ApplicationCountOutputType without action
+ */
+export type ApplicationCountOutputTypeCountDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ApplicationDocumentWhereInput
+}
 
 
 export type ApplicationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   listingId?: boolean
   applicantId?: boolean
+  companyId?: boolean
   status?: boolean
-  coverMessage?: boolean
-  investmentCapacity?: boolean
-  internalNotes?: boolean
+  personalInfo?: boolean
+  businessInfo?: boolean
+  financialInfo?: boolean
+  locationPreference?: boolean
+  coverLetter?: boolean
+  notes?: boolean
   acceptedPolicyVersion?: boolean
   acceptedPolicyTerms?: boolean
   acceptedAt?: boolean
+  viewedAt?: boolean
+  shortlistedAt?: boolean
+  interviewAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.Application$companyArgs<ExtArgs>
+  documents?: boolean | Prisma.Application$documentsArgs<ExtArgs>
+  _count?: boolean | Prisma.ApplicationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["application"]>
 
 export type ApplicationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   listingId?: boolean
   applicantId?: boolean
+  companyId?: boolean
   status?: boolean
-  coverMessage?: boolean
-  investmentCapacity?: boolean
-  internalNotes?: boolean
+  personalInfo?: boolean
+  businessInfo?: boolean
+  financialInfo?: boolean
+  locationPreference?: boolean
+  coverLetter?: boolean
+  notes?: boolean
   acceptedPolicyVersion?: boolean
   acceptedPolicyTerms?: boolean
   acceptedAt?: boolean
+  viewedAt?: boolean
+  shortlistedAt?: boolean
+  interviewAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.Application$companyArgs<ExtArgs>
 }, ExtArgs["result"]["application"]>
 
 export type ApplicationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   listingId?: boolean
   applicantId?: boolean
+  companyId?: boolean
   status?: boolean
-  coverMessage?: boolean
-  investmentCapacity?: boolean
-  internalNotes?: boolean
+  personalInfo?: boolean
+  businessInfo?: boolean
+  financialInfo?: boolean
+  locationPreference?: boolean
+  coverLetter?: boolean
+  notes?: boolean
   acceptedPolicyVersion?: boolean
   acceptedPolicyTerms?: boolean
   acceptedAt?: boolean
+  viewedAt?: boolean
+  shortlistedAt?: boolean
+  interviewAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.Application$companyArgs<ExtArgs>
 }, ExtArgs["result"]["application"]>
 
 export type ApplicationSelectScalar = {
   id?: boolean
   listingId?: boolean
   applicantId?: boolean
+  companyId?: boolean
   status?: boolean
-  coverMessage?: boolean
-  investmentCapacity?: boolean
-  internalNotes?: boolean
+  personalInfo?: boolean
+  businessInfo?: boolean
+  financialInfo?: boolean
+  locationPreference?: boolean
+  coverLetter?: boolean
+  notes?: boolean
   acceptedPolicyVersion?: boolean
   acceptedPolicyTerms?: boolean
   acceptedAt?: boolean
+  viewedAt?: boolean
+  shortlistedAt?: boolean
+  interviewAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "listingId" | "applicantId" | "status" | "coverMessage" | "investmentCapacity" | "internalNotes" | "acceptedPolicyVersion" | "acceptedPolicyTerms" | "acceptedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["application"]>
+export type ApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "listingId" | "applicantId" | "companyId" | "status" | "personalInfo" | "businessInfo" | "financialInfo" | "locationPreference" | "coverLetter" | "notes" | "acceptedPolicyVersion" | "acceptedPolicyTerms" | "acceptedAt" | "viewedAt" | "shortlistedAt" | "interviewAt" | "createdAt" | "updatedAt", ExtArgs["result"]["application"]>
 export type ApplicationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.Application$companyArgs<ExtArgs>
+  documents?: boolean | Prisma.Application$documentsArgs<ExtArgs>
+  _count?: boolean | Prisma.ApplicationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ApplicationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.Application$companyArgs<ExtArgs>
 }
 export type ApplicationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   listing?: boolean | Prisma.FranchiseListingDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.Application$companyArgs<ExtArgs>
 }
 
 export type $ApplicationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -936,18 +1512,27 @@ export type $ApplicationPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     applicant: Prisma.$UserPayload<ExtArgs>
     listing: Prisma.$FranchiseListingPayload<ExtArgs>
+    company: Prisma.$CompanyPayload<ExtArgs> | null
+    documents: Prisma.$ApplicationDocumentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     listingId: string
     applicantId: string
+    companyId: string | null
     status: $Enums.ApplicationStatus
-    coverMessage: string | null
-    investmentCapacity: runtime.Decimal | null
-    internalNotes: string | null
+    personalInfo: runtime.JsonValue | null
+    businessInfo: runtime.JsonValue | null
+    financialInfo: runtime.JsonValue | null
+    locationPreference: runtime.JsonValue | null
+    coverLetter: string | null
+    notes: runtime.JsonValue | null
     acceptedPolicyVersion: string | null
     acceptedPolicyTerms: string | null
     acceptedAt: Date | null
+    viewedAt: Date | null
+    shortlistedAt: Date | null
+    interviewAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["application"]>
@@ -1346,6 +1931,8 @@ export interface Prisma__ApplicationClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   applicant<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   listing<T extends Prisma.FranchiseListingDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FranchiseListingDefaultArgs<ExtArgs>>): Prisma.Prisma__FranchiseListingClient<runtime.Types.Result.GetResult<Prisma.$FranchiseListingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  company<T extends Prisma.Application$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Application$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  documents<T extends Prisma.Application$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Application$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApplicationDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1378,13 +1965,20 @@ export interface ApplicationFieldRefs {
   readonly id: Prisma.FieldRef<"Application", 'String'>
   readonly listingId: Prisma.FieldRef<"Application", 'String'>
   readonly applicantId: Prisma.FieldRef<"Application", 'String'>
+  readonly companyId: Prisma.FieldRef<"Application", 'String'>
   readonly status: Prisma.FieldRef<"Application", 'ApplicationStatus'>
-  readonly coverMessage: Prisma.FieldRef<"Application", 'String'>
-  readonly investmentCapacity: Prisma.FieldRef<"Application", 'Decimal'>
-  readonly internalNotes: Prisma.FieldRef<"Application", 'String'>
+  readonly personalInfo: Prisma.FieldRef<"Application", 'Json'>
+  readonly businessInfo: Prisma.FieldRef<"Application", 'Json'>
+  readonly financialInfo: Prisma.FieldRef<"Application", 'Json'>
+  readonly locationPreference: Prisma.FieldRef<"Application", 'Json'>
+  readonly coverLetter: Prisma.FieldRef<"Application", 'String'>
+  readonly notes: Prisma.FieldRef<"Application", 'Json'>
   readonly acceptedPolicyVersion: Prisma.FieldRef<"Application", 'String'>
   readonly acceptedPolicyTerms: Prisma.FieldRef<"Application", 'String'>
   readonly acceptedAt: Prisma.FieldRef<"Application", 'DateTime'>
+  readonly viewedAt: Prisma.FieldRef<"Application", 'DateTime'>
+  readonly shortlistedAt: Prisma.FieldRef<"Application", 'DateTime'>
+  readonly interviewAt: Prisma.FieldRef<"Application", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Application", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Application", 'DateTime'>
 }
@@ -1785,6 +2379,49 @@ export type ApplicationDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many Applications to delete.
    */
   limit?: number
+}
+
+/**
+ * Application.company
+ */
+export type Application$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
+}
+
+/**
+ * Application.documents
+ */
+export type Application$documentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ApplicationDocument
+   */
+  select?: Prisma.ApplicationDocumentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ApplicationDocument
+   */
+  omit?: Prisma.ApplicationDocumentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ApplicationDocumentInclude<ExtArgs> | null
+  where?: Prisma.ApplicationDocumentWhereInput
+  orderBy?: Prisma.ApplicationDocumentOrderByWithRelationInput | Prisma.ApplicationDocumentOrderByWithRelationInput[]
+  cursor?: Prisma.ApplicationDocumentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ApplicationDocumentScalarFieldEnum | Prisma.ApplicationDocumentScalarFieldEnum[]
 }
 
 /**
