@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Moon, Sun, Bell, MessageSquare, LogIn, UserPlus, Menu, LayoutDashboard, User, PanelLeft } from "lucide-react";
+import { Moon, Sun, Bell, MessageSquare, LogIn, UserPlus, Menu, LayoutDashboard, User, PanelLeft, Search } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
 import { useNavigation } from "../hooks/useCMS";
@@ -14,6 +14,8 @@ import Logo from "./Logo";
 
 export default function Header({ onToggleSidebar }) {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const searchRef = useRef(null);
   const { isDark, toggleTheme } = useTheme();
   const { isAuthenticated, user, logout } = useAuth();
   const location = useLocation();
@@ -21,7 +23,7 @@ export default function Header({ onToggleSidebar }) {
   const isConnected = useSocketStore((s) => s.isConnected);
   const unreadCount = useSocketStore((s) => s.unreadCount);
   const notificationCount = useSocketStore((s) => s.notificationCount);
-  const { data: navLinks, isLoading, isError } = useNavigation();
+  const { data: navLinks } = useNavigation();
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -35,6 +37,16 @@ export default function Header({ onToggleSidebar }) {
       })
       .catch(() => {});
   }, [isAuthenticated, location.pathname]);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setMobileSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   const isDashboard = location.pathname.startsWith("/dashboard") || location.pathname.startsWith("/admin") || location.pathname.startsWith("/messages") || location.pathname.startsWith("/notifications") || location.pathname.startsWith("/profile") || location.pathname.startsWith("/settings") || location.pathname.startsWith("/discover") || location.pathname.startsWith("/companies") || location.pathname.startsWith("/saved-listings") || location.pathname.startsWith("/listing/") || location.pathname.startsWith("/company/");
 
@@ -53,6 +65,9 @@ export default function Header({ onToggleSidebar }) {
       >
         <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 64, gap: 16 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <button onClick={() => { isDashboard && onToggleSidebar ? onToggleSidebar() : setMobileDrawerOpen(true); }} className="header-mobile-btn" aria-label="Open menu">
+              <Menu size={22} />
+            </button>
             {isDashboard && onToggleSidebar && (
               <button onClick={onToggleSidebar} className="sidebar-toggle-btn header-icon-btn" aria-label="Toggle sidebar">
                 <PanelLeft size={18} />
@@ -83,12 +98,12 @@ export default function Header({ onToggleSidebar }) {
             </div>
           )}
 
-          <div style={{ flex: 1, maxWidth: 400, display: "flex", justifyContent: "center" }} className="header-search-container">
+          <div style={{ flex: 1, maxWidth: 480, display: "flex", justifyContent: "center" }} className="header-search-container">
             <SearchBar />
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <button onClick={toggleTheme} className="header-icon-btn" aria-label="Toggle theme">
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <button onClick={toggleTheme} className="header-icon-btn header-desktop-only" aria-label="Toggle theme">
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
@@ -97,7 +112,7 @@ export default function Header({ onToggleSidebar }) {
                 <button
                   type="button"
                   onClick={() => navigate("/messages")}
-                  className="header-icon-btn"
+                  className="header-icon-btn header-desktop-only"
                   style={{ position: "relative" }}
                   aria-label="Messages"
                 >
@@ -125,7 +140,7 @@ export default function Header({ onToggleSidebar }) {
                 <Dropdown
                   align="right"
                   trigger={
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", padding: 2, marginLeft: 4 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", padding: 2, marginLeft: 0 }}>
                       <Avatar name={user?.name || "User"} size={32} />
                     </div>
                   }
@@ -154,28 +169,31 @@ export default function Header({ onToggleSidebar }) {
             ) : (
               <>
                 <Link to="/login" style={{ textDecoration: "none" }}>
-                  <button className="header-auth-btn" style={{ padding: "8px 16px", fontSize: 13, fontWeight: 700, backgroundColor: "transparent", color: "var(--primary)", border: "1px solid var(--primary)", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, transition: "all 0.2s" }}>
+                  <button className="header-auth-btn" style={{ padding: "8px 16px", fontSize: 13, fontWeight: 700, backgroundColor: "transparent", color: "var(--primary)", border: "1px solid var(--primary)", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, transition: "all 0.2s", whiteSpace: "nowrap" }}>
                     <LogIn size={14} /> Log In
                   </button>
                 </Link>
                 <Link to="/signup" style={{ textDecoration: "none" }}>
-                  <button className="header-auth-btn" style={{ padding: "8px 16px", fontSize: 13, fontWeight: 700, backgroundColor: "var(--primary)", color: "white", border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, transition: "all 0.2s" }}>
+                  <button className="header-auth-btn" style={{ padding: "8px 16px", fontSize: 13, fontWeight: 700, backgroundColor: "var(--primary)", color: "white", border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, transition: "all 0.2s", whiteSpace: "nowrap" }}>
                     <UserPlus size={14} /> Sign Up
                   </button>
                 </Link>
               </>
             )}
 
-            <button
-              onClick={() => { isDashboard && onToggleSidebar ? onToggleSidebar() : setMobileDrawerOpen(true); }}
-              className="header-mobile-btn"
-              style={{ background: "none", border: "none", color: "var(--on-surface)", padding: 8, display: "none", cursor: "pointer", borderRadius: 8 }}
-              aria-label="Open menu"
-            >
-              <Menu size={22} />
-            </button>
+            {isAuthenticated && (
+              <button onClick={() => setMobileSearchOpen((prev) => !prev)} className="header-icon-btn header-mobile-search-icon" aria-label="Search">
+                <Search size={18} />
+              </button>
+            )}
           </div>
         </div>
+
+        {mobileSearchOpen && (
+          <div ref={searchRef} style={{ padding: "8px 16px 12px", borderTop: "1px solid var(--outline-variant)" }}>
+            <SearchBar />
+          </div>
+        )}
       </motion.header>
 
       <MobileDrawer open={mobileDrawerOpen} onClose={() => setMobileDrawerOpen(false)} />
@@ -183,24 +201,32 @@ export default function Header({ onToggleSidebar }) {
       <style>{`
         .header-icon-btn {
           background: none; border: none; color: var(--on-surface-variant);
-          width: 40; height: 40; display: flex; align-items: center; justify-content: center;
+          width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
           border-radius: 10px; cursor: pointer;
           transition: background-color 0.15s, color 0.15s;
+          flex-shrink: 0;
         }
         .header-icon-btn:hover { background-color: var(--surface-hover); color: var(--on-surface) !important; }
         @media (max-width: 1200px) {
           .header-nav-links { gap: 16px !important; }
-          .header-search-container { max-width: 300px !important; }
+          .header-search-container { max-width: 360px !important; }
         }
         @media (max-width: 1024px) {
           .header-nav-links { display: none !important; }
-          .header-search-container { max-width: 280px !important; }
+          .header-search-container { max-width: 300px !important; }
+          .header-desktop-only { display: none !important; }
         }
         @media (max-width: 768px) {
           .header-search-container { display: none !important; }
           .header-auth-btn { display: none !important; }
           .header-mobile-btn { display: flex !important; }
           .sidebar-toggle-btn { display: none !important; }
+          .header-desktop-only { display: none !important; }
+          .header-mobile-search-icon { display: flex !important; }
+        }
+        @media (min-width: 769px) {
+          .header-mobile-btn { display: none !important; }
+          .header-mobile-search-icon { display: none !important; }
         }
         @media (max-width: 380px) {
           .header-icon-btn { width: 34px !important; height: 34px !important; }

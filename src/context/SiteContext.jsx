@@ -1,5 +1,6 @@
-import { createContext, useContext, useCallback } from 'react';
+import { createContext, useContext, useCallback, useEffect, useRef } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { io } from 'socket.io-client';
 
 const SITE_QUERY_KEY = ['cms', 'site-content'];
 const SiteContext = createContext(null);
@@ -25,6 +26,22 @@ export function SiteProvider({ children }) {
 
   _qc = queryClient;
 
+  useEffect(() => {
+    let socket;
+    try {
+      const socketUrl = window.location.origin;
+      socket = io(socketUrl, { withCredentials: true });
+      socket.on('connect', () => {});
+      socket.on('cms-updated', (data) => {
+        queryClient.invalidateQueries({ queryKey: ["cms"] });
+        queryClient.invalidateQueries({ queryKey: ["public"] });
+      });
+    } catch (e) {
+      console.warn('Socket connection failed:', e);
+    }
+    return () => { if (socket) socket.disconnect(); };
+  }, [queryClient]);
+
   const setStats = useCallback((stats) => updateLiveStore({ stats }), []);
   const setTestimonials = useCallback((testimonials) => updateLiveStore({ testimonials }), []);
   const setBrands = useCallback((brands) => updateLiveStore({ brands }), []);
@@ -40,6 +57,22 @@ export function SiteProvider({ children }) {
       about: data?.about,
       contact: data?.contact,
       maintenanceMode: data?.settings?.maintenanceMode,
+      heroSettings: data?.heroSettings,
+      industries: data?.industries,
+      aiSection: data?.aiSection,
+      globalNetwork: data?.globalNetwork,
+      mapLocation: data?.mapLocation,
+      globalMetrics: data?.globalMetrics,
+      newsletterSettings: data?.newsletterSettings,
+      footerSettings: data?.footerSettings,
+      marketplaceSearch: data?.marketplaceSearch,
+      features: data?.features,
+      userTypes: data?.userTypes,
+      howItWorks: data?.howItWorks,
+      featuredCities: data?.featuredCities,
+      careers: data?.careers,
+      events: data?.events,
+      media: data?.media,
       setStats, setTestimonials, setBrands, setAbout, setContact, setMaintenanceMode,
     }}>
       {children}

@@ -47,6 +47,7 @@ const Followers = lazy(() => import("../pages/dashboard/Followers"));
 const Documents = lazy(() => import("../pages/dashboard/Documents"));
 
 const AdminDashboard = lazy(() => import("../pages/admin/AdminDashboard"));
+const AdminHome = lazy(() => import("../pages/admin/AdminHome"));
 const AdminUsers = lazy(() => import("../pages/admin/AdminUsers"));
 const AdminCompanies = lazy(() => import("../pages/admin/AdminCompanies"));
 const AdminAnalytics = lazy(() => import("../pages/admin/AdminAnalytics"));
@@ -62,6 +63,33 @@ const AdminSystemHealth = lazy(() => import("../pages/admin/AdminSystemHealth"))
 const AdminSettingsPage = lazy(() => import("../pages/admin/AdminSettings"));
 const AdminContent = lazy(() => import("../pages/admin/AdminContent"));
 const AdminPolicies = lazy(() => import("../pages/admin/AdminPolicies"));
+const AdminHeroEditor = lazy(() => import("../pages/admin/AdminHeroEditor"));
+const AdminStatisticsEditor = lazy(() => import("../pages/admin/AdminStatisticsEditor"));
+const AdminMarketplaceSearchEditor = lazy(() => import("../pages/admin/AdminMarketplaceSearchEditor"));
+const AdminFeaturesEditor = lazy(() => import("../pages/admin/AdminFeaturesEditor"));
+const AdminUserRolesEditor = lazy(() => import("../pages/admin/AdminUserRolesEditor"));
+const AdminHowItWorksEditor = lazy(() => import("../pages/admin/AdminHowItWorksEditor"));
+const AdminFeaturedCompanies = lazy(() => import("../pages/admin/AdminFeaturedCompanies"));
+const AdminFeaturedOpportunities = lazy(() => import("../pages/admin/AdminFeaturedOpportunities"));
+const AdminGlobalNetworkEditor = lazy(() => import("../pages/admin/AdminGlobalNetworkEditor"));
+const AdminMapLocationsEditor = lazy(() => import("../pages/admin/AdminMapLocationsEditor"));
+const AdminGlobalMetricsEditor = lazy(() => import("../pages/admin/AdminGlobalMetricsEditor"));
+const AdminIndustriesEditor = lazy(() => import("../pages/admin/AdminIndustriesEditor"));
+const AdminCitiesEditor = lazy(() => import("../pages/admin/AdminCitiesEditor"));
+const AdminAIRecommendationsEditor = lazy(() => import("../pages/admin/AdminAIRecommendationsEditor"));
+const AdminTestimonialsEditor = lazy(() => import("../pages/admin/AdminTestimonialsEditor"));
+const AdminBlogEditor = lazy(() => import("../pages/admin/AdminBlogEditor"));
+const AdminEventsEditor = lazy(() => import("../pages/admin/AdminEventsEditor"));
+const AdminCareersEditor = lazy(() => import("../pages/admin/AdminCareersEditor"));
+const AdminPartnersEditor = lazy(() => import("../pages/admin/AdminPartnersEditor"));
+const AdminMediaEditor = lazy(() => import("../pages/admin/AdminMediaEditor"));
+const AdminPricingEditor = lazy(() => import("../pages/admin/AdminPricingEditor"));
+const AdminNewsletterEditor = lazy(() => import("../pages/admin/AdminNewsletterEditor"));
+const AdminFAQEditor = lazy(() => import("../pages/admin/AdminFAQEditor"));
+const AdminContactEditor = lazy(() => import("../pages/admin/AdminContactEditor"));
+const AdminFooterEditor = lazy(() => import("../pages/admin/AdminFooterEditor"));
+
+// Keep existing lazy imports for backward compat
 const AdminBlog = lazy(() => import("../pages/admin/AdminBlog"));
 const AdminCareers = lazy(() => import("../pages/admin/AdminCareers"));
 const AdminEvents = lazy(() => import("../pages/admin/AdminEvents"));
@@ -149,6 +177,32 @@ export default function AppRoutes() {
           <Route path="/dashboard/policies" element={<Suspense fallback={<PageLoading />}><PoliciesTerms /></Suspense>} />
 
           <Route path="/admin" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminDashboard /></Suspense></AdminRoute>} />
+          <Route path="/admin/home" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminHome /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/hero" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminHeroEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/statistics" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminStatisticsEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/marketplace-search" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminMarketplaceSearchEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/features" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminFeaturesEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/user-roles" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminUserRolesEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/how-it-works" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminHowItWorksEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/featured-companies" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminFeaturedCompanies /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/featured-opportunities" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminFeaturedOpportunities /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/global-network" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminGlobalNetworkEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/map-locations" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminMapLocationsEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/global-metrics" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminGlobalMetricsEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/industries" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminIndustriesEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/cities" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminCitiesEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/ai-recommendations" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminAIRecommendationsEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/testimonials" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminTestimonialsEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/blog" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminBlogEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/events" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminEventsEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/careers" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminCareersEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/partners" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminPartnersEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/media" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminMediaEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/pricing" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminPricingEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/newsletter" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminNewsletterEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/faq" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminFAQEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/contact" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminContactEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/home/footer" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminFooterEditor /></Suspense></AdminRoute>} />
           <Route path="/admin/users" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminUsers /></Suspense></AdminRoute>} />
           <Route path="/admin/verification" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminVerification /></Suspense></AdminRoute>} />
           <Route path="/admin/companies" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminCompanies /></Suspense></AdminRoute>} />
@@ -164,6 +218,7 @@ export default function AppRoutes() {
           <Route path="/admin/settings" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminSettingsPage /></Suspense></AdminRoute>} />
           <Route path="/admin/content" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminContent /></Suspense></AdminRoute>} />
           <Route path="/admin/policies" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminPolicies /></Suspense></AdminRoute>} />
+          {/* Legacy CMS routes for backward compatibility */}
           <Route path="/admin/cms/blog" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminBlog /></Suspense></AdminRoute>} />
           <Route path="/admin/cms/careers" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminCareers /></Suspense></AdminRoute>} />
           <Route path="/admin/cms/events" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminEvents /></Suspense></AdminRoute>} />

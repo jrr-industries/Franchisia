@@ -50,17 +50,7 @@ const limiter = rateLimit({
 app.use("/api/auth", limiter);
 app.use("/api/admin", limiter);
 
-const apiLimiter = rateLimit({
-  windowMs: 60 * 1000,
-  max: 60,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { error: "Too many requests, please try again later" },
-});
-
 app.use(express.json({ limit: "1mb" }));
-
-app.use("/api", apiLimiter);
 
 app.use((_req, res, next) => {
   res.setHeader("Connection", "keep-alive");
@@ -102,9 +92,13 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: "Internal server error" });
 });
 
+import { autoSeed } from "./autoSeed.js";
+
 const httpServer = http.createServer(app);
 initSocket(httpServer);
 
-httpServer.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+autoSeed().then(() => {
+  httpServer.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
 });

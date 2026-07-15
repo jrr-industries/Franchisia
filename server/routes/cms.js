@@ -900,4 +900,611 @@ router.delete("/stats/:id", async (req, res) => {
   }
 });
 
+// ── Hero Settings (single record) ──
+router.get("/hero", async (req, res) => {
+  try {
+    const item = await prisma.heroSetting.findFirst();
+    res.json(item || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/hero/:id", async (req, res) => {
+  try {
+    const item = await prisma.heroSetting.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("hero"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/hero", async (req, res) => {
+  try {
+    const item = await prisma.heroSetting.create({ data: req.body });
+    try { emitCmsUpdate("hero"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Industries ──
+router.get("/industries", async (req, res) => {
+  try {
+    const { page = 1, limit = 50, search } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const where = {};
+    if (search) { where.OR = [{ name: { contains: search, mode: "insensitive" } }]; }
+    const [items, total] = await Promise.all([
+      prisma.industry.findMany({ where, skip, take: parseInt(limit), orderBy: { displayOrder: "asc" } }),
+      prisma.industry.count({ where }),
+    ]);
+    res.json({ items, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/industries/:id", async (req, res) => {
+  try {
+    const item = await prisma.industry.findUnique({ where: { id: req.params.id } });
+    if (!item) return res.status(404).json({ error: "Not found" });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/industries", async (req, res) => {
+  try {
+    const item = await prisma.industry.create({ data: req.body });
+    try { emitCmsUpdate("industries"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/industries/:id", async (req, res) => {
+  try {
+    const item = await prisma.industry.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("industries"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/industries/:id", async (req, res) => {
+  try {
+    await prisma.industry.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("industries"); } catch {}
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── AI Section ──
+router.get("/ai-section", async (req, res) => {
+  try {
+    const item = await prisma.aISection.findFirst();
+    res.json(item || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/ai-section/:id", async (req, res) => {
+  try {
+    const item = await prisma.aISection.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("ai-section"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/ai-section", async (req, res) => {
+  try {
+    const item = await prisma.aISection.create({ data: req.body });
+    try { emitCmsUpdate("ai-section"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Global Network ──
+router.get("/global-network", async (req, res) => {
+  try {
+    const item = await prisma.globalNetwork.findFirst();
+    res.json(item || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/global-network/:id", async (req, res) => {
+  try {
+    const item = await prisma.globalNetwork.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("global-network"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/global-network", async (req, res) => {
+  try {
+    const item = await prisma.globalNetwork.create({ data: req.body });
+    try { emitCmsUpdate("global-network"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Map Location ──
+router.get("/map-location", async (req, res) => {
+  try {
+    const item = await prisma.mapLocation.findFirst();
+    res.json(item || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/map-location/:id", async (req, res) => {
+  try {
+    const item = await prisma.mapLocation.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("map-location"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/map-location", async (req, res) => {
+  try {
+    const item = await prisma.mapLocation.create({ data: req.body });
+    try { emitCmsUpdate("map-location"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Global Metrics ──
+router.get("/global-metrics", async (req, res) => {
+  try {
+    const items = await prisma.globalMetric.findMany({ orderBy: { displayOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/global-metrics", async (req, res) => {
+  try {
+    const item = await prisma.globalMetric.create({ data: req.body });
+    try { emitCmsUpdate("global-metrics"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/global-metrics/:id", async (req, res) => {
+  try {
+    const item = await prisma.globalMetric.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("global-metrics"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/global-metrics/:id", async (req, res) => {
+  try {
+    await prisma.globalMetric.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("global-metrics"); } catch {}
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Newsletter Settings ──
+router.get("/newsletter", async (req, res) => {
+  try {
+    const item = await prisma.newsletterSetting.findFirst();
+    res.json(item || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/newsletter/:id", async (req, res) => {
+  try {
+    const item = await prisma.newsletterSetting.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("newsletter"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/newsletter", async (req, res) => {
+  try {
+    const item = await prisma.newsletterSetting.create({ data: req.body });
+    try { emitCmsUpdate("newsletter"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Footer Settings ──
+router.get("/footer", async (req, res) => {
+  try {
+    const item = await prisma.footerSetting.findFirst();
+    res.json(item || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/footer/:id", async (req, res) => {
+  try {
+    const item = await prisma.footerSetting.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("footer"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/footer", async (req, res) => {
+  try {
+    const item = await prisma.footerSetting.create({ data: req.body });
+    try { emitCmsUpdate("footer"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Marketplace Search ──
+router.get("/marketplace-search", async (req, res) => {
+  try {
+    const item = await prisma.marketplaceSearchSetting.findFirst();
+    res.json(item || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/marketplace-search/:id", async (req, res) => {
+  try {
+    const item = await prisma.marketplaceSearchSetting.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("marketplace-search"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/marketplace-search", async (req, res) => {
+  try {
+    const item = await prisma.marketplaceSearchSetting.create({ data: req.body });
+    try { emitCmsUpdate("marketplace-search"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── User Types ──
+router.get("/user-types", async (req, res) => {
+  try {
+    const items = await prisma.userType.findMany({ orderBy: { sortOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/user-types/:id", async (req, res) => {
+  try {
+    const item = await prisma.userType.findUnique({ where: { id: req.params.id } });
+    if (!item) return res.status(404).json({ error: "Not found" });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/user-types", async (req, res) => {
+  try {
+    const item = await prisma.userType.create({ data: req.body });
+    try { emitCmsUpdate("user-types"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/user-types/:id", async (req, res) => {
+  try {
+    const item = await prisma.userType.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("user-types"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/user-types/:id", async (req, res) => {
+  try {
+    await prisma.userType.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("user-types"); } catch {}
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Features ──
+router.get("/features", async (req, res) => {
+  try {
+    const items = await prisma.feature.findMany({ orderBy: { sortOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/features/:id", async (req, res) => {
+  try {
+    const item = await prisma.feature.findUnique({ where: { id: req.params.id } });
+    if (!item) return res.status(404).json({ error: "Not found" });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/features", async (req, res) => {
+  try {
+    const item = await prisma.feature.create({ data: req.body });
+    try { emitCmsUpdate("features"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/features/:id", async (req, res) => {
+  try {
+    const item = await prisma.feature.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("features"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/features/:id", async (req, res) => {
+  try {
+    await prisma.feature.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("features"); } catch {}
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── How It Works ──
+router.get("/how-it-works", async (req, res) => {
+  try {
+    const items = await prisma.howItWork.findMany({ orderBy: { stepNumber: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/how-it-works/:id", async (req, res) => {
+  try {
+    const item = await prisma.howItWork.findUnique({ where: { id: req.params.id } });
+    if (!item) return res.status(404).json({ error: "Not found" });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/how-it-works", async (req, res) => {
+  try {
+    const item = await prisma.howItWork.create({ data: req.body });
+    try { emitCmsUpdate("how-it-works"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/how-it-works/:id", async (req, res) => {
+  try {
+    const item = await prisma.howItWork.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("how-it-works"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/how-it-works/:id", async (req, res) => {
+  try {
+    await prisma.howItWork.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("how-it-works"); } catch {}
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Featured Cities ──
+router.get("/featured-cities", async (req, res) => {
+  try {
+    const items = await prisma.featuredCity.findMany({ orderBy: { displayOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/featured-cities/:id", async (req, res) => {
+  try {
+    const item = await prisma.featuredCity.findUnique({ where: { id: req.params.id } });
+    if (!item) return res.status(404).json({ error: "Not found" });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/featured-cities", async (req, res) => {
+  try {
+    const item = await prisma.featuredCity.create({ data: req.body });
+    try { emitCmsUpdate("featured-cities"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/featured-cities/:id", async (req, res) => {
+  try {
+    const item = await prisma.featuredCity.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("featured-cities"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/featured-cities/:id", async (req, res) => {
+  try {
+    await prisma.featuredCity.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("featured-cities"); } catch {}
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Testimonials ──
+router.get("/testimonials", async (req, res) => {
+  try {
+    const items = await prisma.testimonial.findMany({ orderBy: { createdAt: "desc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/testimonials/:id", async (req, res) => {
+  try {
+    const item = await prisma.testimonial.findUnique({ where: { id: req.params.id } });
+    if (!item) return res.status(404).json({ error: "Not found" });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/testimonials", async (req, res) => {
+  try {
+    const item = await prisma.testimonial.create({ data: req.body });
+    try { emitCmsUpdate("testimonials"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/testimonials/:id", async (req, res) => {
+  try {
+    const item = await prisma.testimonial.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("testimonials"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/testimonials/:id", async (req, res) => {
+  try {
+    await prisma.testimonial.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("testimonials"); } catch {}
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// ── Site FAQ ──
+router.get("/faq", async (req, res) => {
+  try {
+    const items = await prisma.siteFAQ.findMany({ orderBy: { displayOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/faq/:id", async (req, res) => {
+  try {
+    const item = await prisma.siteFAQ.findUnique({ where: { id: req.params.id } });
+    if (!item) return res.status(404).json({ error: "Not found" });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/faq", async (req, res) => {
+  try {
+    const item = await prisma.siteFAQ.create({ data: req.body });
+    try { emitCmsUpdate("faq"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/faq/:id", async (req, res) => {
+  try {
+    const item = await prisma.siteFAQ.update({ where: { id: req.params.id }, data: req.body });
+    try { emitCmsUpdate("faq"); } catch {}
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/faq/:id", async (req, res) => {
+  try {
+    await prisma.siteFAQ.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("faq"); } catch {}
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 export default router;

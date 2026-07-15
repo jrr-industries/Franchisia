@@ -105,7 +105,16 @@ export const ModelName = {
   Feature: 'Feature',
   HowItWork: 'HowItWork',
   FeaturedCity: 'FeaturedCity',
-  NavigationLink: 'NavigationLink'
+  NavigationLink: 'NavigationLink',
+  HeroSetting: 'HeroSetting',
+  Industry: 'Industry',
+  AISection: 'AISection',
+  GlobalNetwork: 'GlobalNetwork',
+  MapLocation: 'MapLocation',
+  GlobalMetric: 'GlobalMetric',
+  NewsletterSetting: 'NewsletterSetting',
+  FooterSetting: 'FooterSetting',
+  MarketplaceSearchSetting: 'MarketplaceSearchSetting'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1034,6 +1043,162 @@ export const NavigationLinkScalarFieldEnum = {
 } as const
 
 export type NavigationLinkScalarFieldEnum = (typeof NavigationLinkScalarFieldEnum)[keyof typeof NavigationLinkScalarFieldEnum]
+
+
+export const HeroSettingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  subtitle: 'subtitle',
+  description: 'description',
+  primaryButtonText: 'primaryButtonText',
+  primaryButtonUrl: 'primaryButtonUrl',
+  secondaryButtonText: 'secondaryButtonText',
+  secondaryButtonUrl: 'secondaryButtonUrl',
+  backgroundImage: 'backgroundImage',
+  heroIllustration: 'heroIllustration',
+  floatingCards: 'floatingCards',
+  isActive: 'isActive',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HeroSettingScalarFieldEnum = (typeof HeroSettingScalarFieldEnum)[keyof typeof HeroSettingScalarFieldEnum]
+
+
+export const IndustryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  icon: 'icon',
+  image: 'image',
+  color: 'color',
+  description: 'description',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IndustryScalarFieldEnum = (typeof IndustryScalarFieldEnum)[keyof typeof IndustryScalarFieldEnum]
+
+
+export const AISectionScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  subtitle: 'subtitle',
+  description: 'description',
+  features: 'features',
+  buttonText: 'buttonText',
+  buttonUrl: 'buttonUrl',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AISectionScalarFieldEnum = (typeof AISectionScalarFieldEnum)[keyof typeof AISectionScalarFieldEnum]
+
+
+export const GlobalNetworkScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  subtitle: 'subtitle',
+  description: 'description',
+  backgroundImage: 'backgroundImage',
+  quote: 'quote',
+  quoteAuthor: 'quoteAuthor',
+  animation: 'animation',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GlobalNetworkScalarFieldEnum = (typeof GlobalNetworkScalarFieldEnum)[keyof typeof GlobalNetworkScalarFieldEnum]
+
+
+export const MapLocationScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  subtitle: 'subtitle',
+  enableMap: 'enableMap',
+  enableNearbyBranches: 'enableNearbyBranches',
+  enableTerritories: 'enableTerritories',
+  mapPlaceholderImage: 'mapPlaceholderImage',
+  googleMapsApiKey: 'googleMapsApiKey',
+  defaultLat: 'defaultLat',
+  defaultLng: 'defaultLng',
+  defaultZoom: 'defaultZoom',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MapLocationScalarFieldEnum = (typeof MapLocationScalarFieldEnum)[keyof typeof MapLocationScalarFieldEnum]
+
+
+export const GlobalMetricScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  value: 'value',
+  icon: 'icon',
+  prefix: 'prefix',
+  suffix: 'suffix',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GlobalMetricScalarFieldEnum = (typeof GlobalMetricScalarFieldEnum)[keyof typeof GlobalMetricScalarFieldEnum]
+
+
+export const NewsletterSettingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  subtitle: 'subtitle',
+  successMessage: 'successMessage',
+  buttonText: 'buttonText',
+  placeholder: 'placeholder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NewsletterSettingScalarFieldEnum = (typeof NewsletterSettingScalarFieldEnum)[keyof typeof NewsletterSettingScalarFieldEnum]
+
+
+export const FooterSettingScalarFieldEnum = {
+  id: 'id',
+  logo: 'logo',
+  copyright: 'copyright',
+  aboutText: 'aboutText',
+  email: 'email',
+  phone: 'phone',
+  address: 'address',
+  quickLinks: 'quickLinks',
+  socialLinks: 'socialLinks',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FooterSettingScalarFieldEnum = (typeof FooterSettingScalarFieldEnum)[keyof typeof FooterSettingScalarFieldEnum]
+
+
+export const MarketplaceSearchSettingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  defaultIndustries: 'defaultIndustries',
+  defaultLocations: 'defaultLocations',
+  investmentRanges: 'investmentRanges',
+  placeholder: 'placeholder',
+  searchButtonText: 'searchButtonText',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MarketplaceSearchSettingScalarFieldEnum = (typeof MarketplaceSearchSettingScalarFieldEnum)[keyof typeof MarketplaceSearchSettingScalarFieldEnum]
 
 
 export const SortOrder = {

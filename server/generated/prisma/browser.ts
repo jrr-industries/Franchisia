@@ -292,3 +292,48 @@ export type FeaturedCity = Prisma.FeaturedCityModel
  * 
  */
 export type NavigationLink = Prisma.NavigationLinkModel
+/**
+ * Model HeroSetting
+ * 
+ */
+export type HeroSetting = Prisma.HeroSettingModel
+/**
+ * Model Industry
+ * 
+ */
+export type Industry = Prisma.IndustryModel
+/**
+ * Model AISection
+ * 
+ */
+export type AISection = Prisma.AISectionModel
+/**
+ * Model GlobalNetwork
+ * 
+ */
+export type GlobalNetwork = Prisma.GlobalNetworkModel
+/**
+ * Model MapLocation
+ * 
+ */
+export type MapLocation = Prisma.MapLocationModel
+/**
+ * Model GlobalMetric
+ * 
+ */
+export type GlobalMetric = Prisma.GlobalMetricModel
+/**
+ * Model NewsletterSetting
+ * 
+ */
+export type NewsletterSetting = Prisma.NewsletterSettingModel
+/**
+ * Model FooterSetting
+ * 
+ */
+export type FooterSetting = Prisma.FooterSettingModel
+/**
+ * Model MarketplaceSearchSetting
+ * 
+ */
+export type MarketplaceSearchSetting = Prisma.MarketplaceSearchSettingModel

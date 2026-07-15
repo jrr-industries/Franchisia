@@ -1092,6 +1092,155 @@ model NavigationLink {
   @@map("navigation_links")
 }
 
+model HeroSetting {
+  id                String  @id @default(cuid())
+  title             String
+  subtitle          String?
+  description       String?
+  primaryButtonText  String? @map("primary_button_text")
+  primaryButtonUrl   String? @map("primary_button_url")
+  secondaryButtonText String? @map("secondary_button_text")
+  secondaryButtonUrl  String? @map("secondary_button_url")
+  backgroundImage   String?
+  heroIllustration  String?
+  floatingCards     Json?
+  isActive          Boolean @default(true) @map("is_active")
+  status            String  @default("published")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  @@map("hero_settings")
+}
+
+model Industry {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  icon        String?
+  image       String?
+  color       String?
+  description String?
+  displayOrder Int     @default(0) @map("display_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([displayOrder])
+  @@map("industries")
+}
+
+model AISection {
+  id          String   @id @default(cuid())
+  title       String
+  subtitle    String?
+  description String?
+  features    Json?
+  buttonText  String?  @map("button_text")
+  buttonUrl   String?  @map("button_url")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("ai_sections")
+}
+
+model GlobalNetwork {
+  id              String   @id @default(cuid())
+  title           String
+  subtitle        String?
+  description     String?
+  backgroundImage String?
+  quote           String?
+  quoteAuthor     String?  @map("quote_author")
+  animation       String?
+  isActive        Boolean  @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("global_networks")
+}
+
+model MapLocation {
+  id                  String   @id @default(cuid())
+  title               String
+  subtitle            String?
+  enableMap           Boolean  @default(true) @map("enable_map")
+  enableNearbyBranches Boolean @default(true) @map("enable_nearby_branches")
+  enableTerritories    Boolean @default(false) @map("enable_territories")
+  mapPlaceholderImage String?  @map("map_placeholder_image")
+  googleMapsApiKey    String?  @map("google_maps_api_key")
+  defaultLat          Float?   @map("default_lat")
+  defaultLng          Float?   @map("default_lng")
+  defaultZoom         Int?     @default(5) @map("default_zoom")
+  isActive            Boolean  @default(true) @map("is_active")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  @@map("map_locations")
+}
+
+model GlobalMetric {
+  id          String  @id @default(cuid())
+  label       String
+  value       String
+  icon        String?
+  prefix      String?
+  suffix      String?
+  displayOrder Int    @default(0) @map("display_order")
+  isActive    Boolean @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([displayOrder])
+  @@map("global_metrics")
+}
+
+model NewsletterSetting {
+  id            String  @id @default(cuid())
+  title         String
+  subtitle      String?
+  successMessage String? @map("success_message")
+  buttonText    String?  @map("button_text")
+  placeholder   String?
+  isActive      Boolean @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("newsletter_settings")
+}
+
+model FooterSetting {
+  id          String   @id @default(cuid())
+  logo        String?
+  copyright   String?
+  aboutText   String?  @map("about_text")
+  email       String?
+  phone       String?
+  address     String?
+  quickLinks  Json?
+  socialLinks Json?
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("footer_settings")
+}
+
+model MarketplaceSearchSetting {
+  id                  String   @id @default(cuid())
+  title               String
+  description         String?
+  defaultIndustries   String[] @map("default_industries")
+  defaultLocations    String[] @map("default_locations")
+  investmentRanges    String[] @map("investment_ranges")
+  placeholder         String?
+  searchButtonText    String?  @map("search_button_text")
+  isActive            Boolean  @default(true) @map("is_active")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  @@map("marketplace_search_settings")
+}
+
 enum NotificationType {
   new_lead
   application_received

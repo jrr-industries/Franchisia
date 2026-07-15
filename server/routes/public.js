@@ -452,4 +452,124 @@ router.get("/pages/:slug", async (req, res) => {
   }
 });
 
+// Hero Settings
+router.get("/hero", async (_req, res) => {
+  try {
+    const hero = await prisma.heroSetting.findFirst({ where: { status: "published", isActive: true } });
+    res.json(hero || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Industries (landing page)
+router.get("/industries-list", async (_req, res) => {
+  try {
+    const items = await prisma.industry.findMany({ where: { isActive: true }, orderBy: { displayOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// AI Section
+router.get("/ai-section", async (_req, res) => {
+  try {
+    const section = await prisma.aISection.findFirst({ where: { isActive: true } });
+    res.json(section || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Global Network
+router.get("/global-network", async (_req, res) => {
+  try {
+    const network = await prisma.globalNetwork.findFirst({ where: { isActive: true } });
+    res.json(network || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Map Locations
+router.get("/map-location", async (_req, res) => {
+  try {
+    const map = await prisma.mapLocation.findFirst({ where: { isActive: true } });
+    res.json(map || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Global Metrics
+router.get("/global-metrics", async (_req, res) => {
+  try {
+    const items = await prisma.globalMetric.findMany({ where: { isActive: true }, orderBy: { displayOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Newsletter Settings
+router.get("/newsletter-settings", async (_req, res) => {
+  try {
+    const settings = await prisma.newsletterSetting.findFirst({ where: { isActive: true } });
+    res.json(settings || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Footer Settings
+router.get("/footer", async (_req, res) => {
+  try {
+    const footer = await prisma.footerSetting.findFirst({ where: { isActive: true } });
+    res.json(footer || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Marketplace Search
+router.get("/marketplace-search", async (_req, res) => {
+  try {
+    const search = await prisma.marketplaceSearchSetting.findFirst({ where: { isActive: true } });
+    res.json(search || {});
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// User Types
+router.get("/user-types", async (_req, res) => {
+  try {
+    const items = await prisma.userType.findMany({ where: { isPublished: true }, orderBy: { sortOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Features
+router.get("/features", async (_req, res) => {
+  try {
+    const items = await prisma.feature.findMany({ where: { isPublished: true }, orderBy: { sortOrder: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// How It Works
+router.get("/how-it-works", async (_req, res) => {
+  try {
+    const items = await prisma.howItWork.findMany({ where: { isPublished: true }, orderBy: { stepNumber: "asc" } });
+    res.json({ items });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 export default router;

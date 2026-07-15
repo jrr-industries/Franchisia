@@ -14,10 +14,6 @@ async function fetchJSON(url) {
   return res.json();
 }
 
-const defaultCategories = [
-  'Food & Beverage', 'Retail', 'Healthcare', 'Education', 'Technology',
-  'Automotive', 'Beauty', 'Hospitality', 'Logistics', 'Real Estate',
-];
 
 export default function SearchSection() {
   const navigate = useNavigate();
@@ -26,24 +22,18 @@ export default function SearchSection() {
   const [investment, setInvestment] = useState('');
   const [category, setCategory] = useState('');
 
+  const { data: marketplaceSearch } = useQuery({
+    queryKey: ["public", "marketplace-search"],
+    queryFn: () => fetch("/api/public/marketplace-search").then(r => r.json()),
+    staleTime: 10 * 60 * 1000,
+  });
   const { data: industriesData, isLoading } = useIndustries();
-  const { data: locationsData } = useQuery({
-    queryKey: ["cms", "locations-list"],
-    queryFn: () => fetchJSON(`${API}/public/locations`),
-    staleTime: 30 * 60 * 1000,
-    select: (d) => ['All Locations', ...Object.keys(d || {})],
-  });
-  const { data: investmentsData } = useQuery({
-    queryKey: ["cms", "investment-ranges"],
-    queryFn: () => fetchJSON(`${API}/public/investment-ranges`),
-    staleTime: 30 * 60 * 1000,
-  });
   const { data: partners, isLoading: partnersLoading } = usePartners();
   const { data: sectionSettings } = usePublicSettings();
 
-  const locations = locationsData || ['All Locations'];
-  const investments = investmentsData || [];
-  const industryList = industriesData?.items || industriesData || [];
+  const locations = marketplaceSearch?.defaultLocations || ['All Locations'];
+  const investments = marketplaceSearch?.investmentRanges || [];
+  const industryList = marketplaceSearch?.defaultIndustries || industriesData?.items || industriesData || [];
 
   const hasFilters = industry || location || investment || category;
   const filteredPartners = hasFilters ? (partners || []).filter((p) => {
@@ -126,9 +116,11 @@ export default function SearchSection() {
             }}
           >
             <option value="">Business Category</option>
-            {defaultCategories.map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
+            {(marketplaceSearch?.defaultIndustries || []).map((ind) => {
+              const label = typeof ind === 'string' ? ind : ind.name || ind.label || ind;
+              const value = typeof ind === 'string' ? ind : ind.slug || ind.name || ind;
+              return <option key={value} value={value}>{label}</option>;
+            })}
           </select>
           <Button
             className="search-btn"

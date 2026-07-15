@@ -2,18 +2,17 @@ import { useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Compass, Building2, MessageSquare, Bell, User, Settings,
-  LogOut, Users, BarChart3, Shield, ShieldCheck, FileText, AlertTriangle,
-  Heart, Briefcase, ClipboardList, Activity, Server, Megaphone, X,
-  FileSignature, FileEdit, CalendarDays, Megaphone as MegaphoneIcon,
-  Star, HelpCircle, CreditCard, Image, Newspaper, PenLine,
-  Store, FolderOpen, LineChart, Globe, Menu, GitPullRequest, MapPin,
+  LogOut, Users, BarChart3, ShieldCheck, FileText, AlertTriangle,
+  Heart, Briefcase, ClipboardList, Server, X, FileSignature,
+  Store, FolderOpen, LineChart,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Logo from './Logo';
 
 const mainLinks = [
-  { label: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
-  { label: 'Discover', path: '/discover', icon: Compass },
+  { label: 'Home', path: '/', icon: LayoutDashboard },
+  { label: 'Dashboard', path: '/dashboard', icon: Compass },
+  { label: 'Discover', path: '/discover', icon: Store },
   { label: 'Companies', path: '/companies', icon: Building2 },
   { label: 'Messages', path: '/messages', icon: MessageSquare },
   { label: 'Notifications', path: '/notifications', icon: Bell },
@@ -44,10 +43,14 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
   useEffect(() => {
     if (overlayOpen) {
       document.body.style.overflow = 'hidden';
-    } else {
+    } else if (overlayOpen !== undefined) {
       document.body.style.overflow = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      if (overlayOpen !== undefined) {
+        document.body.style.overflow = '';
+      }
+    };
   }, [overlayOpen]);
 
   useEffect(() => {
@@ -121,9 +124,14 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
 
         {isAdmin && (
           <>
-            <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>Admin</p>
+            <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>Dashboard</p>
+            <Link key="/admin/home" to="/admin/home" onClick={handleClose} style={linkStyle('/admin/home')} title="Home">
+              <LayoutDashboard size={20} style={{ flexShrink: 0 }} />
+              {!collapsed && 'Home'}
+            </Link>
+
+            <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>Admin Management</p>
             {[
-              { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
               { label: 'Users', path: '/admin/users', icon: Users },
               { label: 'Verification', path: '/admin/verification', icon: ShieldCheck },
               { label: 'Companies', path: '/admin/companies', icon: Building2 },
@@ -134,36 +142,6 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
               { label: 'Reports', path: '/admin/reports', icon: AlertTriangle },
               { label: 'Notifications', path: '/admin/notifications', icon: Bell },
               { label: 'Analytics', path: '/admin/analytics', icon: BarChart3 },
-              { label: 'Content', path: '/admin/content', icon: Shield },
-              { label: 'Policies', path: '/admin/policies', icon: FileSignature },
-            ].map((l) => (
-              <Link key={l.path} to={l.path} onClick={handleClose} style={linkStyle(l.path)} title={l.label}>
-                <l.icon size={20} style={{ flexShrink: 0 }} />
-                {!collapsed && l.label}
-              </Link>
-            ))}
-
-            <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', marginTop: 16, display: collapsed ? 'none' : 'block' }}>Content Management</p>
-            {[
-              { label: 'Hero', path: '/admin/cms/hero', icon: PenLine },
-              { label: 'Hero Slides', path: '/admin/cms/hero-slides', icon: Image },
-              { label: 'User Types', path: '/admin/cms/user-types', icon: Users },
-              { label: 'Features', path: '/admin/cms/features', icon: Star },
-              { label: 'How It Works', path: '/admin/cms/how-it-works', icon: GitPullRequest },
-              { label: 'Cities', path: '/admin/cms/cities', icon: MapPin },
-              { label: 'Navigation', path: '/admin/cms/navigation', icon: Menu },
-              { label: 'Statistics', path: '/admin/cms/statistics', icon: BarChart3 },
-              { label: 'Blog', path: '/admin/cms/blog', icon: Newspaper },
-              { label: 'Careers', path: '/admin/cms/careers', icon: Briefcase },
-              { label: 'Events', path: '/admin/cms/events', icon: CalendarDays },
-              { label: 'Partners', path: '/admin/cms/partners', icon: MegaphoneIcon },
-              { label: 'Testimonials', path: '/admin/cms/testimonials', icon: Star },
-              { label: 'FAQ', path: '/admin/cms/faq', icon: HelpCircle },
-              { label: 'Pricing Plans', path: '/admin/cms/plans', icon: CreditCard },
-              { label: 'Media', path: '/admin/cms/media', icon: Image },
-              { label: 'Footer', path: '/admin/cms/footer', icon: FileEdit },
-              { label: 'Pages', path: '/admin/cms/pages', icon: FileText },
-              { label: 'Contact', path: '/admin/cms/contact', icon: MessageSquare },
               { label: 'Settings', path: '/admin/settings', icon: Settings },
               { label: 'Audit Logs', path: '/admin/audit-logs', icon: FileText },
               { label: 'System Health', path: '/admin/system-health', icon: Server },
@@ -186,14 +164,35 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
     </>
   );
 
-  if (overlayOpen) {
+  if (overlayOpen !== undefined) {
     return (
-      <>
-        <div onClick={handleClose} style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 300, opacity: 1, transition: 'opacity 0.25s ease' }} />
-        <aside style={{ position: 'fixed', top: 0, left: 0, bottom: 0, width: 'var(--sidebar-width)', backgroundColor: 'var(--surface)', zIndex: 301, display: 'flex', flexDirection: 'column', boxShadow: '0 4px 24px rgba(0,0,0,0.15)', transform: 'translateX(0)', transition: 'transform 0.3s ease' }}>
+      <div
+        style={{
+          position: 'fixed', inset: 0, zIndex: 300,
+          pointerEvents: overlayOpen ? 'auto' : 'none',
+        }}
+      >
+        <div
+          onClick={handleClose}
+          style={{
+            position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)',
+            opacity: overlayOpen ? 1 : 0,
+            transition: 'opacity 0.2s ease',
+          }}
+        />
+        <aside
+          style={{
+            position: 'absolute', top: 0, left: 0, bottom: 0,
+            width: 'var(--sidebar-width)', backgroundColor: 'var(--surface)',
+            display: 'flex', flexDirection: 'column',
+            transform: overlayOpen ? 'translateX(0)' : 'translateX(-100%)',
+            transition: 'transform 0.25s ease',
+            boxShadow: '0 4px 24px rgba(0,0,0,0.15)',
+          }}
+        >
           {sidebarContent}
         </aside>
-      </>
+      </div>
     );
   }
 

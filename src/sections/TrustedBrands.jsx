@@ -8,6 +8,10 @@ export default function TrustedBrands() {
 
   const hasPartners = partners?.length > 0;
 
+  if (!hasPartners) {
+    return null;
+  }
+
   return (
     <section style={{ padding: '64px 0', borderTop: '1px solid var(--outline-variant)', borderBottom: '1px solid var(--outline-variant)', overflow: "hidden" }}>
       <div className="container">
@@ -20,7 +24,7 @@ export default function TrustedBrands() {
           </p>
         </motion.div>
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ display: 'flex', justifyContent: 'center', gap: 48, alignItems: 'center', flexWrap: 'wrap' }}>
-          {hasPartners ? partners.map((p, i) => (
+          {partners.map((p, i) => (
             <motion.div key={p.id || i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
               whileHover={{ scale: 1.05, opacity: 1 }}
             >
@@ -35,24 +39,12 @@ export default function TrustedBrands() {
                 </div>
               )}
             </motion.div>
-          )) : (
-            <div style={{ display: 'flex', gap: 48, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', opacity: 0.5 }}>
-              {['Franchise India', 'Brand Expand', 'Franchise Bazar', 'Global Franchise', 'Franchise Ready'].map((name, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
-                  style={{ fontSize: 18, fontWeight: 700, color: 'var(--on-surface-variant)', letterSpacing: 1 }}
-                >
-                  {name}
-                </motion.div>
-              ))}
-            </div>
-          )}
+          ))}
         </motion.div>
-        {hasPartners && (
-          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ textAlign: 'center', marginTop: 24, fontSize: 13, color: 'var(--on-surface-variant)' }}>
-            <BadgeCheck size={14} style={{ verticalAlign: 'middle', marginRight: 4 }} color="var(--primary)" />
-            {partners.filter(p => p.isVerified).length || partners.length} verified companies on the network
-          </motion.p>
-        )}
+        <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ textAlign: 'center', marginTop: 24, fontSize: 13, color: 'var(--on-surface-variant)' }}>
+          <BadgeCheck size={14} style={{ verticalAlign: 'middle', marginRight: 4 }} color="var(--primary)" />
+          {partners.length} verified companies on the network
+        </motion.p>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useLayoutEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
@@ -17,22 +17,10 @@ function getBreakpoint() {
 export default function DashboardLayout() {
   const { maintenanceMode } = useSite();
   const { isAdmin, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ width: 32, height: 32, borderRadius: '50%', border: '3px solid var(--border)', borderTopColor: 'var(--primary)', animation: 'spin 1s linear infinite' }} />
-      </div>
-    );
-  }
-
-  if (maintenanceMode && !isAdmin) {
-    return <MaintenancePage />;
-  }
+  const location = useLocation();
 
   const [breakpoint, setBreakpoint] = useState(getBreakpoint);
   const [sidebarOverlay, setSidebarOverlay] = useState(false);
-  const location = useLocation();
 
   const isMobile = breakpoint === 'mobile';
   const isTablet = breakpoint === 'tablet';
@@ -46,7 +34,7 @@ export default function DashboardLayout() {
     return isTablet || isMobile;
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setSidebarOverlay(false);
   }, [location.pathname]);
 
@@ -67,7 +55,7 @@ export default function DashboardLayout() {
 
   const handleToggle = useCallback(() => {
     if (isMobile) {
-      setSidebarOverlay(true);
+      setSidebarOverlay((prev) => !prev);
     } else {
       setCollapsed((prev) => {
         const next = !prev;
@@ -77,14 +65,24 @@ export default function DashboardLayout() {
     }
   }, [isMobile]);
 
+  if (loading) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ width: 32, height: 32, borderRadius: '50%', border: '3px solid var(--border)', borderTopColor: 'var(--primary)', animation: 'spin 1s linear infinite' }} />
+      </div>
+    );
+  }
+
+  if (maintenanceMode && !isAdmin) {
+    return <MaintenancePage />;
+  }
+
   const sidebarWidth = collapsed ? 64 : 'var(--sidebar-width)';
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       {isMobile ? (
-        <>
-          {sidebarOverlay && <Sidebar overlayOpen={true} onOverlayClose={() => setSidebarOverlay(false)} />}
-        </>
+        <Sidebar overlayOpen={sidebarOverlay} onOverlayClose={() => setSidebarOverlay(false)} />
       ) : (
         <div className="sidebar-desktop" style={{ width: sidebarWidth, flexShrink: 0 }}>
           <Sidebar
