@@ -7,6 +7,7 @@ import {
   Store, FolderOpen, LineChart,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import useSocketStore from '../store/socketStore';
 import Logo from './Logo';
 
 const API = '/api';
@@ -42,6 +43,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
   const sidebarVisible = overlayOpen === true;
   const sidebarOverlayMode = overlayOpen !== undefined;
   const [unreadApps, setUnreadApps] = useState(0);
+  const notificationCount = useSocketStore((s) => s.notificationCount);
 
   useEffect(() => {
     if (!user || (!isFranchisor && !isAdmin)) return;
@@ -107,9 +109,21 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
       <div style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 4, flex: 1, overflow: 'auto' }}>
         <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: 1, padding: '8px 12px', display: collapsed ? 'none' : 'block' }}>Main</p>
         {mainLinks.map((l) => (
-          <Link key={l.path} to={l.path} style={linkStyle(l.path)} title={l.label}>
+          <Link key={l.path} to={l.path} style={{ ...linkStyle(l.path), position: 'relative' }} title={l.label}>
             <l.icon size={20} style={{ flexShrink: 0 }} />
             {!collapsed && l.label}
+            {l.path === '/notifications' && notificationCount > 0 && (
+              <span style={{
+                position: 'absolute', top: 6, right: 8,
+                minWidth: 18, height: 18, borderRadius: 9,
+                backgroundColor: 'var(--danger)', color: '#fff',
+                fontSize: 10, fontWeight: 700,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                padding: '0 4px',
+              }}>
+                {notificationCount > 99 ? '99+' : notificationCount}
+              </span>
+            )}
           </Link>
         ))}
 

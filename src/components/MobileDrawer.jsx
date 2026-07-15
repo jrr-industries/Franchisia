@@ -7,6 +7,7 @@ import {
   FileText, Server, LogIn, UserPlus, Menu
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import useSocketStore from "../store/socketStore";
 import Logo from "./Logo";
 
 const mainLinks = [
@@ -43,6 +44,7 @@ const adminLinks = [
 export default function MobileDrawer({ open, onClose }) {
   const location = useLocation();
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
+  const notificationCount = useSocketStore((s) => s.notificationCount);
 
   useEffect(() => {
     if (open) {
@@ -130,9 +132,21 @@ export default function MobileDrawer({ open, onClose }) {
             <>
               <p style={{ fontSize: 11, fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 1, padding: "8px 12px" }}>Main</p>
               {mainLinks.map((l) => (
-                <Link key={l.path} to={l.path} onClick={onClose} style={linkStyle(l.path)}>
+                <Link key={l.path} to={l.path} onClick={onClose} style={{ ...linkStyle(l.path), position: 'relative' }}>
                   <l.icon size={20} style={{ flexShrink: 0 }} />
                   {l.label}
+                  {l.path === '/notifications' && notificationCount > 0 && (
+                    <span style={{
+                      position: 'absolute', top: 4, right: 8,
+                      minWidth: 18, height: 18, borderRadius: 9,
+                      backgroundColor: 'var(--danger)', color: '#fff',
+                      fontSize: 10, fontWeight: 700,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      padding: '0 4px',
+                    }}>
+                      {notificationCount > 99 ? '99+' : notificationCount}
+                    </span>
+                  )}
                 </Link>
               ))}
 

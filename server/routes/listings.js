@@ -46,6 +46,64 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/my", authenticate, async (req, res) => {
+  try {
+    const company = await prisma.company.findFirst({
+      where: { ownerId: req.user.id },
+    });
+    if (!company) return res.json({ listings: [] });
+
+    const { status, search, page = 1, limit = 20 } = req.query;
+    const where = { companyId: company.id };
+    if (status) where.status = status;
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+      ];
+    }
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const [listings, total] = await Promise.all([
+      prisma.franchiseListing.findMany({
+        where,
+        skip,
+        take: parseInt(limit),
+        include: {
+          _count: { select: { applications: true, bookmarks: true } },
+        },
+        orderBy: { updatedAt: "desc" },
+      }),
+      prisma.franchiseListing.count({ where }),
+    ]);
+    res.json({ listings, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+  } catch (error) {
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/company/:companyId", async (req, res) => {
+  try {
+    const { status } = req.query;
+    const where = { companyId: req.params.companyId };
+    if (status) where.status = status;
+
+    const listings = await prisma.franchiseListing.findMany({
+      where,
+      include: {
+        company: { select: { id: true, name: true, slug: true, logoUrl: true, isVerified: true } },
+        _count: { select: { applications: true, bookmarks: true } },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+    res.json({ listings });
+  } catch (error) {
+    console.error("Listings route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/:slug", async (req, res) => {
   try {
     const listing = await prisma.franchiseListing.findUnique({
@@ -64,31 +122,6 @@ router.get("/:slug", async (req, res) => {
     });
 
     res.json(listing);
-  } catch (error) {
-    console.error("Listings route error:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.get("/my", authenticate, async (req, res) => {
-  try {
-    const company = await prisma.company.findFirst({
-      where: { ownerId: req.user.id },
-    });
-    if (!company) return res.json({ listings: [] });
-
-    const { status } = req.query;
-    const where = { companyId: company.id };
-    if (status) where.status = status;
-
-    const listings = await prisma.franchiseListing.findMany({
-      where,
-      include: {
-        _count: { select: { applications: true, bookmarks: true } },
-      },
-      orderBy: { updatedAt: "desc" },
-    });
-    res.json({ listings });
   } catch (error) {
     console.error("Listings route error:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -159,28 +192,6 @@ router.post("/:id/duplicate", authenticate, async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
-router.get("/company/:companyId", async (req, res) => {
-  try {
-    const { status } = req.query;
-    const where = { companyId: req.params.companyId };
-    if (status) where.status = status;
-
-    const listings = await prisma.franchiseListing.findMany({
-      where,
-      include: {
-        company: { select: { id: true, name: true, slug: true, logoUrl: true, isVerified: true } },
-        _count: { select: { applications: true, bookmarks: true } },
-      },
-      orderBy: { createdAt: "desc" },
-    });
-    res.json({ listings });
-  } catch (error) {
-    console.error("Listings route error:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
 router.post("/", authenticate, async (req, res) => {
   try {
     let { companyId, title, slug: rawSlug, description, industry, businessType, investmentMin, investmentMax, roiPercentage, franchiseFee, royaltyFee, breakEvenMonths, location, city, country, state, isRemote, images, videoUrl, areaRequired, requirements, support, training } = req.body;

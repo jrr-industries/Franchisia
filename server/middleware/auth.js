@@ -48,3 +48,29 @@ export function authorize(...roles) {
     next();
   };
 }
+
+export const requireFranchisor = authorize("franchisor");
+export const requireFranchisee = authorize("franchisee");
+export const requireConsultant = authorize("consultant");
+export const requireInvestor = authorize("investor");
+export const requireSupplier = authorize("supplier");
+export const requireAdmin = authorize("admin");
+
+export function requireOwnership(lookup) {
+  return async (req, res, next) => {
+    try {
+      if (req.user.role === "admin") return next();
+      const record = await lookup(req);
+      if (!record) return res.status(404).json({ error: "Not found" });
+      const ownerId = record.ownerId || record.userId;
+      if (ownerId !== req.user.id) {
+        return res.status(403).json({ error: "Not authorized" });
+      }
+      req.record = record;
+      next();
+    } catch (error) {
+      console.error("requireOwnership error:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  };
+}

@@ -181,14 +181,26 @@ export function AuthProvider({ children }) {
   }, []);
 
   const isAdmin = user?.role === "admin";
+  const isFranchisor = user?.role === "franchisor";
+  const isFranchisee = user?.role === "franchisee";
+  const isConsultant = user?.role === "consultant";
+  const isInvestor = user?.role === "investor";
+  const isSupplier = user?.role === "supplier";
   const isVerified = user?.verified === true;
+  const hasRole = useCallback((...roles) => roles.includes(user?.role), [user?.role]);
 
   return (
     <AuthContext.Provider value={{
       user,
       isAuthenticated: !!user,
       isAdmin,
+      isFranchisor,
+      isFranchisee,
+      isConsultant,
+      isInvestor,
+      isSupplier,
       isVerified,
+      hasRole,
       loading,
       socialLoading,
       login,

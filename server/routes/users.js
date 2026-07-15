@@ -14,10 +14,53 @@ router.get("/me", authenticate, async (req, res) => {
         interests: true,
         education: true,
         experience: true,
+        documents: true,
       },
     });
+    if (!user) return res.status(404).json({ error: "User not found" });
     const { passwordHash, ...userData } = user;
     res.json(userData);
+  } catch (error) {
+    console.error("Users route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/me/documents", authenticate, async (req, res) => {
+  try {
+    const documents = await prisma.userDocument.findMany({
+      where: { userId: req.user.id },
+      orderBy: { createdAt: "desc" },
+    });
+    res.json(documents);
+  } catch (error) {
+    console.error("Users route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/me/documents", authenticate, async (req, res) => {
+  try {
+    const { type, url, fileName } = req.body;
+    if (!type || !url) return res.status(400).json({ error: "type and url are required" });
+
+    const doc = await prisma.userDocument.create({
+      data: { userId: req.user.id, type, url, fileName: fileName || url },
+    });
+    res.status(201).json(doc);
+  } catch (error) {
+    console.error("Users route error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/me/documents/:id", authenticate, async (req, res) => {
+  try {
+    const doc = await prisma.userDocument.findUnique({ where: { id: req.params.id } });
+    if (!doc) return res.status(404).json({ error: "Document not found" });
+    if (doc.userId !== req.user.id) return res.status(403).json({ error: "Not authorized" });
+    await prisma.userDocument.delete({ where: { id: req.params.id } });
+    res.json({ success: true });
   } catch (error) {
     console.error("Users route error:", error);
     res.status(500).json({ error: "Internal server error" });

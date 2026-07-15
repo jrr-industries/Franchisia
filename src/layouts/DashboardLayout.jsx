@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
+import ErrorBoundary from '../components/ErrorBoundary';
 import MaintenancePage from '../pages/public/MaintenancePage';
 import { useSite } from '../context/SiteContext';
 import { useAuth } from '../context/AuthContext';
@@ -90,19 +91,23 @@ export default function DashboardLayout() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       {isMobile ? (
-        <Sidebar overlayOpen={effectiveOverlayOpen} onOverlayClose={() => setSidebarOverlay(false)} />
+        <ErrorBoundary>
+          <Sidebar overlayOpen={effectiveOverlayOpen} onOverlayClose={() => setSidebarOverlay(false)} />
+        </ErrorBoundary>
       ) : (
         <div className="sidebar-desktop" style={{ width: sidebarWidth, flexShrink: 0 }}>
-          <Sidebar
-            collapsed={collapsed}
-            onToggle={() => {
-              setCollapsed((prev) => {
-                const next = !prev;
-                try { localStorage.setItem('sidebar_collapsed', String(next)); } catch {}
-                return next;
-              });
-            }}
-          />
+          <ErrorBoundary>
+            <Sidebar
+              collapsed={collapsed}
+              onToggle={() => {
+                setCollapsed((prev) => {
+                  const next = !prev;
+                  try { localStorage.setItem('sidebar_collapsed', String(next)); } catch {}
+                  return next;
+                });
+              }}
+            />
+          </ErrorBoundary>
         </div>
       )}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>

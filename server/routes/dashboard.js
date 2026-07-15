@@ -599,11 +599,11 @@ router.get("/tasks", async (req, res) => {
     });
 
     const submittedApps = await prisma.application.count({
-      where: { applicantId: userId, status: "submitted" },
+      where: { applicantId: userId, status: "pending" },
     });
 
     const incomingApps = await prisma.application.count({
-      where: { listing: { company: { ownerId: userId } }, status: "submitted" },
+      where: { listing: { company: { ownerId: userId } }, status: "pending" },
     });
 
     const unreadMessages = await prisma.message.count({

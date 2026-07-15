@@ -36,6 +36,14 @@ export default function Header({ onToggleSidebar }) {
         }
       })
       .catch(() => {});
+    fetch("/api/notifications/unread-count", { credentials: "include" })
+      .then((r) => r.json())
+      .then((data) => {
+        if (typeof data.count === "number") {
+          useSocketStore.getState().updateNotificationCount(data.count);
+        }
+      })
+      .catch(() => {});
   }, [isAuthenticated, location.pathname]);
 
   useEffect(() => {

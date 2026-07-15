@@ -75,7 +75,11 @@ export default function Discover() {
   const { addToast } = useToast();
 
   const { data: industriesData, isLoading: industriesLoading } = useIndustries();
-  const industries = ['All', ...(Array.isArray(industriesData) ? industriesData.filter(Boolean) : [])];
+  let industryNames = [];
+  if (Array.isArray(industriesData)) {
+    industryNames = industriesData.map(i => typeof i === 'string' ? i : i.name).filter(Boolean);
+  }
+  const industries = ['All', ...industryNames];
 
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [selectedIndustry, setSelectedIndustry] = useState(searchParams.get('industry') || 'All');
@@ -314,7 +318,7 @@ export default function Discover() {
                   const invest = formatInvest(l.investmentMin, l.investmentMax);
                   return (
                     <Card key={l.id} padding="16px" style={{ minWidth: 250, flexShrink: 0, cursor: 'pointer', scrollSnapAlign: 'start' }}
-                      onClick={() => navigate(`/company/${l.company.slug}`)}>
+                      onClick={() => navigate(`/listing/${l.slug}`)}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                         <Avatar name={l.title} size={44} />
                         <div style={{ flex: 1, minWidth: 0 }}>
@@ -346,7 +350,7 @@ export default function Discover() {
                   const invest = formatInvest(l.investmentMin, l.investmentMax);
                   return (
                     <Card key={l.id} padding="16px" style={{ minWidth: 240, flexShrink: 0, cursor: 'pointer', scrollSnapAlign: 'start' }}
-                      onClick={() => navigate(`/company/${l.company.slug}`)}>
+                      onClick={() => navigate(`/listing/${l.slug}`)}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                         <Avatar name={l.title} size={40} />
                         <div style={{ flex: 1, minWidth: 0 }}>
@@ -375,7 +379,7 @@ export default function Discover() {
                   const invest = formatInvest(l.investmentMin, l.investmentMax);
                   return (
                     <Card key={l.id} padding="16px" style={{ minWidth: 240, flexShrink: 0, cursor: 'pointer', scrollSnapAlign: 'start' }}
-                      onClick={() => navigate(`/company/${l.company.slug}`)}>
+                      onClick={() => navigate(`/listing/${l.slug}`)}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                         <Avatar name={l.title} size={40} />
                         <div style={{ flex: 1, minWidth: 0 }}>
@@ -443,7 +447,7 @@ export default function Discover() {
                   const invest = formatInvest(l.investmentMin, l.investmentMax);
                   return (
                     <Card key={l.id} padding="16px" style={{ minWidth: 240, flexShrink: 0, cursor: 'pointer', scrollSnapAlign: 'start' }}
-                      onClick={() => navigate(`/company/${l.company.slug}`)}>
+                      onClick={() => navigate(`/listing/${l.slug}`)}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                         <Avatar name={l.title} size={40} />
                         <div style={{ flex: 1, minWidth: 0 }}>
