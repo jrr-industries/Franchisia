@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useLayoutEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
@@ -34,9 +34,17 @@ export default function DashboardLayout() {
     return isTablet || isMobile;
   });
 
-  useLayoutEffect(() => {
+  // Render-time path check: closes sidebar in the SAME render cycle as navigation,
+  // preventing the sidebar from ever being committed in a visible state after navigation.
+  const prevPathRef = useRef(location.pathname);
+  const isNewPath = location.pathname !== prevPathRef.current;
+
+  if (isNewPath) {
+    prevPathRef.current = location.pathname;
     setSidebarOverlay(false);
-  }, [location.pathname]);
+  }
+
+  const effectiveOverlayOpen = isNewPath ? false : sidebarOverlay;
 
   useEffect(() => {
     const handleResize = () => {
@@ -82,7 +90,7 @@ export default function DashboardLayout() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       {isMobile ? (
-        <Sidebar overlayOpen={sidebarOverlay} onOverlayClose={() => setSidebarOverlay(false)} />
+        <Sidebar overlayOpen={effectiveOverlayOpen} onOverlayClose={() => setSidebarOverlay(false)} />
       ) : (
         <div className="sidebar-desktop" style={{ width: sidebarWidth, flexShrink: 0 }}>
           <Sidebar

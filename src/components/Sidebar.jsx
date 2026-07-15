@@ -37,30 +37,30 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
   const location = useLocation();
   const { user, isAdmin, logout } = useAuth();
   const isFranchisor = user?.role === "franchisor";
+  const sidebarVisible = overlayOpen === true;
+  const sidebarOverlayMode = overlayOpen !== undefined;
 
   const handleClose = useCallback(() => { onOverlayClose?.(); }, [onOverlayClose]);
 
   useEffect(() => {
-    if (overlayOpen) {
+    if (sidebarVisible) {
       document.body.style.overflow = 'hidden';
-    } else if (overlayOpen !== undefined) {
+    } else if (sidebarOverlayMode) {
       document.body.style.overflow = '';
     }
     return () => {
-      if (overlayOpen !== undefined) {
+      if (sidebarOverlayMode) {
         document.body.style.overflow = '';
       }
     };
-  }, [overlayOpen]);
+  }, [sidebarVisible, sidebarOverlayMode]);
 
   useEffect(() => {
-    if (!overlayOpen) return;
+    if (!sidebarVisible) return;
     const handler = (e) => { if (e.key === 'Escape') handleClose(); };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [overlayOpen, handleClose]);
-
-  useEffect(() => { handleClose(); }, [location.pathname, handleClose]);
+  }, [sidebarVisible, handleClose]);
 
   const isActive = (path) => location.pathname === path;
 
@@ -86,7 +86,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
     <>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: collapsed ? 16 : '20px 20px', borderBottom: '1px solid var(--outline-variant)' }}>
         <Logo size={collapsed ? 36 : 40} collapsed={collapsed} onClick={handleClose} />
-        {overlayOpen && (
+        {sidebarVisible && (
           <button onClick={handleClose} style={{ background: 'none', border: 'none', color: 'var(--on-surface-variant)', cursor: 'pointer', padding: 4, display: 'flex', borderRadius: 8 }} aria-label="Close sidebar">
             <X size={20} />
           </button>
@@ -164,19 +164,20 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
     </>
   );
 
-  if (overlayOpen !== undefined) {
+  if (sidebarOverlayMode) {
     return (
       <div
         style={{
           position: 'fixed', inset: 0, zIndex: 300,
-          pointerEvents: overlayOpen ? 'auto' : 'none',
+          pointerEvents: sidebarVisible ? 'auto' : 'none',
+          visibility: sidebarVisible ? 'visible' : 'hidden',
         }}
       >
         <div
           onClick={handleClose}
           style={{
             position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)',
-            opacity: overlayOpen ? 1 : 0,
+            opacity: sidebarVisible ? 1 : 0,
             transition: 'opacity 0.2s ease',
           }}
         />
@@ -185,7 +186,7 @@ export default function Sidebar({ collapsed, onToggle, overlayOpen, onOverlayClo
             position: 'absolute', top: 0, left: 0, bottom: 0,
             width: 'var(--sidebar-width)', backgroundColor: 'var(--surface)',
             display: 'flex', flexDirection: 'column',
-            transform: overlayOpen ? 'translateX(0)' : 'translateX(-100%)',
+            transform: sidebarVisible ? 'translateX(0)' : 'translateX(-100%)',
             transition: 'transform 0.25s ease',
             boxShadow: '0 4px 24px rgba(0,0,0,0.15)',
           }}
