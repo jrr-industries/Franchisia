@@ -127,7 +127,7 @@ export default function SearchSection() {
             icon={<Search size={18} />}
             onClick={() => navigate('/discover')}
           >
-            Search Marketplace
+            {marketplaceSearch?.searchButtonText || "Search Marketplace"}
           </Button>
         </motion.div>
 

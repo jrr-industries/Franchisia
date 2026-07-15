@@ -7,7 +7,32 @@ const router = Router();
 
 router.use(authenticate, authorize("admin"));
 
-const ADMIN_ONLY = ["title", "slug", "content", "shortDescription", "status", "category", "image", "featuredImage", "author", "tags", "publishedAt", "jobTitle", "department", "location", "jobType", "salaryRange", "description", "requirements", "responsibilities", "venue", "eventDate", "endDate", "startTime", "endTime", "eventType", "registrationLink", "organizer", "name", "partnerType", "logo", "website", "contactEmail", "testimonial", "company", "rating", "question", "answer", "order", "price", "interval", "features", "isFeatured", "popular", "type", "url", "fileName", "alt", "key", "value", "label", "sort", "displayOrder", "applyLink", "benefits", "employmentType", "experience", "salary", "subtitle", "quote", "backgroundType", "backgroundColor", "backgroundImage", "backgroundVideo", "ctaText", "ctaUrl", "secondaryCtaText", "secondaryCtaUrl", "heroImage", "isActive", "sortOrder", "icon", "buttonText", "buttonUrl", "color", "isPublished", "stepNumber", "illustration", "animation", "state", "isFeatured", "listingCount", "parentId", "isVisible", "label", "url"];
+const ADMIN_ONLY = [
+  "title", "slug", "content", "shortDescription", "status", "category",
+  "image", "featuredImage", "author", "tags", "publishedAt",
+  "jobTitle", "department", "location", "jobType", "salaryRange",
+  "description", "requirements", "responsibilities",
+  "venue", "eventDate", "endDate", "startTime", "endTime", "eventType",
+  "registrationLink", "organizer", "name", "partnerType", "logo", "website",
+  "contactEmail", "testimonial", "company", "rating",
+  "question", "answer", "order", "price", "interval", "features", "isPopular",
+  "type", "url", "fileName", "alt", "key", "value", "label", "sort",
+  "displayOrder", "applyLink", "benefits", "employmentType", "experience", "salary",
+  "subtitle", "quote", "backgroundType", "backgroundColor", "backgroundImage",
+  "backgroundVideo", "ctaText", "ctaUrl", "secondaryCtaText", "secondaryCtaUrl",
+  "heroImage", "isActive", "sortOrder", "icon", "buttonText", "buttonUrl",
+  "color", "isPublished", "stepNumber", "illustration", "animation",
+  "state", "isFeatured", "listingCount", "parentId", "isVisible",
+  "primaryButtonText", "primaryButtonUrl", "secondaryButtonText", "secondaryButtonUrl",
+  "heroIllustration", "floatingCards",
+  "copyright", "aboutText", "quickLinks", "socialLinks", "email", "phone", "address",
+  "successMessage", "placeholder",
+  "defaultIndustries", "defaultLocations", "investmentRanges", "searchButtonText",
+  "quoteAuthor",
+  "enableMap", "enableNearbyBranches", "enableTerritories", "mapPlaceholderImage",
+  "googleMapsApiKey", "defaultLat", "defaultLng", "defaultZoom",
+  "prefix", "suffix"
+];
 
 router.use((req, res, next) => {
   if (["POST", "PUT", "PATCH"].includes(req.method)) {
@@ -84,10 +109,14 @@ router.put("/blog/:id", async (req, res) => {
 
 router.delete("/blog/:id", async (req, res) => {
   try {
+    const existing = await prisma.blogPost.findUnique({ where: { id: req.params.id } });
+    if (!existing) return res.status(404).json({ error: "Blog post not found" });
     await prisma.blogPost.delete({ where: { id: req.params.id } });
     try { emitCmsUpdate("blog"); } catch {}
     res.json({ success: true });
   } catch (error) {
+    console.error("Blog delete error:", error);
+    if (error.code === "P2003") return res.status(400).json({ error: "Cannot delete: post has related records" });
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -134,6 +163,7 @@ router.get("/careers/:id", async (req, res) => {
 router.post("/careers", async (req, res) => {
   try {
     const item = await prisma.career.create({ data: req.body });
+    try { emitCmsUpdate("careers"); } catch {}
     res.status(201).json(item);
   } catch (error) {
     console.error("Career create error:", error);
@@ -147,6 +177,7 @@ router.put("/careers/:id", async (req, res) => {
       where: { id: req.params.id },
       data: req.body,
     });
+    try { emitCmsUpdate("careers"); } catch {}
     res.json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -156,6 +187,7 @@ router.put("/careers/:id", async (req, res) => {
 router.delete("/careers/:id", async (req, res) => {
   try {
     await prisma.career.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("careers"); } catch {}
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -202,6 +234,7 @@ router.get("/events/:id", async (req, res) => {
 router.post("/events", async (req, res) => {
   try {
     const item = await prisma.event.create({ data: req.body });
+    try { emitCmsUpdate("events"); } catch {}
     res.status(201).json(item);
   } catch (error) {
     console.error("Event create error:", error);
@@ -215,6 +248,7 @@ router.put("/events/:id", async (req, res) => {
       where: { id: req.params.id },
       data: req.body,
     });
+    try { emitCmsUpdate("events"); } catch {}
     res.json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -224,6 +258,7 @@ router.put("/events/:id", async (req, res) => {
 router.delete("/events/:id", async (req, res) => {
   try {
     await prisma.event.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("events"); } catch {}
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -271,6 +306,7 @@ router.get("/partners/:id", async (req, res) => {
 router.post("/partners", async (req, res) => {
   try {
     const item = await prisma.partner.create({ data: req.body });
+    try { emitCmsUpdate("partners"); } catch {}
     res.status(201).json(item);
   } catch (error) {
     console.error("Partner create error:", error);
@@ -284,6 +320,7 @@ router.put("/partners/:id", async (req, res) => {
       where: { id: req.params.id },
       data: req.body,
     });
+    try { emitCmsUpdate("partners"); } catch {}
     res.json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -293,6 +330,7 @@ router.put("/partners/:id", async (req, res) => {
 router.delete("/partners/:id", async (req, res) => {
   try {
     await prisma.partner.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("partners"); } catch {}
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -338,6 +376,7 @@ router.get("/testimonials/:id", async (req, res) => {
 router.post("/testimonials", async (req, res) => {
   try {
     const item = await prisma.testimonial.create({ data: req.body });
+    try { emitCmsUpdate("testimonials"); } catch {}
     res.status(201).json(item);
   } catch (error) {
     console.error("Testimonial create error:", error);
@@ -351,6 +390,7 @@ router.put("/testimonials/:id", async (req, res) => {
       where: { id: req.params.id },
       data: req.body,
     });
+    try { emitCmsUpdate("testimonials"); } catch {}
     res.json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -360,6 +400,7 @@ router.put("/testimonials/:id", async (req, res) => {
 router.delete("/testimonials/:id", async (req, res) => {
   try {
     await prisma.testimonial.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("testimonials"); } catch {}
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -405,6 +446,7 @@ router.get("/faq/:id", async (req, res) => {
 router.post("/faq", async (req, res) => {
   try {
     const item = await prisma.siteFAQ.create({ data: req.body });
+    try { emitCmsUpdate("faq"); } catch {}
     res.status(201).json(item);
   } catch (error) {
     console.error("FAQ create error:", error);
@@ -418,6 +460,7 @@ router.put("/faq/:id", async (req, res) => {
       where: { id: req.params.id },
       data: req.body,
     });
+    try { emitCmsUpdate("faq"); } catch {}
     res.json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -427,6 +470,7 @@ router.put("/faq/:id", async (req, res) => {
 router.delete("/faq/:id", async (req, res) => {
   try {
     await prisma.siteFAQ.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("faq"); } catch {}
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -539,6 +583,7 @@ router.get("/media/:id", async (req, res) => {
 router.post("/media", async (req, res) => {
   try {
     const item = await prisma.media.create({ data: req.body });
+    try { emitCmsUpdate("media"); } catch {}
     res.status(201).json(item);
   } catch (error) {
     console.error("Media create error:", error);
@@ -552,6 +597,7 @@ router.put("/media/:id", async (req, res) => {
       where: { id: req.params.id },
       data: req.body,
     });
+    try { emitCmsUpdate("media"); } catch {}
     res.json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -561,6 +607,7 @@ router.put("/media/:id", async (req, res) => {
 router.delete("/media/:id", async (req, res) => {
   try {
     await prisma.media.delete({ where: { id: req.params.id } });
+    try { emitCmsUpdate("media"); } catch {}
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -920,6 +967,22 @@ router.put("/hero/:id", async (req, res) => {
   }
 });
 
+router.put("/hero", async (req, res) => {
+  try {
+    const existing = await prisma.heroSetting.findFirst();
+    if (existing) {
+      const item = await prisma.heroSetting.update({ where: { id: existing.id }, data: req.body });
+      try { emitCmsUpdate("hero"); } catch {}
+      return res.json(item);
+    }
+    const item = await prisma.heroSetting.create({ data: req.body });
+    try { emitCmsUpdate("hero"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.post("/hero", async (req, res) => {
   try {
     const item = await prisma.heroSetting.create({ data: req.body });
@@ -1007,6 +1070,22 @@ router.put("/ai-section/:id", async (req, res) => {
   }
 });
 
+router.put("/ai-section", async (req, res) => {
+  try {
+    const existing = await prisma.aISection.findFirst();
+    if (existing) {
+      const item = await prisma.aISection.update({ where: { id: existing.id }, data: req.body });
+      try { emitCmsUpdate("ai-section"); } catch {}
+      return res.json(item);
+    }
+    const item = await prisma.aISection.create({ data: req.body });
+    try { emitCmsUpdate("ai-section"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.post("/ai-section", async (req, res) => {
   try {
     const item = await prisma.aISection.create({ data: req.body });
@@ -1037,6 +1116,22 @@ router.put("/global-network/:id", async (req, res) => {
   }
 });
 
+router.put("/global-network", async (req, res) => {
+  try {
+    const existing = await prisma.globalNetwork.findFirst();
+    if (existing) {
+      const item = await prisma.globalNetwork.update({ where: { id: existing.id }, data: req.body });
+      try { emitCmsUpdate("global-network"); } catch {}
+      return res.json(item);
+    }
+    const item = await prisma.globalNetwork.create({ data: req.body });
+    try { emitCmsUpdate("global-network"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.post("/global-network", async (req, res) => {
   try {
     const item = await prisma.globalNetwork.create({ data: req.body });
@@ -1062,6 +1157,22 @@ router.put("/map-location/:id", async (req, res) => {
     const item = await prisma.mapLocation.update({ where: { id: req.params.id }, data: req.body });
     try { emitCmsUpdate("map-location"); } catch {}
     res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/map-location", async (req, res) => {
+  try {
+    const existing = await prisma.mapLocation.findFirst();
+    if (existing) {
+      const item = await prisma.mapLocation.update({ where: { id: existing.id }, data: req.body });
+      try { emitCmsUpdate("map-location"); } catch {}
+      return res.json(item);
+    }
+    const item = await prisma.mapLocation.create({ data: req.body });
+    try { emitCmsUpdate("map-location"); } catch {}
+    res.status(201).json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
@@ -1137,6 +1248,22 @@ router.put("/newsletter/:id", async (req, res) => {
   }
 });
 
+router.put("/newsletter", async (req, res) => {
+  try {
+    const existing = await prisma.newsletterSetting.findFirst();
+    if (existing) {
+      const item = await prisma.newsletterSetting.update({ where: { id: existing.id }, data: req.body });
+      try { emitCmsUpdate("newsletter"); } catch {}
+      return res.json(item);
+    }
+    const item = await prisma.newsletterSetting.create({ data: req.body });
+    try { emitCmsUpdate("newsletter"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.post("/newsletter", async (req, res) => {
   try {
     const item = await prisma.newsletterSetting.create({ data: req.body });
@@ -1167,6 +1294,22 @@ router.put("/footer/:id", async (req, res) => {
   }
 });
 
+router.put("/footer", async (req, res) => {
+  try {
+    const existing = await prisma.footerSetting.findFirst();
+    if (existing) {
+      const item = await prisma.footerSetting.update({ where: { id: existing.id }, data: req.body });
+      try { emitCmsUpdate("footer"); } catch {}
+      return res.json(item);
+    }
+    const item = await prisma.footerSetting.create({ data: req.body });
+    try { emitCmsUpdate("footer"); } catch {}
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.post("/footer", async (req, res) => {
   try {
     const item = await prisma.footerSetting.create({ data: req.body });
@@ -1192,6 +1335,22 @@ router.put("/marketplace-search/:id", async (req, res) => {
     const item = await prisma.marketplaceSearchSetting.update({ where: { id: req.params.id }, data: req.body });
     try { emitCmsUpdate("marketplace-search"); } catch {}
     res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/marketplace-search", async (req, res) => {
+  try {
+    const existing = await prisma.marketplaceSearchSetting.findFirst();
+    if (existing) {
+      const item = await prisma.marketplaceSearchSetting.update({ where: { id: existing.id }, data: req.body });
+      try { emitCmsUpdate("marketplace-search"); } catch {}
+      return res.json(item);
+    }
+    const item = await prisma.marketplaceSearchSetting.create({ data: req.body });
+    try { emitCmsUpdate("marketplace-search"); } catch {}
+    res.status(201).json(item);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
@@ -1401,106 +1560,6 @@ router.delete("/featured-cities/:id", async (req, res) => {
   try {
     await prisma.featuredCity.delete({ where: { id: req.params.id } });
     try { emitCmsUpdate("featured-cities"); } catch {}
-    res.json({ success: true });
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-// ── Testimonials ──
-router.get("/testimonials", async (req, res) => {
-  try {
-    const items = await prisma.testimonial.findMany({ orderBy: { createdAt: "desc" } });
-    res.json({ items });
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.get("/testimonials/:id", async (req, res) => {
-  try {
-    const item = await prisma.testimonial.findUnique({ where: { id: req.params.id } });
-    if (!item) return res.status(404).json({ error: "Not found" });
-    res.json(item);
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.post("/testimonials", async (req, res) => {
-  try {
-    const item = await prisma.testimonial.create({ data: req.body });
-    try { emitCmsUpdate("testimonials"); } catch {}
-    res.status(201).json(item);
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.put("/testimonials/:id", async (req, res) => {
-  try {
-    const item = await prisma.testimonial.update({ where: { id: req.params.id }, data: req.body });
-    try { emitCmsUpdate("testimonials"); } catch {}
-    res.json(item);
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.delete("/testimonials/:id", async (req, res) => {
-  try {
-    await prisma.testimonial.delete({ where: { id: req.params.id } });
-    try { emitCmsUpdate("testimonials"); } catch {}
-    res.json({ success: true });
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-// ── Site FAQ ──
-router.get("/faq", async (req, res) => {
-  try {
-    const items = await prisma.siteFAQ.findMany({ orderBy: { displayOrder: "asc" } });
-    res.json({ items });
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.get("/faq/:id", async (req, res) => {
-  try {
-    const item = await prisma.siteFAQ.findUnique({ where: { id: req.params.id } });
-    if (!item) return res.status(404).json({ error: "Not found" });
-    res.json(item);
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.post("/faq", async (req, res) => {
-  try {
-    const item = await prisma.siteFAQ.create({ data: req.body });
-    try { emitCmsUpdate("faq"); } catch {}
-    res.status(201).json(item);
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.put("/faq/:id", async (req, res) => {
-  try {
-    const item = await prisma.siteFAQ.update({ where: { id: req.params.id }, data: req.body });
-    try { emitCmsUpdate("faq"); } catch {}
-    res.json(item);
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.delete("/faq/:id", async (req, res) => {
-  try {
-    await prisma.siteFAQ.delete({ where: { id: req.params.id } });
-    try { emitCmsUpdate("faq"); } catch {}
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });

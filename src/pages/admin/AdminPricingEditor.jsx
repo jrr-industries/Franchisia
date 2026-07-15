@@ -70,9 +70,11 @@ export default function AdminPricingEditor() {
 
   const openEdit = (item) => {
     setEditing(item);
+    const rawFeatures = item.features || {};
+    const featuresText = Array.isArray(rawFeatures) ? rawFeatures.join("\n") : typeof rawFeatures === "object" ? Object.keys(rawFeatures).join("\n") : String(rawFeatures);
     setForm({
       name: item.name || "", slug: item.slug || "", price: item.price ?? 0, interval: item.interval || "month",
-      description: item.description || "", features: Array.isArray(item.features) ? item.features.join("\n") : item.features || "",
+      description: item.description || "", features: featuresText,
       isPopular: item.isPopular || false, displayOrder: item.displayOrder ?? 0, status: item.status || "draft",
     });
     setShowModal(true);
@@ -81,16 +83,20 @@ export default function AdminPricingEditor() {
   const handleSave = async () => {
     setSaving(true);
     try {
+      const featureList = form.features ? form.features.split("\n").filter(Boolean).map((f) => f.trim()) : [];
+      const featuresObj = {};
+      featureList.forEach((f) => { featuresObj[f] = true; });
       const body = {
         ...form,
         price: parseFloat(form.price) || 0,
         displayOrder: parseInt(form.displayOrder) || 0,
-        features: form.features ? form.features.split("\n").filter(Boolean).map((f) => f.trim()) : [],
+        features: featuresObj,
       };
       const url = editing ? `${API}/plans/${editing.id}` : `${API}/plans`;
       const method = editing ? "PUT" : "POST";
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify(body) });
       if (res.ok) { setShowModal(false); fetchItems(); }
+      else { const err = await res.json().catch(() => ({})); console.error("Save failed:", err); }
     } catch (e) { console.error(e); }
     finally { setSaving(false); }
   };

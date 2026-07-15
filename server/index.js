@@ -40,15 +40,22 @@ app.use(cors({
   credentials: true,
 }));
 
-const limiter = rateLimit({
+const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 200,
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: "Too many requests, please try again later" },
 });
-app.use("/api/auth", limiter);
-app.use("/api/admin", limiter);
+const adminLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "Too many requests, please try again later" },
+});
+app.use("/api/auth", authLimiter);
+app.use("/api/admin", adminLimiter);
 
 app.use(express.json({ limit: "1mb" }));
 

@@ -19,16 +19,16 @@ export default function Hero() {
 
   const slide = Array.isArray(heroSlides) && heroSlides.length > 0 ? heroSlides[0] : null;
 
-  const rawQuotes = slide?.quotes || heroSettings?.rotatingQuotes || heroSettings?.heroQuotes || "";
+  const rawQuotes = heroSettings?.rotatingQuotes || heroSettings?.heroQuotes || slide?.quotes || "";
   const quotes = typeof rawQuotes === "string" ? rawQuotes.split("\n").filter(Boolean) : Array.isArray(rawQuotes) ? rawQuotes : [];
   const activeQuotes = quotes.length > 0 ? quotes : [];
 
-  const title = slide?.title || slide?.headline || heroSettings?.title || heroSettings?.headline || heroSettings?.heroHeadline || "";
-  const subtitle = slide?.subtitle || slide?.description || heroSettings?.subtitle || heroSettings?.description || heroSettings?.heroDescription || "";
-  const primaryButtonText = slide?.ctaText || heroSettings?.primaryButtonText || heroSettings?.ctaText || "";
-  const primaryButtonUrl = slide?.ctaUrl || heroSettings?.primaryButtonUrl || heroSettings?.ctaUrl || "";
-  const secondaryButtonText = slide?.secondaryCtaText || heroSettings?.secondaryButtonText || heroSettings?.secondaryCtaText || "";
-  const secondaryButtonUrl = slide?.secondaryCtaUrl || heroSettings?.secondaryButtonUrl || heroSettings?.secondaryCtaUrl || "";
+  const title = heroSettings?.title || heroSettings?.headline || heroSettings?.heroHeadline || slide?.title || slide?.headline || "";
+  const subtitle = heroSettings?.subtitle || heroSettings?.description || heroSettings?.heroDescription || slide?.subtitle || slide?.description || "";
+  const primaryButtonText = heroSettings?.primaryButtonText || heroSettings?.ctaText || slide?.ctaText || "";
+  const primaryButtonUrl = heroSettings?.primaryButtonUrl || heroSettings?.ctaUrl || slide?.ctaUrl || "";
+  const secondaryButtonText = heroSettings?.secondaryButtonText || heroSettings?.secondaryCtaText || slide?.secondaryCtaText || "";
+  const secondaryButtonUrl = heroSettings?.secondaryButtonUrl || heroSettings?.secondaryCtaUrl || slide?.secondaryCtaUrl || "";
   const backgroundImage = heroSettings?.backgroundImage || "";
   const heroIllustration = heroSettings?.heroIllustration || "";
 

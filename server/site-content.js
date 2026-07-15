@@ -1,61 +1,52 @@
 import prisma from "./prisma.js";
 
+async function safeQuery(fn, fallback = null) {
+  try { return await fn(); } catch (e) { console.error("Query failed:", e.message); return fallback; }
+}
+
 export async function getSiteContent() {
-  const [stats, testimonials, partners, faqs, plans, blogPosts, heroSettings, industries, aiSection, globalNetwork, mapLocation, globalMetrics, newsletterSettings, footerSettings, marketplaceSearch, features, userTypes, howItWorks, featuredCities, careers, events, mediaItems] = await Promise.all([
-    prisma.siteStat.findMany({ orderBy: { sort: "asc" } }),
-    prisma.testimonial.findMany({ orderBy: { createdAt: "desc" } }),
-    prisma.partner.findMany({ where: { status: "published" }, orderBy: { displayOrder: "asc" } }),
-    prisma.siteFAQ.findMany({ orderBy: { displayOrder: "asc" } }),
-    prisma.plan.findMany({ where: { status: "published" }, orderBy: { displayOrder: "asc" } }),
-    prisma.blogPost.findMany({ where: { status: "published" }, orderBy: { publishDate: "desc" }, take: 6 }),
-    prisma.heroSetting.findFirst({ where: { status: "published", isActive: true } }),
-    prisma.industry.findMany({ where: { isActive: true }, orderBy: { displayOrder: "asc" } }),
-    prisma.aISection.findFirst({ where: { isActive: true } }),
-    prisma.globalNetwork.findFirst({ where: { isActive: true } }),
-    prisma.mapLocation.findFirst({ where: { isActive: true } }),
-    prisma.globalMetric.findMany({ where: { isActive: true }, orderBy: { displayOrder: "asc" } }),
-    prisma.newsletterSetting.findFirst({ where: { isActive: true } }),
-    prisma.footerSetting.findFirst({ where: { isActive: true } }),
-    prisma.marketplaceSearchSetting.findFirst({ where: { isActive: true } }),
-    prisma.feature.findMany({ where: { isPublished: true }, orderBy: { sortOrder: "asc" } }),
-    prisma.userType.findMany({ where: { isPublished: true }, orderBy: { sortOrder: "asc" } }),
-    prisma.howItWork.findMany({ where: { isPublished: true }, orderBy: { stepNumber: "asc" } }),
-    prisma.featuredCity.findMany({ orderBy: { displayOrder: "asc" } }),
-    prisma.career.findMany({ where: { status: "published" }, orderBy: { createdAt: "desc" } }),
-    prisma.event.findMany({ orderBy: { date: "asc" } }),
-    prisma.media.findMany({ orderBy: { createdAt: "desc" }, take: 20 }),
+  const defaults = { items: [] };
+  const [
+    stats, testimonials, partners, faqs, plans, blogPosts,
+    heroSettings, industries, aiSection, globalNetwork, mapLocation,
+    globalMetrics, newsletterSettings, footerSettings, marketplaceSearch,
+    features, userTypes, howItWorks, featuredCities, careers, events, mediaItems,
+  ] = await Promise.all([
+    safeQuery(() => prisma.siteStat.findMany({ orderBy: { sort: "asc" } }), []),
+    safeQuery(() => prisma.testimonial.findMany({ orderBy: { createdAt: "desc" } }), []),
+    safeQuery(() => prisma.partner.findMany({ where: { status: "published" }, orderBy: { displayOrder: "asc" } }), []),
+    safeQuery(() => prisma.siteFAQ.findMany({ orderBy: { displayOrder: "asc" } }), []),
+    safeQuery(() => prisma.plan.findMany({ where: { status: "published" }, orderBy: { displayOrder: "asc" } }), []),
+    safeQuery(() => prisma.blogPost.findMany({ where: { status: "published" }, orderBy: { publishDate: "desc" }, take: 6 }), []),
+    safeQuery(() => prisma.heroSetting.findFirst({ where: { status: "published", isActive: true } }), null),
+    safeQuery(() => prisma.industry.findMany({ where: { isActive: true }, orderBy: { displayOrder: "asc" } }), []),
+    safeQuery(() => prisma.aISection.findFirst({ where: { isActive: true } }), null),
+    safeQuery(() => prisma.globalNetwork.findFirst({ where: { isActive: true } }), null),
+    safeQuery(() => prisma.mapLocation.findFirst({ where: { isActive: true } }), null),
+    safeQuery(() => prisma.globalMetric.findMany({ where: { isActive: true }, orderBy: { displayOrder: "asc" } }), []),
+    safeQuery(() => prisma.newsletterSetting.findFirst({ where: { isActive: true } }), null),
+    safeQuery(() => prisma.footerSetting.findFirst({ where: { isActive: true } }), null),
+    safeQuery(() => prisma.marketplaceSearchSetting.findFirst({ where: { isActive: true } }), null),
+    safeQuery(() => prisma.feature.findMany({ where: { isPublished: true }, orderBy: { sortOrder: "asc" } }), []),
+    safeQuery(() => prisma.userType.findMany({ where: { isPublished: true }, orderBy: { sortOrder: "asc" } }), []),
+    safeQuery(() => prisma.howItWork.findMany({ where: { isPublished: true }, orderBy: { stepNumber: "asc" } }), []),
+    safeQuery(() => prisma.featuredCity.findMany({ orderBy: { displayOrder: "asc" } }), []),
+    safeQuery(() => prisma.career.findMany({ where: { status: "published" }, orderBy: { createdAt: "desc" } }), []),
+    safeQuery(() => prisma.event.findMany({ orderBy: { date: "asc" } }), []),
+    safeQuery(() => prisma.media.findMany({ orderBy: { createdAt: "desc" }, take: 20 }), []),
   ]);
 
-  const contact = await prisma.siteContact.findFirst();
-  const settings = await prisma.siteSetting.findMany();
+  const contact = await safeQuery(() => prisma.siteContact.findFirst(), null);
+  const settings = await safeQuery(() => prisma.siteSetting.findMany(), []);
   const settingsMap = {};
-  settings.forEach(s => { settingsMap[s.key] = s.value; });
+  if (settings) settings.forEach(s => { settingsMap[s.key] = s.value; });
 
   return {
-    stats,
-    testimonials,
-    partners,
-    faqs,
-    plans,
-    blogPosts,
-    heroSettings,
-    industries,
-    aiSection,
-    globalNetwork,
-    mapLocation,
-    globalMetrics,
-    newsletterSettings,
-    footerSettings,
-    marketplaceSearch,
-    features,
-    userTypes,
-    howItWorks,
-    featuredCities,
-    careers,
-    events,
-    media: mediaItems,
-    contact,
-    settings: settingsMap,
+    stats, testimonials, partners, faqs, plans, blogPosts,
+    heroSettings, industries, aiSection, globalNetwork, mapLocation,
+    globalMetrics, newsletterSettings, footerSettings, marketplaceSearch,
+    features, userTypes, howItWorks, featuredCities, careers, events,
+    media: mediaItems, contact, settings: settingsMap,
   };
 }
 

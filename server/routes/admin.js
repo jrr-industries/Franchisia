@@ -16,67 +16,61 @@ router.get("/stats", async (req, res) => {
     const weekAgo = new Date(todayStart.getTime() - 7 * 86400000);
     const monthAgo = new Date(todayStart.getTime() - 30 * 86400000);
 
+    const run = (queries, batchSize = 5) => {
+      const batches = [];
+      for (let i = 0; i < queries.length; i += batchSize) {
+        batches.push(Promise.all(queries.slice(i, i + batchSize)));
+      }
+      return batches;
+    };
+
+    const q = [
+      () => prisma.user.count(),
+      () => prisma.user.count({ where: { lastLoginAt: { gte: new Date(Date.now() - 15 * 60000) } } }),
+      () => prisma.user.count({ where: { createdAt: { gte: todayStart } } }),
+      () => prisma.user.count({ where: { createdAt: { gte: weekAgo } } }),
+      () => prisma.user.count({ where: { createdAt: { gte: monthAgo } } }),
+      () => prisma.user.count({ where: { verified: true } }),
+      () => prisma.user.count({ where: { accountStatus: "pending_admin_review" } }),
+      () => prisma.company.count(),
+      () => prisma.company.count({ where: { isVerified: true } }),
+      () => prisma.company.count({ where: { status: "active" } }),
+      () => prisma.message.count(),
+      () => prisma.message.count({ where: { createdAt: { gte: todayStart } } }),
+      () => prisma.companyFollower.count(),
+      () => prisma.companyFollower.count({ where: { createdAt: { gte: todayStart } } }),
+      () => prisma.report.count(),
+      () => prisma.report.count({ where: { status: "pending" } }),
+      () => prisma.application.count(),
+      () => prisma.franchiseListing.count(),
+      () => prisma.franchiseListing.count({ where: { status: "active" } }),
+      () => prisma.user.groupBy({ by: ["accountStatus"], _count: true }),
+      () => prisma.user.groupBy({ by: ["role"], _count: true }),
+      () => prisma.company.groupBy({ by: ["industry"], _count: true, orderBy: { _count: { industry: "desc" } }, take: 10 }),
+      () => prisma.blogPost.count(),
+      () => prisma.blogPost.count({ where: { status: "published" } }),
+      () => prisma.blogPost.count({ where: { status: "draft" } }),
+      () => prisma.event.count(),
+      () => prisma.partner.count(),
+      () => prisma.testimonial.count(),
+      () => prisma.siteFAQ.count(),
+    ];
+
+    const results = [];
+    for (const batch of run(q, 5)) {
+      const batchResults = await batch;
+      results.push(...batchResults);
+    }
+
     const [
-      totalUsers,
-      onlineUsers,
-      newUsersToday,
-      newUsersWeek,
-      newUsersMonth,
-      verifiedUsers,
-      pendingVerifications,
-      totalCompanies,
-      verifiedCompanies,
-      activeCompanies,
-      totalMessages,
-      messagesToday,
-      totalFollowers,
-      newFollowersToday,
-      totalReports,
-      pendingReports,
-      totalApplications,
-      totalListings,
-      activeListings,
-      verificationStats,
-      roleStats,
-      industryStats,
-      totalBlogPosts,
-      publishedBlogPosts,
-      draftBlogPosts,
-      totalEvents,
-      totalPartners,
-      totalTestimonials,
-      totalFAQs,
-    ] = await Promise.all([
-      prisma.user.count(),
-      prisma.user.count({ where: { lastLoginAt: { gte: new Date(Date.now() - 15 * 60000) } } }),
-      prisma.user.count({ where: { createdAt: { gte: todayStart } } }),
-      prisma.user.count({ where: { createdAt: { gte: weekAgo } } }),
-      prisma.user.count({ where: { createdAt: { gte: monthAgo } } }),
-      prisma.user.count({ where: { verified: true } }),
-      prisma.user.count({ where: { accountStatus: "pending_admin_review" } }),
-      prisma.company.count(),
-      prisma.company.count({ where: { isVerified: true } }),
-      prisma.company.count({ where: { status: "active" } }),
-      prisma.message.count(),
-      prisma.message.count({ where: { createdAt: { gte: todayStart } } }),
-      prisma.companyFollower.count(),
-      prisma.companyFollower.count({ where: { createdAt: { gte: todayStart } } }),
-      prisma.report.count(),
-      prisma.report.count({ where: { status: "pending" } }),
-      prisma.application.count(),
-      prisma.franchiseListing.count(),
-      prisma.franchiseListing.count({ where: { status: "active" } }),
-      prisma.user.groupBy({ by: ["accountStatus"], _count: true }),
-      prisma.user.groupBy({ by: ["role"], _count: true }),
-      prisma.company.groupBy({ by: ["industry"], _count: true, orderBy: { _count: { industry: "desc" } }, take: 10 }),
-      prisma.blogPost.count(),
-      prisma.blogPost.count({ where: { status: "published" } }),
-      prisma.blogPost.count({ where: { status: "draft" } }),
-      prisma.event.count(),
-      prisma.partner.count(),
-      prisma.testimonial.count(),
-      prisma.siteFAQ.count(),
-    ]);
+      totalUsers, onlineUsers, newUsersToday, newUsersWeek, newUsersMonth,
+      verifiedUsers, pendingVerifications, totalCompanies, verifiedCompanies, activeCompanies,
+      totalMessages, messagesToday, totalFollowers, newFollowersToday,
+      totalReports, pendingReports, totalApplications, totalListings, activeListings,
+      verificationStats, roleStats, industryStats,
+      totalBlogPosts, publishedBlogPosts, draftBlogPosts,
+      totalEvents, totalPartners, totalTestimonials, totalFAQs,
+    ] = results;
 
     res.json({
       totalUsers,

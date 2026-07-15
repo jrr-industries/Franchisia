@@ -88,8 +88,23 @@ export default function AdminCitiesEditor() {
 
   const handleDelete = async () => {
     try {
-      await fetch(`${API}/featured-cities/${deleteId}`, { method: "DELETE", credentials: "include" });
-      setDeleteId(null); fetchItems();
+      const res = await fetch(`${API}/featured-cities/${deleteId}`, { method: "DELETE", credentials: "include" });
+      if (res.ok) { setDeleteId(null); fetchItems(); }
+    } catch (e) { console.error(e); }
+  };
+
+  const moveItem = async (index, direction) => {
+    const item = items[index];
+    const swap = items[index + direction];
+    if (!item || !swap) return;
+    const itemOrder = item.displayOrder ?? 0;
+    const swapOrder = swap.displayOrder ?? 0;
+    try {
+      await Promise.all([
+        fetch(`${API}/featured-cities/${item.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({ displayOrder: swapOrder }) }),
+        fetch(`${API}/featured-cities/${swap.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({ displayOrder: itemOrder }) }),
+      ]);
+      fetchItems();
     } catch (e) { console.error(e); }
   };
 

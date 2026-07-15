@@ -117,9 +117,10 @@ export default function AdminBlogEditor() {
 
   const handleDelete = async () => {
     try {
-      await fetch(`${API}/blog/${deleteId}`, { method: "DELETE", credentials: "include" });
-      setDeleteId(null); fetchItems();
-    } catch (e) { console.error(e); }
+      const res = await fetch(`${API}/blog/${deleteId}`, { method: "DELETE", credentials: "include" });
+      if (res.ok) { setDeleteId(null); fetchItems(); }
+      else { const err = await res.json().catch(() => ({})); alert(err.error || "Failed to delete post"); }
+    } catch (e) { console.error(e); alert("An error occurred while deleting."); }
   };
 
   const totalPages = Math.ceil(total / perPage);
@@ -151,10 +152,6 @@ export default function AdminBlogEditor() {
           items.map((item, index) => (
             <motion.div key={item.id} layout initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} style={s.card}>
               <div style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: 2, paddingTop: 4 }}>
-                  <button style={{ ...s.iconBtn, padding: 2 }} disabled={index === 0} onClick={() => moveItem(index, -1)}>▲</button>
-                  <button style={{ ...s.iconBtn, padding: 2 }} disabled={index === items.length - 1} onClick={() => moveItem(index, 1)}>▼</button>
-                </div>
                 {item.featuredImage && <img src={item.featuredImage} alt="" style={{ width: 80, height: 60, borderRadius: 8, objectFit: "cover" }} />}
                 <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>

@@ -55,7 +55,7 @@ export default function AdminFeaturedOpportunities() {
     setToggling(id);
     try {
       const res = await fetch(`/api/admin/marketplace/listings/${id}/feature`, {
-        method: "PATCH",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
       });

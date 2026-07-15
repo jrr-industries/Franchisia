@@ -9,7 +9,6 @@ function AnimatedCounter({ value, duration = 2000 }) {
 
   useEffect(() => {
     const numeric = parseInt(value.replace(/[^0-9]/g, "")) || 0;
-    const suffix = value.replace(/[0-9]/g, "");
     if (numeric === 0) { setCount(0); return; }
 
     const observer = new IntersectionObserver(
@@ -33,9 +32,11 @@ function AnimatedCounter({ value, duration = 2000 }) {
     return () => observer.disconnect();
   }, [value, duration]);
 
-  const numeric = parseInt(value.replace(/[^0-9]/g, "")) || 0;
-  const suffix = value.replace(/[0-9]/g, "");
-  return <span ref={ref}>{count}{suffix}</span>;
+  const numeric2 = parseInt(value.replace(/[^0-9]/g, "")) || 0;
+  const rawSuffix2 = value.replace(/[0-9]/g, "");
+  const prefix2 = ["$", "€", "£", "₹", "¥"].includes(rawSuffix2[0]) ? rawSuffix2[0] : "";
+  const suffix2 = prefix2 ? rawSuffix2.slice(1) : rawSuffix2;
+  return <span ref={ref}>{prefix2}{count}{suffix2}</span>;
 }
 
 export default function Statistics() {

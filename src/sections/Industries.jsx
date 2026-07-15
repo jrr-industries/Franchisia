@@ -57,14 +57,19 @@ export default function Industries() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
-          {industries.map((ind, i) => (
+          {industries.map((ind, i) => {
+            const name = typeof ind === 'string' ? ind : (ind.name || '');
+            const icon = typeof ind === 'string' ? '' : (ind.icon || '');
+            const color = typeof ind === 'string' ? '#6366F1' : (ind.color || '#6366F1');
+            const image = typeof ind === 'string' ? '' : (ind.image || '');
+            return (
             <motion.button
-              key={ind}
+              key={name}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.03 }}
-              whileHover={{ scale: 1.05, borderColor: 'var(--primary)', color: 'var(--primary)', backgroundColor: 'rgba(0,74,198,0.05)' }}
+              whileHover={{ scale: 1.05, borderColor: color, color: color, backgroundColor: color + '12' }}
               style={{
                 padding: '10px 24px',
                 fontSize: 13,
@@ -76,11 +81,20 @@ export default function Industries() {
                 cursor: 'pointer',
                 transition: 'all 0.2s',
                 letterSpacing: '0.02em',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
               }}
             >
-              {ind}
+              {image ? (
+                <img src={image} alt={name} style={{ width: 20, height: 20, borderRadius: 4, objectFit: 'cover' }} />
+              ) : icon ? (
+                <span style={{ fontSize: 18 }}>{icon}</span>
+              ) : null}
+              {name}
             </motion.button>
-          ))}
+            );
+          })}
         </motion.div>
       </div>
     </section>

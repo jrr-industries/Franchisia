@@ -13,10 +13,24 @@ export default function ContactSection() {
 
   const handleChange = (field) => (e) => setFormData((prev) => ({ ...prev, [field]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    try {
+      await fetch("/api/public/sales-inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: formData.name,
+          businessEmail: formData.email,
+          companyName: formData.subject,
+          message: formData.message,
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to send inquiry:", err);
+    }
+    setTimeout(() => { setSubmitted(false); setFormData({ name: "", email: "", subject: "", message: "" }); }, 4000);
   };
 
   const c = contact || {};

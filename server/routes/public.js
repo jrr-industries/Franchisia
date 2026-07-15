@@ -73,6 +73,8 @@ router.get("/reviews", async (req, res) => {
 
 router.get("/industries", async (_req, res) => {
   try {
+    const items = await prisma.industry.findMany({ where: { isActive: true }, orderBy: { displayOrder: "asc" } });
+    if (items.length > 0) return res.json(items);
     const companies = await prisma.company.findMany({
       where: { status: "active", owner: { role: "franchisor", isActive: true } },
       select: { industry: true },
@@ -84,11 +86,15 @@ router.get("/industries", async (_req, res) => {
       distinct: ["industry"],
     });
 
-    const industries = [
+    const names = [
       ...new Set([...companies.map((c) => c.industry), ...listings.map((l) => l.industry)]),
     ].sort();
-
-    res.json(industries);
+    const fallbackColors = ["#004ac6","#10B981","#8B5CF6","#F59E0B","#EF4444","#EC4899","#06B6D4","#84CC16","#F97316","#6366F1"];
+    const items2 = names.map((n, i) => ({
+      id: n, name: n, icon: "", image: "", color: fallbackColors[i % fallbackColors.length],
+      description: "", displayOrder: i, isActive: true,
+    }));
+    res.json(items2);
   } catch (error) {
     console.error("Public route error:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -408,11 +414,22 @@ router.get("/hero-slides", async (_req, res) => {
 
 router.get("/featured-cities", async (_req, res) => {
   try {
+    const featured = await prisma.featuredCity.findMany({ orderBy: { displayOrder: "asc" } });
+    if (featured.length > 0) {
+      const listingCounts = await prisma.franchiseListing.groupBy({
+        by: ["city"],
+        where: { status: "active", city: { not: null } },
+        _count: { id: true },
+      });
+      const countMap = {};
+      listingCounts.forEach(l => { countMap[l.city] = l._count.id; });
+      const items = featured.map((c) => ({ ...c, listingCount: countMap[c.name] || c.listingCount || 0 }));
+      return res.json({ items });
+    }
     const listings = await prisma.franchiseListing.findMany({
       where: { status: "active", city: { not: null } },
       select: { city: true, state: true },
     });
-
     const cityMap = new Map();
     listings.forEach(l => {
       const key = `${l.city}|${l.state || ''}`;
@@ -422,11 +439,9 @@ router.get("/featured-cities", async (_req, res) => {
         cityMap.set(key, { name: l.city, state: l.state || '', listingCount: 1 });
       }
     });
-
     const items = Array.from(cityMap.values())
       .sort((a, b) => b.listingCount - a.listingCount)
       .slice(0, 20);
-
     res.json({ items });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });

@@ -5,9 +5,9 @@ import pg from "pg";
 
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
-  max: 20,
+  max: 5,
   idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 10000,
+  connectionTimeoutMillis: 15000,
   keepAlive: true,
   keepAliveInitialDelayMillis: 10000,
 });

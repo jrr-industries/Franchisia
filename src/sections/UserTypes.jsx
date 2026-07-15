@@ -1,32 +1,44 @@
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
-import { ArrowRight, Store, Users, TrendingUp, Briefcase, Package } from 'lucide-react';
+import { ArrowRight, Store, Users, TrendingUp, Briefcase, Package, Loader2 } from 'lucide-react';
+import { useUserTypes, usePublicSettings, getSectionContent } from "../hooks/useCMS";
 
-const types = [
-  { title: "Franchisor", description: "Grow your brand and recruit qualified franchise partners.", icon: Store },
-  { title: "Franchisee", description: "Discover trusted franchise opportunities.", icon: Users },
-  { title: "Investor", description: "Find businesses with strong growth potential.", icon: TrendingUp },
-  { title: "Consultant", description: "Guide brands toward successful expansion.", icon: Briefcase },
-  { title: "Supplier", description: "Connect with franchise businesses that need your services.", icon: Package },
-];
+const iconMap = { Store, Users, TrendingUp, Briefcase, Package };
 
 export default function UserTypes() {
+  const { data: types, isLoading } = useUserTypes();
+  const { data: sectionSettings } = usePublicSettings();
+
+  if (isLoading) {
+    return (
+      <section style={{ padding: '80px 0', backgroundColor: 'var(--surface)' }}>
+        <div className="container" style={{ display: 'flex', justifyContent: 'center' }}>
+          <Loader2 size={32} className="spin" color="var(--primary)" />
+        </div>
+      </section>
+    );
+  }
+
+  const items = (types || []).filter(t => t.isPublished !== false);
+
+  if (!items.length) return null;
+
   return (
     <section style={{ padding: '80px 0', backgroundColor: 'var(--surface)' }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: 'var(--on-surface)' }}>Built for Every Stakeholder</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: 'var(--on-surface)' }}>{getSectionContent(sectionSettings, 'user_types', { heading: 'Built for Every Stakeholder' }).heading}</h2>
           <p style={{ fontSize: 16, color: 'var(--on-surface-variant)', maxWidth: 600, margin: '0 auto' }}>
-            Specialized tools and experiences designed for every role in the franchise ecosystem.
+            {getSectionContent(sectionSettings, 'user_types', { description: 'Specialized tools and experiences designed for every role in the franchise ecosystem.' }).description}
           </p>
         </motion.div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
-          {types.map((type, i) => {
-            const Icon = type.icon;
+          {items.map((type, i) => {
+            const Icon = iconMap[type.icon] || Store;
             return (
               <motion.div
-                key={type.title}
+                                key={type.id || type.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -40,6 +52,8 @@ export default function UserTypes() {
                   textAlign: 'center',
                   transition: 'all 0.2s',
                 }}
+
+  
               >
                 <div
                   style={{

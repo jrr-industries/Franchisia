@@ -1,27 +1,38 @@
 import { motion } from "framer-motion";
-import { UserPlus, FileText, Search, MessageSquareText, FileCheck, TrendingUp } from 'lucide-react';
+import { useHowItWorks, usePublicSettings, getSectionContent } from "../hooks/useCMS";
+import { Loader2, UserPlus, FileText, Search, MessageSquareText, FileCheck, TrendingUp } from 'lucide-react';
 
-const steps = [
-  { title: "Create Your Account", description: "Sign up and join India's fastest-growing franchise ecosystem.", icon: UserPlus },
-  { title: "Build Your Profile", description: "Showcase your experience, preferences, and investment capacity.", icon: FileText },
-  { title: "Discover Opportunities", description: "Browse and compare franchise opportunities across industries and locations.", icon: Search },
-  { title: "Connect with Professionals", description: "Network with franchisors, investors, consultants, and peers.", icon: MessageSquareText },
-  { title: "Apply or Recruit", description: "Submit applications or review candidates directly on the platform.", icon: FileCheck },
-  { title: "Grow Together", description: "Build lasting relationships and scale your franchise journey.", icon: TrendingUp },
-];
+const iconMap = { UserPlus, FileText, Search, MessageSquareText, FileCheck, TrendingUp };
 
 export default function HowItWorks() {
-  const mid = Math.ceil(steps.length / 2);
-  const firstRow = steps.slice(0, mid);
-  const secondRow = steps.slice(mid);
+  const { data: steps, isLoading } = useHowItWorks();
+  const { data: sectionSettings } = usePublicSettings();
+
+  if (isLoading) {
+    return (
+      <section style={{ padding: '80px 0', backgroundColor: 'var(--surface-container-lowest)' }}>
+        <div className="container" style={{ display: 'flex', justifyContent: 'center' }}>
+          <Loader2 size={32} className="spin" color="var(--primary)" />
+        </div>
+      </section>
+    );
+  }
+
+  const items = (steps || []).filter(s => s.isPublished !== false);
+
+  if (!items.length) return null;
+
+  const mid = Math.ceil(items.length / 2);
+  const firstRow = items.slice(0, mid);
+  const secondRow = items.slice(mid);
 
   return (
     <section style={{ padding: '80px 0', backgroundColor: 'var(--surface-container-lowest)' }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: 'var(--on-surface)' }}>How It Works</h2>
+          <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: 'var(--on-surface)' }}>{getSectionContent(sectionSettings, 'how_it_works', { heading: 'How It Works' }).heading}</h2>
           <p style={{ fontSize: 16, color: 'var(--on-surface-variant)', maxWidth: 600, margin: '0 auto' }}>
-            Six simple steps to find, connect, and grow in the franchise ecosystem.
+            {getSectionContent(sectionSettings, 'how_it_works', { description: 'Simple steps to find, connect, and grow in the franchise ecosystem.' }).description}
           </p>
         </motion.div>
 
@@ -29,7 +40,7 @@ export default function HowItWorks() {
           {[firstRow, secondRow].map((row, rowIndex) => (
             <div key={rowIndex} className="how-it-works-row" style={{ display: 'flex', alignItems: 'flex-start', gap: 0, marginBottom: rowIndex === 0 ? 0 : 0, position: 'relative' }}>
               {row.map((s, i) => {
-                const Icon = s.icon;
+                const Icon = iconMap[s.icon] || iconMap[Object.keys(iconMap)[i % Object.keys(iconMap).length]];
                 const globalIndex = rowIndex * mid + i;
                 const isLast = i === row.length - 1;
                 return (

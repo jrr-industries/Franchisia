@@ -378,6 +378,54 @@ export function useNewsletterSubscribe() {
   });
 }
 
+export function useAISection() {
+  return useQuery({
+    queryKey: ["cms", "ai-section"],
+    queryFn: () => fetchJSON(`${API}/public/ai-section`),
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useGlobalNetwork() {
+  return useQuery({
+    queryKey: ["cms", "global-network"],
+    queryFn: () => fetchJSON(`${API}/public/global-network`),
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useMapLocation() {
+  return useQuery({
+    queryKey: ["cms", "map-location"],
+    queryFn: () => fetchJSON(`${API}/public/map-location`),
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useFooterSettings() {
+  return useQuery({
+    queryKey: ["cms", "footer"],
+    queryFn: () => fetchJSON(`${API}/public/footer`),
+    staleTime: 10 * 60 * 1000,
+  });
+}
+
+export function useNewsletterSettings() {
+  return useQuery({
+    queryKey: ["cms", "newsletter-settings"],
+    queryFn: () => fetchJSON(`${API}/public/newsletter-settings`),
+    staleTime: 10 * 60 * 1000,
+  });
+}
+
+export function useMarketplaceSearch() {
+  return useQuery({
+    queryKey: ["cms", "marketplace-search"],
+    queryFn: () => fetchJSON(`${API}/public/marketplace-search`),
+    staleTime: 10 * 60 * 1000,
+  });
+}
+
 export function useMedia({ page = 1, limit = 20, type } = {}) {
   const params = new URLSearchParams({ page, limit });
   if (type) params.set("type", type);
