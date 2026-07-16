@@ -2,6 +2,12 @@ import { Router } from "express";
 import prisma from "../prisma.js";
 import { authenticate } from "../middleware/auth.js";
 import { emitStatsUpdate, emitApplicationUpdate, emitNotification, getIO } from "../socket.js";
+import {
+  sendApplicationSubmittedEmail,
+  sendApplicationReceivedEmail,
+  sendApplicationApprovedEmail,
+  sendApplicationRejectedEmail,
+} from "../services/emailService.js";
 
 const router = Router();
 
@@ -50,6 +56,31 @@ router.post("/", authenticate, async (req, res) => {
     });
 
     emitStatsUpdate(req.user.id);
+
+    const applicationWithData = await prisma.application.findUnique({
+      where: { id: application.id },
+      include: {
+        applicant: { select: { id: true, name: true, email: true } },
+        listing: {
+          select: { id: true, title: true, slug: true, company: { select: { id: true, name: true } } },
+        },
+        company: { select: { id: true, name: true } },
+      },
+    });
+
+    if (applicationWithData) {
+      sendApplicationSubmittedEmail(applicationWithData);
+      if (listing.company.ownerId) {
+        const owner = await prisma.user.findUnique({
+          where: { id: listing.company.ownerId },
+          select: { email: true },
+        });
+        if (owner) {
+          sendApplicationReceivedEmail(applicationWithData, owner.email);
+        }
+      }
+    }
+
     if (listing.company.ownerId) {
       const notif = await prisma.notification.create({
         data: {
@@ -189,6 +220,25 @@ router.put("/:id/status", authenticate, async (req, res) => {
       where: { id: req.params.id },
       data: { status, ...timestamps },
     });
+
+    const fullApplication = await prisma.application.findUnique({
+      where: { id: application.id },
+      include: {
+        applicant: { select: { id: true, name: true, email: true } },
+        listing: {
+          select: { id: true, title: true, slug: true, company: { select: { id: true, name: true } } },
+        },
+        company: { select: { id: true, name: true } },
+      },
+    });
+
+    if (fullApplication) {
+      if (status === "accepted") {
+        sendApplicationApprovedEmail(fullApplication);
+      } else if (status === "rejected") {
+        sendApplicationRejectedEmail(fullApplication);
+      }
+    }
 
     const notif = await prisma.notification.create({
       data: {

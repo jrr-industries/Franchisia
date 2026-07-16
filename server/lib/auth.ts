@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "../prisma.js";
+import { sendPasswordResetEmail } from "../services/emailService.js";
 
 dotenv.config();
 
@@ -21,16 +22,13 @@ export const auth = betterAuth({
     "http://localhost:3001",
   ],
   emailVerification: {
-    sendOnSignUp: true,
-    autoSignInAfterVerification: true,
-    sendVerificationEmail: async ({ user, url }) => {
-      console.log(`[DEV] Verification email sent to ${user.email}`);
-    },
+    sendOnSignUp: false,
+    autoSignInAfterVerification: false,
   },
   emailAndPassword: {
     enabled: true,
-    sendResetPasswordEmail: async ({ user, url }) => {
-      console.log(`[DEV] Reset password email sent to ${user.email}`);
+    sendResetPassword: async ({ user, url }) => {
+      await sendPasswordResetEmail(user, url);
     },
     resetPasswordTokenExpiresIn: 3600,
     requireEmailVerification: false,

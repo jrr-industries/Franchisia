@@ -55,6 +55,7 @@ export const ModelName = {
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
+  Otp: 'Otp',
   UserSkill: 'UserSkill',
   UserInterest: 'UserInterest',
   UserEducation: 'UserEducation',
@@ -109,6 +110,13 @@ export const ModelName = {
   NavigationLink: 'NavigationLink',
   HeroSetting: 'HeroSetting',
   Industry: 'Industry',
+  BusinessType: 'BusinessType',
+  OpportunityType: 'OpportunityType',
+  CompanySize: 'CompanySize',
+  Language: 'Language',
+  Currency: 'Currency',
+  DocumentType: 'DocumentType',
+  InvestmentRange: 'InvestmentRange',
   AISection: 'AISection',
   GlobalNetwork: 'GlobalNetwork',
   MapLocation: 'MapLocation',
@@ -242,6 +250,18 @@ export const VerificationScalarFieldEnum = {
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
+export const OtpScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  otpHash: 'otpHash',
+  expiresAt: 'expiresAt',
+  attempts: 'attempts',
+  createdAt: 'createdAt'
+} as const
+
+export type OtpScalarFieldEnum = (typeof OtpScalarFieldEnum)[keyof typeof OtpScalarFieldEnum]
+
+
 export const UserSkillScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -329,6 +349,7 @@ export const FranchiseListingScalarFieldEnum = {
   description: 'description',
   industry: 'industry',
   businessType: 'businessType',
+  opportunityType: 'opportunityType',
   investmentMin: 'investmentMin',
   investmentMax: 'investmentMax',
   roiPercentage: 'roiPercentage',
@@ -1100,6 +1121,104 @@ export const IndustryScalarFieldEnum = {
 } as const
 
 export type IndustryScalarFieldEnum = (typeof IndustryScalarFieldEnum)[keyof typeof IndustryScalarFieldEnum]
+
+
+export const BusinessTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  icon: 'icon',
+  color: 'color',
+  description: 'description',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BusinessTypeScalarFieldEnum = (typeof BusinessTypeScalarFieldEnum)[keyof typeof BusinessTypeScalarFieldEnum]
+
+
+export const OpportunityTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  icon: 'icon',
+  color: 'color',
+  description: 'description',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OpportunityTypeScalarFieldEnum = (typeof OpportunityTypeScalarFieldEnum)[keyof typeof OpportunityTypeScalarFieldEnum]
+
+
+export const CompanySizeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  icon: 'icon',
+  color: 'color',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanySizeScalarFieldEnum = (typeof CompanySizeScalarFieldEnum)[keyof typeof CompanySizeScalarFieldEnum]
+
+
+export const LanguageScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  nativeName: 'nativeName',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LanguageScalarFieldEnum = (typeof LanguageScalarFieldEnum)[keyof typeof LanguageScalarFieldEnum]
+
+
+export const CurrencyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  symbol: 'symbol',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CurrencyScalarFieldEnum = (typeof CurrencyScalarFieldEnum)[keyof typeof CurrencyScalarFieldEnum]
+
+
+export const DocumentTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DocumentTypeScalarFieldEnum = (typeof DocumentTypeScalarFieldEnum)[keyof typeof DocumentTypeScalarFieldEnum]
+
+
+export const InvestmentRangeScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  min: 'min',
+  max: 'max',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InvestmentRangeScalarFieldEnum = (typeof InvestmentRangeScalarFieldEnum)[keyof typeof InvestmentRangeScalarFieldEnum]
 
 
 export const AISectionScalarFieldEnum = {

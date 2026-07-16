@@ -1,0 +1,120 @@
+[2m2026-07-16T05:11:01.169Z[0m [33mWARN[0m [1m[Better Auth]:[0m Social provider facebook is missing clientId or clientSecret
+(node:7988) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Public route error: TypeError: Cannot read properties of undefined (reading 'findMany')
+    at file:///D:/JS%20TUTORIAL/franchisia/server/routes/public.js:595:42
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:117:3)
+    at handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at D:\JS TUTORIAL\franchisia\node_modules\router\index.js:295:15
+    at processParams (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:582:12)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:291:5)
+    at router.handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:186:3)
+Public route error: TypeError: Cannot read properties of undefined (reading 'findMany')
+    at file:///D:/JS%20TUTORIAL/franchisia/server/routes/public.js:595:42
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:117:3)
+    at handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at D:\JS TUTORIAL\franchisia\node_modules\router\index.js:295:15
+    at processParams (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:582:12)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:291:5)
+    at router.handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:186:3)
+Public route error: TypeError: Cannot read properties of undefined (reading 'findMany')
+    at file:///D:/JS%20TUTORIAL/franchisia/server/routes/public.js:595:42
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:117:3)
+    at handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at D:\JS TUTORIAL\franchisia\node_modules\router\index.js:295:15
+    at processParams (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:582:12)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:291:5)
+    at router.handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:186:3)
+Public route error: TypeError: Cannot read properties of undefined (reading 'findMany')
+    at file:///D:/JS%20TUTORIAL/franchisia/server/routes/public.js:595:42
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:117:3)
+    at handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at D:\JS TUTORIAL\franchisia\node_modules\router\index.js:295:15
+    at processParams (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:582:12)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:291:5)
+    at router.handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:186:3)
+Public route error: TypeError: Cannot read properties of undefined (reading 'findMany')
+    at file:///D:/JS%20TUTORIAL/franchisia/server/routes/public.js:595:42
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:117:3)
+    at handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at D:\JS TUTORIAL\franchisia\node_modules\router\index.js:295:15
+    at processParams (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:582:12)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:291:5)
+    at router.handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:186:3)
+Public route error: TypeError: Cannot read properties of undefined (reading 'findMany')
+    at file:///D:/JS%20TUTORIAL/franchisia/server/routes/public.js:595:42
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:117:3)
+    at handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at D:\JS TUTORIAL\franchisia\node_modules\router\index.js:295:15
+    at processParams (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:582:12)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:291:5)
+    at router.handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:186:3)
+Public route error: TypeError: Cannot read properties of undefined (reading 'findMany')
+    at file:///D:/JS%20TUTORIAL/franchisia/server/routes/public.js:595:42
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:117:3)
+    at handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at D:\JS TUTORIAL\franchisia\node_modules\router\index.js:295:15
+    at processParams (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:582:12)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:291:5)
+    at router.handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:186:3)
+Public route error: TypeError: Cannot read properties of undefined (reading 'findMany')
+    at file:///D:/JS%20TUTORIAL/franchisia/server/routes/public.js:595:42
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:117:3)
+    at handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at D:\JS TUTORIAL\franchisia\node_modules\router\index.js:295:15
+    at processParams (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:582:12)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:291:5)
+    at router.handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:186:3)
+Public route error: TypeError: Cannot read properties of undefined (reading 'findMany')
+    at file:///D:/JS%20TUTORIAL/franchisia/server/routes/public.js:595:42
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:117:3)
+    at handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at D:\JS TUTORIAL\franchisia\node_modules\router\index.js:295:15
+    at processParams (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:582:12)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:291:5)
+    at router.handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:186:3)
+Public route error: TypeError: Cannot read properties of undefined (reading 'findMany')
+    at file:///D:/JS%20TUTORIAL/franchisia/server/routes/public.js:595:42
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\JS TUTORIAL\franchisia\node_modules\router\lib\route.js:117:3)
+    at handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\JS TUTORIAL\franchisia\node_modules\router\lib\layer.js:152:17)
+    at D:\JS TUTORIAL\franchisia\node_modules\router\index.js:295:15
+    at processParams (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:582:12)
+    at next (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:291:5)
+    at router.handle (D:\JS TUTORIAL\franchisia\node_modules\router\index.js:186:3)

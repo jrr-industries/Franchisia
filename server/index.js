@@ -30,6 +30,8 @@ import bookmarkRoutes from "./routes/bookmarks.js";
 import uploadRoutes from "./routes/uploads.js";
 import policyRoutes from "./routes/policies.js";
 import cmsRoutes from "./routes/cms.js";
+import prisma from "./prisma.js";
+import { sendEmail } from "./services/emailService.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -92,6 +94,45 @@ app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
+app.get("/api/test-email", async (_req, res) => {
+  const testEmail = process.env.TEST_EMAIL;
+  if (!testEmail) {
+    return res.status(400).json({ error: "TEST_EMAIL environment variable not set" });
+  }
+  const result = await sendEmail({
+    to: testEmail,
+    subject: "Test Email from Franchisia",
+    html: "<h1>Test Email</h1><p>This is a test email from Franchisia.</p>",
+    text: "This is a test email from Franchisia.",
+  });
+  if (result.success) {
+    res.json({ success: true, message: "Test email sent", resendId: result.resendId || null });
+  } else {
+    res.status(500).json({ success: false, error: result.error || "Failed to send test email" });
+  }
+});
+
+app.get("/api/test-otp", async (_req, res) => {
+  const testEmail = process.env.TEST_EMAIL;
+  if (!testEmail) {
+    return res.status(400).json({ error: "TEST_EMAIL environment variable not set" });
+  }
+  try {
+    const user = await prisma.user.findUnique({ where: { email: testEmail } });
+    if (!user) return res.status(404).json({ error: "Test user not found" });
+    const { createAndSendOtp } = await import("./services/otpService.js");
+    const result = await createAndSendOtp(user.id, user.email, user.name);
+    if (result.success) {
+      res.json({ success: true, message: "OTP sent via test endpoint" });
+    } else {
+      res.status(429).json({ success: false, error: result.error });
+    }
+  } catch (error) {
+    console.error("test-otp error:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
 app.use((err, _req, res, _next) => {

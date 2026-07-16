@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
-import { ProtectedRoute, OnboardingRoute, AuthRedirect, AdminRoute } from "../components/AuthGuard";
+import { ProtectedRoute, OnboardingRoute, AuthRedirect, AdminRoute, RequireVerifiedEmail } from "../components/AuthGuard";
 import { useAuth } from "../context/AuthContext";
 import Loader from "../components/ui/Loader";
 
@@ -157,10 +157,10 @@ export default function AppRoutes() {
         </Route>
 
         <Route path="/onboarding/select-role" element={<OnboardingRoute><Suspense fallback={<PageLoading />}><RoleSelection /></Suspense></OnboardingRoute>} />
-        <Route path="/onboarding/:role" element={<ProtectedRoute><Suspense fallback={<PageLoading />}><RoleForm /></Suspense></ProtectedRoute>} />
-        <Route path="/onboarding/status" element={<ProtectedRoute><Suspense fallback={<PageLoading />}><OnboardingStatus /></Suspense></ProtectedRoute>} />
+        <Route path="/onboarding/:role" element={<ProtectedRoute><RequireVerifiedEmail><Suspense fallback={<PageLoading />}><RoleForm /></Suspense></RequireVerifiedEmail></ProtectedRoute>} />
+        <Route path="/onboarding/status" element={<ProtectedRoute><RequireVerifiedEmail><Suspense fallback={<PageLoading />}><OnboardingStatus /></Suspense></RequireVerifiedEmail></ProtectedRoute>} />
 
-        <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
+        <Route element={<ProtectedRoute><RequireVerifiedEmail><DashboardLayout /></RequireVerifiedEmail></ProtectedRoute>}>
           <Route path="/dashboard" element={<Suspense fallback={<PageLoading />}><DashboardHome /></Suspense>} />
           <Route path="/messages" element={<Suspense fallback={<PageLoading />}><Messages /></Suspense>} />
           <Route path="/notifications" element={<Suspense fallback={<PageLoading />}><NotificationsPage /></Suspense>} />

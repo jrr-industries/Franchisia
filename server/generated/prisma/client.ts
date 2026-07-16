@@ -62,6 +62,11 @@ export type Account = Prisma.AccountModel
  */
 export type Verification = Prisma.VerificationModel
 /**
+ * Model Otp
+ * 
+ */
+export type Otp = Prisma.OtpModel
+/**
  * Model UserSkill
  * 
  */
@@ -331,6 +336,41 @@ export type HeroSetting = Prisma.HeroSettingModel
  * 
  */
 export type Industry = Prisma.IndustryModel
+/**
+ * Model BusinessType
+ * 
+ */
+export type BusinessType = Prisma.BusinessTypeModel
+/**
+ * Model OpportunityType
+ * 
+ */
+export type OpportunityType = Prisma.OpportunityTypeModel
+/**
+ * Model CompanySize
+ * 
+ */
+export type CompanySize = Prisma.CompanySizeModel
+/**
+ * Model Language
+ * 
+ */
+export type Language = Prisma.LanguageModel
+/**
+ * Model Currency
+ * 
+ */
+export type Currency = Prisma.CurrencyModel
+/**
+ * Model DocumentType
+ * 
+ */
+export type DocumentType = Prisma.DocumentTypeModel
+/**
+ * Model InvestmentRange
+ * 
+ */
+export type InvestmentRange = Prisma.InvestmentRangeModel
 /**
  * Model AISection
  * 

@@ -55,6 +55,7 @@ export type FranchiseListingMinAggregateOutputType = {
   description: string | null
   industry: string | null
   businessType: string | null
+  opportunityType: string | null
   investmentMin: runtime.Decimal | null
   investmentMax: runtime.Decimal | null
   roiPercentage: runtime.Decimal | null
@@ -89,6 +90,7 @@ export type FranchiseListingMaxAggregateOutputType = {
   description: string | null
   industry: string | null
   businessType: string | null
+  opportunityType: string | null
   investmentMin: runtime.Decimal | null
   investmentMax: runtime.Decimal | null
   roiPercentage: runtime.Decimal | null
@@ -123,6 +125,7 @@ export type FranchiseListingCountAggregateOutputType = {
   description: number
   industry: number
   businessType: number
+  opportunityType: number
   investmentMin: number
   investmentMax: number
   roiPercentage: number
@@ -180,6 +183,7 @@ export type FranchiseListingMinAggregateInputType = {
   description?: true
   industry?: true
   businessType?: true
+  opportunityType?: true
   investmentMin?: true
   investmentMax?: true
   roiPercentage?: true
@@ -214,6 +218,7 @@ export type FranchiseListingMaxAggregateInputType = {
   description?: true
   industry?: true
   businessType?: true
+  opportunityType?: true
   investmentMin?: true
   investmentMax?: true
   roiPercentage?: true
@@ -248,6 +253,7 @@ export type FranchiseListingCountAggregateInputType = {
   description?: true
   industry?: true
   businessType?: true
+  opportunityType?: true
   investmentMin?: true
   investmentMax?: true
   roiPercentage?: true
@@ -370,6 +376,7 @@ export type FranchiseListingGroupByOutputType = {
   description: string | null
   industry: string
   businessType: string | null
+  opportunityType: string | null
   investmentMin: runtime.Decimal | null
   investmentMax: runtime.Decimal | null
   roiPercentage: runtime.Decimal | null
@@ -428,6 +435,7 @@ export type FranchiseListingWhereInput = {
   description?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
   industry?: Prisma.StringFilter<"FranchiseListing"> | string
   businessType?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  opportunityType?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
   investmentMin?: Prisma.DecimalNullableFilter<"FranchiseListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.DecimalNullableFilter<"FranchiseListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.DecimalNullableFilter<"FranchiseListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -469,6 +477,7 @@ export type FranchiseListingOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   industry?: Prisma.SortOrder
   businessType?: Prisma.SortOrderInput | Prisma.SortOrder
+  opportunityType?: Prisma.SortOrderInput | Prisma.SortOrder
   investmentMin?: Prisma.SortOrderInput | Prisma.SortOrder
   investmentMax?: Prisma.SortOrderInput | Prisma.SortOrder
   roiPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -513,6 +522,7 @@ export type FranchiseListingWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
   industry?: Prisma.StringFilter<"FranchiseListing"> | string
   businessType?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  opportunityType?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
   investmentMin?: Prisma.DecimalNullableFilter<"FranchiseListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.DecimalNullableFilter<"FranchiseListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.DecimalNullableFilter<"FranchiseListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -554,6 +564,7 @@ export type FranchiseListingOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   industry?: Prisma.SortOrder
   businessType?: Prisma.SortOrderInput | Prisma.SortOrder
+  opportunityType?: Prisma.SortOrderInput | Prisma.SortOrder
   investmentMin?: Prisma.SortOrderInput | Prisma.SortOrder
   investmentMax?: Prisma.SortOrderInput | Prisma.SortOrder
   roiPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -597,6 +608,7 @@ export type FranchiseListingScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"FranchiseListing"> | string | null
   industry?: Prisma.StringWithAggregatesFilter<"FranchiseListing"> | string
   businessType?: Prisma.StringNullableWithAggregatesFilter<"FranchiseListing"> | string | null
+  opportunityType?: Prisma.StringNullableWithAggregatesFilter<"FranchiseListing"> | string | null
   investmentMin?: Prisma.DecimalNullableWithAggregatesFilter<"FranchiseListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.DecimalNullableWithAggregatesFilter<"FranchiseListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.DecimalNullableWithAggregatesFilter<"FranchiseListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -630,6 +642,7 @@ export type FranchiseListingCreateInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -671,6 +684,7 @@ export type FranchiseListingUncheckedCreateInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -708,6 +722,7 @@ export type FranchiseListingUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -749,6 +764,7 @@ export type FranchiseListingUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -788,6 +804,7 @@ export type FranchiseListingCreateManyInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -821,6 +838,7 @@ export type FranchiseListingUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -856,6 +874,7 @@ export type FranchiseListingUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -901,6 +920,7 @@ export type FranchiseListingCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   industry?: Prisma.SortOrder
   businessType?: Prisma.SortOrder
+  opportunityType?: Prisma.SortOrder
   investmentMin?: Prisma.SortOrder
   investmentMax?: Prisma.SortOrder
   roiPercentage?: Prisma.SortOrder
@@ -946,6 +966,7 @@ export type FranchiseListingMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   industry?: Prisma.SortOrder
   businessType?: Prisma.SortOrder
+  opportunityType?: Prisma.SortOrder
   investmentMin?: Prisma.SortOrder
   investmentMax?: Prisma.SortOrder
   roiPercentage?: Prisma.SortOrder
@@ -980,6 +1001,7 @@ export type FranchiseListingMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   industry?: Prisma.SortOrder
   businessType?: Prisma.SortOrder
+  opportunityType?: Prisma.SortOrder
   investmentMin?: Prisma.SortOrder
   investmentMax?: Prisma.SortOrder
   roiPercentage?: Prisma.SortOrder
@@ -1185,6 +1207,7 @@ export type FranchiseListingCreateWithoutCreatedByUserInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1224,6 +1247,7 @@ export type FranchiseListingUncheckedCreateWithoutCreatedByUserInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1292,6 +1316,7 @@ export type FranchiseListingScalarWhereInput = {
   description?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
   industry?: Prisma.StringFilter<"FranchiseListing"> | string
   businessType?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
+  opportunityType?: Prisma.StringNullableFilter<"FranchiseListing"> | string | null
   investmentMin?: Prisma.DecimalNullableFilter<"FranchiseListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.DecimalNullableFilter<"FranchiseListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.DecimalNullableFilter<"FranchiseListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1325,6 +1350,7 @@ export type FranchiseListingCreateWithoutCompanyInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1364,6 +1390,7 @@ export type FranchiseListingUncheckedCreateWithoutCompanyInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1427,6 +1454,7 @@ export type FranchiseListingCreateWithoutApplicationsInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1467,6 +1495,7 @@ export type FranchiseListingUncheckedCreateWithoutApplicationsInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1519,6 +1548,7 @@ export type FranchiseListingUpdateWithoutApplicationsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1559,6 +1589,7 @@ export type FranchiseListingUncheckedUpdateWithoutApplicationsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1595,6 +1626,7 @@ export type FranchiseListingCreateWithoutReviewsInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1635,6 +1667,7 @@ export type FranchiseListingUncheckedCreateWithoutReviewsInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1687,6 +1720,7 @@ export type FranchiseListingUpdateWithoutReviewsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1727,6 +1761,7 @@ export type FranchiseListingUncheckedUpdateWithoutReviewsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1763,6 +1798,7 @@ export type FranchiseListingCreateWithoutBookmarksInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1803,6 +1839,7 @@ export type FranchiseListingUncheckedCreateWithoutBookmarksInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1855,6 +1892,7 @@ export type FranchiseListingUpdateWithoutBookmarksInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1895,6 +1933,7 @@ export type FranchiseListingUncheckedUpdateWithoutBookmarksInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1931,6 +1970,7 @@ export type FranchiseListingCreateWithoutPolicyAcceptancesInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1971,6 +2011,7 @@ export type FranchiseListingUncheckedCreateWithoutPolicyAcceptancesInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2023,6 +2064,7 @@ export type FranchiseListingUpdateWithoutPolicyAcceptancesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2063,6 +2105,7 @@ export type FranchiseListingUncheckedUpdateWithoutPolicyAcceptancesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2100,6 +2143,7 @@ export type FranchiseListingCreateManyCreatedByUserInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2133,6 +2177,7 @@ export type FranchiseListingUpdateWithoutCreatedByUserInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2172,6 +2217,7 @@ export type FranchiseListingUncheckedUpdateWithoutCreatedByUserInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2210,6 +2256,7 @@ export type FranchiseListingUncheckedUpdateManyWithoutCreatedByUserInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2244,6 +2291,7 @@ export type FranchiseListingCreateManyCompanyInput = {
   description?: string | null
   industry: string
   businessType?: string | null
+  opportunityType?: string | null
   investmentMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2277,6 +2325,7 @@ export type FranchiseListingUpdateWithoutCompanyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2316,6 +2365,7 @@ export type FranchiseListingUncheckedUpdateWithoutCompanyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2354,6 +2404,7 @@ export type FranchiseListingUncheckedUpdateManyWithoutCompanyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   businessType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  opportunityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investmentMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   investmentMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   roiPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2447,6 +2498,7 @@ export type FranchiseListingSelect<ExtArgs extends runtime.Types.Extensions.Inte
   description?: boolean
   industry?: boolean
   businessType?: boolean
+  opportunityType?: boolean
   investmentMin?: boolean
   investmentMax?: boolean
   roiPercentage?: boolean
@@ -2489,6 +2541,7 @@ export type FranchiseListingSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   description?: boolean
   industry?: boolean
   businessType?: boolean
+  opportunityType?: boolean
   investmentMin?: boolean
   investmentMax?: boolean
   roiPercentage?: boolean
@@ -2526,6 +2579,7 @@ export type FranchiseListingSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   description?: boolean
   industry?: boolean
   businessType?: boolean
+  opportunityType?: boolean
   investmentMin?: boolean
   investmentMax?: boolean
   roiPercentage?: boolean
@@ -2563,6 +2617,7 @@ export type FranchiseListingSelectScalar = {
   description?: boolean
   industry?: boolean
   businessType?: boolean
+  opportunityType?: boolean
   investmentMin?: boolean
   investmentMax?: boolean
   roiPercentage?: boolean
@@ -2589,7 +2644,7 @@ export type FranchiseListingSelectScalar = {
   publishedAt?: boolean
 }
 
-export type FranchiseListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "createdBy" | "title" | "slug" | "description" | "industry" | "businessType" | "investmentMin" | "investmentMax" | "roiPercentage" | "franchiseFee" | "royaltyFee" | "breakEvenMonths" | "location" | "city" | "country" | "isRemote" | "images" | "videoUrl" | "areaRequired" | "requirements" | "support" | "training" | "state" | "status" | "isFeatured" | "viewCount" | "applicationCount" | "createdAt" | "updatedAt" | "publishedAt", ExtArgs["result"]["franchiseListing"]>
+export type FranchiseListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "createdBy" | "title" | "slug" | "description" | "industry" | "businessType" | "opportunityType" | "investmentMin" | "investmentMax" | "roiPercentage" | "franchiseFee" | "royaltyFee" | "breakEvenMonths" | "location" | "city" | "country" | "isRemote" | "images" | "videoUrl" | "areaRequired" | "requirements" | "support" | "training" | "state" | "status" | "isFeatured" | "viewCount" | "applicationCount" | "createdAt" | "updatedAt" | "publishedAt", ExtArgs["result"]["franchiseListing"]>
 export type FranchiseListingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   applications?: boolean | Prisma.FranchiseListing$applicationsArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -2627,6 +2682,7 @@ export type $FranchiseListingPayload<ExtArgs extends runtime.Types.Extensions.In
     description: string | null
     industry: string
     businessType: string | null
+    opportunityType: string | null
     investmentMin: runtime.Decimal | null
     investmentMax: runtime.Decimal | null
     roiPercentage: runtime.Decimal | null
@@ -3088,6 +3144,7 @@ export interface FranchiseListingFieldRefs {
   readonly description: Prisma.FieldRef<"FranchiseListing", 'String'>
   readonly industry: Prisma.FieldRef<"FranchiseListing", 'String'>
   readonly businessType: Prisma.FieldRef<"FranchiseListing", 'String'>
+  readonly opportunityType: Prisma.FieldRef<"FranchiseListing", 'String'>
   readonly investmentMin: Prisma.FieldRef<"FranchiseListing", 'Decimal'>
   readonly investmentMax: Prisma.FieldRef<"FranchiseListing", 'Decimal'>
   readonly roiPercentage: Prisma.FieldRef<"FranchiseListing", 'Decimal'>

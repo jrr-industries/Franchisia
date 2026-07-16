@@ -90,6 +90,7 @@ model User {
   skills                     UserSkill[]
   bookmarks                  Bookmark[]
   reactions                  MessageReaction[]
+  otps                       Otp[]
   policyAcceptances           CompanyPolicyAcceptance[]
 
   @@index([email])
@@ -149,6 +150,19 @@ model Verification {
   updatedAt  DateTime @updatedAt @map("updated_at")
 
   @@map("verifications")
+}
+
+model Otp {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  otpHash   String   @map("otp_hash")
+  expiresAt DateTime @map("expires_at") @db.Timestamptz(6)
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("otps")
 }
 
 model UserSkill {

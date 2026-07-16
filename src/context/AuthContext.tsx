@@ -57,12 +57,48 @@ export function AuthProvider({ children }) {
     return session?.user ?? null;
   }, [refreshSession]);
 
+  const checkEmail = useCallback(async (email) => {
+    const res = await fetch(`${API}/auth/check-email`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    if (res.status === 409) {
+      const err = await res.json();
+      throw new Error(err.error);
+    }
+    if (!res.ok) throw new Error("Failed to check email");
+    return true;
+  }, []);
+
   const signup = useCallback(async (name, email, password) => {
+    console.log("[Signup] Step 1: Checking email availability...");
+    await checkEmail(email);
+    console.log("[Signup] Step 2: Email available, calling Better Auth signUp...");
     const { error } = await authClient.signUp.email({ name, email, password });
-    if (error) throw new Error(error.message || error.code || "Signup failed");
+    if (error) {
+      console.error("[Signup] Better Auth signUp FAILED:", error);
+      throw new Error(error.message || error.code || "Signup failed");
+    }
+    console.log("[Signup] Step 3: Better Auth user created. Sending OTP...");
+    try {
+      const otpRes = await fetch(`${API}/auth/send-otp`, { method: "POST", credentials: "include" });
+      console.log("[Signup] OTP response status:", otpRes.status);
+      if (otpRes.ok) {
+        const otpData = await otpRes.json();
+        console.log("[Signup] OTP response body:", JSON.stringify(otpData));
+      } else {
+        const otpErr = await otpRes.json();
+        console.warn("[Signup] OTP request FAILED:", otpRes.status, JSON.stringify(otpErr));
+      }
+    } catch (fetchErr) {
+      console.error("[Signup] OTP fetch EXCEPTION:", fetchErr);
+    }
+    console.log("[Signup] Step 4: Refreshing session...");
     const session = await refreshSession();
+    console.log("[Signup] Step 5: Signup complete. User:", JSON.stringify(session?.user));
     return session?.user ?? null;
-  }, [refreshSession]);
+  }, [refreshSession, checkEmail]);
 
   const logout = useCallback(async () => {
     manualLogout.current = true;
@@ -78,8 +114,39 @@ export function AuthProvider({ children }) {
   }, []);
 
   const sendVerificationEmail = useCallback(async () => {
-    const { error } = await authClient.sendVerificationEmail();
-    if (error) throw new Error(error.message || "Failed to send verification email");
+    const res = await fetch(`${API}/auth/send-otp`, {
+      method: "POST", credentials: "include",
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to send verification code");
+    }
+    return res.json();
+  }, []);
+
+  const verifyOtp = useCallback(async (otp) => {
+    const res = await fetch(`${API}/auth/verify-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ otp }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Verification failed");
+    }
+    return res.json();
+  }, []);
+
+  const resendOtp = useCallback(async () => {
+    const res = await fetch(`${API}/auth/resend-otp`, {
+      method: "POST", credentials: "include",
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to resend code");
+    }
+    return res.json();
   }, []);
 
   const forgotPassword = useCallback(async (email) => {
@@ -205,8 +272,11 @@ export function AuthProvider({ children }) {
       socialLoading,
       login,
       signup,
+      checkEmail,
       logout,
       sendVerificationEmail,
+      verifyOtp,
+      resendOtp,
       forgotPassword,
       resetPassword,
       loginSocial,

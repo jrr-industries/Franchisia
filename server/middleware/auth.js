@@ -4,11 +4,25 @@ import prisma from "../prisma.js";
 
 export async function authenticate(req, res, next) {
   try {
+    console.log("[AuthMiddleware] === authenticate START ===");
+    console.log(`[AuthMiddleware] req.headers.cookie present: ${!!req.headers.cookie}`);
+    if (req.headers.cookie) {
+      const cookies = req.headers.cookie.split(';').map(c => c.trim().split('=')[0]);
+      console.log(`[AuthMiddleware] Cookie names: ${cookies.join(', ')}`);
+    }
+    console.log(`[AuthMiddleware] req.headers.authorization present: ${!!req.headers.authorization}`);
+
     const session = await auth.api.getSession({
       headers: fromNodeHeaders(req.headers),
     });
 
+    console.log(`[AuthMiddleware] Session result: ${session ? 'VALID' : 'NULL'}`);
+    if (session?.user) {
+      console.log(`[AuthMiddleware] Authenticated user: id=${session.user.id}, email=${session.user.email}`);
+    }
+
     if (!session?.user) {
+      console.log("[AuthMiddleware] FAIL: No valid session found");
       return res.status(401).json({ error: "Authentication required" });
     }
 
@@ -16,8 +30,8 @@ export async function authenticate(req, res, next) {
       where: { id: session.user.id },
       select: {
         id: true, email: true, name: true, role: true, image: true,
-        isActive: true, verified: true, accountStatus: true,
-        onboardingCompleted: true, createdAt: true,
+        isActive: true, verified: true, emailVerified: true,
+        accountStatus: true, onboardingCompleted: true, createdAt: true,
       },
     });
 
@@ -30,9 +44,12 @@ export async function authenticate(req, res, next) {
     }
 
     req.user = fullUser;
+    console.log(`[AuthMiddleware] Full user loaded: id=${fullUser.id}, email=${fullUser.email}, emailVerified=${fullUser.emailVerified}`);
+    console.log("[AuthMiddleware] === authenticate END (SUCCESS) ===");
     next();
   } catch (error) {
-    console.error("Auth middleware error:", error);
+    console.error("[AuthMiddleware] UNCAUGHT EXCEPTION:", error);
+    console.error("[AuthMiddleware] Stack:", error.stack);
     res.status(500).json({ error: "Authentication failed" });
   }
 }

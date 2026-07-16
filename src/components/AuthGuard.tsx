@@ -2,7 +2,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export function ProtectedRoute({ children }) {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, user, loading } = useAuth();
   const location = useLocation();
 
   if (loading) {
@@ -15,6 +15,33 @@ export function ProtectedRoute({ children }) {
 
   if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  if (!user?.emailVerified) {
+    return <Navigate to={`/verify-email?email=${encodeURIComponent(user?.email || "")}`} replace />;
+  }
+
+  return children;
+}
+
+export function RequireVerifiedEmail({ children }) {
+  const { isAuthenticated, user, loading } = useAuth();
+  const location = useLocation();
+
+  if (loading) {
+    return (
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: 32, height: 32, borderRadius: "50%", border: "3px solid var(--border)", borderTopColor: "var(--primary)", animation: "spin 1s linear infinite" }} />
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  if (!user?.emailVerified) {
+    return <Navigate to={`/verify-email?email=${encodeURIComponent(user?.email || "")}`} replace />;
   }
 
   return children;
@@ -59,6 +86,10 @@ export function OnboardingRoute({ children }) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
+  if (!user?.emailVerified) {
+    return <Navigate to={`/verify-email?email=${encodeURIComponent(user?.email || "")}`} replace />;
+  }
+
   if (user?.role === "admin") {
     return <Navigate to="/admin" replace />;
   }
@@ -86,6 +117,9 @@ export function AuthRedirect({ children }) {
   }
 
   if (isAuthenticated) {
+    if (!user?.emailVerified) {
+      return <Navigate to={`/verify-email?email=${encodeURIComponent(user?.email || "")}`} replace />;
+    }
     if (user?.role === "admin") {
       return <Navigate to="/admin" replace />;
     }

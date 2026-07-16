@@ -90,13 +90,9 @@ export default function Signup() {
     submittingRef.current = true;
     setIsSubmitting(true);
     try {
-      const userData = await signup(data.name, data.email, data.password);
-      addToast("Account created! Welcome to Franchisia.", "success");
-      if (userData?.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/onboarding/select-role");
-      }
+      await signup(data.name, data.email, data.password);
+      addToast("Account created! Check your email for the verification code.", "success");
+      navigate(`/verify-email?email=${encodeURIComponent(data.email)}`);
     } catch (err) {
       addToast(err.message, "error");
     } finally {
