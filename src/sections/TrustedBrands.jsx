@@ -3,14 +3,10 @@ import { BadgeCheck } from "lucide-react";
 import { usePartners, usePublicSettings, getSectionContent } from "../hooks/useCMS";
 
 export default function TrustedBrands() {
-  const { data: partners } = usePartners();
+  const { data: partners, isLoading } = usePartners();
   const { data: sectionSettings } = usePublicSettings();
 
-  const hasPartners = partners?.length > 0;
-
-  if (!hasPartners) {
-    return null;
-  }
+  if (isLoading || !partners?.length) return null;
 
   return (
     <section style={{ padding: '64px 0', borderTop: '1px solid var(--outline-variant)', borderBottom: '1px solid var(--outline-variant)', overflow: "hidden" }}>

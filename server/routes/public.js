@@ -325,20 +325,6 @@ router.get("/locations", async (_req, res) => {
   res.json(locations);
 });
 
-router.get("/investment-ranges", async (_req, res) => {
-  try {
-    const setting = await prisma.siteSetting.findUnique({ where: { key: "investmentRanges" } });
-    if (setting?.value) return res.json(setting.value);
-  } catch (_) {}
-  res.json([
-    { label: "Any Investment", value: "" },
-    { label: "Under $50K", value: "under-50k" },
-    { label: "$50K - $100K", value: "50k-100k" },
-    { label: "$100K - $500K", value: "100k-500k" },
-    { label: "$500K+", value: "500k-plus" },
-  ]);
-});
-
 router.get("/media", async (req, res) => {
   try {
     const { page = 1, limit = 20, type } = req.query;
@@ -589,6 +575,30 @@ router.get("/how-it-works", async (_req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
+});
+
+// ── Public Master Data ──
+
+const PUBLIC_MASTER_DATA = {
+  "business-types": { prisma: () => prisma.businessType, orderBy: { displayOrder: "asc" } },
+  "opportunity-types": { prisma: () => prisma.opportunityType, orderBy: { displayOrder: "asc" } },
+  "company-sizes": { prisma: () => prisma.companySize, orderBy: { displayOrder: "asc" } },
+  languages: { prisma: () => prisma.language, orderBy: { displayOrder: "asc" } },
+  currencies: { prisma: () => prisma.currency, orderBy: { displayOrder: "asc" } },
+  "document-types": { prisma: () => prisma.documentType, orderBy: { displayOrder: "asc" } },
+  "investment-ranges": { prisma: () => prisma.investmentRange, orderBy: { displayOrder: "asc" } },
+};
+
+Object.entries(PUBLIC_MASTER_DATA).forEach(([route, config]) => {
+  router.get(`/${route}`, async (_req, res) => {
+    try {
+      const items = await config.prisma().findMany({ where: { isActive: true }, orderBy: config.orderBy });
+      res.json({ items });
+    } catch (error) {
+      console.error("Public route error:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 });
 
 export default router;

@@ -9,46 +9,7 @@ export default function PricingSection() {
   const { data: plans, isLoading, isError } = usePlans();
   const { data: sectionSettings } = usePublicSettings();
 
-  if (isLoading) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }} id="pricing">
-        <div className="container" style={{ display: "flex", justifyContent: "center" }}>
-          <Loader2 size={32} className="spin" color="var(--primary)" />
-        </div>
-      </section>
-    );
-  }
-
-  if (isError || !plans?.length) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }} id="pricing">
-        <div className="container">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'pricing', { heading: 'Simple, Transparent Pricing' }).heading}</h2>
-            <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-              {getSectionContent(sectionSettings, 'pricing', { description: 'Choose the plan that fits your goals.' }).description}
-            </p>
-          </motion.div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24, maxWidth: 1000, margin: "0 auto" }}>
-            {[1, 2, 3].map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                style={{ backgroundColor: "var(--surface)", border: "1px dashed var(--outline-variant)", borderRadius: 16, padding: 32, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 280, opacity: 0.5 }}
-              >
-                <p style={{ fontSize: 16, fontWeight: 700, color: "var(--on-surface-variant)", marginBottom: 8 }}>Pricing plans under development</p>
-                <p style={{ fontSize: 13, color: "var(--on-surface-variant)", textAlign: "center" }}>Our pricing structure is being finalized<br />and will be announced shortly.</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
+  if (isLoading || isError || !plans?.length) return null;
 
   return (
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }} id="pricing">

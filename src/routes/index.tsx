@@ -76,6 +76,7 @@ const AdminGlobalNetworkEditor = lazy(() => import("../pages/admin/AdminGlobalNe
 const AdminMapLocationsEditor = lazy(() => import("../pages/admin/AdminMapLocationsEditor"));
 const AdminGlobalMetricsEditor = lazy(() => import("../pages/admin/AdminGlobalMetricsEditor"));
 const AdminIndustriesEditor = lazy(() => import("../pages/admin/AdminIndustriesEditor"));
+const AdminMasterData = lazy(() => import("../pages/admin/AdminMasterData"));
 const AdminCitiesEditor = lazy(() => import("../pages/admin/AdminCitiesEditor"));
 const AdminAIRecommendationsEditor = lazy(() => import("../pages/admin/AdminAIRecommendationsEditor"));
 const AdminTestimonialsEditor = lazy(() => import("../pages/admin/AdminTestimonialsEditor"));
@@ -193,6 +194,7 @@ export default function AppRoutes() {
           <Route path="/admin/home/map-locations" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminMapLocationsEditor /></Suspense></AdminRoute>} />
           <Route path="/admin/home/global-metrics" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminGlobalMetricsEditor /></Suspense></AdminRoute>} />
           <Route path="/admin/home/industries" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminIndustriesEditor /></Suspense></AdminRoute>} />
+          <Route path="/admin/master-data/:type" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminMasterData /></Suspense></AdminRoute>} />
           <Route path="/admin/home/cities" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminCitiesEditor /></Suspense></AdminRoute>} />
           <Route path="/admin/home/ai-recommendations" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminAIRecommendationsEditor /></Suspense></AdminRoute>} />
           <Route path="/admin/home/testimonials" element={<AdminRoute><Suspense fallback={<PageLoading />}><AdminTestimonialsEditor /></Suspense></AdminRoute>} />

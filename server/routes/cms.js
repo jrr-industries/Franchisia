@@ -31,7 +31,9 @@ const ADMIN_ONLY = [
   "quoteAuthor",
   "enableMap", "enableNearbyBranches", "enableTerritories", "mapPlaceholderImage",
   "googleMapsApiKey", "defaultLat", "defaultLng", "defaultZoom",
-  "prefix", "suffix"
+  "prefix", "suffix",
+  "nativeName", "code", "symbol", "min", "max", "minValue", "maxValue",
+  "label", "description"
 ];
 
 router.use((req, res, next) => {
@@ -1565,5 +1567,84 @@ router.delete("/featured-cities/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// ── Master Data CRUD (generic) ──
+
+const MASTER_DATA_CONFIG = {
+  "business-types": { prisma: () => prisma.businessType, name: "BusinessType" },
+  "opportunity-types": { prisma: () => prisma.opportunityType, name: "OpportunityType" },
+  "company-sizes": { prisma: () => prisma.companySize, name: "CompanySize" },
+  languages: { prisma: () => prisma.language, name: "Language" },
+  currencies: { prisma: () => prisma.currency, name: "Currency" },
+  "document-types": { prisma: () => prisma.documentType, name: "DocumentType" },
+  "investment-ranges": { prisma: () => prisma.investmentRange, name: "InvestmentRange" },
+};
+
+function createMasterDataRoutes(routeKey, config) {
+  const { prisma: getModel } = config;
+
+  router.get(`/${routeKey}`, async (req, res) => {
+    try {
+      const { page = 1, limit = 50, search } = req.query;
+      const skip = (parseInt(page) - 1) * parseInt(limit);
+      const where = {};
+      if (search) { where.OR = [{ name: { contains: search, mode: "insensitive" } }, { label: { contains: search, mode: "insensitive" } }]; }
+      const model = getModel();
+      const [items, total] = await Promise.all([
+        model.findMany({ where, skip, take: parseInt(limit), orderBy: { displayOrder: "asc" } }),
+        model.count({ where }),
+      ]);
+      res.json({ items, total, page: parseInt(page), totalPages: Math.ceil(total / parseInt(limit)) });
+    } catch (error) {
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  router.get(`/${routeKey}/:id`, async (req, res) => {
+    try {
+      const model = getModel();
+      const item = await model.findUnique({ where: { id: req.params.id } });
+      if (!item) return res.status(404).json({ error: "Not found" });
+      res.json(item);
+    } catch (error) {
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  router.post(`/${routeKey}`, async (req, res) => {
+    try {
+      const model = getModel();
+      const item = await model.create({ data: req.body });
+      try { emitCmsUpdate(routeKey); } catch {}
+      res.status(201).json(item);
+    } catch (error) {
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  router.put(`/${routeKey}/:id`, async (req, res) => {
+    try {
+      const model = getModel();
+      const item = await model.update({ where: { id: req.params.id }, data: req.body });
+      try { emitCmsUpdate(routeKey); } catch {}
+      res.json(item);
+    } catch (error) {
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  router.delete(`/${routeKey}/:id`, async (req, res) => {
+    try {
+      const model = getModel();
+      await model.delete({ where: { id: req.params.id } });
+      try { emitCmsUpdate(routeKey); } catch {}
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+}
+
+Object.entries(MASTER_DATA_CONFIG).forEach(([key, config]) => createMasterDataRoutes(key, config));
 
 export default router;

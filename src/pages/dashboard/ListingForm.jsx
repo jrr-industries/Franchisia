@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { X, Loader2, Save, Building2 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Badge from '../../components/ui/Badge';
+import { useMasterData } from '../../hooks/useCMS';
 
 const API = '/api';
 
@@ -25,6 +26,9 @@ export default function ListingForm({ listing, onClose, onSaved }) {
   const [company, setCompany] = useState(null);
   const [policy, setPolicy] = useState(null);
   const [usePolicy, setUsePolicy] = useState(true);
+  const { data: industries } = useMasterData('industries');
+  const { data: businessTypes } = useMasterData('business-types');
+  const { data: opportunityTypes } = useMasterData('opportunity-types');
 
   const [form, setForm] = useState({
     title: '',
@@ -32,6 +36,7 @@ export default function ListingForm({ listing, onClose, onSaved }) {
     description: '',
     industry: '',
     businessType: '',
+    opportunityType: '',
     images: [],
     videoUrl: '',
     investmentMin: '',
@@ -77,6 +82,7 @@ export default function ListingForm({ listing, onClose, onSaved }) {
         description: listing.description || '',
         industry: listing.industry || '',
         businessType: listing.businessType || '',
+        opportunityType: listing.opportunityType || '',
         images: listing.images || [],
         videoUrl: listing.videoUrl || '',
         investmentMin: listing.investmentMin || '',
@@ -175,8 +181,24 @@ export default function ListingForm({ listing, onClose, onSaved }) {
       </div>
       {fieldGroup('Description', textarea('description', 'Describe your franchise opportunity...'))}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-        {fieldGroup('Industry', inp('industry', 'e.g. Food & Beverage'))}
-        {fieldGroup('Business Type', inp('businessType', 'e.g. QSR, Retail, Service'))}
+        {fieldGroup('Industry', (
+          <select value={form.industry} onChange={(e) => update('industry', e.target.value)} style={{ width: '100%', padding: '10px 14px', fontSize: 14, border: '1px solid var(--border)', borderRadius: 8, backgroundColor: 'var(--background)', color: 'var(--text)', outline: 'none', boxSizing: 'border-box' }}>
+            <option value="">Select Industry</option>
+            {industries?.map?.((i) => <option key={i.id || i} value={i.name || i}>{i.name || i}</option>)}
+          </select>
+        ))}
+        {fieldGroup('Business Type', (
+          <select value={form.businessType} onChange={(e) => update('businessType', e.target.value)} style={{ width: '100%', padding: '10px 14px', fontSize: 14, border: '1px solid var(--border)', borderRadius: 8, backgroundColor: 'var(--background)', color: 'var(--text)', outline: 'none', boxSizing: 'border-box' }}>
+            <option value="">Select Business Type</option>
+            {(businessTypes?.items || []).map((b) => <option key={b.id} value={b.name}>{b.name}</option>)}
+          </select>
+        ))}
+        {fieldGroup('Opportunity Type', (
+          <select value={form.opportunityType} onChange={(e) => update('opportunityType', e.target.value)} style={{ width: '100%', padding: '10px 14px', fontSize: 14, border: '1px solid var(--border)', borderRadius: 8, backgroundColor: 'var(--background)', color: 'var(--text)', outline: 'none', boxSizing: 'border-box' }}>
+            <option value="">Select Opportunity Type</option>
+            {(opportunityTypes?.items || []).map((o) => <option key={o.id} value={o.name}>{o.name}</option>)}
+          </select>
+        ))}
       </div>
     </>
   );

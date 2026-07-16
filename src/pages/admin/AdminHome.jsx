@@ -6,7 +6,8 @@ import {
   Building2, Briefcase, Globe, MapPin, TrendingUp, Grid3X3,
   Map, Cpu, Star, Newspaper, CalendarDays, Briefcase as BriefcaseIcon,
   Users2, Image, CreditCard, Mail, HelpCircle, Phone, PanelBottom,
-  Eye, EyeOff, ExternalLink, Settings,
+  Eye, EyeOff, ExternalLink, Settings, Tag, DollarSign,
+  Languages, FileType, Ruler,
 } from "lucide-react";
 
 const sections = [
@@ -35,6 +36,13 @@ const sections = [
   { id: "faq", label: "FAQ", icon: HelpCircle, path: "/admin/home/faq", color: "#84CC16", description: "Frequently asked questions" },
   { id: "contact", label: "Contact", icon: Phone, path: "/admin/home/contact", color: "#6366F1", description: "Contact information" },
   { id: "footer", label: "Footer", icon: Settings, path: "/admin/home/footer", color: "#E11D48", description: "Footer settings" },
+  { id: "business-types", label: "Business Types", icon: Tag, path: "/admin/master-data/business-types", color: "#0EA5E9", description: "Single Unit, Multi Unit, Master Franchise etc." },
+  { id: "opportunity-types", label: "Opportunity Types", icon: Briefcase, path: "/admin/master-data/opportunity-types", color: "#F59E0B", description: "Single Outlet, Master Franchise, Joint Venture etc." },
+  { id: "investment-ranges", label: "Investment Ranges", icon: DollarSign, path: "/admin/master-data/investment-ranges", color: "#10B981", description: "Investment amount brackets" },
+  { id: "company-sizes", label: "Company Sizes", icon: Ruler, path: "/admin/master-data/company-sizes", color: "#8B5CF6", description: "Employee count ranges" },
+  { id: "languages", label: "Languages", icon: Languages, path: "/admin/master-data/languages", color: "#EC4899", description: "Supported languages" },
+  { id: "currencies", label: "Currencies", icon: DollarSign, path: "/admin/master-data/currencies", color: "#F97316", description: "Currency options" },
+  { id: "document-types", label: "Document Types", icon: FileType, path: "/admin/master-data/document-types", color: "#14B8A6", description: "Document type categories" },
 ];
 
 const s = {

@@ -19,6 +19,7 @@ import Select from '../../components/ui/Select';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../components/ui/Toast';
 import CompanyPoliciesView from './CompanyPoliciesView';
+import { useIndustries, useMasterData } from '../../hooks/useCMS';
 
 const API = '/api';
 
@@ -161,7 +162,11 @@ export default function CompanyProfile() {
 
   const [opportunities, setOpportunities] = useState([]);
   const [opportunityModal, setOpportunityModal] = useState(null);
-  const [oppForm, setOppForm] = useState({ title: '', description: '', industry: '', investmentMin: '', investmentMax: '', franchiseFee: '', royaltyFee: '', roiPercentage: '', breakEvenMonths: '', location: '', city: '', country: '', state: '', areaRequired: '', requirements: '', support: '', training: '', businessType: '', images: '' });
+  const { data: industries } = useIndustries();
+  const { data: businessTypes } = useMasterData('business-types');
+  const { data: opportunityTypes } = useMasterData('opportunity-types');
+
+  const [oppForm, setOppForm] = useState({ title: '', description: '', industry: '', opportunityType: '', investmentMin: '', investmentMax: '', franchiseFee: '', royaltyFee: '', roiPercentage: '', breakEvenMonths: '', location: '', city: '', country: '', state: '', areaRequired: '', requirements: '', support: '', training: '', businessType: '', images: '' });
   const [oppSubmitting, setOppSubmitting] = useState(false);
   const [oppStatusTab, setOppStatusTab] = useState('active');
 
@@ -181,7 +186,7 @@ export default function CompanyProfile() {
   }, [company?.id, fetchOpportunities]);
 
   const openCreateOpp = () => {
-    setOppForm({ title: '', description: '', industry: company?.industry || '', investmentMin: '', investmentMax: '', franchiseFee: '', royaltyFee: '', roiPercentage: '', breakEvenMonths: '', location: '', city: '', country: '', state: '', areaRequired: '', requirements: '', support: '', training: '', businessType: '' });
+    setOppForm({ title: '', description: '', industry: company?.industry || '', opportunityType: '', investmentMin: '', investmentMax: '', franchiseFee: '', royaltyFee: '', roiPercentage: '', breakEvenMonths: '', location: '', city: '', country: '', state: '', areaRequired: '', requirements: '', support: '', training: '', businessType: '' });
     setOpportunityModal('create');
   };
 
@@ -190,6 +195,7 @@ export default function CompanyProfile() {
       title: opp.title || '',
       description: opp.description || '',
       industry: opp.industry || '',
+      opportunityType: opp.opportunityType || '',
       investmentMin: opp.investmentMin?.toString() || '',
       investmentMax: opp.investmentMax?.toString() || '',
       franchiseFee: opp.franchiseFee?.toString() || '',
@@ -232,6 +238,7 @@ export default function CompanyProfile() {
         slug: isEdit ? undefined : oppForm.title.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
         description: oppForm.description.trim() || undefined,
         industry: oppForm.industry.trim(),
+        opportunityType: oppForm.opportunityType.trim() || undefined,
         businessType: oppForm.businessType.trim() || undefined,
         investmentMin: oppForm.investmentMin ? parseFloat(oppForm.investmentMin) : undefined,
         investmentMax: oppForm.investmentMax ? parseFloat(oppForm.investmentMax) : undefined,
@@ -635,7 +642,7 @@ export default function CompanyProfile() {
       <Modal isOpen={!!opportunityModal} onClose={() => setOpportunityModal(null)}
         title={opportunityModal === 'create' ? 'Create Opportunity' : 'Edit Opportunity'}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxHeight: 500, overflowY: 'auto' }}>
-          {['title', 'description', 'industry', 'businessType'].map((f) => (
+          {['title', 'description'].map((f) => (
             <div key={f}>
               <label style={{ fontSize: 12, fontWeight: 500, display: 'block', marginBottom: 4 }}>{f.charAt(0).toUpperCase() + f.slice(1)}</label>
               {f === 'description' ? (
@@ -647,6 +654,30 @@ export default function CompanyProfile() {
               )}
             </div>
           ))}
+          <div>
+            <label style={{ fontSize: 12, fontWeight: 500, display: 'block', marginBottom: 4 }}>Industry</label>
+            <select value={oppForm.industry} onChange={(e) => handleOppFormChange('industry', e.target.value)}
+              style={{ width: '100%', padding: '8px 12px', borderRadius: 6, border: '1px solid var(--border)', backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}>
+              <option value="">Select Industry</option>
+              {(industries || []).map((i) => <option key={i.id || i} value={i.name || i}>{i.name || i}</option>)}
+            </select>
+          </div>
+          <div>
+            <label style={{ fontSize: 12, fontWeight: 500, display: 'block', marginBottom: 4 }}>Business Type</label>
+            <select value={oppForm.businessType} onChange={(e) => handleOppFormChange('businessType', e.target.value)}
+              style={{ width: '100%', padding: '8px 12px', borderRadius: 6, border: '1px solid var(--border)', backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}>
+              <option value="">Select Business Type</option>
+              {(businessTypes?.items || []).map((b) => <option key={b.id} value={b.name}>{b.name}</option>)}
+            </select>
+          </div>
+          <div>
+            <label style={{ fontSize: 12, fontWeight: 500, display: 'block', marginBottom: 4 }}>Opportunity Type</label>
+            <select value={oppForm.opportunityType} onChange={(e) => handleOppFormChange('opportunityType', e.target.value)}
+              style={{ width: '100%', padding: '8px 12px', borderRadius: 6, border: '1px solid var(--border)', backgroundColor: 'var(--background)', color: 'var(--text)', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}>
+              <option value="">Select Opportunity Type</option>
+              {(opportunityTypes?.items || []).map((o) => <option key={o.id} value={o.name}>{o.name}</option>)}
+            </select>
+          </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             {[['investmentMin', 'Min Investment ($)'], ['investmentMax', 'Max Investment ($)'], ['franchiseFee', 'Franchise Fee ($)'], ['royaltyFee', 'Royalty Fee (%)'], ['roiPercentage', 'ROI (%)'], ['breakEvenMonths', 'Break-Even (months)']].map(([key, label]) => (
               <div key={key}>

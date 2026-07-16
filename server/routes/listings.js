@@ -194,7 +194,7 @@ router.post("/:id/duplicate", authenticate, async (req, res) => {
 });
 router.post("/", authenticate, async (req, res) => {
   try {
-    let { companyId, title, slug: rawSlug, description, industry, businessType, investmentMin, investmentMax, roiPercentage, franchiseFee, royaltyFee, breakEvenMonths, location, city, country, state, isRemote, images, videoUrl, areaRequired, requirements, support, training } = req.body;
+    let { companyId, title, slug: rawSlug, description, industry, businessType, opportunityType, investmentMin, investmentMax, roiPercentage, franchiseFee, royaltyFee, breakEvenMonths, location, city, country, state, isRemote, images, videoUrl, areaRequired, requirements, support, training } = req.body;
 
     if (!title?.trim()) return res.status(400).json({ error: "Title is required" });
     if (!industry?.trim()) return res.status(400).json({ error: "Industry is required" });
@@ -214,9 +214,10 @@ router.post("/", authenticate, async (req, res) => {
     const listing = await prisma.franchiseListing.create({
       data: {
         companyId, createdBy: req.user.id, title, slug, description, industry,
-        businessType, investmentMin, investmentMax, roiPercentage, franchiseFee,
-        royaltyFee, breakEvenMonths, location, city, country, state, isRemote,
-        images: images || [], videoUrl, areaRequired, requirements, support, training,
+        businessType, opportunityType, investmentMin, investmentMax, roiPercentage,
+        franchiseFee, royaltyFee, breakEvenMonths, location, city, country, state,
+        isRemote, images: images || [], videoUrl, areaRequired, requirements, support,
+        training,
       },
     });
 
@@ -246,7 +247,7 @@ router.put("/:id", authenticate, async (req, res) => {
       return res.status(403).json({ error: "Not authorized" });
     }
 
-    const allowedFields = ["title", "description", "industry", "businessType", "investmentMin", "investmentMax", "roiPercentage", "franchiseFee", "royaltyFee", "breakEvenMonths", "location", "city", "country", "state", "isRemote", "images", "videoUrl", "areaRequired", "requirements", "support", "training"];
+    const allowedFields = ["title", "description", "industry", "businessType", "opportunityType", "investmentMin", "investmentMax", "roiPercentage", "franchiseFee", "royaltyFee", "breakEvenMonths", "location", "city", "country", "state", "isRemote", "images", "videoUrl", "areaRequired", "requirements", "support", "training"];
     const updates = {};
     for (const key of allowedFields) {
       if (req.body[key] !== undefined) updates[key] = req.body[key];

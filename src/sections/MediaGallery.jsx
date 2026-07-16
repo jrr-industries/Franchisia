@@ -23,24 +23,7 @@ export default function MediaGallery() {
     );
   }
 
-  if (isError || !items.length) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }}>
-        <div className="container" style={{ textAlign: "center" }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginBottom: 48 }}>
-            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'media', { heading: 'Community Gallery' }).heading}</h2>
-            <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-              {getSectionContent(sectionSettings, 'media', { description: 'Highlights from our events and community.' }).description}
-            </p>
-          </motion.div>
-          <div style={{ padding: 60, color: "var(--on-surface-variant)" }}>
-            <Image size={48} style={{ margin: "0 auto 16px", opacity: 0.25 }} />
-            <p style={{ fontSize: 15, margin: 0 }}>Media content will be displayed here once available.</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  if (isError || !items.length) return null;
 
   return (
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }}>

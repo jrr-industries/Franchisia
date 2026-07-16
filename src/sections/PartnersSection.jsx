@@ -15,15 +15,7 @@ export default function PartnersSection() {
   const { data: partners, isLoading } = usePartners();
   const { data: sectionSettings } = usePublicSettings();
 
-  if (isLoading) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
-        <div className="container" style={{ display: "flex", justifyContent: "center" }}>
-          <Loader2 size={32} className="spin" color="var(--primary)" />
-        </div>
-      </section>
-    );
-  }
+  if (isLoading || !partners?.length) return null;
 
   return (
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
@@ -35,24 +27,7 @@ export default function PartnersSection() {
           </p>
         </motion.div>
 
-        {!partners?.length ? (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
-            {[1, 2, 3, 4].map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                style={{ padding: 24, backgroundColor: "var(--surface)", border: "1px dashed var(--outline-variant)", borderRadius: 12, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 200, opacity: 0.5 }}
-              >
-                <Globe size={32} color="var(--outline-variant)" style={{ marginBottom: 8 }} />
-                <p style={{ fontSize: 14, color: "var(--on-surface-variant)", fontStyle: "italic" }}>Partner information will appear here</p>
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          Object.entries(groupByCategory(partners)).map(([category, items]) => (
+        {Object.entries(groupByCategory(partners)).map(([category, items]) => (
             <div key={category} style={{ marginBottom: 40 }}>
               <motion.h3
                 initial={{ opacity: 0, y: 10 }}
@@ -111,8 +86,8 @@ export default function PartnersSection() {
                 ))}
               </div>
             </div>
-          ))
-        )}
+          ))}
+        
       </div>
     </section>
   );

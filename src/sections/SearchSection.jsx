@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Search, Building2, Users, MapPin, BadgeCheck, Loader2, Layers } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { useNavigate, Link } from 'react-router-dom';
-import { useIndustries, usePartners, usePublicSettings, getSectionContent } from '../hooks/useCMS';
+import { useIndustries, usePartners, usePublicSettings, getSectionContent, useMasterData } from '../hooks/useCMS';
 import { useQuery } from "@tanstack/react-query";
 
 const API = '/api';
@@ -30,9 +30,10 @@ export default function SearchSection() {
   const { data: industriesData, isLoading } = useIndustries();
   const { data: partners, isLoading: partnersLoading } = usePartners();
   const { data: sectionSettings } = usePublicSettings();
+  const { data: investmentRanges } = useMasterData('investment-ranges');
+  const { data: businessTypes } = useMasterData('business-types');
 
   const locations = marketplaceSearch?.defaultLocations || ['All Locations'];
-  const investments = marketplaceSearch?.investmentRanges || [];
   const industryList = marketplaceSearch?.defaultIndustries || industriesData?.items || industriesData || [];
 
   const hasFilters = industry || location || investment || category;
@@ -97,14 +98,9 @@ export default function SearchSection() {
             }}
           >
             <option value="">Investment Range</option>
-            {(Array.isArray(investments) ? investments : []).filter(i => {
-              const label = typeof i === 'string' ? i : i.label || '';
-              return label !== 'Any Investment';
-            }).map((opt) => {
-              const label = typeof opt === 'string' ? opt : opt.label || opt;
-              const value = typeof opt === 'string' ? opt : opt.value || opt;
-              return <option key={value} value={value}>{label}</option>;
-            })}
+            {(investmentRanges?.items || []).map((r) => (
+              <option key={r.id} value={r.label}>{r.label}</option>
+            ))}
           </select>
           <select
             value={category}
@@ -115,12 +111,10 @@ export default function SearchSection() {
               borderRadius: 8, color: 'var(--on-surface)', cursor: 'pointer', outline: 'none',
             }}
           >
-            <option value="">Business Category</option>
-            {(marketplaceSearch?.defaultIndustries || []).map((ind) => {
-              const label = typeof ind === 'string' ? ind : ind.name || ind.label || ind;
-              const value = typeof ind === 'string' ? ind : ind.slug || ind.name || ind;
-              return <option key={value} value={value}>{label}</option>;
-            })}
+            <option value="">Business Type</option>
+            {(businessTypes?.items || []).map((b) => (
+              <option key={b.id} value={b.name}>{b.name}</option>
+            ))}
           </select>
           <Button
             className="search-btn"

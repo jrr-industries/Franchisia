@@ -7,43 +7,7 @@ export default function FAQSection() {
   const { data: faqs, isLoading, isError } = useFAQ();
   const { data: sectionSettings } = usePublicSettings();
 
-  if (isLoading) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }} id="faq">
-        <div className="container" style={{ maxWidth: 700, display: "flex", justifyContent: "center" }}>
-          <Loader2 size={32} className="spin" color="var(--primary)" />
-        </div>
-      </section>
-    );
-  }
-
-  if (isError || !faqs?.length) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }} id="faq">
-        <div className="container" style={{ maxWidth: 700 }}>
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'faq', { heading: 'Frequently Asked Questions' }).heading}</h2>
-            <p style={{ fontSize: 16, color: "var(--on-surface-variant)" }}>
-              {getSectionContent(sectionSettings, 'faq', { description: "Everything you need to know about Franchisia." }).description}
-            </p>
-          </div>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {[1, 2, 3].map((_, i) => (
-              <div
-                key={i}
-                style={{ padding: "16px 20px", borderRadius: 12, border: "1px dashed var(--outline-variant)", backgroundColor: "var(--surface)", opacity: 0.5 }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
-                  <span style={{ fontWeight: 600, fontSize: 15, color: "var(--on-surface-variant)" }}>FAQ content will be added shortly</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
+  if (isLoading || isError || !faqs?.length) return null;
 
   return (
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface)" }} id="faq">

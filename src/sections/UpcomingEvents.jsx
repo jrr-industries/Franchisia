@@ -6,47 +6,7 @@ export default function UpcomingEvents() {
   const { data: events, isLoading, isError } = useEvents("upcoming");
   const { data: sectionSettings } = usePublicSettings();
 
-  if (isLoading) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
-        <div className="container" style={{ display: "flex", justifyContent: "center" }}>
-          <Loader2 size={32} className="spin" color="var(--primary)" />
-        </div>
-      </section>
-    );
-  }
-
-  if (!events?.length || isError) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
-        <div className="container">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'events', { heading: 'Upcoming Events' }).heading}</h2>
-            <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-              {getSectionContent(sectionSettings, 'events', { description: 'Meet franchise leaders and expand your network.' }).description}
-            </p>
-          </motion.div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24, maxWidth: 1000, margin: "0 auto" }}>
-            {[1, 2].map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                style={{ padding: 32, backgroundColor: "var(--surface)", border: "1px dashed var(--outline-variant)", borderRadius: 12, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 220, opacity: 0.5 }}
-              >
-                <CalendarDays size={32} color="var(--outline-variant)" style={{ marginBottom: 8 }} />
-                <p style={{ fontSize: 14, color: "var(--on-surface-variant)", fontStyle: "italic", textAlign: "center" }}>No upcoming events currently scheduled</p>
-                <p style={{ fontSize: 12, color: "var(--on-surface-variant)", marginTop: 4, textAlign: "center" }}>Future events and webinars will be listed here</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
+  if (isLoading || isError || !events?.length) return null;
 
   return (
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>

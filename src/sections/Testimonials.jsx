@@ -7,47 +7,7 @@ export default function Testimonials() {
   const { data: testimonials, isLoading, isError } = useTestimonials();
   const { data: sectionSettings } = usePublicSettings();
 
-  if (isLoading) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
-        <div className="container" style={{ display: "flex", justifyContent: "center" }}>
-          <Loader2 size={32} className="spin" color="var(--primary)" />
-        </div>
-      </section>
-    );
-  }
-
-  if (isError || !testimonials?.length) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
-        <div className="container">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'testimonials', { heading: 'Success Stories' }).heading}</h2>
-            <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-              {getSectionContent(sectionSettings, 'testimonials', { description: 'Hear from professionals growing with Franchisia.' }).description}
-            </p>
-          </motion.div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
-            {[1, 2, 3].map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                style={{ padding: 24, backgroundColor: "var(--surface)", border: "1px dashed var(--outline-variant)", borderRadius: 12, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 200, opacity: 0.5 }}
-              >
-                <Star size={32} color="var(--outline-variant)" style={{ marginBottom: 8 }} />
-                <p style={{ fontSize: 14, color: "var(--on-surface-variant)", fontStyle: "italic" }}>Testimonials coming soon</p>
-                <p style={{ fontSize: 12, color: "var(--on-surface-variant)", marginTop: 4 }}>Community stories and reviews will appear here</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
+  if (isLoading || isError || !testimonials?.length) return null;
 
   return (
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>

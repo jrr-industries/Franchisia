@@ -250,6 +250,7 @@ model FranchiseListing {
   description      String?
   industry         String
   businessType     String?       @map("business_type")
+  opportunityType  String?       @map("opportunity_type")
   investmentMin    Decimal?      @map("investment_min") @db.Decimal(12, 2)
   investmentMax    Decimal?      @map("investment_max") @db.Decimal(12, 2)
   roiPercentage    Decimal?      @map("roi_percentage") @db.Decimal(5, 2)
@@ -1157,6 +1158,104 @@ model Industry {
 
   @@index([displayOrder])
   @@map("industries")
+}
+
+model BusinessType {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  icon        String?
+  color       String?
+  description String?
+  displayOrder Int     @default(0) @map("display_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([displayOrder])
+  @@map("business_types")
+}
+
+model OpportunityType {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  icon        String?
+  color       String?
+  description String?
+  displayOrder Int     @default(0) @map("display_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([displayOrder])
+  @@map("opportunity_types")
+}
+
+model CompanySize {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  icon        String?
+  color       String?
+  displayOrder Int     @default(0) @map("display_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([displayOrder])
+  @@map("company_sizes")
+}
+
+model Language {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  nativeName  String?  @map("native_name")
+  displayOrder Int     @default(0) @map("display_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([displayOrder])
+  @@map("languages")
+}
+
+model Currency {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  code        String   @unique
+  symbol      String?
+  displayOrder Int     @default(0) @map("display_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([displayOrder])
+  @@map("currencies")
+}
+
+model DocumentType {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  displayOrder Int     @default(0) @map("display_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([displayOrder])
+  @@map("document_types")
+}
+
+model InvestmentRange {
+  id          String   @id @default(cuid())
+  label       String   @unique
+  min         Decimal? @map("min_value") @db.Decimal(14, 2)
+  max         Decimal? @map("max_value") @db.Decimal(14, 2)
+  displayOrder Int     @default(0) @map("display_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([displayOrder])
+  @@map("investment_ranges")
 }
 
 model AISection {

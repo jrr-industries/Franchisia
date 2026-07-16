@@ -348,6 +348,23 @@ export function useIndustries() {
   });
 }
 
+export function useMasterData(type) {
+  return useQuery({
+    queryKey: ["cms", "master-data", type],
+    queryFn: () => fetchJSON(`${API}/public/${type}`),
+    staleTime: 30 * 60 * 1000,
+    enabled: !!type,
+  });
+}
+
+export function useMasterDataList() {
+  return useQuery({
+    queryKey: ["cms", "master-data"],
+    queryFn: () => fetchJSON(`${API}/admin/cms/master-data`),
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
 export function useLocations() {
   return useQuery({
     queryKey: ["cms", "locations"],

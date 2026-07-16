@@ -7,47 +7,7 @@ export default function FeaturedCities() {
   const { data: cities, isLoading } = useFeaturedCities();
   const { data: sectionSettings } = usePublicSettings();
 
-  if (isLoading) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
-        <div className="container" style={{ display: "flex", justifyContent: "center" }}>
-          <Loader2 size={32} className="spin" color="var(--primary)" />
-        </div>
-      </section>
-    );
-  }
-
-  if (!cities?.length) {
-    return (
-      <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
-        <div className="container">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "var(--on-surface)" }}>{getSectionContent(sectionSettings, 'featured_cities', { heading: 'Opportunities by City' }).heading}</h2>
-            <p style={{ fontSize: 16, color: "var(--on-surface-variant)", maxWidth: 600, margin: "0 auto" }}>
-              {getSectionContent(sectionSettings, 'featured_cities', { description: 'Explore franchise opportunities in top business hubs across India.' }).description}
-            </p>
-          </motion.div>
-
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 16 }}>
-              {['Chennai', 'Bengaluru', 'Mumbai', 'Delhi', 'Hyderabad', 'Pune', 'Ahmedabad', 'Coimbatore'].map((name, i) => (
-                <motion.div
-                  key={name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
-                  style={{ padding: 24, borderRadius: 12, border: "1px dashed var(--outline-variant)", backgroundColor: "var(--surface)", opacity: 0.5 }}
-                >
-                  <MapPin size={24} color="var(--outline-variant)" style={{ marginBottom: 12 }} />
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: "var(--on-surface-variant)", marginBottom: 4 }}>{name}</h3>
-                  <span style={{ fontSize: 12, fontWeight: 600, color: "var(--outline-variant)" }}>Coming soon</span>
-                </motion.div>
-              ))}
-            </div>
-        </div>
-      </section>
-    );
-  }
+  if (isLoading || !cities?.length) return null;
 
   return (
     <section style={{ padding: "80px 0", backgroundColor: "var(--surface-container-lowest)" }}>
